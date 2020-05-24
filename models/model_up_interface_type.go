@@ -8,6 +8,7 @@
  */
 
 package models
+
 type UpInterfaceType string
 
 // List of UPInterfaceType

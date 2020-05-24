@@ -10,8 +10,8 @@
 package models
 
 type IpEndPoint struct {
-	Ipv4Address string `json:"ipv4Address,omitempty" yaml:"ipv4Address" bson:"ipv4Address" mapstructure:"Ipv4Address"`
-	Ipv6Address string `json:"ipv6Address,omitempty" yaml:"ipv6Address" bson:"ipv6Address" mapstructure:"Ipv6Address"`
-	Transport TransportProtocol `json:"transport,omitempty" yaml:"transport" bson:"transport" mapstructure:"Transport"`
-	Port int32 `json:"port,omitempty" yaml:"port" bson:"port" mapstructure:"Port"`
+	Ipv4Address string            `json:"ipv4Address,omitempty" yaml:"ipv4Address" bson:"ipv4Address" mapstructure:"Ipv4Address"`
+	Ipv6Address string            `json:"ipv6Address,omitempty" yaml:"ipv6Address" bson:"ipv6Address" mapstructure:"Ipv6Address"`
+	Transport   TransportProtocol `json:"transport,omitempty" yaml:"transport" bson:"transport" mapstructure:"Transport"`
+	Port        int32             `json:"port,omitempty" yaml:"port" bson:"port" mapstructure:"Port"`
 }

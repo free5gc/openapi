@@ -8,6 +8,7 @@
  */
 
 package models
+
 type TransportProtocol string
 
 // List of TransportProtocol

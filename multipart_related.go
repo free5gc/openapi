@@ -3,7 +3,6 @@ package openapi
 import (
 	"bytes"
 	"errors"
-	"free5gc/lib/openapi/common"
 	"io/ioutil"
 	"net/http"
 	"regexp"
@@ -20,7 +19,7 @@ func (MultipartRelatedBinding) Bind(req *http.Request, obj interface{}) error {
 	if err != nil {
 		return err
 	}
-	return common.Decode(obj, b, req.Header.Get("Content-Type"))
+	return Deserialize(obj, b, req.Header.Get("Content-Type"))
 }
 
 func (MultipartRelatedBinding) BindBody(body []byte, obj interface{}) error {
@@ -29,7 +28,7 @@ func (MultipartRelatedBinding) BindBody(body []byte, obj interface{}) error {
 	if len(submatch) < 1 {
 		return errors.New("cannot parse multipart boundary")
 	}
-	return common.Decode(obj, body, "multipart/related; boundary="+string(submatch[1]))
+	return Deserialize(obj, body, "multipart/related; boundary="+string(submatch[1]))
 }
 
 type MultipartRelatedRender struct {
@@ -39,7 +38,7 @@ type MultipartRelatedRender struct {
 
 func (r MultipartRelatedRender) Render(w http.ResponseWriter) (err error) {
 	payloadBuf := &bytes.Buffer{}
-	ct, err := common.MultipartEncode(r.Data, payloadBuf)
+	ct, err := MultipartEncode(r.Data, payloadBuf)
 	if err != nil {
 		panic(err)
 	}

@@ -10,8 +10,8 @@
 package models
 
 type DefaultNotificationSubscription struct {
-	NotificationType NotificationType `json:"notificationType" yaml:"notificationType" bson:"notificationType" mapstructure:"NotificationType"`
-	CallbackUri string `json:"callbackUri" yaml:"callbackUri" bson:"callbackUri" mapstructure:"CallbackUri"`
-	N1MessageClass N1MessageClass `json:"n1MessageClass,omitempty" yaml:"n1MessageClass" bson:"n1MessageClass" mapstructure:"N1MessageClass"`
+	NotificationType   NotificationType   `json:"notificationType" yaml:"notificationType" bson:"notificationType" mapstructure:"NotificationType"`
+	CallbackUri        string             `json:"callbackUri" yaml:"callbackUri" bson:"callbackUri" mapstructure:"CallbackUri"`
+	N1MessageClass     N1MessageClass     `json:"n1MessageClass,omitempty" yaml:"n1MessageClass" bson:"n1MessageClass" mapstructure:"N1MessageClass"`
 	N2InformationClass N2InformationClass `json:"n2InformationClass,omitempty" yaml:"n2InformationClass" bson:"n2InformationClass" mapstructure:"N2InformationClass"`
 }

@@ -8,11 +8,12 @@
  */
 
 package models
+
 type NfStatus string
 
 // List of NFStatus
 const (
-	NfStatus_REGISTERED NfStatus = "REGISTERED"
-	NfStatus_SUSPENDED NfStatus = "SUSPENDED"
+	NfStatus_REGISTERED     NfStatus = "REGISTERED"
+	NfStatus_SUSPENDED      NfStatus = "SUSPENDED"
 	NfStatus_UNDISCOVERABLE NfStatus = "UNDISCOVERABLE"
 )

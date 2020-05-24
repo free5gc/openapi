@@ -10,6 +10,6 @@
 package models
 
 type TaiRange struct {
-	PlmnId *PlmnId `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	PlmnId       *PlmnId    `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
 	TacRangeList []TacRange `json:"tacRangeList" yaml:"tacRangeList" bson:"tacRangeList" mapstructure:"TacRangeList"`
 }

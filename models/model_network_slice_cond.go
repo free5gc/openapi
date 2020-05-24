@@ -11,5 +11,5 @@ package models
 
 type NetworkSliceCond struct {
 	SnssaiList []Snssai `json:"snssaiList" yaml:"snssaiList" bson:"snssaiList" mapstructure:"SnssaiList"`
-	NsiList []string `json:"nsiList,omitempty" yaml:"nsiList" bson:"nsiList" mapstructure:"NsiList"`
+	NsiList    []string `json:"nsiList,omitempty" yaml:"nsiList" bson:"nsiList" mapstructure:"NsiList"`
 }

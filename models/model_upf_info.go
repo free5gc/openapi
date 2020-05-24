@@ -10,9 +10,9 @@
 package models
 
 type UpfInfo struct {
-	SNssaiUpfInfoList []SnssaiUpfInfoItem `json:"sNssaiUpfInfoList" yaml:"sNssaiUpfInfoList" bson:"sNssaiUpfInfoList" mapstructure:"SNssaiUpfInfoList"`
-	SmfServingArea []string `json:"smfServingArea,omitempty" yaml:"smfServingArea" bson:"smfServingArea" mapstructure:"SmfServingArea"`
+	SNssaiUpfInfoList    []SnssaiUpfInfoItem    `json:"sNssaiUpfInfoList" yaml:"sNssaiUpfInfoList" bson:"sNssaiUpfInfoList" mapstructure:"SNssaiUpfInfoList"`
+	SmfServingArea       []string               `json:"smfServingArea,omitempty" yaml:"smfServingArea" bson:"smfServingArea" mapstructure:"SmfServingArea"`
 	InterfaceUpfInfoList []InterfaceUpfInfoItem `json:"interfaceUpfInfoList,omitempty" yaml:"interfaceUpfInfoList" bson:"interfaceUpfInfoList" mapstructure:"InterfaceUpfInfoList"`
-	IwkEpsInd bool `json:"iwkEpsInd,omitempty" yaml:"iwkEpsInd" bson:"iwkEpsInd" mapstructure:"IwkEpsInd"`
-	PduSessionTypes []PduSessionType `json:"pduSessionTypes,omitempty" yaml:"pduSessionTypes" bson:"pduSessionTypes" mapstructure:"PduSessionTypes"`
+	IwkEpsInd            bool                   `json:"iwkEpsInd,omitempty" yaml:"iwkEpsInd" bson:"iwkEpsInd" mapstructure:"IwkEpsInd"`
+	PduSessionTypes      []PduSessionType       `json:"pduSessionTypes,omitempty" yaml:"pduSessionTypes" bson:"pduSessionTypes" mapstructure:"PduSessionTypes"`
 }

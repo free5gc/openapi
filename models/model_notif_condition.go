@@ -10,6 +10,6 @@
 package models
 
 type NotifCondition struct {
-	MonitoredAttributes []string `json:"monitoredAttributes,omitempty" yaml:"monitoredAttributes" bson:"monitoredAttributes" mapstructure:"MonitoredAttributes"`
+	MonitoredAttributes   []string `json:"monitoredAttributes,omitempty" yaml:"monitoredAttributes" bson:"monitoredAttributes" mapstructure:"MonitoredAttributes"`
 	UnmonitoredAttributes []string `json:"unmonitoredAttributes,omitempty" yaml:"unmonitoredAttributes" bson:"unmonitoredAttributes" mapstructure:"UnmonitoredAttributes"`
 }

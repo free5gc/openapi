@@ -10,8 +10,8 @@
 package models
 
 type NotificationData struct {
-	Event NotificationEventType `json:"event" yaml:"event" bson:"event" mapstructure:"Event"`
-	NfInstanceUri string `json:"nfInstanceUri" yaml:"nfInstanceUri" bson:"nfInstanceUri" mapstructure:"NfInstanceUri"`
-	NfProfile *NfProfileNotificationData `json:"nfProfile,omitempty" yaml:"nfProfile" bson:"nfProfile" mapstructure:"NfProfile"`
-	ProfileChanges []ChangeItem `json:"profileChanges,omitempty" yaml:"profileChanges" bson:"profileChanges" mapstructure:"ProfileChanges"`
+	Event          NotificationEventType      `json:"event" yaml:"event" bson:"event" mapstructure:"Event"`
+	NfInstanceUri  string                     `json:"nfInstanceUri" yaml:"nfInstanceUri" bson:"nfInstanceUri" mapstructure:"NfInstanceUri"`
+	NfProfile      *NfProfileNotificationData `json:"nfProfile,omitempty" yaml:"nfProfile" bson:"nfProfile" mapstructure:"NfProfile"`
+	ProfileChanges []ChangeItem               `json:"profileChanges,omitempty" yaml:"profileChanges" bson:"profileChanges" mapstructure:"ProfileChanges"`
 }

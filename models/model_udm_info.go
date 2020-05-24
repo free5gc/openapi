@@ -10,9 +10,9 @@
 package models
 
 type UdmInfo struct {
-	GroupId string `json:"groupId,omitempty" yaml:"groupId" bson:"groupId" mapstructure:"GroupId"`
-	SupiRanges []SupiRange `json:"supiRanges,omitempty" yaml:"supiRanges" bson:"supiRanges" mapstructure:"SupiRanges"`
-	GpsiRanges []IdentityRange `json:"gpsiRanges,omitempty" yaml:"gpsiRanges" bson:"gpsiRanges" mapstructure:"GpsiRanges"`
+	GroupId                        string          `json:"groupId,omitempty" yaml:"groupId" bson:"groupId" mapstructure:"GroupId"`
+	SupiRanges                     []SupiRange     `json:"supiRanges,omitempty" yaml:"supiRanges" bson:"supiRanges" mapstructure:"SupiRanges"`
+	GpsiRanges                     []IdentityRange `json:"gpsiRanges,omitempty" yaml:"gpsiRanges" bson:"gpsiRanges" mapstructure:"GpsiRanges"`
 	ExternalGroupIdentifiersRanges []IdentityRange `json:"externalGroupIdentifiersRanges,omitempty" yaml:"externalGroupIdentifiersRanges" bson:"externalGroupIdentifiersRanges" mapstructure:"ExternalGroupIdentifiersRanges"`
-	RoutingIndicators []string `json:"routingIndicators,omitempty" yaml:"routingIndicators" bson:"routingIndicators" mapstructure:"RoutingIndicators"`
+	RoutingIndicators              []string        `json:"routingIndicators,omitempty" yaml:"routingIndicators" bson:"routingIndicators" mapstructure:"RoutingIndicators"`
 }

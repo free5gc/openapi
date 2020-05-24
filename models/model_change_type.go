@@ -8,12 +8,13 @@
  */
 
 package models
+
 type ChangeType string
 
 // List of ChangeType
 const (
-	ChangeType_ADD ChangeType = "ADD"
-	ChangeType_MOVE ChangeType = "MOVE"
-	ChangeType_REMOVE ChangeType = "REMOVE"
+	ChangeType_ADD     ChangeType = "ADD"
+	ChangeType_MOVE    ChangeType = "MOVE"
+	ChangeType_REMOVE  ChangeType = "REMOVE"
 	ChangeType_REPLACE ChangeType = "REPLACE"
 )

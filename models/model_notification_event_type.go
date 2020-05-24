@@ -8,11 +8,12 @@
  */
 
 package models
+
 type NotificationEventType string
 
 // List of NotificationEventType
 const (
-	NotificationEventType_REGISTERED NotificationEventType = "NF_REGISTERED"
-	NotificationEventType_DEREGISTERED NotificationEventType = "NF_DEREGISTERED"
+	NotificationEventType_REGISTERED      NotificationEventType = "NF_REGISTERED"
+	NotificationEventType_DEREGISTERED    NotificationEventType = "NF_DEREGISTERED"
 	NotificationEventType_PROFILE_CHANGED NotificationEventType = "NF_PROFILE_CHANGED"
 )

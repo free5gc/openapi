@@ -10,6 +10,6 @@
 package models
 
 type PlmnSnssai struct {
-	PlmnId *PlmnId `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	PlmnId     *PlmnId  `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
 	SNssaiList []Snssai `json:"sNssaiList" yaml:"sNssaiList" bson:"sNssaiList" mapstructure:"SNssaiList"`
 }

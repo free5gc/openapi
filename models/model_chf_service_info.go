@@ -10,6 +10,6 @@
 package models
 
 type ChfServiceInfo struct {
-	PrimaryChfServiceInstance string `json:"primaryChfServiceInstance,omitempty" yaml:"primaryChfServiceInstance" bson:"primaryChfServiceInstance" mapstructure:"PrimaryChfServiceInstance"`
+	PrimaryChfServiceInstance   string `json:"primaryChfServiceInstance,omitempty" yaml:"primaryChfServiceInstance" bson:"primaryChfServiceInstance" mapstructure:"PrimaryChfServiceInstance"`
 	SecondaryChfServiceInstance string `json:"secondaryChfServiceInstance,omitempty" yaml:"secondaryChfServiceInstance" bson:"secondaryChfServiceInstance" mapstructure:"SecondaryChfServiceInstance"`
 }
