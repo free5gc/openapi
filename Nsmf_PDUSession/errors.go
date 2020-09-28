@@ -26,4 +26,11 @@ var (
 		Cause:         "DNN_NOT_SUPPORTED",
 		InvalidParams: nil,
 	}
+	InsufficientResourceSliceDnn = models.ProblemDetails{
+		Title:         "DNN Resource insufficient",
+		Status:        http.StatusInternalServerError,
+		Detail:        "The request cannot be provided due to insufficient resources for the specific slice and DNN.",
+		Cause:         "INSUFFICIENT_RESOURCES_SLICE_DNN",
+		InvalidParams: nil,
+	}
 )

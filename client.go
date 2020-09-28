@@ -505,10 +505,14 @@ func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) 
 	contentIDIndex := make(map[string]int)
 
 	for {
+		var part *multipart.Part
 		multipartBody := make([]byte, 1000)
-		part, err1 := r.NextPart()
-		if err1 == io.EOF {
+
+		// if no remian part, break this loop
+		if nextPart, err := r.NextPart(); err == io.EOF {
 			break
+		} else {
+			part = nextPart
 		}
 
 		contentType := part.Header.Get("Content-Type")

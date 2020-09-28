@@ -33,9 +33,8 @@ EventExposureNotification
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param notificationUri
  * @param request
-@return models.NsmfEventExposureNotification
+@return
 */
-
 func (a *DefaultCallbackApi) SmfEventExposureNotification(ctx context.Context, notificationUri string, request models.NsmfEventExposureNotification) (interface{}, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")

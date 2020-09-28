@@ -96,7 +96,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, pos
 		}
 		return localVarReturnValue, localVarHttpResponse, nil
 	case 400:
-		var v models.PostPduSessionsErrorResponse
+		var v models.PostSmContextsErrorResponse
 		err = openapi.Deserialize(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()
@@ -105,7 +105,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, pos
 		apiError.ErrorModel = v
 		return localVarReturnValue, localVarHttpResponse, apiError
 	case 403:
-		var v models.PostPduSessionsErrorResponse
+		var v models.PostSmContextsErrorResponse
 		err = openapi.Deserialize(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()
@@ -114,7 +114,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, pos
 		apiError.ErrorModel = v
 		return localVarReturnValue, localVarHttpResponse, apiError
 	case 404:
-		var v models.PostPduSessionsErrorResponse
+		var v models.PostSmContextsErrorResponse
 		err = openapi.Deserialize(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()
@@ -159,7 +159,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, pos
 		apiError.ErrorModel = v
 		return localVarReturnValue, localVarHttpResponse, apiError
 	case 500:
-		var v models.PostPduSessionsErrorResponse
+		var v models.PostSmContextsErrorResponse
 		err = openapi.Deserialize(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()
@@ -168,7 +168,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, pos
 		apiError.ErrorModel = v
 		return localVarReturnValue, localVarHttpResponse, apiError
 	case 503:
-		var v models.PostPduSessionsErrorResponse
+		var v models.PostSmContextsErrorResponse
 		err = openapi.Deserialize(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()
@@ -177,7 +177,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, pos
 		apiError.ErrorModel = v
 		return localVarReturnValue, localVarHttpResponse, apiError
 	case 504:
-		var v models.PostPduSessionsErrorResponse
+		var v models.PostSmContextsErrorResponse
 		err = openapi.Deserialize(&v, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 		if err != nil {
 			apiError.ErrorStatus = err.Error()

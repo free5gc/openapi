@@ -10,6 +10,6 @@
 package models
 
 type InvalidParam struct {
-	Param string `json:"param" yaml:"param" bson:"param" mapstructure:"Param"`
+	Param  string `json:"param" yaml:"param" bson:"param" mapstructure:"Param"`
 	Reason string `json:"reason,omitempty" yaml:"reason" bson:"reason" mapstructure:"Reason"`
 }

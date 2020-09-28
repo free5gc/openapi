@@ -8,13 +8,14 @@
  */
 
 package models
+
 type SmfEvent string
 
 // List of SmfEvent
 const (
-	SmfEvent_AC_TY_CH SmfEvent = "AC_TY_CH"
-	SmfEvent_UP_PATH_CH SmfEvent = "UP_PATH_CH"
+	SmfEvent_AC_TY_CH    SmfEvent = "AC_TY_CH"
+	SmfEvent_UP_PATH_CH  SmfEvent = "UP_PATH_CH"
 	SmfEvent_PDU_SES_REL SmfEvent = "PDU_SES_REL"
-	SmfEvent_PLMN_CH SmfEvent = "PLMN_CH"
-	SmfEvent_UE_IP_CH SmfEvent = "UE_IP_CH"
+	SmfEvent_PLMN_CH     SmfEvent = "PLMN_CH"
+	SmfEvent_UE_IP_CH    SmfEvent = "UE_IP_CH"
 )
