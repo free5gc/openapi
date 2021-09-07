@@ -33,4 +33,18 @@ var (
 		Cause:         "INSUFFICIENT_RESOURCES_SLICE_DNN",
 		InvalidParams: nil,
 	}
+	SubscriptionDenied = models.ProblemDetails{
+		Title:         "Subscription Denied",
+		Status:        http.StatusForbidden,
+		Detail:        "This indicates an error, other than those listed in this table, due to lack of necessary subscription to serve the UE request.",
+		Cause:         "SUBSCRIPTION_DENIED",
+		InvalidParams: nil,
+	}
+	NetworkFailure = models.ProblemDetails{
+		Title:         "Network failure",
+		Status:        http.StatusGatewayTimeout,
+		Detail:        "The request is rejected due to a network problem.",
+		Cause:         "NETWORK_FAILURE",
+		InvalidParams: nil,
+	}
 )
