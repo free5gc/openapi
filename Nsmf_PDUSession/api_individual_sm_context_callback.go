@@ -11,12 +11,13 @@ package Nsmf_PDUSession
 
 import (
 	"context"
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 type IndividualSMContextNotificationApiService service

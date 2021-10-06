@@ -12,14 +12,15 @@ package Nsmf_PDUSession
 import (
 	"context"
 	"fmt"
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please

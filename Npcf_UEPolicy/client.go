@@ -12,6 +12,7 @@ package Npcf_UEPolicy
 import (
 	"bytes"
 	"context"
+	"crypto/tls"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -28,8 +29,6 @@ import (
 	"strings"
 	"time"
 	"unicode/utf8"
-
-	"crypto/tls"
 
 	"golang.org/x/net/http2"
 	"golang.org/x/oauth2"

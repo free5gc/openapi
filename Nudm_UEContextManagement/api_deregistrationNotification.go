@@ -2,12 +2,13 @@ package Nudm_UEContextManagement
 
 import (
 	"context"
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -18,7 +19,6 @@ var (
 type DeregistrationNotificationCallbackApiService service
 
 func (a *DeregistrationNotificationCallbackApiService) DeregistrationNotify(ctx context.Context, onDeregistrationNotifyUrl string, request models.DeregistrationData) (*http.Response, error) {
-
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -95,5 +95,4 @@ func (a *DeregistrationNotificationCallbackApiService) DeregistrationNotify(ctx 
 	default:
 		return localVarHttpResponse, openapi.ReportError("%d is not a valid status code in onDeregistrationNotification", localVarHttpResponse.StatusCode)
 	}
-
 }

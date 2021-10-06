@@ -11,12 +11,13 @@ package Namf_Communication
 
 import (
 	"context"
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please

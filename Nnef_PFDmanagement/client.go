@@ -27,6 +27,7 @@ type APIClient struct {
 	IndividualPFDSubscriptionApi *IndividualPFDSubscriptionApiService
 	PFDOfApplicationsApi         *PFDOfApplicationsApiService
 	PFDSubscriptionsApi          *PFDSubscriptionsApiService
+	NotificationApi              *NotificationApiService
 }
 
 type service struct {
@@ -52,6 +53,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IndividualPFDSubscriptionApi = (*IndividualPFDSubscriptionApiService)(&c.common)
 	c.PFDOfApplicationsApi = (*PFDOfApplicationsApiService)(&c.common)
 	c.PFDSubscriptionsApi = (*PFDSubscriptionsApiService)(&c.common)
+	c.NotificationApi = (*NotificationApiService)(&c.common)
 
 	return c
 }

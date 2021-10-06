@@ -2,12 +2,13 @@ package Npcf_SMPolicyControl
 
 import (
 	"context"
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 type DefaultCallbackApi service

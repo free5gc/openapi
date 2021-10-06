@@ -1,7 +1,6 @@
-package openapi_test
+package openapi
 
 import (
-	"github.com/free5gc/openapi"
 	"testing"
 	"time"
 
@@ -31,7 +30,7 @@ func TestConvert(t *testing.T) {
 
 	var to Struct
 
-	err := openapi.Convert(from, &to)
+	err := Convert(from, &to)
 	assert.Nil(t, err, "convert failed")
 
 	// check data is correct
@@ -45,5 +44,4 @@ func TestConvert(t *testing.T) {
 	}, to.M)
 	expectTime, err := time.Parse(time.RFC3339, "2020-05-01T12:04:05+08:00")
 	assert.Equal(t, expectTime, *to.DT)
-
 }

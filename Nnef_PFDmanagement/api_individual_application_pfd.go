@@ -10,9 +10,6 @@
 package Nnef_PFDmanagement
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
 	"fmt"
 	"io/ioutil"
@@ -21,6 +18,9 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please

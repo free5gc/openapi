@@ -12,7 +12,6 @@ package Nnrf_AccessToken
 import (
 	"net/http"
 	"strings"
-	//"strings"
 )
 
 type Configuration struct {

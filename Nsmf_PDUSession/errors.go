@@ -1,8 +1,9 @@
 package Nsmf_PDUSession
 
 import (
-	"github.com/free5gc/openapi/models"
 	"net/http"
+
+	"github.com/free5gc/openapi/models"
 )
 
 var (

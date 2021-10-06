@@ -10,9 +10,6 @@
 package Nudr_DataRepository
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
 	"io/ioutil"
 	"net/http"
@@ -20,6 +17,9 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please

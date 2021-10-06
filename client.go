@@ -33,7 +33,6 @@ import (
 
 	"golang.org/x/net/http2"
 	"golang.org/x/oauth2"
-
 	"gopkg.in/h2non/gock.v1"
 )
 
@@ -154,6 +153,7 @@ func parseMultipartFieldParameters(str string) (contentType string, ref string, 
 	}
 	return
 }
+
 func getContentID(v reflect.Value, ref string, class string) (contentID string, err error) {
 	recursiveVal := v
 	if ref[0] == '{' {
@@ -237,6 +237,7 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 	contentID = recursiveVal.String()
 	return
 }
+
 func MultipartEncode(v interface{}, body io.Writer) (string, error) {
 	val := reflect.Indirect(reflect.ValueOf(v))
 	w := multipart.NewWriter(body)
@@ -499,7 +500,6 @@ func PrepareRequest(
 }
 
 func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) {
-
 	body := bytes.NewReader(b)
 	r := multipart.NewReader(body, boundary)
 	val := reflect.Indirect(reflect.ValueOf(v))

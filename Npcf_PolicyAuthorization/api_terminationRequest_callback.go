@@ -11,12 +11,13 @@ package Npcf_PolicyAuthorization
 
 import (
 	"context"
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 type PolicyAuthorizationTerminateRequestApiService service
