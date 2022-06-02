@@ -10,10 +10,7 @@
 package TrafficInfluence
 
 import (
-	"crypto/tls"
-	"net/http"
-
-	"golang.org/x/net/http2"
+	"github.com/free5gc/openapi"
 )
 
 // APIClient manages communication with the 3gpp-traffic-influence API v1.0.1
@@ -39,10 +36,7 @@ type service struct {
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.httpClient == nil {
-		cfg.httpClient = http.DefaultClient
-		cfg.httpClient.Transport = &http2.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
+		cfg.httpClient = openapi.GetDefaultHttpClient()
 	}
 
 	c := &APIClient{}
