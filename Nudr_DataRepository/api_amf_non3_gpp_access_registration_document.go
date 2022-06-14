@@ -235,7 +235,7 @@ func (a *AMFNon3GPPAccessRegistrationDocumentApiService) QueryAmfContextNon3gpp(
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("fields", openapi.ParameterToString(localVarOptionals.Fields.Value(), "csv"))
 	}
 	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {

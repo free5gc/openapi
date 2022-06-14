@@ -66,7 +66,7 @@ func (a *UeContextDocumentApiService) ProvideDomainSelectionInfo(ctx context.Con
 	if localVarOptionals != nil && localVarOptionals.InfoClass.IsSet() {
 		localVarQueryParams.Add("info-class", openapi.ParameterToString(localVarOptionals.InfoClass.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 

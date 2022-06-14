@@ -60,7 +60,7 @@ func (a *RetrievalOfSharedDataApiService) GetSharedData(ctx context.Context, sha
 	localVarFormParams := url.Values{}
 
 	localVarQueryParams.Add("shared-data-ids", openapi.ParameterToString(sharedDataIds, "csv"))
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supportedFeatures", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 
