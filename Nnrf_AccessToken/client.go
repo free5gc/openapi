@@ -12,10 +12,7 @@
 package Nnrf_AccessToken
 
 import (
-	"crypto/tls"
-	"net/http"
-
-	"golang.org/x/net/http2"
+	"github.com/free5gc/openapi"
 )
 
 // APIClient manages communication with the NRF OAuth2 API v1.0.0
@@ -36,10 +33,7 @@ type service struct {
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
 	if cfg.httpClient == nil {
-		cfg.httpClient = http.DefaultClient
-		cfg.httpClient.Transport = &http2.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
+		cfg.httpClient = openapi.GetDefaultHttpClient()
 	}
 
 	c := &APIClient{}
