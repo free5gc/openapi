@@ -11,10 +11,6 @@
 
 package Nudr_DataRepository
 
-import (
-	"github.com/free5gc/openapi"
-)
-
 // APIClient manages communication with the Nudr_DataRepository API OpenAPI file API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
@@ -71,10 +67,6 @@ type service struct {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
-	if cfg.httpClient == nil {
-		cfg.httpClient = openapi.GetDefaultHttpClient()
-	}
-
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c

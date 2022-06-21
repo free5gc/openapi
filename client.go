@@ -126,6 +126,9 @@ func ParameterToString(obj interface{}, collectionFormat string) string {
 
 // callAPI do the request.
 func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
+	if cfg.HTTPClient() != nil {
+		return cfg.HTTPClient().Do(request)
+	}
 	if request.URL.Scheme == "https" {
 		return innerHTTP2Client.Do(request)
 	} else if request.URL.Scheme == "http" {
