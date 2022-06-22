@@ -72,7 +72,7 @@ func (a *AccessAndMobilitySubscriptionDataDocumentApiService) QueryAmData(ctx co
 	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
 		localVarQueryParams.Add("fields", openapi.ParameterToString(localVarOptionals.Fields.Value(), "csv"))
 	}
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 
@@ -89,10 +89,10 @@ func (a *AccessAndMobilitySubscriptionDataDocumentApiService) QueryAmData(ctx co
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	if localVarOptionals != nil && localVarOptionals.IfNoneMatch.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.IfNoneMatch.IsSet() && localVarOptionals.IfNoneMatch.Value() != "" {
 		localVarHeaderParams["If-None-Match"] = openapi.ParameterToString(localVarOptionals.IfNoneMatch.Value(), "")
 	}
-	if localVarOptionals != nil && localVarOptionals.IfModifiedSince.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.IfModifiedSince.IsSet() && localVarOptionals.IfModifiedSince.Value() != "" {
 		localVarHeaderParams["If-Modified-Since"] = openapi.ParameterToString(localVarOptionals.IfModifiedSince.Value(), "")
 	}
 

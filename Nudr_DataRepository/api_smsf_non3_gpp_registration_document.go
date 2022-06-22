@@ -225,7 +225,7 @@ func (a *SMSFNon3GPPRegistrationDocumentApiService) QuerySmsfContextNon3gpp(ctx 
 	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
 		localVarQueryParams.Add("fields", openapi.ParameterToString(localVarOptionals.Fields.Value(), "csv"))
 	}
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 

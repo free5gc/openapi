@@ -715,16 +715,16 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifyGet(ctx cont
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() && localVarOptionals.Dnn.Value() != "" {
 		localVarQueryParams.Add("dnn", openapi.ParameterToString(localVarOptionals.Dnn.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Snssai.IsSet() {
 		localVarQueryParams.Add("snssai", openapi.ParameterToString(localVarOptionals.Snssai.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.InternalGroupId.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.InternalGroupId.IsSet() && localVarOptionals.InternalGroupId.Value() != "" {
 		localVarQueryParams.Add("internal-Group-Id", openapi.ParameterToString(localVarOptionals.InternalGroupId.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Supi.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Supi.IsSet() && localVarOptionals.Supi.Value() != "" {
 		localVarQueryParams.Add("supi", openapi.ParameterToString(localVarOptionals.Supi.Value(), ""))
 	}
 

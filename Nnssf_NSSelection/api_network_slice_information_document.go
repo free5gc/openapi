@@ -82,7 +82,7 @@ func (a *NetworkSliceInformationDocumentApiService) NSSelectionGet(ctx context.C
 	if localVarOptionals != nil && localVarOptionals.Tai.IsSet() {
 		localVarQueryParams.Add("tai", openapi.ParameterToString(localVarOptionals.Tai.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 

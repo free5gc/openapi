@@ -129,7 +129,7 @@ func (a *NFInstancesStoreApiService) SearchNFInstances(ctx context.Context, targ
 	if localVarOptionals != nil && localVarOptionals.ServiceNames.IsSet() {
 		localVarQueryParams.Add("service-names", openapi.ParameterToString(localVarOptionals.ServiceNames.Value(), "csv"))
 	}
-	if localVarOptionals != nil && localVarOptionals.RequesterNfInstanceFqdn.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.RequesterNfInstanceFqdn.IsSet() && localVarOptionals.RequesterNfInstanceFqdn.Value() != "" {
 		localVarQueryParams.Add("requester-nf-instance-fqdn", openapi.ParameterToString(localVarOptionals.RequesterNfInstanceFqdn.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.TargetPlmnList.IsSet() {
@@ -141,43 +141,43 @@ func (a *NFInstancesStoreApiService) SearchNFInstances(ctx context.Context, targ
 	if localVarOptionals != nil && localVarOptionals.TargetNfInstanceId.IsSet() {
 		localVarQueryParams.Add("target-nf-instance-id", openapi.ParameterToString(localVarOptionals.TargetNfInstanceId.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.TargetNfFqdn.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.TargetNfFqdn.IsSet() && localVarOptionals.TargetNfFqdn.Value() != "" {
 		localVarQueryParams.Add("target-nf-fqdn", openapi.ParameterToString(localVarOptionals.TargetNfFqdn.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.HnrfUri.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.HnrfUri.IsSet() && localVarOptionals.HnrfUri.Value() != "" {
 		localVarQueryParams.Add("hnrf-uri", openapi.ParameterToString(localVarOptionals.HnrfUri.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Snssais.IsSet() {
 		localVarQueryParams.Add("snssais", openapi.ParameterToString(localVarOptionals.Snssais.Value(), "multi"))
 	}
-	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() && localVarOptionals.Dnn.Value() != "" {
 		localVarQueryParams.Add("dnn", openapi.ParameterToString(localVarOptionals.Dnn.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.NsiList.IsSet() {
 		localVarQueryParams.Add("nsi-list", openapi.ParameterToString(localVarOptionals.NsiList.Value(), "csv"))
 	}
-	if localVarOptionals != nil && localVarOptionals.SmfServingArea.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SmfServingArea.IsSet() && localVarOptionals.SmfServingArea.Value() != "" {
 		localVarQueryParams.Add("smf-serving-area", openapi.ParameterToString(localVarOptionals.SmfServingArea.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Tai.IsSet() {
 		localVarQueryParams.Add("tai", openapi.ParameterToString(localVarOptionals.Tai.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.AmfRegionId.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.AmfRegionId.IsSet() && localVarOptionals.AmfRegionId.Value() != "" {
 		localVarQueryParams.Add("amf-region-id", openapi.ParameterToString(localVarOptionals.AmfRegionId.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.AmfSetId.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.AmfSetId.IsSet() && localVarOptionals.AmfSetId.Value() != "" {
 		localVarQueryParams.Add("amf-set-id", openapi.ParameterToString(localVarOptionals.AmfSetId.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Guami.IsSet() {
 		localVarQueryParams.Add("guami", openapi.ParameterToString(localVarOptionals.Guami.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Supi.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Supi.IsSet() && localVarOptionals.Supi.Value() != "" {
 		localVarQueryParams.Add("supi", openapi.ParameterToString(localVarOptionals.Supi.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.UeIpv4Address.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.UeIpv4Address.IsSet() && localVarOptionals.UeIpv4Address.Value() != "" {
 		localVarQueryParams.Add("ue-ipv4-address", openapi.ParameterToString(localVarOptionals.UeIpv4Address.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.IpDomain.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.IpDomain.IsSet() && localVarOptionals.IpDomain.Value() != "" {
 		localVarQueryParams.Add("ip-domain", openapi.ParameterToString(localVarOptionals.IpDomain.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.UeIpv6Prefix.IsSet() {
@@ -186,19 +186,19 @@ func (a *NFInstancesStoreApiService) SearchNFInstances(ctx context.Context, targ
 	if localVarOptionals != nil && localVarOptionals.PgwInd.IsSet() {
 		localVarQueryParams.Add("pgw-ind", openapi.ParameterToString(localVarOptionals.PgwInd.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Pgw.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Pgw.IsSet() && localVarOptionals.Pgw.Value() != "" {
 		localVarQueryParams.Add("pgw", openapi.ParameterToString(localVarOptionals.Pgw.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Gpsi.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Gpsi.IsSet() && localVarOptionals.Gpsi.Value() != "" {
 		localVarQueryParams.Add("gpsi", openapi.ParameterToString(localVarOptionals.Gpsi.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.ExternalGroupIdentity.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.ExternalGroupIdentity.IsSet() && localVarOptionals.ExternalGroupIdentity.Value() != "" {
 		localVarQueryParams.Add("external-group-identity", openapi.ParameterToString(localVarOptionals.ExternalGroupIdentity.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.DataSet.IsSet() {
 		localVarQueryParams.Add("data-set", openapi.ParameterToString(localVarOptionals.DataSet.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.RoutingIndicator.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.RoutingIndicator.IsSet() && localVarOptionals.RoutingIndicator.Value() != "" {
 		localVarQueryParams.Add("routing-indicator", openapi.ParameterToString(localVarOptionals.RoutingIndicator.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.GroupIdList.IsSet() {
@@ -207,7 +207,7 @@ func (a *NFInstancesStoreApiService) SearchNFInstances(ctx context.Context, targ
 	if localVarOptionals != nil && localVarOptionals.DnaiList.IsSet() {
 		localVarQueryParams.Add("dnai-list", openapi.ParameterToString(localVarOptionals.DnaiList.Value(), "csv"))
 	}
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.UpfIwkEpsInd.IsSet() {
@@ -216,7 +216,7 @@ func (a *NFInstancesStoreApiService) SearchNFInstances(ctx context.Context, targ
 	if localVarOptionals != nil && localVarOptionals.ChfSupportedPlmn.IsSet() {
 		localVarQueryParams.Add("chf-supported-plmn", openapi.ParameterToString(localVarOptionals.ChfSupportedPlmn.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.PreferredLocality.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.PreferredLocality.IsSet() && localVarOptionals.PreferredLocality.Value() != "" {
 		localVarQueryParams.Add("preferred-locality", openapi.ParameterToString(localVarOptionals.PreferredLocality.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.AccessType.IsSet() {

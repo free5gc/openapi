@@ -67,7 +67,7 @@ func (a *SMSSubscriptionDataDocumentApiService) QuerySmsData(ctx context.Context
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 
@@ -84,10 +84,10 @@ func (a *SMSSubscriptionDataDocumentApiService) QuerySmsData(ctx context.Context
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	if localVarOptionals != nil && localVarOptionals.IfNoneMatch.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.IfNoneMatch.IsSet() && localVarOptionals.IfNoneMatch.Value() != "" {
 		localVarHeaderParams["If-None-Match"] = openapi.ParameterToString(localVarOptionals.IfNoneMatch.Value(), "")
 	}
-	if localVarOptionals != nil && localVarOptionals.IfModifiedSince.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.IfModifiedSince.IsSet() && localVarOptionals.IfModifiedSince.Value() != "" {
 		localVarHeaderParams["If-Modified-Since"] = openapi.ParameterToString(localVarOptionals.IfModifiedSince.Value(), "")
 	}
 

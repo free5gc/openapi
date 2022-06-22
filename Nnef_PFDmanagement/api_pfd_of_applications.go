@@ -63,7 +63,7 @@ func (a *PFDOfApplicationsApiService) NnefPFDmanagementFetchAll(ctx context.Cont
 	}
 
 	localVarQueryParams.Add("application-ids", openapi.ParameterToString(applicationIds, "multi"))
-	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SupportedFeatures.IsSet() && localVarOptionals.SupportedFeatures.Value() != "" {
 		localVarQueryParams.Add("supported-features", openapi.ParameterToString(localVarOptionals.SupportedFeatures.Value(), ""))
 	}
 
