@@ -17,8 +17,8 @@ import (
 	"net/url"
 	"strings"
 
-	"bitbucket.org/free5gc-team/openapi"
-	"bitbucket.org/free5gc-team/openapi/models"
+	"github.com/free5gc/openapi"
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
