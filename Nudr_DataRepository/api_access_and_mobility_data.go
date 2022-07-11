@@ -359,7 +359,7 @@ func (a *AccessAndMobilityDataApiService) QueryAccessAndMobilityData(ctx context
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.SuppFeat.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SuppFeat.IsSet() && localVarOptionals.SuppFeat.Value() != "" {
 		localVarQueryParams.Add("supp-feat", openapi.ParameterToString(localVarOptionals.SuppFeat.Value(), ""))
 	}
 

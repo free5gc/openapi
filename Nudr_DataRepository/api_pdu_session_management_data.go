@@ -373,19 +373,19 @@ func (a *PduSessionManagementDataApiService) QuerySessionManagementData(ctx cont
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Ipv4Addr.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Ipv4Addr.IsSet() && localVarOptionals.Ipv4Addr.Value() != "" {
 		localVarQueryParams.Add("ipv4-addr", openapi.ParameterToString(localVarOptionals.Ipv4Addr.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Ipv6Prefix.IsSet() {
 		localVarQueryParams.Add("ipv6-prefix", openapi.ParameterToString(localVarOptionals.Ipv6Prefix.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() && localVarOptionals.Dnn.Value() != "" {
 		localVarQueryParams.Add("dnn", openapi.ParameterToString(localVarOptionals.Dnn.Value(), ""))
 	}
 	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
 		localVarQueryParams.Add("fields", openapi.ParameterToString(localVarOptionals.Fields.Value(), "csv"))
 	}
-	if localVarOptionals != nil && localVarOptionals.SuppFeat.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.SuppFeat.IsSet() && localVarOptionals.SuppFeat.Value() != "" {
 		localVarQueryParams.Add("supp-feat", openapi.ParameterToString(localVarOptionals.SuppFeat.Value(), ""))
 	}
 

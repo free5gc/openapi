@@ -13,6 +13,12 @@ var (
 		Detail: "N1 Message Error",
 		Cause:  "N1_SM_ERROR",
 	}
+	N2SmError = models.ProblemDetails{
+		Title:  "Invalid N2 Message",
+		Status: http.StatusForbidden,
+		Detail: "N2 Message Error",
+		Cause:  "N2_SM_ERROR",
+	}
 	DnnDeniedError = models.ProblemDetails{
 		Title:         "DNN Denied",
 		Status:        http.StatusForbidden,
@@ -47,5 +53,15 @@ var (
 		Detail:        "The request is rejected due to a network problem.",
 		Cause:         "NETWORK_FAILURE",
 		InvalidParams: nil,
+	}
+	SmContextStateMismatchActive = models.ProblemDetails{
+		Title:  "SMContext state mismatch",
+		Status: http.StatusForbidden,
+		Detail: "The SMContext State should be Active State.",
+	}
+	SmContextStateMismatchInActive = models.ProblemDetails{
+		Title:  "SMContext state mismatch",
+		Status: http.StatusForbidden,
+		Detail: "The SMContext State should be InActive State.",
 	}
 )

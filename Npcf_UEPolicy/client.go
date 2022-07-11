@@ -12,7 +12,6 @@ package Npcf_UEPolicy
 import (
 	"bytes"
 	"context"
-	"crypto/tls"
 	"encoding/json"
 	"encoding/xml"
 	"errors"
@@ -30,7 +29,6 @@ import (
 	"time"
 	"unicode/utf8"
 
-	"golang.org/x/net/http2"
 	"golang.org/x/oauth2"
 )
 
@@ -57,13 +55,6 @@ type service struct {
 // NewAPIClient creates a new API client. Requires a userAgent string describing your application.
 // optionally a custom http.Client to allow for advanced features such as caching.
 func NewAPIClient(cfg *Configuration) *APIClient {
-	if cfg.httpClient == nil {
-		cfg.httpClient = http.DefaultClient
-		cfg.httpClient.Transport = &http2.Transport{
-			TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-		}
-	}
-
 	c := &APIClient{}
 	c.cfg = cfg
 	c.common.client = c
