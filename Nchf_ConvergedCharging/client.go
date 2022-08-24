@@ -16,7 +16,8 @@ type APIClient struct {
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	DefaultApi *DefaultApiService
+	DefaultApi         *DefaultApiService
+	DefaultCallbackApi *DefaultCallbackApiService
 }
 
 type service struct {
@@ -33,6 +34,6 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 
 	// API Services
 	c.DefaultApi = (*DefaultApiService)(&c.common)
-
+	c.DefaultCallbackApi = (*DefaultCallbackApiService)(&c.common)
 	return c
 }

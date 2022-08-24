@@ -133,10 +133,8 @@ func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 	if request.URL.Scheme == "https" {
 		return innerHTTP2Client.Do(request)
 	} else if request.URL.Scheme == "http" {
-		fmt.Printf("\nIn request.URL.Scheme == http\n")
 		return innerHTTP2CleartextClient.Do(request)
 	}
-	fmt.Printf("\nIn request.URL.Scheme %s\n", request.URL.Scheme)
 	return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
 }
 
