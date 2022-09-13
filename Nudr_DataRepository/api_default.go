@@ -112,7 +112,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataGet(ctx context.Context,
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -278,7 +278,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataInfluenceIdDelete(ctx co
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -435,7 +435,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataInfluenceIdPatch(ctx con
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -625,7 +625,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataInfluenceIdPut(ctx conte
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -849,7 +849,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifyGet(ctx cont
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -1019,7 +1019,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifyPost(ctx con
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -1201,7 +1201,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifySubscription
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -1354,7 +1354,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifySubscription
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -1526,7 +1526,7 @@ func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifySubscription
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -1710,7 +1710,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdDelete(ctx context.Context, 
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -1863,7 +1863,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdGet(ctx context.Context, app
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -2026,7 +2026,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdPut(ctx context.Context, app
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -2237,7 +2237,7 @@ func (a *DefaultApiService) ApplicationDataPfdsGet(ctx context.Context, localVar
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -2407,7 +2407,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifyPost(ctx context.Context, ex
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -2589,7 +2589,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdDelete(ctx context.Cont
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -2746,7 +2746,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdPut(ctx context.Context
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -2928,7 +2928,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdDelete(ctx context.Co
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -3081,7 +3081,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdGet(ctx context.Conte
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -3253,7 +3253,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdPut(ctx context.Conte
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -3440,7 +3440,7 @@ func (a *DefaultApiService) PolicyDataBdtDataGet(ctx context.Context) ([]models.
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -3599,7 +3599,7 @@ func (a *DefaultApiService) PolicyDataPlmnsPlmnIdUePolicySetGet(ctx context.Cont
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -3767,7 +3767,7 @@ func (a *DefaultApiService) PolicyDataSponsorConnectivityDataSponsorIdGet(ctx co
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -3941,7 +3941,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifyPost(ctx context.Context, loca
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -4123,7 +4123,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdDelete(ctx context.Conte
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -4291,7 +4291,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdPut(ctx context.Context,
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -4475,7 +4475,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdAmDataGet(ctx context.Context, ueId
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -4644,7 +4644,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataGet(ctx context
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -4814,7 +4814,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPatch(ctx conte
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -4996,7 +4996,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPut(ctx context
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -5200,7 +5200,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataGet(ctx context.Context, ueId
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -5381,7 +5381,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataPatch(ctx context.Context, ue
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -5561,7 +5561,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdDelete(ctx context.
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -5716,7 +5716,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdGet(ctx context.Con
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -5901,7 +5901,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdPut(ctx context.Con
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -6090,7 +6090,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetGet(ctx context.Context,
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -6262,7 +6262,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPatch(ctx context.Contex
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -6455,7 +6455,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPut(ctx context.Context,
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "UDR")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}

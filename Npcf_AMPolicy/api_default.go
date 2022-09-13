@@ -80,7 +80,7 @@ func (a *DefaultApiService) PoliciesPolAssoIdDelete(ctx context.Context, polAsso
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "PCF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -233,7 +233,7 @@ func (a *DefaultApiService) PoliciesPolAssoIdGet(ctx context.Context, polAssoId 
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "PCF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -396,7 +396,7 @@ func (a *DefaultApiService) PoliciesPolAssoIdUpdatePost(ctx context.Context, pol
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "PCF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -582,7 +582,7 @@ func (a *DefaultApiService) PoliciesPost(ctx context.Context, policyAssociationR
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "PCF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}

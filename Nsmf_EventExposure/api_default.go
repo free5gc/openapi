@@ -244,7 +244,7 @@ func (a *DefaultApiService) SubscriptionsPost(ctx context.Context, nsmfEventExpo
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "NWDAF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -426,7 +426,7 @@ func (a *DefaultApiService) SubscriptionsSubIdDelete(ctx context.Context, subId 
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "SMF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -579,7 +579,7 @@ func (a *DefaultApiService) SubscriptionsSubIdGet(ctx context.Context, subId str
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "SMF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -742,7 +742,7 @@ func (a *DefaultApiService) SubscriptionsSubIdPut(ctx context.Context, subId str
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "SMF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}

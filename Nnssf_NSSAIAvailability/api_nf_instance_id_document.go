@@ -80,7 +80,7 @@ func (a *NFInstanceIDDocumentApiService) NSSAIAvailabilityDelete(ctx context.Con
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "NSSF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -228,7 +228,7 @@ func (a *NFInstanceIDDocumentApiService) NSSAIAvailabilityPatch(ctx context.Cont
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "NSSF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
@@ -416,7 +416,7 @@ func (a *NFInstanceIDDocumentApiService) NSSAIAvailabilityPut(ctx context.Contex
 	if oauth {
 		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
 		additional_params.Del("NrfUri")
-		additional_params.Del("EnforceOAuth")
+		additional_params.Del("OAuth")
 		additional_params.Add("targetNfType", "NSSF")
 		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
 		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
