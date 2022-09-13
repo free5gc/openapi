@@ -10,6 +10,6 @@
 package models
 
 type AmfEventArea struct {
-	PresenceInfo *PresenceInfo `json:"presenceInfo,omitempty"`
-	LadnInfo     *LadnInfo     `json:"ladnInfo,omitempty"`
+	PresenceInfo	*PresenceInfo	`json:"presenceInfo,omitempty"`
+	LadnInfo	*LadnInfo	`json:"ladnInfo,omitempty"`
 }

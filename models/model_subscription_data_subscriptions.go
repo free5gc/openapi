@@ -14,12 +14,12 @@ import (
 )
 
 type SubscriptionDataSubscriptions struct {
-	UeId string `json:"ueId" bson:"ueId"`
+	UeId	string	`json:"ueId" bson:"ueId"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	CallbackReference string `json:"callbackReference" bson:"callbackReference"`
+	CallbackReference	string	`json:"callbackReference" bson:"callbackReference"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	OriginalCallbackReference string     `json:"originalCallbackReference" bson:"originalCallbackReference"`
-	MonitoredResourceUri      []string   `json:"monitoredResourceUri,omitempty" bson:"monitoredResourceUri"`
-	Expiry                    *time.Time `json:"expiry,omitempty" bson:"expiry"`
-	SupportedFeatures         string     `json:"supported-features" bson:"supported-features"`
+	OriginalCallbackReference	string		`json:"originalCallbackReference" bson:"originalCallbackReference"`
+	MonitoredResourceUri		[]string	`json:"monitoredResourceUri,omitempty" bson:"monitoredResourceUri"`
+	Expiry				*time.Time	`json:"expiry,omitempty" bson:"expiry"`
+	SupportedFeatures		string		`json:"supported-features" bson:"supported-features"`
 }

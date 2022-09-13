@@ -10,6 +10,6 @@
 package models
 
 type Tuak struct {
-	Top              *Top  `json:"top,omitempty" bson:"top"`
-	KeccakIterations int32 `json:"keccakIterations,omitempty" bson:"keccakIterations"`
+	Top			*Top	`json:"top,omitempty" bson:"top"`
+	KeccakIterations	int32	`json:"keccakIterations,omitempty" bson:"keccakIterations"`
 }

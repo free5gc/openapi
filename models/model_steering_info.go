@@ -10,6 +10,6 @@
 package models
 
 type SteeringInfo struct {
-	PlmnId         *PlmnId      `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
-	AccessTechList []AccessTech `json:"accessTechList,omitempty" yaml:"accessTechList" bson:"accessTechList" mapstructure:"AccessTechList"`
+	PlmnId		*PlmnId		`json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	AccessTechList	[]AccessTech	`json:"accessTechList,omitempty" yaml:"accessTechList" bson:"accessTechList" mapstructure:"AccessTechList"`
 }

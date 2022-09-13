@@ -13,6 +13,6 @@ type QosNotifType string
 
 // List of QosNotifType
 const (
-	QosNotifType_GUARANTEED     QosNotifType = "GUARANTEED"
-	QosNotifType_NOT_GUARANTEED QosNotifType = "NOT_GUARANTEED"
+	QosNotifType_GUARANTEED		QosNotifType	= "GUARANTEED"
+	QosNotifType_NOT_GUARANTEED	QosNotifType	= "NOT_GUARANTEED"
 )

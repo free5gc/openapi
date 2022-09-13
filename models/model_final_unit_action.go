@@ -13,7 +13,7 @@ type FinalUnitAction string
 
 // List of FinalUnitAction
 const (
-	FinalUnitAction_TERMINATE       FinalUnitAction = "TERMINATE"
-	FinalUnitAction_REDIRECT        FinalUnitAction = "REDIRECT"
-	FinalUnitAction_RESTRICT_ACCESS FinalUnitAction = "RESTRICT_ACCESS"
+	FinalUnitAction_TERMINATE	FinalUnitAction	= "TERMINATE"
+	FinalUnitAction_REDIRECT	FinalUnitAction	= "REDIRECT"
+	FinalUnitAction_RESTRICT_ACCESS	FinalUnitAction	= "RESTRICT_ACCESS"
 )

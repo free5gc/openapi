@@ -11,6 +11,8 @@ package Nudr_DataRepository
 
 import (
 	"context"
+	"strconv"
+	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -18,6 +20,9 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+	"golang.org/x/net/http2"
+	"golang.org/x/oauth2/clientcredentials"
+	"golang.org/x/oauth2"
 
 	"github.com/free5gc/openapi"
 	"github.com/free5gc/openapi/models"
@@ -44,11 +49,11 @@ type CreateSmsfContext3gppParamOpts struct {
 
 func (a *SMSF3GPPRegistrationDocumentApiService) CreateSmsfContext3gpp(ctx context.Context, ueId string, localVarOptionals *CreateSmsfContext3gppParamOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Put")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Put")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -61,7 +66,7 @@ func (a *SMSF3GPPRegistrationDocumentApiService) CreateSmsfContext3gpp(ctx conte
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -79,6 +84,29 @@ func (a *SMSF3GPPRegistrationDocumentApiService) CreateSmsfContext3gpp(ctx conte
 			return nil, openapi.ReportError("smsfRegistration should be SmsfRegistration")
 		}
 		localVarPostBody = &localVarOptionalSmsfRegistration
+	}
+	scopes := []string{"nudr-dr",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "UDR")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
 	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -98,8 +126,8 @@ func (a *SMSF3GPPRegistrationDocumentApiService) CreateSmsfContext3gpp(ctx conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -125,11 +153,11 @@ SMSF3GPPRegistrationDocumentApiService To remove the SMSF context data of a UE v
 
 func (a *SMSF3GPPRegistrationDocumentApiService) DeleteSmsfContext3gpp(ctx context.Context, ueId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Delete")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Delete")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -142,7 +170,7 @@ func (a *SMSF3GPPRegistrationDocumentApiService) DeleteSmsfContext3gpp(ctx conte
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -151,6 +179,29 @@ func (a *SMSF3GPPRegistrationDocumentApiService) DeleteSmsfContext3gpp(ctx conte
 	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	scopes := []string{"nudr-dr",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "UDR")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
 	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -170,8 +221,8 @@ func (a *SMSF3GPPRegistrationDocumentApiService) DeleteSmsfContext3gpp(ctx conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -200,18 +251,18 @@ SMSF3GPPRegistrationDocumentApiService Retrieves the SMSF context data of a UE u
 */
 
 type QuerySmsfContext3gppParamOpts struct {
-	Fields            optional.Interface
-	SupportedFeatures optional.String
+	Fields			optional.Interface
+	SupportedFeatures	optional.String
 }
 
 func (a *SMSF3GPPRegistrationDocumentApiService) QuerySmsfContext3gpp(ctx context.Context, ueId string, localVarOptionals *QuerySmsfContext3gppParamOpts) (models.SmsfRegistration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.SmsfRegistration
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.SmsfRegistration
 	)
 
 	// create path and map variables
@@ -231,7 +282,7 @@ func (a *SMSF3GPPRegistrationDocumentApiService) QuerySmsfContext3gpp(ctx contex
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -240,6 +291,29 @@ func (a *SMSF3GPPRegistrationDocumentApiService) QuerySmsfContext3gpp(ctx contex
 	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	scopes := []string{"nudr-dr",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return localVarReturnValue, nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "UDR")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return localVarReturnValue, nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
 	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -259,8 +333,8 @@ func (a *SMSF3GPPRegistrationDocumentApiService) QuerySmsfContext3gpp(ctx contex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

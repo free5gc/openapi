@@ -10,7 +10,7 @@
 package models
 
 type NonDynamic5Qi struct {
-	PriorityLevel   int32 `json:"priorityLevel,omitempty"`
-	AverWindow      int32 `json:"averWindow,omitempty"`
-	MaxDataBurstVol int32 `json:"maxDataBurstVol,omitempty"`
+	PriorityLevel	int32	`json:"priorityLevel,omitempty"`
+	AverWindow	int32	`json:"averWindow,omitempty"`
+	MaxDataBurstVol	int32	`json:"maxDataBurstVol,omitempty"`
 }

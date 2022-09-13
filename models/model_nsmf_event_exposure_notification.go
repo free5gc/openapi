@@ -11,7 +11,7 @@ package models
 
 type NsmfEventExposureNotification struct {
 	// Notification correlation ID
-	NotifId string `json:"notifId" yaml:"notifId" bson:"notifId" mapstructure:"NotifId"`
+	NotifId	string	`json:"notifId" yaml:"notifId" bson:"notifId" mapstructure:"NotifId"`
 	// Notifications about Individual Events
-	EventNotifs []EventNotification `json:"eventNotifs" yaml:"eventNotifs" bson:"eventNotifs" mapstructure:"EventNotifs"`
+	EventNotifs	[]EventNotification	`json:"eventNotifs" yaml:"eventNotifs" bson:"eventNotifs" mapstructure:"EventNotifs"`
 }

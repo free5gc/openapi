@@ -15,25 +15,25 @@ import (
 
 type TrafficInfluData struct {
 	// Contains the Notification Correlation Id allocated by the NEF for the UP path change notification.
-	UpPathChgNotifCorreId string `json:"upPathChgNotifCorreId,omitempty" bson:"upPathChgNotifCorreId"`
+	UpPathChgNotifCorreId	string	`json:"upPathChgNotifCorreId,omitempty" bson:"upPathChgNotifCorreId"`
 	// Identifies whether an application can be relocated once a location of the application has been selected.
-	AppReloInd bool `json:"appReloInd,omitempty" bson:"appReloInd"`
+	AppReloInd	bool	`json:"appReloInd,omitempty" bson:"appReloInd"`
 	// Identifies an application.
-	AfAppId string `json:"afAppId,omitempty" bson:"afAppId"`
-	Dnn     string `json:"dnn,omitempty" bson:"dnn"`
+	AfAppId	string	`json:"afAppId,omitempty" bson:"afAppId"`
+	Dnn	string	`json:"dnn,omitempty" bson:"dnn"`
 	// Identifies Ethernet packet filters.Either \"trafficFilters\" or \"ethTrafficFilters\" shall be included if applicable.
-	EthTrafficFilters []EthFlowDescription `json:"ethTrafficFilters,omitempty" bson:"ethTrafficFilters"`
-	Snssai            *Snssai              `json:"snssai,omitempty" bson:"snssai"`
+	EthTrafficFilters	[]EthFlowDescription	`json:"ethTrafficFilters,omitempty" bson:"ethTrafficFilters"`
+	Snssai			*Snssai			`json:"snssai,omitempty" bson:"snssai"`
 	// Identifies a group of users.
-	InterGroupId string `json:"interGroupId,omitempty" bson:"interGroupId"`
-	Supi         string `json:"supi,omitempty" bson:"supi"`
+	InterGroupId	string	`json:"interGroupId,omitempty" bson:"interGroupId"`
+	Supi		string	`json:"supi,omitempty" bson:"supi"`
 	// Identifies IP packet filters.Either \"trafficFilters\" or \"ethTrafficFilters\" shall be included if applicable.
-	TrafficFilters []FlowInfo `json:"trafficFilters,omitempty" bson:"trafficFilters"`
+	TrafficFilters	[]FlowInfo	`json:"trafficFilters,omitempty" bson:"trafficFilters"`
 	// Identifies the N6 traffic routing requirement.
-	TrafficRoutes  []RouteToLocation `json:"trafficRoutes" bson:"trafficRoutes"`
-	ValidStartTime *time.Time        `json:"validStartTime,omitempty" bson:"validStartTime"`
-	ValidEndTime   *time.Time        `json:"validEndTime,omitempty" bson:"validEndTime"`
-	NwAreaInfo     *NetworkAreaInfo  `json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
+	TrafficRoutes	[]RouteToLocation	`json:"trafficRoutes" bson:"trafficRoutes"`
+	ValidStartTime	*time.Time		`json:"validStartTime,omitempty" bson:"validStartTime"`
+	ValidEndTime	*time.Time		`json:"validEndTime,omitempty" bson:"validEndTime"`
+	NwAreaInfo	*NetworkAreaInfo	`json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	UpPathChgNotifUri string `json:"upPathChgNotifUri,omitempty" bson:"upPathChgNotifUri"`
+	UpPathChgNotifUri	string	`json:"upPathChgNotifUri,omitempty" bson:"upPathChgNotifUri"`
 }

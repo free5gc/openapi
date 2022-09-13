@@ -13,7 +13,7 @@ type UeReachability string
 
 // List of UeReachability
 const (
-	UeReachability_UNREACHABLE     UeReachability = "UNREACHABLE"
-	UeReachability_REACHABLE       UeReachability = "REACHABLE"
-	UeReachability_REGULATORY_ONLY UeReachability = "REGULATORY_ONLY"
+	UeReachability_UNREACHABLE	UeReachability	= "UNREACHABLE"
+	UeReachability_REACHABLE	UeReachability	= "REACHABLE"
+	UeReachability_REGULATORY_ONLY	UeReachability	= "REGULATORY_ONLY"
 )

@@ -11,14 +11,14 @@ package models
 
 type UdrTrafficInfluSub struct {
 	// Each element identifies a DNN.
-	Dnns []string `json:"dnns,omitempty" bson:"dnns"`
+	Dnns	[]string	`json:"dnns,omitempty" bson:"dnns"`
 	// Each element identifies a slice.
-	Snssais []Snssai `json:"snssais,omitempty" bson:"snssais"`
+	Snssais	[]Snssai	`json:"snssais,omitempty" bson:"snssais"`
 	// Each element identifies a group of users.
-	InternalGroupIds []string `json:"internalGroupIds,omitempty" bson:"internalGroupIds"`
+	InternalGroupIds	[]string	`json:"internalGroupIds,omitempty" bson:"internalGroupIds"`
 	// Each element identifies the user.
-	Supis []string `json:"supis,omitempty" bson:"supis"`
+	Supis	[]string	`json:"supis,omitempty" bson:"supis"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	NotificationUri   string `json:"notificationUri" bson:"notificationUri"`
-	SupportedFeatures string `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	NotificationUri		string	`json:"notificationUri" bson:"notificationUri"`
+	SupportedFeatures	string	`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

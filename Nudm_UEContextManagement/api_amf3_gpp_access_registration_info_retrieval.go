@@ -45,12 +45,12 @@ type GetParamOpts struct {
 
 func (a *AMF3GppAccessRegistrationInfoRetrievalApiService) Get(ctx context.Context, ueId string, localVarOptionals *GetParamOpts) (models.Amf3GppAccessRegistration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.Amf3GppAccessRegistration
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.Amf3GppAccessRegistration
 	)
 
 	// create path and map variables
@@ -67,7 +67,7 @@ func (a *AMF3GppAccessRegistrationInfoRetrievalApiService) Get(ctx context.Conte
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -95,8 +95,8 @@ func (a *AMF3GppAccessRegistrationInfoRetrievalApiService) Get(ctx context.Conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

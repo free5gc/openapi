@@ -13,6 +13,6 @@ type VelocityRequested string
 
 // List of VelocityRequested
 const (
-	VelocityRequested_NOT_REQUESTED VelocityRequested = "VELOCITY_IS_NOT_REQUESTED"
-	VelocityRequested_REQUESTED     VelocityRequested = "VELOCITY_IS_REQUESTED"
+	VelocityRequested_NOT_REQUESTED	VelocityRequested	= "VELOCITY_IS_NOT_REQUESTED"
+	VelocityRequested_REQUESTED	VelocityRequested	= "VELOCITY_IS_REQUESTED"
 )

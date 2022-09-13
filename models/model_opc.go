@@ -10,7 +10,7 @@
 package models
 
 type Opc struct {
-	OpcValue            string `json:"opcValue" bson:"opcValue"`
-	EncryptionKey       int32  `json:"encryptionKey" bson:"encryptionKey"`
-	EncryptionAlgorithm int32  `json:"encryptionAlgorithm" bson:"encryptionAlgorithm"`
+	OpcValue		string	`json:"opcValue" bson:"opcValue"`
+	EncryptionKey		int32	`json:"encryptionKey" bson:"encryptionKey"`
+	EncryptionAlgorithm	int32	`json:"encryptionAlgorithm" bson:"encryptionAlgorithm"`
 }

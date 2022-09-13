@@ -10,6 +10,6 @@
 package models
 
 type EpsIwkPgw struct {
-	PgwFqdn       string `json:"pgwFqdn" yaml:"pgwFqdn" bson:"pgwFqdn" mapstructure:"PgwFqdn"`
-	SmfInstanceId string `json:"smfInstanceId" yaml:"smfInstanceId" bson:"smfInstanceId" mapstructure:"SmfInstanceId"`
+	PgwFqdn		string	`json:"pgwFqdn" yaml:"pgwFqdn" bson:"pgwFqdn" mapstructure:"PgwFqdn"`
+	SmfInstanceId	string	`json:"smfInstanceId" yaml:"smfInstanceId" bson:"smfInstanceId" mapstructure:"SmfInstanceId"`
 }

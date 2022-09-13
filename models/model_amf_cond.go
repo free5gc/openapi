@@ -10,6 +10,6 @@
 package models
 
 type AmfCond struct {
-	AmfSetId    string `json:"amfSetId,omitempty" yaml:"amfSetId" bson:"amfSetId" mapstructure:"AmfSetId"`
-	AmfRegionId string `json:"amfRegionId,omitempty" yaml:"amfRegionId" bson:"amfRegionId" mapstructure:"AmfRegionId"`
+	AmfSetId	string	`json:"amfSetId,omitempty" yaml:"amfSetId" bson:"amfSetId" mapstructure:"AmfSetId"`
+	AmfRegionId	string	`json:"amfRegionId,omitempty" yaml:"amfRegionId" bson:"amfRegionId" mapstructure:"AmfRegionId"`
 }

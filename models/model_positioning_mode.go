@@ -13,7 +13,7 @@ type PositioningMode string
 
 // List of PositioningMode
 const (
-	PositioningMode_UE_BASED     PositioningMode = "UE_BASED"
-	PositioningMode_UE_ASSISTED  PositioningMode = "UE_ASSISTED"
-	PositioningMode_CONVENTIONAL PositioningMode = "CONVENTIONAL"
+	PositioningMode_UE_BASED	PositioningMode	= "UE_BASED"
+	PositioningMode_UE_ASSISTED	PositioningMode	= "UE_ASSISTED"
+	PositioningMode_CONVENTIONAL	PositioningMode	= "CONVENTIONAL"
 )

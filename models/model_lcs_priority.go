@@ -13,6 +13,6 @@ type LcsPriority string
 
 // List of LcsPriority
 const (
-	LcsPriority_HIGHEST_PRIORITY LcsPriority = "HIGHEST_PRIORITY"
-	LcsPriority_NORMAL_PRIORITY  LcsPriority = "NORMAL_PRIORITY"
+	LcsPriority_HIGHEST_PRIORITY	LcsPriority	= "HIGHEST_PRIORITY"
+	LcsPriority_NORMAL_PRIORITY	LcsPriority	= "NORMAL_PRIORITY"
 )

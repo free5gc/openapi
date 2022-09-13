@@ -10,7 +10,7 @@
 package models
 
 type MonitoringConfiguration struct {
-	EventType                      EventType                       `json:"eventType" yaml:"eventType" bson:"eventType" mapstructure:"EventType"`
-	ImmediateFlag                  bool                            `json:"immediateFlag,omitempty" yaml:"immediateFlag" bson:"immediateFlag" mapstructure:"ImmediateFlag"`
-	LocationReportingConfiguration *LocationReportingConfiguration `json:"locationReportingConfiguration,omitempty" yaml:"locationReportingConfiguration" bson:"locationReportingConfiguration" mapstructure:"LocationReportingConfiguration"`
+	EventType			EventType			`json:"eventType" yaml:"eventType" bson:"eventType" mapstructure:"EventType"`
+	ImmediateFlag			bool				`json:"immediateFlag,omitempty" yaml:"immediateFlag" bson:"immediateFlag" mapstructure:"ImmediateFlag"`
+	LocationReportingConfiguration	*LocationReportingConfiguration	`json:"locationReportingConfiguration,omitempty" yaml:"locationReportingConfiguration" bson:"locationReportingConfiguration" mapstructure:"LocationReportingConfiguration"`
 }

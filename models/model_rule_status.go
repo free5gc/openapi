@@ -13,6 +13,6 @@ type RuleStatus string
 
 // List of RuleStatus
 const (
-	RuleStatus_ACTIVE   RuleStatus = "ACTIVE"
-	RuleStatus_INACTIVE RuleStatus = "INACTIVE"
+	RuleStatus_ACTIVE	RuleStatus	= "ACTIVE"
+	RuleStatus_INACTIVE	RuleStatus	= "INACTIVE"
 )

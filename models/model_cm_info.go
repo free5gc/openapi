@@ -10,6 +10,6 @@
 package models
 
 type CmInfo struct {
-	CmState    CmState    `json:"cmState" bson:"cmState"`
-	AccessType AccessType `json:"accessType" bson:"accessType"`
+	CmState		CmState		`json:"cmState" bson:"cmState"`
+	AccessType	AccessType	`json:"accessType" bson:"accessType"`
 }

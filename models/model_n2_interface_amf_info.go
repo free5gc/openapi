@@ -10,7 +10,7 @@
 package models
 
 type N2InterfaceAmfInfo struct {
-	Ipv4EndpointAddress []string `json:"ipv4EndpointAddress,omitempty" yaml:"ipv4EndpointAddress" bson:"ipv4EndpointAddress" mapstructure:"Ipv4EndpointAddress"`
-	Ipv6EndpointAddress []string `json:"ipv6EndpointAddress,omitempty" yaml:"ipv6EndpointAddress" bson:"ipv6EndpointAddress" mapstructure:"Ipv6EndpointAddress"`
-	AmfName             string   `json:"amfName,omitempty" yaml:"amfName" bson:"amfName" mapstructure:"AmfName"`
+	Ipv4EndpointAddress	[]string	`json:"ipv4EndpointAddress,omitempty" yaml:"ipv4EndpointAddress" bson:"ipv4EndpointAddress" mapstructure:"Ipv4EndpointAddress"`
+	Ipv6EndpointAddress	[]string	`json:"ipv6EndpointAddress,omitempty" yaml:"ipv6EndpointAddress" bson:"ipv6EndpointAddress" mapstructure:"Ipv6EndpointAddress"`
+	AmfName			string		`json:"amfName,omitempty" yaml:"amfName" bson:"amfName" mapstructure:"AmfName"`
 }

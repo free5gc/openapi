@@ -10,9 +10,9 @@
 package models
 
 type Rotations struct {
-	R1 string `json:"r1" bson:"r1"`
-	R2 string `json:"r2" bson:"r2"`
-	R3 string `json:"r3" bson:"r3"`
-	R4 string `json:"r4" bson:"r4"`
-	R5 string `json:"r5" bson:"r5"`
+	R1	string	`json:"r1" bson:"r1"`
+	R2	string	`json:"r2" bson:"r2"`
+	R3	string	`json:"r3" bson:"r3"`
+	R4	string	`json:"r4" bson:"r4"`
+	R5	string	`json:"r5" bson:"r5"`
 }

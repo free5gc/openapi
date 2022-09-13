@@ -10,6 +10,6 @@
 package models
 
 type Area struct {
-	Tacs      []string `json:"tacs,omitempty" yaml:"tacs" bson:"tacs" mapstructure:"Tacs"`
-	AreaCodes string   `json:"areaCodes,omitempty" yaml:"areaCodes" bson:"areaCodes" mapstructure:"AreaCodes"`
+	Tacs		[]string	`json:"tacs,omitempty" yaml:"tacs" bson:"tacs" mapstructure:"Tacs"`
+	AreaCodes	string		`json:"areaCodes,omitempty" yaml:"areaCodes" bson:"areaCodes" mapstructure:"AreaCodes"`
 }

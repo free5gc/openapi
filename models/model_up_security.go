@@ -10,6 +10,6 @@
 package models
 
 type UpSecurity struct {
-	UpIntegr UpIntegrity       `json:"upIntegr" yaml:"upIntegr" bson:"upIntegr" mapstructure:"UpIntegr"`
-	UpConfid UpConfidentiality `json:"upConfid" yaml:"upConfid" bson:"upConfid" mapstructure:"UpConfid"`
+	UpIntegr	UpIntegrity		`json:"upIntegr" yaml:"upIntegr" bson:"upIntegr" mapstructure:"UpIntegr"`
+	UpConfid	UpConfidentiality	`json:"upConfid" yaml:"upConfid" bson:"upConfid" mapstructure:"UpConfid"`
 }

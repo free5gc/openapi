@@ -10,7 +10,7 @@
 package models
 
 type GnssPositioningMethodAndUsage struct {
-	Mode  PositioningMode `json:"mode" yaml:"mode" bson:"mode"`
-	Gnss  GnssId          `json:"gnss" yaml:"gnss" bson:"gnss"`
-	Usage Usage           `json:"usage" yaml:"usage" bson:"usage"`
+	Mode	PositioningMode	`json:"mode" yaml:"mode" bson:"mode"`
+	Gnss	GnssId		`json:"gnss" yaml:"gnss" bson:"gnss"`
+	Usage	Usage		`json:"usage" yaml:"usage" bson:"usage"`
 }

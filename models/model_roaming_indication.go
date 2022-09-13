@@ -13,7 +13,7 @@ type RoamingIndication string
 
 // List of RoamingIndication
 const (
-	RoamingIndication_NON_ROAMING         RoamingIndication = "NON_ROAMING"
-	RoamingIndication_LOCAL_BREAKOUT      RoamingIndication = "LOCAL_BREAKOUT"
-	RoamingIndication_HOME_ROUTED_ROAMING RoamingIndication = "HOME_ROUTED_ROAMING"
+	RoamingIndication_NON_ROAMING		RoamingIndication	= "NON_ROAMING"
+	RoamingIndication_LOCAL_BREAKOUT	RoamingIndication	= "LOCAL_BREAKOUT"
+	RoamingIndication_HOME_ROUTED_ROAMING	RoamingIndication	= "HOME_ROUTED_ROAMING"
 )

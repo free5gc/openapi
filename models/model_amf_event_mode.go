@@ -14,7 +14,7 @@ import (
 )
 
 type AmfEventMode struct {
-	Trigger    AmfEventTrigger `json:"trigger"`
-	MaxReports int32           `json:"maxReports,omitempty"`
-	Expiry     *time.Time      `json:"expiry,omitempty"`
+	Trigger		AmfEventTrigger	`json:"trigger"`
+	MaxReports	int32		`json:"maxReports,omitempty"`
+	Expiry		*time.Time	`json:"expiry,omitempty"`
 }

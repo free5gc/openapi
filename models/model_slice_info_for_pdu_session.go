@@ -10,9 +10,9 @@
 package models
 
 type SliceInfoForPduSession struct {
-	SNssai *Snssai `json:"sNssai" bson:"sNssai"`
+	SNssai	*Snssai	`json:"sNssai" bson:"sNssai"`
 
-	RoamingIndication RoamingIndication `json:"roamingIndication" bson:"roamingIndication"`
+	RoamingIndication	RoamingIndication	`json:"roamingIndication" bson:"roamingIndication"`
 
-	HomeSnssai *Snssai `json:"homeSnssai,omitempty" bson:"homeSnssai"`
+	HomeSnssai	*Snssai	`json:"homeSnssai,omitempty" bson:"homeSnssai"`
 }

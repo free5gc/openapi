@@ -10,7 +10,7 @@
 package models
 
 type CommunicationCharacteristics struct {
-	PpSubsRegTimer  *PpSubsRegTimer `json:"ppSubsRegTimer,omitempty" yaml:"ppSubsRegTimer" bson:"ppSubsRegTimer" mapstructure:"PpSubsRegTimer"`
-	PpActiveTime    *PpActiveTime   `json:"ppActiveTime,omitempty" yaml:"ppActiveTime" bson:"ppActiveTime" mapstructure:"PpActiveTime"`
-	PpDlPacketCount int32           `json:"ppDlPacketCount,omitempty" yaml:"ppDlPacketCount" bson:"ppDlPacketCount" mapstructure:"PpDlPacketCount"`
+	PpSubsRegTimer	*PpSubsRegTimer	`json:"ppSubsRegTimer,omitempty" yaml:"ppSubsRegTimer" bson:"ppSubsRegTimer" mapstructure:"PpSubsRegTimer"`
+	PpActiveTime	*PpActiveTime	`json:"ppActiveTime,omitempty" yaml:"ppActiveTime" bson:"ppActiveTime" mapstructure:"PpActiveTime"`
+	PpDlPacketCount	int32		`json:"ppDlPacketCount,omitempty" yaml:"ppDlPacketCount" bson:"ppDlPacketCount" mapstructure:"PpDlPacketCount"`
 }

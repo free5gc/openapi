@@ -11,6 +11,6 @@ package models
 
 // Contains the periodicity for the defined usage monitoring data limits.
 type TimePeriod struct {
-	Period       Periodicity `json:"period" bson:"period"`
-	MaxNumPeriod int32       `json:"maxNumPeriod,omitempty" bson:"maxNumPeriod"`
+	Period		Periodicity	`json:"period" bson:"period"`
+	MaxNumPeriod	int32		`json:"maxNumPeriod,omitempty" bson:"maxNumPeriod"`
 }

@@ -10,8 +10,8 @@
 package models
 
 type UeAuthenticationCtx struct {
-	AuthType           AuthType                    `json:"authType" yaml:"authType" bson:"authType"`
-	Var5gAuthData      interface{}                 `json:"5gAuthData" yaml:"5gAuthData" bson:"5gAuthData"`
-	Links              map[string]LinksValueSchema `json:"_links" yaml:"_links" bson:"_links"`
-	ServingNetworkName string                      `json:"servingNetworkName,omitempty" yaml:"servingNetworkName" bson:"servingNetworkName"`
+	AuthType		AuthType			`json:"authType" yaml:"authType" bson:"authType"`
+	Var5gAuthData		interface{}			`json:"5gAuthData" yaml:"5gAuthData" bson:"5gAuthData"`
+	Links			map[string]LinksValueSchema	`json:"_links" yaml:"_links" bson:"_links"`
+	ServingNetworkName	string				`json:"servingNetworkName,omitempty" yaml:"servingNetworkName" bson:"servingNetworkName"`
 }

@@ -10,7 +10,7 @@
 package models
 
 type ConfirmationDataResponse struct {
-	AuthResult AuthResult `json:"authResult" yaml:"authResult" bson:"authResult"`
-	Supi       string     `json:"supi,omitempty" yaml:"supi" bson:"supi"`
-	Kseaf      string     `json:"kseaf,omitempty" yaml:"kseaf" bson:"kseaf"`
+	AuthResult	AuthResult	`json:"authResult" yaml:"authResult" bson:"authResult"`
+	Supi		string		`json:"supi,omitempty" yaml:"supi" bson:"supi"`
+	Kseaf		string		`json:"kseaf,omitempty" yaml:"kseaf" bson:"kseaf"`
 }

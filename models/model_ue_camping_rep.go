@@ -10,10 +10,10 @@
 package models
 
 type UeCampingRep struct {
-	AccessType       AccessType         `json:"accessType,omitempty" yaml:"accessType" bson:"accessType" mapstructure:"AccessType"`
-	RatType          RatType            `json:"ratType,omitempty" yaml:"ratType" bson:"ratType" mapstructure:"RatType"`
-	ServNfId         *ServingNfIdentity `json:"servNfId,omitempty" yaml:"servNfId" bson:"servNfId" mapstructure:"ServNfId"`
-	ServingNetwork   *NetworkId         `json:"servingNetwork,omitempty" yaml:"servingNetwork" bson:"servingNetwork" mapstructure:"ServingNetwork"`
-	UserLocationInfo *UserLocation      `json:"userLocationInfo,omitempty" yaml:"userLocationInfo" bson:"userLocationInfo" mapstructure:"UserLocationInfo"`
-	UeTimeZone       string             `json:"ueTimeZone,omitempty" yaml:"ueTimeZone" bson:"ueTimeZone" mapstructure:"UeTimeZone"`
+	AccessType		AccessType		`json:"accessType,omitempty" yaml:"accessType" bson:"accessType" mapstructure:"AccessType"`
+	RatType			RatType			`json:"ratType,omitempty" yaml:"ratType" bson:"ratType" mapstructure:"RatType"`
+	ServNfId		*ServingNfIdentity	`json:"servNfId,omitempty" yaml:"servNfId" bson:"servNfId" mapstructure:"ServNfId"`
+	ServingNetwork		*NetworkId		`json:"servingNetwork,omitempty" yaml:"servingNetwork" bson:"servingNetwork" mapstructure:"ServingNetwork"`
+	UserLocationInfo	*UserLocation		`json:"userLocationInfo,omitempty" yaml:"userLocationInfo" bson:"userLocationInfo" mapstructure:"UserLocationInfo"`
+	UeTimeZone		string			`json:"ueTimeZone,omitempty" yaml:"ueTimeZone" bson:"ueTimeZone" mapstructure:"UeTimeZone"`
 }

@@ -10,20 +10,20 @@
 package models
 
 type Amf3GppAccessRegistration struct {
-	AmfInstanceId     string  `json:"amfInstanceId" bson:"amfInstanceId"`
-	SupportedFeatures string  `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
-	PurgeFlag         bool    `json:"purgeFlag,omitempty" bson:"purgeFlag"`
-	Pei               string  `json:"pei,omitempty" bson:"pei"`
-	ImsVoPs           ImsVoPs `json:"imsVoPs,omitempty" bson:"imsVoPs"`
+	AmfInstanceId		string	`json:"amfInstanceId" bson:"amfInstanceId"`
+	SupportedFeatures	string	`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	PurgeFlag		bool	`json:"purgeFlag,omitempty" bson:"purgeFlag"`
+	Pei			string	`json:"pei,omitempty" bson:"pei"`
+	ImsVoPs			ImsVoPs	`json:"imsVoPs,omitempty" bson:"imsVoPs"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	DeregCallbackUri    string      `json:"deregCallbackUri" bson:"deregCallbackUri"`
-	AmfServiceNameDereg ServiceName `json:"amfServiceNameDereg,omitempty" bson:"amfServiceNameDereg"`
+	DeregCallbackUri	string		`json:"deregCallbackUri" bson:"deregCallbackUri"`
+	AmfServiceNameDereg	ServiceName	`json:"amfServiceNameDereg,omitempty" bson:"amfServiceNameDereg"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	PcscfRestorationCallbackUri string          `json:"pcscfRestorationCallbackUri,omitempty" bson:"pcscfRestorationCallbackUri"`
-	AmfServiceNamePcscfRest     ServiceName     `json:"amfServiceNamePcscfRest,omitempty" bson:"amfServiceNamePcscfRest"`
-	InitialRegistrationInd      bool            `json:"initialRegistrationInd,omitempty" bson:"initialRegistrationInd"`
-	Guami                       *Guami          `json:"guami" bson:"guami"`
-	BackupAmfInfo               []BackupAmfInfo `json:"backupAmfInfo,omitempty" bson:"backupAmfInfo"`
-	DrFlag                      bool            `json:"drFlag,omitempty" bson:"drFlag"`
-	RatType                     RatType         `json:"ratType" bson:"ratType"`
+	PcscfRestorationCallbackUri	string		`json:"pcscfRestorationCallbackUri,omitempty" bson:"pcscfRestorationCallbackUri"`
+	AmfServiceNamePcscfRest		ServiceName	`json:"amfServiceNamePcscfRest,omitempty" bson:"amfServiceNamePcscfRest"`
+	InitialRegistrationInd		bool		`json:"initialRegistrationInd,omitempty" bson:"initialRegistrationInd"`
+	Guami				*Guami		`json:"guami" bson:"guami"`
+	BackupAmfInfo			[]BackupAmfInfo	`json:"backupAmfInfo,omitempty" bson:"backupAmfInfo"`
+	DrFlag				bool		`json:"drFlag,omitempty" bson:"drFlag"`
+	RatType				RatType		`json:"ratType" bson:"ratType"`
 }

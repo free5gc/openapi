@@ -10,7 +10,7 @@
 package models
 
 type NssaiAvailabilityInfo struct {
-	SupportedNssaiAvailabilityData []SupportedNssaiAvailabilityData `json:"supportedNssaiAvailabilityData" bson:"supportedNssaiAvailabilityData"`
+	SupportedNssaiAvailabilityData	[]SupportedNssaiAvailabilityData	`json:"supportedNssaiAvailabilityData" bson:"supportedNssaiAvailabilityData"`
 
-	SupportedFeatures string `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	SupportedFeatures	string	`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

@@ -27,12 +27,12 @@ NotificationApiService Notifies about update to PFD change
 
 func (a *NotificationApiService) NotificationPost(ctx context.Context, notifyUri string, pfdChangeNotifications []PfdChangeNotification) ([]PfdChangeReport, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []PfdChangeReport
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	[]PfdChangeReport
 	)
 
 	// create path and map variables
@@ -42,7 +42,7 @@ func (a *NotificationApiService) NotificationPost(ctx context.Context, notifyUri
 	localVarFormParams := url.Values{}
 
 	localVarHTTPContentTypes := []string{"application/json"}
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -73,8 +73,8 @@ func (a *NotificationApiService) NotificationPost(ctx context.Context, notifyUri
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

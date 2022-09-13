@@ -10,7 +10,7 @@
 package models
 
 type ChfInfo struct {
-	SupiRangeList []SupiRange     `json:"supiRangeList,omitempty" yaml:"supiRangeList" bson:"supiRangeList" mapstructure:"SupiRangeList"`
-	GpsiRangeList []IdentityRange `json:"gpsiRangeList,omitempty" yaml:"gpsiRangeList" bson:"gpsiRangeList" mapstructure:"GpsiRangeList"`
-	PlmnRangeList []PlmnRange     `json:"plmnRangeList,omitempty" yaml:"plmnRangeList" bson:"plmnRangeList" mapstructure:"PlmnRangeList"`
+	SupiRangeList	[]SupiRange	`json:"supiRangeList,omitempty" yaml:"supiRangeList" bson:"supiRangeList" mapstructure:"SupiRangeList"`
+	GpsiRangeList	[]IdentityRange	`json:"gpsiRangeList,omitempty" yaml:"gpsiRangeList" bson:"gpsiRangeList" mapstructure:"GpsiRangeList"`
+	PlmnRangeList	[]PlmnRange	`json:"plmnRangeList,omitempty" yaml:"plmnRangeList" bson:"plmnRangeList" mapstructure:"PlmnRangeList"`
 }

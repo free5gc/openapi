@@ -26,46 +26,46 @@ func (c contextKey) String() string {
 
 var (
 	// ContextOAuth2 takes an oauth2.TokenSource as authentication for the request.
-	ContextOAuth2 = contextKey("token")
+	ContextOAuth2	= contextKey("token")
 
 	// ContextBasicAuth takes BasicAuth as authentication for the request.
-	ContextBasicAuth = contextKey("basic")
+	ContextBasicAuth	= contextKey("basic")
 
 	// ContextAccessToken takes a string oauth2 access token as authentication for the request.
-	ContextAccessToken = contextKey("accesstoken")
+	ContextAccessToken	= contextKey("accesstoken")
 
 	// ContextAPIKey takes an APIKey as authentication for the request
-	ContextAPIKey = contextKey("apikey")
+	ContextAPIKey	= contextKey("apikey")
 )
 
 // BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth
 type BasicAuth struct {
-	UserName string `json:"userName,omitempty"`
-	Password string `json:"password,omitempty"`
+	UserName	string	`json:"userName,omitempty"`
+	Password	string	`json:"password,omitempty"`
 }
 
 // APIKey provides API key based authentication to a request passed via context using ContextAPIKey
 type APIKey struct {
-	Key    string
-	Prefix string
+	Key	string
+	Prefix	string
 }
 
 type Configuration struct {
-	Scheme        string `json:"scheme,omitempty"`
-	url           string
-	basePath      string
-	host          string
-	defaultHeader map[string]string
-	userAgent     string
-	httpClient    *http.Client
+	Scheme		string	`json:"scheme,omitempty"`
+	url		string
+	basePath	string
+	host		string
+	defaultHeader	map[string]string
+	userAgent	string
+	httpClient	*http.Client
 }
 
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		basePath:      "https://example.com/",
-		url:           "{apiRoot}",
-		defaultHeader: make(map[string]string),
-		userAgent:     "OpenAPI-Generator/1.0.0/go",
+		basePath:	"https://example.com/",
+		url:		"{apiRoot}",
+		defaultHeader:	make(map[string]string),
+		userAgent:	"OpenAPI-Generator/1.0.0/go",
 	}
 	return cfg
 }

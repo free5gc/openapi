@@ -13,6 +13,6 @@ type FailureCause string
 
 // List of FailureCause
 const (
-	FailureCause_RULE_EVENT     FailureCause = "PCC_RULE_EVENT"
-	FailureCause_QOS_FLOW_EVENT FailureCause = "PCC_QOS_FLOW_EVENT"
+	FailureCause_RULE_EVENT		FailureCause	= "PCC_RULE_EVENT"
+	FailureCause_QOS_FLOW_EVENT	FailureCause	= "PCC_QOS_FLOW_EVENT"
 )

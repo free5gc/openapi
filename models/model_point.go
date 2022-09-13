@@ -10,6 +10,6 @@
 package models
 
 type Point struct {
-	Shape SupportedGadShapes       `json:"shape" yaml:"shape" bson:"shape"`
-	Point *GeographicalCoordinates `json:"point" yaml:"point" bson:"point"`
+	Shape	SupportedGadShapes		`json:"shape" yaml:"shape" bson:"shape"`
+	Point	*GeographicalCoordinates	`json:"point" yaml:"point" bson:"point"`
 }

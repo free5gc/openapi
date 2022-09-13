@@ -10,6 +10,6 @@
 package models
 
 type UeContextInSmsfData struct {
-	SmsfInfo3GppAccess    *SmsfInfo `json:"smsfInfo3GppAccess,omitempty" yaml:"smsfInfo3GppAccess" bson:"smsfInfo3GppAccess" mapstructure:"SmsfInfo3GppAccess"`
-	SmsfInfoNon3GppAccess *SmsfInfo `json:"smsfInfoNon3GppAccess,omitempty" yaml:"smsfInfoNon3GppAccess" bson:"smsfInfoNon3GppAccess" mapstructure:"SmsfInfoNon3GppAccess"`
+	SmsfInfo3GppAccess	*SmsfInfo	`json:"smsfInfo3GppAccess,omitempty" yaml:"smsfInfo3GppAccess" bson:"smsfInfo3GppAccess" mapstructure:"SmsfInfo3GppAccess"`
+	SmsfInfoNon3GppAccess	*SmsfInfo	`json:"smsfInfoNon3GppAccess,omitempty" yaml:"smsfInfoNon3GppAccess" bson:"smsfInfoNon3GppAccess" mapstructure:"SmsfInfoNon3GppAccess"`
 }

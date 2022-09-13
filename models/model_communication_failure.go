@@ -10,6 +10,6 @@
 package models
 
 type CommunicationFailure struct {
-	NasReleaseCode string     `json:"nasReleaseCode,omitempty" bson:"nasReleaseCode" `
-	RanReleaseCode *NgApCause `json:"ranReleaseCode,omitempty" bson:"ranReleaseCode" `
+	NasReleaseCode	string		`json:"nasReleaseCode,omitempty" bson:"nasReleaseCode" `
+	RanReleaseCode	*NgApCause	`json:"ranReleaseCode,omitempty" bson:"ranReleaseCode" `
 }

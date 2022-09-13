@@ -13,6 +13,6 @@ type MaxIntegrityProtectedDataRate string
 
 // List of MaxIntegrityProtectedDataRate
 const (
-	MaxIntegrityProtectedDataRate__64_KBPS    MaxIntegrityProtectedDataRate = "64_KBPS"
-	MaxIntegrityProtectedDataRate_MAX_UE_RATE MaxIntegrityProtectedDataRate = "MAX_UE_RATE"
+	MaxIntegrityProtectedDataRate__64_KBPS		MaxIntegrityProtectedDataRate	= "64_KBPS"
+	MaxIntegrityProtectedDataRate_MAX_UE_RATE	MaxIntegrityProtectedDataRate	= "MAX_UE_RATE"
 )

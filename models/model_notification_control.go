@@ -13,6 +13,6 @@ type NotificationControl string
 
 // List of NotificationControl
 const (
-	NotificationControl_REQUESTED     NotificationControl = "REQUESTED"
-	NotificationControl_NOT_REQUESTED NotificationControl = "NOT_REQUESTED"
+	NotificationControl_REQUESTED		NotificationControl	= "REQUESTED"
+	NotificationControl_NOT_REQUESTED	NotificationControl	= "NOT_REQUESTED"
 )

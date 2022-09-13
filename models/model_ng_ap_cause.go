@@ -10,6 +10,6 @@
 package models
 
 type NgApCause struct {
-	Group int32 `json:"group"`
-	Value int32 `json:"value"`
+	Group	int32	`json:"group"`
+	Value	int32	`json:"value"`
 }

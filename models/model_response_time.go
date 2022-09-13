@@ -13,6 +13,6 @@ type ResponseTime string
 
 // List of ResponseTime
 const (
-	ResponseTime_LOW_DELAY      ResponseTime = "LOW_DELAY"
-	ResponseTime_DELAY_TOLERANT ResponseTime = "DELAY_TOLERANT"
+	ResponseTime_LOW_DELAY		ResponseTime	= "LOW_DELAY"
+	ResponseTime_DELAY_TOLERANT	ResponseTime	= "DELAY_TOLERANT"
 )

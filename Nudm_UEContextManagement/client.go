@@ -12,25 +12,25 @@ package Nudm_UEContextManagement
 // APIClient manages communication with the Nudm_UECM API v1.0.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	AMF3GppAccessRegistrationInfoRetrievalApi              *AMF3GppAccessRegistrationInfoRetrievalApiService
-	AMFNon3GPPAccessRegistrationInfoRetrievalApi           *AMFNon3GPPAccessRegistrationInfoRetrievalApiService
-	AMFRegistrationFor3GPPAccessApi                        *AMFRegistrationFor3GPPAccessApiService
-	AMFRegistrationForNon3GPPAccessApi                     *AMFRegistrationForNon3GPPAccessApiService
-	ParameterUpdateInTheAMFRegistrationFor3GPPAccessApi    *ParameterUpdateInTheAMFRegistrationFor3GPPAccessApiService
-	ParameterUpdateInTheAMFRegistrationForNon3GPPAccessApi *ParameterUpdateInTheAMFRegistrationForNon3GPPAccessApiService
-	SMFDeregistrationApi                                   *SMFDeregistrationApiService
-	SMFRegistrationApi                                     *SMFRegistrationApiService
-	SMSF3GPPAccessRegistrationInfoRetrievalApi             *SMSF3GPPAccessRegistrationInfoRetrievalApiService
-	SMSFDeregistrationFor3GPPAccessApi                     *SMSFDeregistrationFor3GPPAccessApiService
-	SMSFDeregistrationForNon3GPPAccessApi                  *SMSFDeregistrationForNon3GPPAccessApiService
-	SMSFNon3GPPAccessRegistrationInfoRetrievalApi          *SMSFNon3GPPAccessRegistrationInfoRetrievalApiService
-	SMSFRegistrationFor3GPPAccessApi                       *SMSFRegistrationFor3GPPAccessApiService
-	SMSFRegistrationForNon3GPPAccessApi                    *SMSFRegistrationForNon3GPPAccessApiService
-	DeregistrationNotificationCallbackApi                  *DeregistrationNotificationCallbackApiService
+	AMF3GppAccessRegistrationInfoRetrievalApi		*AMF3GppAccessRegistrationInfoRetrievalApiService
+	AMFNon3GPPAccessRegistrationInfoRetrievalApi		*AMFNon3GPPAccessRegistrationInfoRetrievalApiService
+	AMFRegistrationFor3GPPAccessApi				*AMFRegistrationFor3GPPAccessApiService
+	AMFRegistrationForNon3GPPAccessApi			*AMFRegistrationForNon3GPPAccessApiService
+	ParameterUpdateInTheAMFRegistrationFor3GPPAccessApi	*ParameterUpdateInTheAMFRegistrationFor3GPPAccessApiService
+	ParameterUpdateInTheAMFRegistrationForNon3GPPAccessApi	*ParameterUpdateInTheAMFRegistrationForNon3GPPAccessApiService
+	SMFDeregistrationApi					*SMFDeregistrationApiService
+	SMFRegistrationApi					*SMFRegistrationApiService
+	SMSF3GPPAccessRegistrationInfoRetrievalApi		*SMSF3GPPAccessRegistrationInfoRetrievalApiService
+	SMSFDeregistrationFor3GPPAccessApi			*SMSFDeregistrationFor3GPPAccessApiService
+	SMSFDeregistrationForNon3GPPAccessApi			*SMSFDeregistrationForNon3GPPAccessApiService
+	SMSFNon3GPPAccessRegistrationInfoRetrievalApi		*SMSFNon3GPPAccessRegistrationInfoRetrievalApiService
+	SMSFRegistrationFor3GPPAccessApi			*SMSFRegistrationFor3GPPAccessApiService
+	SMSFRegistrationForNon3GPPAccessApi			*SMSFRegistrationForNon3GPPAccessApiService
+	DeregistrationNotificationCallbackApi			*DeregistrationNotificationCallbackApiService
 }
 
 type service struct {

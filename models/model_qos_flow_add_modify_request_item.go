@@ -10,9 +10,9 @@
 package models
 
 type QosFlowAddModifyRequestItem struct {
-	Qfi                int32           `json:"qfi"`
-	Ebi                int32           `json:"ebi,omitempty"`
-	QosRules           string          `json:"qosRules,omitempty"`
-	QosFlowDescription string          `json:"qosFlowDescription,omitempty"`
-	QosFlowProfile     *QosFlowProfile `json:"qosFlowProfile,omitempty"`
+	Qfi			int32		`json:"qfi"`
+	Ebi			int32		`json:"ebi,omitempty"`
+	QosRules		string		`json:"qosRules,omitempty"`
+	QosFlowDescription	string		`json:"qosFlowDescription,omitempty"`
+	QosFlowProfile		*QosFlowProfile	`json:"qosFlowProfile,omitempty"`
 }

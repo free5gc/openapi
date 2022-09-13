@@ -12,30 +12,30 @@ package Nudm_SubscriberDataManagement
 // APIClient manages communication with the Nudm_SDM API v2.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	AccessAndMobilitySubscriptionDataRetrievalApi   *AccessAndMobilitySubscriptionDataRetrievalApiService
-	GPSIToSUPITranslationApi                        *GPSIToSUPITranslationApiService
-	ProvidingAcknowledgementOfSteeringOfRoamingApi  *ProvidingAcknowledgementOfSteeringOfRoamingApiService
-	ProvidingAcknowledgementOfUEParametersUpdateApi *ProvidingAcknowledgementOfUEParametersUpdateApiService
-	RetrievalOfMultipleDataSetsApi                  *RetrievalOfMultipleDataSetsApiService
-	RetrievalOfSharedDataApi                        *RetrievalOfSharedDataApiService
-	SMFSelectionSubscriptionDataRetrievalApi        *SMFSelectionSubscriptionDataRetrievalApiService
-	SMSManagementSubscriptionDataRetrievalApi       *SMSManagementSubscriptionDataRetrievalApiService
-	SMSSubscriptionDataRetrievalApi                 *SMSSubscriptionDataRetrievalApiService
-	SessionManagementSubscriptionDataRetrievalApi   *SessionManagementSubscriptionDataRetrievalApiService
-	SliceSelectionSubscriptionDataRetrievalApi      *SliceSelectionSubscriptionDataRetrievalApiService
-	SubscriptionCreationApi                         *SubscriptionCreationApiService
-	SubscriptionCreationForSharedDataApi            *SubscriptionCreationForSharedDataApiService
-	SubscriptionDeletionApi                         *SubscriptionDeletionApiService
-	SubscriptionDeletionForSharedDataApi            *SubscriptionDeletionForSharedDataApiService
-	SubscriptionModificationApi                     *SubscriptionModificationApiService
-	TraceConfigurationDataRetrievalApi              *TraceConfigurationDataRetrievalApiService
-	UEContextInSMFDataRetrievalApi                  *UEContextInSMFDataRetrievalApiService
-	UEContextInSMSFDataRetrievalApi                 *UEContextInSMSFDataRetrievalApiService
-	DataChangeNotificationCallbackDocumentApi       *DataChangeNotificationCallbackDocumentApiService
+	AccessAndMobilitySubscriptionDataRetrievalApi	*AccessAndMobilitySubscriptionDataRetrievalApiService
+	GPSIToSUPITranslationApi			*GPSIToSUPITranslationApiService
+	ProvidingAcknowledgementOfSteeringOfRoamingApi	*ProvidingAcknowledgementOfSteeringOfRoamingApiService
+	ProvidingAcknowledgementOfUEParametersUpdateApi	*ProvidingAcknowledgementOfUEParametersUpdateApiService
+	RetrievalOfMultipleDataSetsApi			*RetrievalOfMultipleDataSetsApiService
+	RetrievalOfSharedDataApi			*RetrievalOfSharedDataApiService
+	SMFSelectionSubscriptionDataRetrievalApi	*SMFSelectionSubscriptionDataRetrievalApiService
+	SMSManagementSubscriptionDataRetrievalApi	*SMSManagementSubscriptionDataRetrievalApiService
+	SMSSubscriptionDataRetrievalApi			*SMSSubscriptionDataRetrievalApiService
+	SessionManagementSubscriptionDataRetrievalApi	*SessionManagementSubscriptionDataRetrievalApiService
+	SliceSelectionSubscriptionDataRetrievalApi	*SliceSelectionSubscriptionDataRetrievalApiService
+	SubscriptionCreationApi				*SubscriptionCreationApiService
+	SubscriptionCreationForSharedDataApi		*SubscriptionCreationForSharedDataApiService
+	SubscriptionDeletionApi				*SubscriptionDeletionApiService
+	SubscriptionDeletionForSharedDataApi		*SubscriptionDeletionForSharedDataApiService
+	SubscriptionModificationApi			*SubscriptionModificationApiService
+	TraceConfigurationDataRetrievalApi		*TraceConfigurationDataRetrievalApiService
+	UEContextInSMFDataRetrievalApi			*UEContextInSMFDataRetrievalApiService
+	UEContextInSMSFDataRetrievalApi			*UEContextInSMSFDataRetrievalApiService
+	DataChangeNotificationCallbackDocumentApi	*DataChangeNotificationCallbackDocumentApiService
 }
 
 type service struct {

@@ -10,6 +10,6 @@
 package models
 
 type TerminationNotification struct {
-	ResourceUri string                        `json:"resourceUri" yaml:"resourceUri" bson:"resourceUri" mapstructure:"ResourceUri"`
-	Cause       PolicyAssociationReleaseCause `json:"cause" yaml:"cause" bson:"cause" mapstructure:"Cause"`
+	ResourceUri	string				`json:"resourceUri" yaml:"resourceUri" bson:"resourceUri" mapstructure:"ResourceUri"`
+	Cause		PolicyAssociationReleaseCause	`json:"cause" yaml:"cause" bson:"cause" mapstructure:"Cause"`
 }

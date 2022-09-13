@@ -11,7 +11,7 @@ package models
 
 type WebsockNotifConfig struct {
 	// string formatted according to IETF RFC 3986 identifying a referenced resource.
-	WebsocketUri string `json:"websocketUri,omitempty" yaml:"websocketUri" bson:"websocketUri" mapstructure:"WebsocketUri"`
+	WebsocketUri	string	`json:"websocketUri,omitempty" yaml:"websocketUri" bson:"websocketUri" mapstructure:"WebsocketUri"`
 	// Set by the SCS/AS to indicate that the Websocket delivery is requested.
-	RequestWebsocketUri bool `json:"requestWebsocketUri,omitempty" yaml:"requestWebsocketUri" bson:"requestWebsocketUri" mapstructure:"RequestWebsocketUri"`
+	RequestWebsocketUri	bool	`json:"requestWebsocketUri,omitempty" yaml:"requestWebsocketUri" bson:"requestWebsocketUri" mapstructure:"RequestWebsocketUri"`
 }

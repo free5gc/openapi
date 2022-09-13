@@ -10,7 +10,7 @@
 package models
 
 type Nssai struct {
-	SupportedFeatures   string   `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
-	DefaultSingleNssais []Snssai `json:"defaultSingleNssais" yaml:"defaultSingleNssais" bson:"defaultSingleNssais" mapstructure:"DefaultSingleNssais"`
-	SingleNssais        []Snssai `json:"singleNssais,omitempty" yaml:"singleNssais" bson:"singleNssais" mapstructure:"SingleNssais"`
+	SupportedFeatures	string		`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	DefaultSingleNssais	[]Snssai	`json:"defaultSingleNssais" yaml:"defaultSingleNssais" bson:"defaultSingleNssais" mapstructure:"DefaultSingleNssais"`
+	SingleNssais		[]Snssai	`json:"singleNssais,omitempty" yaml:"singleNssais" bson:"singleNssais" mapstructure:"SingleNssais"`
 }

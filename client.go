@@ -37,7 +37,7 @@ import (
 )
 
 var (
-	innerHTTP2Client = &http.Client{
+	innerHTTP2Client	= &http.Client{
 		Transport: &http2.Transport{
 			TLSClientConfig: &tls.Config{
 				InsecureSkipVerify: true,
@@ -45,9 +45,9 @@ var (
 		},
 	}
 
-	innerHTTP2CleartextClient = &http.Client{
+	innerHTTP2CleartextClient	= &http.Client{
 		Transport: &http2.Transport{
-			AllowHTTP: true,
+			AllowHTTP:	true,
 			DialTLS: func(network, addr string, cfg *tls.Config) (net.Conn, error) {
 				return net.Dial(network, addr)
 			},
@@ -383,12 +383,12 @@ func PrepareRequest(
 
 		for k, v := range formParams {
 			for _, iv := range v {
-				if strings.HasPrefix(k, "@") { // file
+				if strings.HasPrefix(k, "@") {	// file
 					err = addFile(w, k[1:], iv)
 					if err != nil {
 						return nil, err
 					}
-				} else { // form value
+				} else {	// form value
 					w.WriteField(k, iv)
 				}
 			}

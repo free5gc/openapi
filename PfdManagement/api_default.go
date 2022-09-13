@@ -37,12 +37,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsGet(ctx context.Context, scsAsId string) ([]models.PfdManagement, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []models.PfdManagement
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	[]models.PfdManagement
 	)
 
 	// create path and map variables
@@ -55,7 +55,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsGet(ctx context.Context, scsAsId 
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -83,8 +83,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsGet(ctx context.Context, scsAsId 
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -181,12 +181,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsPost(ctx context.Context, scsAsId string, pfdManagement models.PfdManagement) (models.PfdManagement, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PfdManagement
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PfdManagement
 	)
 
 	// create path and map variables
@@ -199,7 +199,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsPost(ctx context.Context, scsAsId
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -230,8 +230,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsPost(ctx context.Context, scsAsId
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -346,11 +346,11 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdDelete(ctx context.Context, scsAsId string, transactionId string, appId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Delete")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Delete")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -365,7 +365,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdDel
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -393,8 +393,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdDel
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -479,12 +479,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdGet(ctx context.Context, scsAsId string, transactionId string, appId string) (models.PfdData, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PfdData
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PfdData
 	)
 
 	// create path and map variables
@@ -499,7 +499,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdGet
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -527,8 +527,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdGet
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -627,12 +627,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdPatch(ctx context.Context, scsAsId string, transactionId string, appId string, pfdData models.PfdData) (models.PfdData, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Patch")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PfdData
+		localVarHTTPMethod	= strings.ToUpper("Patch")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PfdData
 	)
 
 	// create path and map variables
@@ -647,7 +647,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdPat
 
 	localVarHTTPContentTypes := []string{"application/merge-patch+json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -678,8 +678,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdPat
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -805,12 +805,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdPut(ctx context.Context, scsAsId string, transactionId string, appId string, pfdData models.PfdData) (models.PfdData, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Put")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PfdData
+		localVarHTTPMethod	= strings.ToUpper("Put")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PfdData
 	)
 
 	// create path and map variables
@@ -825,7 +825,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdPut
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -856,8 +856,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdApplicationsAppIdPut
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -980,11 +980,11 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdDelete(ctx context.Context, scsAsId string, transactionId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Delete")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Delete")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -998,7 +998,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdDelete(ctx context.C
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -1026,8 +1026,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdDelete(ctx context.C
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -1111,12 +1111,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdGet(ctx context.Context, scsAsId string, transactionId string) (models.PfdManagement, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PfdManagement
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PfdManagement
 	)
 
 	// create path and map variables
@@ -1130,7 +1130,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdGet(ctx context.Cont
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -1158,8 +1158,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdGet(ctx context.Cont
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -1257,12 +1257,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdPut(ctx context.Context, scsAsId string, transactionId string, pfdManagement models.PfdManagement) (models.PfdManagement, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Put")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PfdManagement
+		localVarHTTPMethod	= strings.ToUpper("Put")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PfdManagement
 	)
 
 	// create path and map variables
@@ -1276,7 +1276,7 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdPut(ctx context.Cont
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -1307,8 +1307,8 @@ func (a *DefaultApiService) ScsAsIdTransactionsTransactionIdPut(ctx context.Cont
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

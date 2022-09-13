@@ -20,11 +20,11 @@ type DataChangeNotifyCallbackDocumentApiService service
 
 func (a *DataChangeNotifyCallbackDocumentApiService) OnDataChangeNotify(ctx context.Context, onDataChangeNotifyUrl string, request models.DataChangeNotify) (*http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -34,7 +34,7 @@ func (a *DataChangeNotifyCallbackDocumentApiService) OnDataChangeNotify(ctx cont
 	localVarFormParams := url.Values{}
 
 	localVarHttpContentTypes := []string{"application/json"}
-	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/problem+json"}
@@ -65,8 +65,8 @@ func (a *DataChangeNotifyCallbackDocumentApiService) OnDataChangeNotify(ctx cont
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 	switch localVarHttpResponse.StatusCode {
 

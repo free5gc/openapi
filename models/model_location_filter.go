@@ -13,9 +13,9 @@ type LocationFilter string
 
 // List of LocationFilter
 const (
-	LocationFilter_TAI      LocationFilter = "TAI"
-	LocationFilter_CELL_ID  LocationFilter = "CELL_ID"
-	LocationFilter_N3_IWF   LocationFilter = "N3IWF"
-	LocationFilter_UE_IP    LocationFilter = "UE_IP"
-	LocationFilter_UDP_PORT LocationFilter = "UDP_PORT"
+	LocationFilter_TAI	LocationFilter	= "TAI"
+	LocationFilter_CELL_ID	LocationFilter	= "CELL_ID"
+	LocationFilter_N3_IWF	LocationFilter	= "N3IWF"
+	LocationFilter_UE_IP	LocationFilter	= "UE_IP"
+	LocationFilter_UDP_PORT	LocationFilter	= "UDP_PORT"
 )

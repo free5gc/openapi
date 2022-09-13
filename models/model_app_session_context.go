@@ -11,7 +11,7 @@ package models
 
 // Represents an Individual Application Session Context resource.
 type AppSessionContext struct {
-	AscReqData  *AppSessionContextReqData  `json:"ascReqData,omitempty" yaml:"ascReqData" bson:"ascReqData" mapstructure:"AscReqData"`
-	AscRespData *AppSessionContextRespData `json:"ascRespData,omitempty" yaml:"ascRespData" bson:"ascRespData" mapstructure:"AscRespData"`
-	EvsNotif    *EventsNotification        `json:"evsNotif,omitempty" yaml:"evsNotif" bson:"evsNotif" mapstructure:"EvsNotif"`
+	AscReqData	*AppSessionContextReqData	`json:"ascReqData,omitempty" yaml:"ascReqData" bson:"ascReqData" mapstructure:"AscReqData"`
+	AscRespData	*AppSessionContextRespData	`json:"ascRespData,omitempty" yaml:"ascRespData" bson:"ascRespData" mapstructure:"AscRespData"`
+	EvsNotif	*EventsNotification		`json:"evsNotif,omitempty" yaml:"evsNotif" bson:"evsNotif" mapstructure:"EvsNotif"`
 }

@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * Nudr_DataRepository API OpenAPI file
@@ -14,50 +15,50 @@ package Nudr_DataRepository
 // APIClient manages communication with the Nudr_DataRepository API OpenAPI file API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	AMF3GPPAccessRegistrationDocumentApi            *AMF3GPPAccessRegistrationDocumentApiService
-	AMFNon3GPPAccessRegistrationDocumentApi         *AMFNon3GPPAccessRegistrationDocumentApiService
-	AccessAndMobilityDataApi                        *AccessAndMobilityDataApiService
-	AccessAndMobilitySubscriptionDataDocumentApi    *AccessAndMobilitySubscriptionDataDocumentApiService
-	AmfSubscriptionInfoDocumentApi                  *AmfSubscriptionInfoDocumentApiService
-	AuthEventDocumentApi                            *AuthEventDocumentApiService
-	AuthenticationDataDocumentApi                   *AuthenticationDataDocumentApiService
-	AuthenticationSoRDocumentApi                    *AuthenticationSoRDocumentApiService
-	AuthenticationStatusDocumentApi                 *AuthenticationStatusDocumentApiService
-	CreateAMFSubscriptionInfoDocumentApi            *CreateAMFSubscriptionInfoDocumentApiService
-	DefaultApi                                      *DefaultApiService
-	EventAMFSubscriptionInfoDocumentApi             *EventAMFSubscriptionInfoDocumentApiService
-	EventExposureDataDocumentApi                    *EventExposureDataDocumentApiService
-	EventExposureGroupSubscriptionsCollectionApi    *EventExposureGroupSubscriptionsCollectionApiService
-	EventExposureSubscriptionDocumentApi            *EventExposureSubscriptionDocumentApiService
-	EventExposureSubscriptionsCollectionApi         *EventExposureSubscriptionsCollectionApiService
-	OperatorSpecificDataContainerDocumentApi        *OperatorSpecificDataContainerDocumentApiService
-	ParameterProvisionDocumentApi                   *ParameterProvisionDocumentApiService
-	PduSessionManagementDataApi                     *PduSessionManagementDataApiService
-	ProvisionedDataDocumentApi                      *ProvisionedDataDocumentApiService
-	ProvisionedParameterDataDocumentApi             *ProvisionedParameterDataDocumentApiService
-	QueryAMFSubscriptionInfoDocumentApi             *QueryAMFSubscriptionInfoDocumentApiService
-	QueryIdentityDataBySUPIOrGPSIDocumentApi        *QueryIdentityDataBySUPIOrGPSIDocumentApiService
-	QueryODBDataBySUPIOrGPSIDocumentApi             *QueryODBDataBySUPIOrGPSIDocumentApiService
-	RetrievalOfSharedDataApi                        *RetrievalOfSharedDataApiService
-	SDMSubscriptionDocumentApi                      *SDMSubscriptionDocumentApiService
-	SDMSubscriptionsCollectionApi                   *SDMSubscriptionsCollectionApiService
-	SMFRegistrationDocumentApi                      *SMFRegistrationDocumentApiService
-	SMFRegistrationsCollectionApi                   *SMFRegistrationsCollectionApiService
-	SMFSelectionSubscriptionDataDocumentApi         *SMFSelectionSubscriptionDataDocumentApiService
-	SMSF3GPPRegistrationDocumentApi                 *SMSF3GPPRegistrationDocumentApiService
-	SMSFNon3GPPRegistrationDocumentApi              *SMSFNon3GPPRegistrationDocumentApiService
-	SMSManagementSubscriptionDataDocumentApi        *SMSManagementSubscriptionDataDocumentApiService
-	SMSSubscriptionDataDocumentApi                  *SMSSubscriptionDataDocumentApiService
-	SessionManagementSubscriptionDataApi            *SessionManagementSubscriptionDataApiService
-	SubsToNofifyCollectionApi                       *SubsToNofifyCollectionApiService
-	SubsToNotifyDocumentApi                         *SubsToNotifyDocumentApiService
-	TraceDataDocumentApi                            *TraceDataDocumentApiService
-	DataChangeNotifyCallbackDocumentApi             *DataChangeNotifyCallbackDocumentApiService
-	PolicyDataChangeNotificationCallbackDocumentApi *PolicyDataChangeNotificationCallbackDocumentApiService
+	AMF3GPPAccessRegistrationDocumentApi		*AMF3GPPAccessRegistrationDocumentApiService
+	AMFNon3GPPAccessRegistrationDocumentApi		*AMFNon3GPPAccessRegistrationDocumentApiService
+	AccessAndMobilityDataApi			*AccessAndMobilityDataApiService
+	AccessAndMobilitySubscriptionDataDocumentApi	*AccessAndMobilitySubscriptionDataDocumentApiService
+	AmfSubscriptionInfoDocumentApi			*AmfSubscriptionInfoDocumentApiService
+	AuthEventDocumentApi				*AuthEventDocumentApiService
+	AuthenticationDataDocumentApi			*AuthenticationDataDocumentApiService
+	AuthenticationSoRDocumentApi			*AuthenticationSoRDocumentApiService
+	AuthenticationStatusDocumentApi			*AuthenticationStatusDocumentApiService
+	CreateAMFSubscriptionInfoDocumentApi		*CreateAMFSubscriptionInfoDocumentApiService
+	DefaultApi					*DefaultApiService
+	EventAMFSubscriptionInfoDocumentApi		*EventAMFSubscriptionInfoDocumentApiService
+	EventExposureDataDocumentApi			*EventExposureDataDocumentApiService
+	EventExposureGroupSubscriptionsCollectionApi	*EventExposureGroupSubscriptionsCollectionApiService
+	EventExposureSubscriptionDocumentApi		*EventExposureSubscriptionDocumentApiService
+	EventExposureSubscriptionsCollectionApi		*EventExposureSubscriptionsCollectionApiService
+	OperatorSpecificDataContainerDocumentApi	*OperatorSpecificDataContainerDocumentApiService
+	ParameterProvisionDocumentApi			*ParameterProvisionDocumentApiService
+	PduSessionManagementDataApi			*PduSessionManagementDataApiService
+	ProvisionedDataDocumentApi			*ProvisionedDataDocumentApiService
+	ProvisionedParameterDataDocumentApi		*ProvisionedParameterDataDocumentApiService
+	QueryAMFSubscriptionInfoDocumentApi		*QueryAMFSubscriptionInfoDocumentApiService
+	QueryIdentityDataBySUPIOrGPSIDocumentApi	*QueryIdentityDataBySUPIOrGPSIDocumentApiService
+	QueryODBDataBySUPIOrGPSIDocumentApi		*QueryODBDataBySUPIOrGPSIDocumentApiService
+	RetrievalOfSharedDataApi			*RetrievalOfSharedDataApiService
+	SDMSubscriptionDocumentApi			*SDMSubscriptionDocumentApiService
+	SDMSubscriptionsCollectionApi			*SDMSubscriptionsCollectionApiService
+	SMFRegistrationDocumentApi			*SMFRegistrationDocumentApiService
+	SMFRegistrationsCollectionApi			*SMFRegistrationsCollectionApiService
+	SMFSelectionSubscriptionDataDocumentApi		*SMFSelectionSubscriptionDataDocumentApiService
+	SMSF3GPPRegistrationDocumentApi			*SMSF3GPPRegistrationDocumentApiService
+	SMSFNon3GPPRegistrationDocumentApi		*SMSFNon3GPPRegistrationDocumentApiService
+	SMSManagementSubscriptionDataDocumentApi	*SMSManagementSubscriptionDataDocumentApiService
+	SMSSubscriptionDataDocumentApi			*SMSSubscriptionDataDocumentApiService
+	SessionManagementSubscriptionDataApi		*SessionManagementSubscriptionDataApiService
+	SubsToNofifyCollectionApi			*SubsToNofifyCollectionApiService
+	SubsToNotifyDocumentApi				*SubsToNotifyDocumentApiService
+	TraceDataDocumentApi				*TraceDataDocumentApiService
+	DataChangeNotifyCallbackDocumentApi		*DataChangeNotifyCallbackDocumentApiService
+	PolicyDataChangeNotificationCallbackDocumentApi	*PolicyDataChangeNotificationCallbackDocumentApiService
 }
 
 type service struct {

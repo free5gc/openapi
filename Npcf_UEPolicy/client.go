@@ -33,19 +33,19 @@ import (
 )
 
 var (
-	jsonCheck = regexp.MustCompile("(?i:[application|text]/json)")
-	xmlCheck  = regexp.MustCompile("(?i:[application|text]/xml)")
+	jsonCheck	= regexp.MustCompile("(?i:[application|text]/json)")
+	xmlCheck	= regexp.MustCompile("(?i:[application|text]/xml)")
 )
 
 // APIClient manages communication with the Npcf_UEPolicyControl API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
 
-	DefaultApi *DefaultApiService
+	DefaultApi	*DefaultApiService
 }
 
 type service struct {
@@ -77,7 +77,7 @@ func selectHeaderContentType(contentTypes []string) string {
 	if contains(contentTypes, "application/json") {
 		return "application/json"
 	}
-	return contentTypes[0] // use the first content type specified in 'consumes'
+	return contentTypes[0]	// use the first content type specified in 'consumes'
 }
 
 // selectHeaderAccept join all accept types and return
@@ -189,12 +189,12 @@ func (c *APIClient) prepareRequest(
 
 		for k, v := range formParams {
 			for _, iv := range v {
-				if strings.HasPrefix(k, "@") { // file
+				if strings.HasPrefix(k, "@") {	// file
 					err = addFile(w, k[1:], iv)
 					if err != nil {
 						return nil, err
 					}
-				} else { // form value
+				} else {	// form value
 					w.WriteField(k, iv)
 				}
 			}
@@ -453,9 +453,9 @@ func strlen(s string) int {
 
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
-	body  []byte
-	error string
-	model interface{}
+	body	[]byte
+	error	string
+	model	interface{}
 }
 
 // Error returns non-empty string if there was an error.

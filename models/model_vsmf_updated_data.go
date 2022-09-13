@@ -10,17 +10,17 @@
 package models
 
 type VsmfUpdatedData struct {
-	QosFlowsAddModList         []QosFlowItem             `json:"qosFlowsAddModList,omitempty"`
-	QosFlowsRelList            []QosFlowItem             `json:"qosFlowsRelList,omitempty"`
-	QosFlowsFailedtoAddModList []QosFlowItem             `json:"qosFlowsFailedtoAddModList,omitempty"`
-	QosFlowsFailedtoRelList    []QosFlowItem             `json:"qosFlowsFailedtoRelList,omitempty"`
-	N1SmInfoFromUe             *RefToBinaryData          `json:"n1SmInfoFromUe,omitempty"`
-	UnknownN1SmInfo            *RefToBinaryData          `json:"unknownN1SmInfo,omitempty"`
-	UeLocation                 *UserLocation             `json:"ueLocation,omitempty"`
-	UeTimeZone                 string                    `json:"ueTimeZone,omitempty"`
-	AddUeLocation              *UserLocation             `json:"addUeLocation,omitempty"`
-	AssignedEbiList            []EbiArpMapping           `json:"assignedEbiList,omitempty"`
-	FailedToAssignEbiList      []int32                   `json:"failedToAssignEbiList,omitempty"`
-	ReleasedEbiList            []int32                   `json:"releasedEbiList,omitempty"`
-	SecondaryRatUsageReport    []SecondaryRatUsageReport `json:"secondaryRatUsageReport,omitempty"`
+	QosFlowsAddModList		[]QosFlowItem			`json:"qosFlowsAddModList,omitempty"`
+	QosFlowsRelList			[]QosFlowItem			`json:"qosFlowsRelList,omitempty"`
+	QosFlowsFailedtoAddModList	[]QosFlowItem			`json:"qosFlowsFailedtoAddModList,omitempty"`
+	QosFlowsFailedtoRelList		[]QosFlowItem			`json:"qosFlowsFailedtoRelList,omitempty"`
+	N1SmInfoFromUe			*RefToBinaryData		`json:"n1SmInfoFromUe,omitempty"`
+	UnknownN1SmInfo			*RefToBinaryData		`json:"unknownN1SmInfo,omitempty"`
+	UeLocation			*UserLocation			`json:"ueLocation,omitempty"`
+	UeTimeZone			string				`json:"ueTimeZone,omitempty"`
+	AddUeLocation			*UserLocation			`json:"addUeLocation,omitempty"`
+	AssignedEbiList			[]EbiArpMapping			`json:"assignedEbiList,omitempty"`
+	FailedToAssignEbiList		[]int32				`json:"failedToAssignEbiList,omitempty"`
+	ReleasedEbiList			[]int32				`json:"releasedEbiList,omitempty"`
+	SecondaryRatUsageReport		[]SecondaryRatUsageReport	`json:"secondaryRatUsageReport,omitempty"`
 }

@@ -10,7 +10,7 @@
 package models
 
 type DataChangeNotify struct {
-	OriginalCallbackReference []string     `json:"originalCallbackReference,omitempty" bson:"originalCallbackReference"`
-	UeId                      string       `json:"ueId,omitempty" bson:"ueId"`
-	NotifyItems               []NotifyItem `json:"notifyItems,omitempty" bson:"notifyItems"`
+	OriginalCallbackReference	[]string	`json:"originalCallbackReference,omitempty" bson:"originalCallbackReference"`
+	UeId				string		`json:"ueId,omitempty" bson:"ueId"`
+	NotifyItems			[]NotifyItem	`json:"notifyItems,omitempty" bson:"notifyItems"`
 }

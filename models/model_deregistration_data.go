@@ -10,6 +10,6 @@
 package models
 
 type DeregistrationData struct {
-	DeregReason DeregistrationReason `json:"deregReason" yaml:"deregReason" bson:"deregReason" mapstructure:"DeregReason"`
-	AccessType  AccessType           `json:"accessType" yaml:"accessType" bson:"accessType" mapstructure:"AccessType"`
+	DeregReason	DeregistrationReason	`json:"deregReason" yaml:"deregReason" bson:"deregReason" mapstructure:"DeregReason"`
+	AccessType	AccessType		`json:"accessType" yaml:"accessType" bson:"accessType" mapstructure:"AccessType"`
 }

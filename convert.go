@@ -19,8 +19,8 @@ func openAPIDecodeHook(from reflect.Type, to reflect.Type, v interface{}) (inter
 // Convert - convert map[string]interface{} to openapi models
 func Convert(from interface{}, to interface{}) error {
 	config := mapstructure.DecoderConfig{
-		DecodeHook: openAPIDecodeHook,
-		Result:     to,
+		DecodeHook:	openAPIDecodeHook,
+		Result:		to,
 	}
 
 	decoder, err := mapstructure.NewDecoder(&config)

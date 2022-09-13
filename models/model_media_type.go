@@ -13,12 +13,12 @@ type MediaType string
 
 // List of MediaType
 const (
-	MediaType_AUDIO       MediaType = "AUDIO"
-	MediaType_VIDEO       MediaType = "VIDEO"
-	MediaType_DATA        MediaType = "DATA"
-	MediaType_APPLICATION MediaType = "APPLICATION"
-	MediaType_CONTROL     MediaType = "CONTROL"
-	MediaType_TEXT        MediaType = "TEXT"
-	MediaType_MESSAGE     MediaType = "MESSAGE"
-	MediaType_OTHER       MediaType = "OTHER"
+	MediaType_AUDIO		MediaType	= "AUDIO"
+	MediaType_VIDEO		MediaType	= "VIDEO"
+	MediaType_DATA		MediaType	= "DATA"
+	MediaType_APPLICATION	MediaType	= "APPLICATION"
+	MediaType_CONTROL	MediaType	= "CONTROL"
+	MediaType_TEXT		MediaType	= "TEXT"
+	MediaType_MESSAGE	MediaType	= "MESSAGE"
+	MediaType_OTHER		MediaType	= "OTHER"
 )

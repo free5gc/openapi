@@ -11,19 +11,19 @@ package models
 
 type AccuUsageReport struct {
 	// An id referencing UsageMonitoringData objects associated with this usage report.
-	RefUmIds string `json:"refUmIds" yaml:"refUmIds" bson:"refUmIds" mapstructure:"RefUmIds"`
+	RefUmIds	string	`json:"refUmIds" yaml:"refUmIds" bson:"refUmIds" mapstructure:"RefUmIds"`
 	// Unsigned integer identifying a volume in units of bytes.
-	VolUsage int64 `json:"volUsage,omitempty" yaml:"volUsage" bson:"volUsage" mapstructure:"VolUsage"`
+	VolUsage	int64	`json:"volUsage,omitempty" yaml:"volUsage" bson:"volUsage" mapstructure:"VolUsage"`
 	// Unsigned integer identifying a volume in units of bytes.
-	VolUsageUplink int64 `json:"volUsageUplink,omitempty" yaml:"volUsageUplink" bson:"volUsageUplink" mapstructure:"VolUsageUplink"`
+	VolUsageUplink	int64	`json:"volUsageUplink,omitempty" yaml:"volUsageUplink" bson:"volUsageUplink" mapstructure:"VolUsageUplink"`
 	// Unsigned integer identifying a volume in units of bytes.
-	VolUsageDownlink int64 `json:"volUsageDownlink,omitempty" yaml:"volUsageDownlink" bson:"volUsageDownlink" mapstructure:"VolUsageDownlink"`
-	TimeUsage        int32 `json:"timeUsage,omitempty" yaml:"timeUsage" bson:"timeUsage" mapstructure:"TimeUsage"`
+	VolUsageDownlink	int64	`json:"volUsageDownlink,omitempty" yaml:"volUsageDownlink" bson:"volUsageDownlink" mapstructure:"VolUsageDownlink"`
+	TimeUsage		int32	`json:"timeUsage,omitempty" yaml:"timeUsage" bson:"timeUsage" mapstructure:"TimeUsage"`
 	// Unsigned integer identifying a volume in units of bytes.
-	NextVolUsage int64 `json:"nextVolUsage,omitempty" yaml:"nextVolUsage" bson:"nextVolUsage" mapstructure:"NextVolUsage"`
+	NextVolUsage	int64	`json:"nextVolUsage,omitempty" yaml:"nextVolUsage" bson:"nextVolUsage" mapstructure:"NextVolUsage"`
 	// Unsigned integer identifying a volume in units of bytes.
-	NextVolUsageUplink int64 `json:"nextVolUsageUplink,omitempty" yaml:"nextVolUsageUplink" bson:"nextVolUsageUplink" mapstructure:"NextVolUsageUplink"`
+	NextVolUsageUplink	int64	`json:"nextVolUsageUplink,omitempty" yaml:"nextVolUsageUplink" bson:"nextVolUsageUplink" mapstructure:"NextVolUsageUplink"`
 	// Unsigned integer identifying a volume in units of bytes.
-	NextVolUsageDownlink int64 `json:"nextVolUsageDownlink,omitempty" yaml:"nextVolUsageDownlink" bson:"nextVolUsageDownlink" mapstructure:"NextVolUsageDownlink"`
-	NextTimeUsage        int32 `json:"nextTimeUsage,omitempty" yaml:"nextTimeUsage" bson:"nextTimeUsage" mapstructure:"NextTimeUsage"`
+	NextVolUsageDownlink	int64	`json:"nextVolUsageDownlink,omitempty" yaml:"nextVolUsageDownlink" bson:"nextVolUsageDownlink" mapstructure:"NextVolUsageDownlink"`
+	NextTimeUsage		int32	`json:"nextTimeUsage,omitempty" yaml:"nextTimeUsage" bson:"nextTimeUsage" mapstructure:"NextTimeUsage"`
 }

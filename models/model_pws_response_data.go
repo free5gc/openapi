@@ -10,8 +10,8 @@
 package models
 
 type PwsResponseData struct {
-	NgapMessageType   int32  `json:"ngapMessageType"`
-	SerialNumber      int32  `json:"serialNumber"`
-	MessageIdentifier int32  `json:"messageIdentifier"`
-	UnknownTaiList    *[]Tai `json:"unknownTaiList,omitempty"`
+	NgapMessageType		int32	`json:"ngapMessageType"`
+	SerialNumber		int32	`json:"serialNumber"`
+	MessageIdentifier	int32	`json:"messageIdentifier"`
+	UnknownTaiList		*[]Tai	`json:"unknownTaiList,omitempty"`
 }

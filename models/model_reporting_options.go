@@ -14,6 +14,6 @@ import (
 )
 
 type ReportingOptions struct {
-	MaxNumOfReports int32      `json:"maxNumOfReports,omitempty" yaml:"maxNumOfReports" bson:"maxNumOfReports" mapstructure:"MaxNumOfReports"`
-	Expiry          *time.Time `json:"expiry,omitempty" yaml:"expiry" bson:"expiry" mapstructure:"Expiry"`
+	MaxNumOfReports	int32		`json:"maxNumOfReports,omitempty" yaml:"maxNumOfReports" bson:"maxNumOfReports" mapstructure:"MaxNumOfReports"`
+	Expiry		*time.Time	`json:"expiry,omitempty" yaml:"expiry" bson:"expiry" mapstructure:"Expiry"`
 }

@@ -10,11 +10,11 @@
 package models
 
 type SharedData struct {
-	SharedDataId            string                             `json:"sharedDataId" yaml:"sharedDataId" bson:"sharedDataId" mapstructure:"SharedDataId"`
-	SharedAmData            *AccessAndMobilitySubscriptionData `json:"sharedAmData,omitempty" yaml:"sharedAmData" bson:"sharedAmData" mapstructure:"SharedAmData"`
-	SharedSmsSubsData       *SmsSubscriptionData               `json:"sharedSmsSubsData,omitempty" yaml:"sharedSmsSubsData" bson:"sharedSmsSubsData" mapstructure:"SharedSmsSubsData"`
-	SharedSmsMngSubsData    *SmsManagementSubscriptionData     `json:"sharedSmsMngSubsData,omitempty" yaml:"sharedSmsMngSubsData" bson:"sharedSmsMngSubsData" mapstructure:"SharedSmsMngSubsData"`
-	SharedDnnConfigurations map[string]DnnConfiguration        `json:"sharedDnnConfigurations,omitempty" yaml:"sharedDnnConfigurations" bson:"sharedDnnConfigurations" mapstructure:"SharedDnnConfigurations"`
-	SharedTraceData         *TraceData                         `json:"sharedTraceData,omitempty" yaml:"sharedTraceData" bson:"sharedTraceData" mapstructure:"SharedTraceData"`
-	SharedSnssaiInfos       map[string]SnssaiInfo              `json:"sharedSnssaiInfos,omitempty" yaml:"sharedSnssaiInfos" bson:"sharedSnssaiInfos" mapstructure:"SharedSnssaiInfos"`
+	SharedDataId		string					`json:"sharedDataId" yaml:"sharedDataId" bson:"sharedDataId" mapstructure:"SharedDataId"`
+	SharedAmData		*AccessAndMobilitySubscriptionData	`json:"sharedAmData,omitempty" yaml:"sharedAmData" bson:"sharedAmData" mapstructure:"SharedAmData"`
+	SharedSmsSubsData	*SmsSubscriptionData			`json:"sharedSmsSubsData,omitempty" yaml:"sharedSmsSubsData" bson:"sharedSmsSubsData" mapstructure:"SharedSmsSubsData"`
+	SharedSmsMngSubsData	*SmsManagementSubscriptionData		`json:"sharedSmsMngSubsData,omitempty" yaml:"sharedSmsMngSubsData" bson:"sharedSmsMngSubsData" mapstructure:"SharedSmsMngSubsData"`
+	SharedDnnConfigurations	map[string]DnnConfiguration		`json:"sharedDnnConfigurations,omitempty" yaml:"sharedDnnConfigurations" bson:"sharedDnnConfigurations" mapstructure:"SharedDnnConfigurations"`
+	SharedTraceData		*TraceData				`json:"sharedTraceData,omitempty" yaml:"sharedTraceData" bson:"sharedTraceData" mapstructure:"SharedTraceData"`
+	SharedSnssaiInfos	map[string]SnssaiInfo			`json:"sharedSnssaiInfos,omitempty" yaml:"sharedSnssaiInfos" bson:"sharedSnssaiInfos" mapstructure:"SharedSnssaiInfos"`
 }

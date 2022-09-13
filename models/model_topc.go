@@ -10,7 +10,7 @@
 package models
 
 type Topc struct {
-	TopcValue           string `json:"topcValue" bson:"topcValue"`
-	EncryptionKey       int32  `json:"encryptionKey" bson:"encryptionKey"`
-	EncryptionAlgorithm int32  `json:"encryptionAlgorithm" bson:"encryptionAlgorithm"`
+	TopcValue		string	`json:"topcValue" bson:"topcValue"`
+	EncryptionKey		int32	`json:"encryptionKey" bson:"encryptionKey"`
+	EncryptionAlgorithm	int32	`json:"encryptionAlgorithm" bson:"encryptionAlgorithm"`
 }

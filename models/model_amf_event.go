@@ -10,9 +10,9 @@
 package models
 
 type AmfEvent struct {
-	Type                     AmfEventType           `json:"type"`
-	ImmediateFlag            bool                   `json:"immediateFlag,omitempty"`
-	AreaList                 []AmfEventArea         `json:"areaList,omitempty"`
-	LocationFilterList       []LocationFilter       `json:"locationFilterList,omitempty"`
-	SubscribedDataFilterList []SubscribedDataFilter `json:"subscribedDataFilterList,omitempty"`
+	Type				AmfEventType		`json:"type"`
+	ImmediateFlag			bool			`json:"immediateFlag,omitempty"`
+	AreaList			[]AmfEventArea		`json:"areaList,omitempty"`
+	LocationFilterList		[]LocationFilter	`json:"locationFilterList,omitempty"`
+	SubscribedDataFilterList	[]SubscribedDataFilter	`json:"subscribedDataFilterList,omitempty"`
 }

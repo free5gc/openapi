@@ -10,16 +10,16 @@
 package models
 
 type AmfEventSubscription struct {
-	EventList                     *[]AmfEvent   `json:"eventList,omitempty"`
-	EventNotifyUri                string        `json:"eventNotifyUri"`
-	NotifyCorrelationId           string        `json:"notifyCorrelationId"`
-	NfId                          string        `json:"nfId"`
-	SubsChangeNotifyUri           string        `json:"subsChangeNotifyUri,omitempty"`
-	SubsChangeNotifyCorrelationId string        `json:"subsChangeNotifyCorrelationId,omitempty"`
-	Supi                          string        `json:"supi,omitempty"`
-	GroupId                       string        `json:"groupId,omitempty"`
-	Gpsi                          string        `json:"gpsi,omitempty"`
-	Pei                           string        `json:"pei,omitempty"`
-	AnyUE                         bool          `json:"anyUE,omitempty"`
-	Options                       *AmfEventMode `json:"options,omitempty"`
+	EventList			*[]AmfEvent	`json:"eventList,omitempty"`
+	EventNotifyUri			string		`json:"eventNotifyUri"`
+	NotifyCorrelationId		string		`json:"notifyCorrelationId"`
+	NfId				string		`json:"nfId"`
+	SubsChangeNotifyUri		string		`json:"subsChangeNotifyUri,omitempty"`
+	SubsChangeNotifyCorrelationId	string		`json:"subsChangeNotifyCorrelationId,omitempty"`
+	Supi				string		`json:"supi,omitempty"`
+	GroupId				string		`json:"groupId,omitempty"`
+	Gpsi				string		`json:"gpsi,omitempty"`
+	Pei				string		`json:"pei,omitempty"`
+	AnyUE				bool		`json:"anyUE,omitempty"`
+	Options				*AmfEventMode	`json:"options,omitempty"`
 }

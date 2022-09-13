@@ -13,6 +13,6 @@ type RatSelector string
 
 // List of RatSelector
 const (
-	RatSelector_E_UTRA RatSelector = "E-UTRA"
-	RatSelector_NR     RatSelector = "NR"
+	RatSelector_E_UTRA	RatSelector	= "E-UTRA"
+	RatSelector_NR		RatSelector	= "NR"
 )

@@ -10,7 +10,7 @@
 package models
 
 type NssfEventNotification struct {
-	SubscriptionId string `json:"subscriptionId" bson:"subscriptionId"`
+	SubscriptionId	string	`json:"subscriptionId" bson:"subscriptionId"`
 
-	AuthorizedNssaiAvailabilityData []AuthorizedNssaiAvailabilityData `json:"authorizedNssaiAvailabilityData" bson:"authorizedNssaiAvailabilityData"`
+	AuthorizedNssaiAvailabilityData	[]AuthorizedNssaiAvailabilityData	`json:"authorizedNssaiAvailabilityData" bson:"authorizedNssaiAvailabilityData"`
 }

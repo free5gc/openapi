@@ -29,11 +29,11 @@ type DefaultCallbackApiService service
 
 func (a *DefaultCallbackApiService) PolicyUpdateNotification(ctx context.Context, notifyUrl string, request models.PolicyUpdate) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -45,7 +45,7 @@ func (a *DefaultCallbackApiService) PolicyUpdateNotification(ctx context.Context
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -76,8 +76,8 @@ func (a *DefaultCallbackApiService) PolicyUpdateNotification(ctx context.Context
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -182,11 +182,11 @@ func (a *DefaultCallbackApiService) PolicyUpdateNotification(ctx context.Context
 
 func (a *DefaultCallbackApiService) PolicyAssocitionTerminationRequestNotification(ctx context.Context, notifyUrl string, request models.TerminationNotification) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -198,7 +198,7 @@ func (a *DefaultCallbackApiService) PolicyAssocitionTerminationRequestNotificati
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -229,8 +229,8 @@ func (a *DefaultCallbackApiService) PolicyAssocitionTerminationRequestNotificati
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

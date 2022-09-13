@@ -13,7 +13,7 @@ type PolicyAssociationReleaseCause string
 
 // List of PolicyAssociationReleaseCause
 const (
-	PolicyAssociationReleaseCause_UNSPECIFIED      PolicyAssociationReleaseCause = "UNSPECIFIED"
-	PolicyAssociationReleaseCause_UE_SUBSCRIPTION  PolicyAssociationReleaseCause = "UE_SUBSCRIPTION"
-	PolicyAssociationReleaseCause_INSUFFICIENT_RES PolicyAssociationReleaseCause = "INSUFFICIENT_RES"
+	PolicyAssociationReleaseCause_UNSPECIFIED	PolicyAssociationReleaseCause	= "UNSPECIFIED"
+	PolicyAssociationReleaseCause_UE_SUBSCRIPTION	PolicyAssociationReleaseCause	= "UE_SUBSCRIPTION"
+	PolicyAssociationReleaseCause_INSUFFICIENT_RES	PolicyAssociationReleaseCause	= "INSUFFICIENT_RES"
 )

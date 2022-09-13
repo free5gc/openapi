@@ -31,11 +31,11 @@ NotificationApiService Notifies about updates to NSSAI availability information
 
 func (a *NotificationApiService) NotificationPost(ctx context.Context, nrfNotificationData NotificationData) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -47,7 +47,7 @@ func (a *NotificationApiService) NotificationPost(ctx context.Context, nrfNotifi
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -78,8 +78,8 @@ func (a *NotificationApiService) NotificationPost(ctx context.Context, nrfNotifi
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

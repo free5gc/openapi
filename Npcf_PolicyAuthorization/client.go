@@ -12,15 +12,15 @@ package Npcf_PolicyAuthorization
 // APIClient manages communication with the Npcf_PolicyAuthorization Service API API v1.0.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	ApplicationSessionsCollectionApi               *ApplicationSessionsCollectionApiService
-	EventsSubscriptionDocumentApi                  *EventsSubscriptionDocumentApiService
-	IndividualApplicationSessionContextDocumentApi *IndividualApplicationSessionContextDocumentApiService
-	PolicyAuthorizationEventNotificationApi        *PolicyAuthorizationEventNotificationApiService
-	PolicyAuthorizationTerminateRequestApi         *PolicyAuthorizationTerminateRequestApiService
+	ApplicationSessionsCollectionApi		*ApplicationSessionsCollectionApiService
+	EventsSubscriptionDocumentApi			*EventsSubscriptionDocumentApiService
+	IndividualApplicationSessionContextDocumentApi	*IndividualApplicationSessionContextDocumentApiService
+	PolicyAuthorizationEventNotificationApi		*PolicyAuthorizationEventNotificationApiService
+	PolicyAuthorizationTerminateRequestApi		*PolicyAuthorizationTerminateRequestApiService
 }
 
 type service struct {

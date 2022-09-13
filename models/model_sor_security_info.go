@@ -10,7 +10,7 @@
 package models
 
 type SorSecurityInfo struct {
-	SorMacIausf string `json:"sorMacIausf" yaml:"sorMacIausf" bson:"sorMacIausf"`
-	CounterSor  string `json:"counterSor" yaml:"counterSor" bson:"counterSor"`
-	SorXmacIue  string `json:"sorXmacIue,omitempty" yaml:"sorXmacIue" bson:"sorXmacIue"`
+	SorMacIausf	string	`json:"sorMacIausf" yaml:"sorMacIausf" bson:"sorMacIausf"`
+	CounterSor	string	`json:"counterSor" yaml:"counterSor" bson:"counterSor"`
+	SorXmacIue	string	`json:"sorXmacIue,omitempty" yaml:"sorXmacIue" bson:"sorXmacIue"`
 }

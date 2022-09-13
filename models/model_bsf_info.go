@@ -10,8 +10,8 @@
 package models
 
 type BsfInfo struct {
-	DnnList           []string            `json:"dnnList,omitempty" yaml:"dnnList" bson:"dnnList" mapstructure:"DnnList"`
-	IpDomainList      []string            `json:"ipDomainList,omitempty" yaml:"ipDomainList" bson:"ipDomainList" mapstructure:"IpDomainList"`
-	Ipv4AddressRanges *[]Ipv4AddressRange `json:"ipv4AddressRanges,omitempty" yaml:"ipv4AddressRanges" bson:"ipv4AddressRanges" mapstructure:"Ipv4AddressRanges"`
-	Ipv6PrefixRanges  *[]Ipv6PrefixRange  `json:"ipv6PrefixRanges,omitempty" yaml:"ipv6PrefixRanges" bson:"ipv6PrefixRanges" mapstructure:"Ipv6PrefixRanges"`
+	DnnList			[]string		`json:"dnnList,omitempty" yaml:"dnnList" bson:"dnnList" mapstructure:"DnnList"`
+	IpDomainList		[]string		`json:"ipDomainList,omitempty" yaml:"ipDomainList" bson:"ipDomainList" mapstructure:"IpDomainList"`
+	Ipv4AddressRanges	*[]Ipv4AddressRange	`json:"ipv4AddressRanges,omitempty" yaml:"ipv4AddressRanges" bson:"ipv4AddressRanges" mapstructure:"Ipv4AddressRanges"`
+	Ipv6PrefixRanges	*[]Ipv6PrefixRange	`json:"ipv6PrefixRanges,omitempty" yaml:"ipv6PrefixRanges" bson:"ipv6PrefixRanges" mapstructure:"Ipv6PrefixRanges"`
 }

@@ -10,6 +10,6 @@
 package models
 
 type NfGroupCond struct {
-	NfType    string `json:"nfType" yaml:"nfType" bson:"nfType" mapstructure:"NfType"`
-	NfGroupId string `json:"nfGroupId" yaml:"nfGroupId" bson:"nfGroupId" mapstructure:"NfGroupId"`
+	NfType		string	`json:"nfType" yaml:"nfType" bson:"nfType" mapstructure:"NfType"`
+	NfGroupId	string	`json:"nfGroupId" yaml:"nfGroupId" bson:"nfGroupId" mapstructure:"NfGroupId"`
 }

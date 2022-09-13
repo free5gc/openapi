@@ -10,6 +10,6 @@
 package models
 
 type NotifyItem struct {
-	ResourceId string       `json:"resourceId,omitempty" yaml:"resourceId" bson:"resourceId" mapstructure:"ResourceId"`
-	Changes    []ChangeItem `json:"changes,omitempty" yaml:"changes" bson:"changes" mapstructure:"Changes"`
+	ResourceId	string		`json:"resourceId,omitempty" yaml:"resourceId" bson:"resourceId" mapstructure:"ResourceId"`
+	Changes		[]ChangeItem	`json:"changes,omitempty" yaml:"changes" bson:"changes" mapstructure:"Changes"`
 }

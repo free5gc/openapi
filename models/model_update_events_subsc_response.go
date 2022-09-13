@@ -11,6 +11,6 @@ package models
 
 // Add manually
 type UpdateEventsSubscResponse struct {
-	EvSubsc  EventsSubscReqData  `json:"evSubsc,omitempty" yaml:"evSubsc" bson:"evSubsc" mapstructure:"EvSubsc"`
-	EvsNotif *EventsNotification `json:"evsNotif,omitempty" yaml:"evsNotif" bson:"evsNotif" mapstructure:"EvsNotif"`
+	EvSubsc		EventsSubscReqData	`json:"evSubsc,omitempty" yaml:"evSubsc" bson:"evSubsc" mapstructure:"EvSubsc"`
+	EvsNotif	*EventsNotification	`json:"evsNotif,omitempty" yaml:"evsNotif" bson:"evsNotif" mapstructure:"EvsNotif"`
 }

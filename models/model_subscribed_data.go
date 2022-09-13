@@ -10,6 +10,6 @@
 package models
 
 type SubscribedData struct {
-	Sari      string `json:"sari,omitempty" bson:"sari" `
-	RfspIndex int32  `json:"rfspIndex,omitempty" bson:"rfspIndex" `
+	Sari		string	`json:"sari,omitempty" bson:"sari" `
+	RfspIndex	int32	`json:"rfspIndex,omitempty" bson:"rfspIndex" `
 }

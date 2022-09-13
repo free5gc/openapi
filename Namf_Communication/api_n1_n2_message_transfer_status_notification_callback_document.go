@@ -29,17 +29,17 @@ type N1N2MessageTransferStatusNotificationCallbackDocumentApiService service
 
 /*
 N1N2MessageTransferStatusNotificationCallbackDocumentApiService Namf_Communication N1N2Transfer Failure Notification service Operation
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ueContextId UE Context Identifier
- * @param subscriptionId Subscription Identifier
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param ueContextId UE Context Identifier
+  - @param subscriptionId Subscription Identifier
 */
 func (a *N1N2MessageTransferStatusNotificationCallbackDocumentApiService) N1N2TransferFailureNotification(ctx context.Context, n1N2MessageTransferNotificationUrl string, request models.N1N2MsgTxfrFailureNotification) (*http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -50,7 +50,7 @@ func (a *N1N2MessageTransferStatusNotificationCallbackDocumentApiService) N1N2Tr
 	localVarFormParams := url.Values{}
 
 	localVarHttpContentTypes := []string{"application/json"}
-	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/problem+json"}
@@ -78,8 +78,8 @@ func (a *N1N2MessageTransferStatusNotificationCallbackDocumentApiService) N1N2Tr
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 	switch localVarHttpResponse.StatusCode {
 	case 204:

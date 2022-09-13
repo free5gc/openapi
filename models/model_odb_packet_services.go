@@ -13,7 +13,7 @@ type OdbPacketServices string
 
 // List of OdbPacketServices
 const (
-	OdbPacketServices_ALL_PACKET_SERVICES    OdbPacketServices = "ALL_PACKET_SERVICES"
-	OdbPacketServices_ROAMER_ACCESS_HPLMN_AP OdbPacketServices = "ROAMER_ACCESS_HPLMN_AP"
-	OdbPacketServices_ROAMER_ACCESS_VPLMN_AP OdbPacketServices = "ROAMER_ACCESS_VPLMN_AP"
+	OdbPacketServices_ALL_PACKET_SERVICES		OdbPacketServices	= "ALL_PACKET_SERVICES"
+	OdbPacketServices_ROAMER_ACCESS_HPLMN_AP	OdbPacketServices	= "ROAMER_ACCESS_HPLMN_AP"
+	OdbPacketServices_ROAMER_ACCESS_VPLMN_AP	OdbPacketServices	= "ROAMER_ACCESS_VPLMN_AP"
 )

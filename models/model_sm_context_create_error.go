@@ -14,7 +14,7 @@ import (
 )
 
 type SmContextCreateError struct {
-	Error        *ProblemDetails  `json:"error"`
-	N1SmMsg      *RefToBinaryData `json:"n1SmMsg,omitempty"`
-	RecoveryTime *time.Time       `json:"recoveryTime,omitempty"`
+	Error		*ProblemDetails		`json:"error"`
+	N1SmMsg		*RefToBinaryData	`json:"n1SmMsg,omitempty"`
+	RecoveryTime	*time.Time		`json:"recoveryTime,omitempty"`
 }

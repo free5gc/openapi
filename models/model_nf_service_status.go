@@ -13,7 +13,7 @@ type NfServiceStatus string
 
 // List of NFServiceStatus
 const (
-	NfServiceStatus_REGISTERED     NfServiceStatus = "REGISTERED"
-	NfServiceStatus_SUSPENDED      NfServiceStatus = "SUSPENDED"
-	NfServiceStatus_UNDISCOVERABLE NfServiceStatus = "UNDISCOVERABLE"
+	NfServiceStatus_REGISTERED	NfServiceStatus	= "REGISTERED"
+	NfServiceStatus_SUSPENDED	NfServiceStatus	= "SUSPENDED"
+	NfServiceStatus_UNDISCOVERABLE	NfServiceStatus	= "UNDISCOVERABLE"
 )

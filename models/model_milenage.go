@@ -10,7 +10,7 @@
 package models
 
 type Milenage struct {
-	Op        *Op        `json:"op,omitempty" bson:"op"`
-	Rotations *Rotations `json:"rotations,omitempty" bson:"rotations"`
-	Constants *Constants `json:"constants,omitempty" bson:"constants"`
+	Op		*Op		`json:"op,omitempty" bson:"op"`
+	Rotations	*Rotations	`json:"rotations,omitempty" bson:"rotations"`
+	Constants	*Constants	`json:"constants,omitempty" bson:"constants"`
 }

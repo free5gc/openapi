@@ -10,9 +10,9 @@
 package models
 
 type ErrorReport struct {
-	Error *ProblemDetails `json:"error,omitempty" yaml:"error" bson:"error" mapstructure:"Error"`
+	Error	*ProblemDetails	`json:"error,omitempty" yaml:"error" bson:"error" mapstructure:"Error"`
 	// Used to report the PCC rule failure.
-	RuleReports []RuleReport `json:"ruleReports,omitempty" yaml:"ruleReports" bson:"ruleReports" mapstructure:"RuleReports"`
+	RuleReports	[]RuleReport	`json:"ruleReports,omitempty" yaml:"ruleReports" bson:"ruleReports" mapstructure:"RuleReports"`
 	// Used to report the session rule failure.
-	SessRuleReports []SessionRuleReport `json:"sessRuleReports,omitempty" yaml:"sessRuleReports" bson:"sessRuleReports" mapstructure:"SessRuleReports"`
+	SessRuleReports	[]SessionRuleReport	`json:"sessRuleReports,omitempty" yaml:"sessRuleReports" bson:"sessRuleReports" mapstructure:"SessRuleReports"`
 }

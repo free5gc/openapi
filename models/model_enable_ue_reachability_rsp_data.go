@@ -10,6 +10,6 @@
 package models
 
 type EnableUeReachabilityRspData struct {
-	Reachability      UeReachability `json:"reachability" bson:"reachability"`
-	SupportedFeatures string         `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	Reachability		UeReachability	`json:"reachability" bson:"reachability"`
+	SupportedFeatures	string		`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

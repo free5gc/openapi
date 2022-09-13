@@ -10,6 +10,6 @@
 package models
 
 type GeographicalCoordinates struct {
-	Lon float32 `json:"lon" yaml:"lon" bson:"lon"`
-	Lat float32 `json:"lat" yaml:"lat" bson:"lat"`
+	Lon	float32	`json:"lon" yaml:"lon" bson:"lon"`
+	Lat	float32	`json:"lat" yaml:"lat" bson:"lat"`
 }

@@ -10,11 +10,11 @@
 package models
 
 type ReleaseData struct {
-	Cause                   Cause                      `json:"cause,omitempty"`
-	NgApCause               *NgApCause                 `json:"ngApCause,omitempty"`
-	Var5gMmCauseValue       int32                      `json:"5gMmCauseValue,omitempty"`
-	UeLocation              *UserLocation              `json:"ueLocation,omitempty"`
-	UeTimeZone              string                     `json:"ueTimeZone,omitempty"`
-	AddUeLocation           *UserLocation              `json:"addUeLocation,omitempty"`
-	SecondaryRatUsageReport *[]SecondaryRatUsageReport `json:"secondaryRatUsageReport,omitempty"`
+	Cause			Cause				`json:"cause,omitempty"`
+	NgApCause		*NgApCause			`json:"ngApCause,omitempty"`
+	Var5gMmCauseValue	int32				`json:"5gMmCauseValue,omitempty"`
+	UeLocation		*UserLocation			`json:"ueLocation,omitempty"`
+	UeTimeZone		string				`json:"ueTimeZone,omitempty"`
+	AddUeLocation		*UserLocation			`json:"addUeLocation,omitempty"`
+	SecondaryRatUsageReport	*[]SecondaryRatUsageReport	`json:"secondaryRatUsageReport,omitempty"`
 }

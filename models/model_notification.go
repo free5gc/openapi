@@ -12,7 +12,7 @@ package models
 // Describes a BDT warning notification.
 type Notification struct {
 	// string identifying a BDT Reference ID as defined in subclause 5.3.3 of 3GPP TS 29.154.
-	BdtRefId   string           `json:"bdtRefId" bson:"bdtRefId"`
-	NwAreaInfo *NetworkAreaInfo `json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
-	TimeWindow *TimeWindow      `json:"timeWindow,omitempty" bson:"timeWindow"`
+	BdtRefId	string			`json:"bdtRefId" bson:"bdtRefId"`
+	NwAreaInfo	*NetworkAreaInfo	`json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
+	TimeWindow	*TimeWindow		`json:"timeWindow,omitempty" bson:"timeWindow"`
 }

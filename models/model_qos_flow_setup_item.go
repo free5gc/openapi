@@ -10,9 +10,9 @@
 package models
 
 type QosFlowSetupItem struct {
-	Qfi                int32           `json:"qfi"`
-	QosRules           string          `json:"qosRules"`
-	Ebi                int32           `json:"ebi,omitempty"`
-	QosFlowDescription string          `json:"qosFlowDescription,omitempty"`
-	QosFlowProfile     *QosFlowProfile `json:"qosFlowProfile,omitempty"`
+	Qfi			int32		`json:"qfi"`
+	QosRules		string		`json:"qosRules"`
+	Ebi			int32		`json:"ebi,omitempty"`
+	QosFlowDescription	string		`json:"qosFlowDescription,omitempty"`
+	QosFlowProfile		*QosFlowProfile	`json:"qosFlowProfile,omitempty"`
 }

@@ -13,8 +13,8 @@ type DataSetId string
 
 // List of DataSetId
 const (
-	DataSetId_SUBSCRIPTION DataSetId = "SUBSCRIPTION"
-	DataSetId_POLICY       DataSetId = "POLICY"
-	DataSetId_EXPOSURE     DataSetId = "EXPOSURE"
-	DataSetId_APPLICATION  DataSetId = "APPLICATION"
+	DataSetId_SUBSCRIPTION	DataSetId	= "SUBSCRIPTION"
+	DataSetId_POLICY	DataSetId	= "POLICY"
+	DataSetId_EXPOSURE	DataSetId	= "EXPOSURE"
+	DataSetId_APPLICATION	DataSetId	= "APPLICATION"
 )

@@ -10,6 +10,6 @@
 package models
 
 type ResynchronizationInfo struct {
-	Rand string `json:"rand" yaml:"rand" bson:"rand" mapstructure:"Rand"`
-	Auts string `json:"auts" yaml:"auts" bson:"auts" mapstructure:"Auts"`
+	Rand	string	`json:"rand" yaml:"rand" bson:"rand" mapstructure:"Rand"`
+	Auts	string	`json:"auts" yaml:"auts" bson:"auts" mapstructure:"Auts"`
 }

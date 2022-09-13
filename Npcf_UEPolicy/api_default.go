@@ -29,16 +29,16 @@ type DefaultApiService service
 
 /*
 DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param polAssoId Identifier of a policy association
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param polAssoId Identifier of a policy association
 */
 func (a *DefaultApiService) PoliciesPolAssoIdDelete(ctx context.Context, polAssoId string) (*http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Delete")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHttpMethod	= strings.ToUpper("Delete")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -84,8 +84,8 @@ func (a *DefaultApiService) PoliciesPolAssoIdDelete(ctx context.Context, polAsso
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			body:	localVarBody,
+			error:	localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 400 {
 			var v models.ProblemDetails
@@ -165,18 +165,19 @@ func (a *DefaultApiService) PoliciesPolAssoIdDelete(ctx context.Context, polAsso
 
 /*
 DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param polAssoId Identifier of a policy association
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param polAssoId Identifier of a policy association
+
 @return PolicyAssociation
 */
 func (a *DefaultApiService) PoliciesPolAssoIdGet(ctx context.Context, polAssoId string) (models.PolicyAssociation, *http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PolicyAssociation
+		localVarHttpMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PolicyAssociation
 	)
 
 	// create path and map variables
@@ -222,8 +223,8 @@ func (a *DefaultApiService) PoliciesPolAssoIdGet(ctx context.Context, polAssoId 
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			body:	localVarBody,
+			error:	localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.PolicyAssociation
@@ -311,8 +312,8 @@ func (a *DefaultApiService) PoliciesPolAssoIdGet(ctx context.Context, polAssoId 
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+			body:	localVarBody,
+			error:	err.Error(),
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
@@ -322,19 +323,20 @@ func (a *DefaultApiService) PoliciesPolAssoIdGet(ctx context.Context, polAssoId 
 
 /*
 DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param polAssoId Identifier of a policy association
- * @param policyAssociationUpdateRequest
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param polAssoId Identifier of a policy association
+  - @param policyAssociationUpdateRequest
+
 @return PolicyUpdate
 */
 func (a *DefaultApiService) PoliciesPolAssoIdUpdatePost(ctx context.Context, polAssoId string, policyAssociationUpdateRequest models.PolicyAssociationUpdateRequest) (models.PolicyUpdate, *http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PolicyUpdate
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PolicyUpdate
 	)
 
 	// create path and map variables
@@ -382,8 +384,8 @@ func (a *DefaultApiService) PoliciesPolAssoIdUpdatePost(ctx context.Context, pol
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			body:	localVarBody,
+			error:	localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 200 {
 			var v models.PolicyUpdate
@@ -501,8 +503,8 @@ func (a *DefaultApiService) PoliciesPolAssoIdUpdatePost(ctx context.Context, pol
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+			body:	localVarBody,
+			error:	err.Error(),
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}
@@ -512,18 +514,19 @@ func (a *DefaultApiService) PoliciesPolAssoIdUpdatePost(ctx context.Context, pol
 
 /*
 DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param policyAssociationRequest
+  - @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+  - @param policyAssociationRequest
+
 @return PolicyAssociation
 */
 func (a *DefaultApiService) PoliciesPost(ctx context.Context, policyAssociationRequest models.PolicyAssociationRequest) (models.PolicyAssociation, *http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.PolicyAssociation
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.PolicyAssociation
 	)
 
 	// create path and map variables
@@ -570,8 +573,8 @@ func (a *DefaultApiService) PoliciesPost(ctx context.Context, policyAssociationR
 
 	if localVarHttpResponse.StatusCode >= 300 {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHttpResponse.Status,
+			body:	localVarBody,
+			error:	localVarHttpResponse.Status,
 		}
 		if localVarHttpResponse.StatusCode == 201 {
 			var v models.PolicyAssociation
@@ -689,8 +692,8 @@ func (a *DefaultApiService) PoliciesPost(ctx context.Context, policyAssociationR
 	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHttpResponse.Header.Get("Content-Type"))
 	if err != nil {
 		newErr := GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
+			body:	localVarBody,
+			error:	err.Error(),
 		}
 		return localVarReturnValue, localVarHttpResponse, newErr
 	}

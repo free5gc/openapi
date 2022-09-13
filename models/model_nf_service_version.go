@@ -14,7 +14,7 @@ import (
 )
 
 type NfServiceVersion struct {
-	ApiVersionInUri string     `json:"apiVersionInUri" yaml:"apiVersionInUri" bson:"apiVersionInUri" mapstructure:"ApiVersionInUri"`
-	ApiFullVersion  string     `json:"apiFullVersion" yaml:"apiFullVersion" bson:"apiFullVersion" mapstructure:"ApiFullVersion"`
-	Expiry          *time.Time `json:"expiry,omitempty" yaml:"expiry" bson:"expiry" mapstructure:"Expiry"`
+	ApiVersionInUri	string		`json:"apiVersionInUri" yaml:"apiVersionInUri" bson:"apiVersionInUri" mapstructure:"ApiVersionInUri"`
+	ApiFullVersion	string		`json:"apiFullVersion" yaml:"apiFullVersion" bson:"apiFullVersion" mapstructure:"ApiFullVersion"`
+	Expiry		*time.Time	`json:"expiry,omitempty" yaml:"expiry" bson:"expiry" mapstructure:"Expiry"`
 }

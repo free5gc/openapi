@@ -20,11 +20,11 @@ type N2InfoNotifyCallbackDocumentApiService service
 
 func (a *N2InfoNotifyCallbackDocumentApiService) N2InfoNotify(ctx context.Context, n2InfoNotifyUrl string, request models.N2InfoNotifyRequest) (*http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -68,8 +68,8 @@ func (a *N2InfoNotifyCallbackDocumentApiService) N2InfoNotify(ctx context.Contex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 	switch localVarHttpResponse.StatusCode {
 	case 204:

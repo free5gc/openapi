@@ -10,7 +10,7 @@
 package models
 
 type SupportedNssaiAvailabilityData struct {
-	Tai *Tai `json:"tai" bson:"tai" yaml:"tai"`
+	Tai	*Tai	`json:"tai" bson:"tai" yaml:"tai"`
 
-	SupportedSnssaiList []Snssai `json:"supportedSnssaiList" bson:"supportedSnssaiList" yaml:"supportedSnssaiList"`
+	SupportedSnssaiList	[]Snssai	`json:"supportedSnssaiList" bson:"supportedSnssaiList" yaml:"supportedSnssaiList"`
 }

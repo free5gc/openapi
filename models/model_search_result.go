@@ -10,7 +10,7 @@
 package models
 
 type SearchResult struct {
-	ValidityPeriod       int32       `json:"validityPeriod,omitempty" yaml:"validityPeriod" bson:"validityPeriod" mapstructure:"ValidityPeriod"`
-	NfInstances          []NfProfile `json:"nfInstances" yaml:"nfInstances" bson:"nfInstances" mapstructure:"NfInstances"`
-	NrfSupportedFeatures string      `json:"nrfSupportedFeatures,omitempty" yaml:"nrfSupportedFeatures" bson:"nrfSupportedFeatures" mapstructure:"NrfSupportedFeatures"`
+	ValidityPeriod		int32		`json:"validityPeriod,omitempty" yaml:"validityPeriod" bson:"validityPeriod" mapstructure:"ValidityPeriod"`
+	NfInstances		[]NfProfile	`json:"nfInstances" yaml:"nfInstances" bson:"nfInstances" mapstructure:"NfInstances"`
+	NrfSupportedFeatures	string		`json:"nrfSupportedFeatures,omitempty" yaml:"nrfSupportedFeatures" bson:"nrfSupportedFeatures" mapstructure:"NrfSupportedFeatures"`
 }

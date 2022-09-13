@@ -10,7 +10,7 @@
 package models
 
 type IdTranslationResult struct {
-	SupportedFeatures string `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
-	Supi              string `json:"supi" yaml:"supi" bson:"supi" mapstructure:"Supi"`
-	Gpsi              string `json:"gpsi,omitempty" yaml:"gpsi" bson:"gpsi" mapstructure:"Gpsi"`
+	SupportedFeatures	string	`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	Supi			string	`json:"supi" yaml:"supi" bson:"supi" mapstructure:"Supi"`
+	Gpsi			string	`json:"gpsi,omitempty" yaml:"gpsi" bson:"gpsi" mapstructure:"Gpsi"`
 }

@@ -11,12 +11,18 @@ package Nnssf_NSSelection
 
 import (
 	"context"
+	"strconv"
+	"crypto/tls"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
 	"strings"
 
 	"github.com/antihax/optional"
+	"golang.org/x/net/http2"
+	"golang.org/x/oauth2/clientcredentials"
+	"golang.org/x/oauth2"
 
 	"github.com/free5gc/openapi"
 	. "github.com/free5gc/openapi/models"
@@ -44,21 +50,21 @@ NetworkSliceInformationDocumentApiService Retrieve the Network Slice Selection I
 */
 
 type NSSelectionGetParamOpts struct {
-	SliceInfoRequestForRegistration optional.Interface
-	SliceInfoRequestForPduSession   optional.Interface
-	HomePlmnId                      optional.Interface
-	Tai                             optional.Interface
-	SupportedFeatures               optional.String
+	SliceInfoRequestForRegistration	optional.Interface
+	SliceInfoRequestForPduSession	optional.Interface
+	HomePlmnId			optional.Interface
+	Tai				optional.Interface
+	SupportedFeatures		optional.String
 }
 
 func (a *NetworkSliceInformationDocumentApiService) NSSelectionGet(ctx context.Context, nfType NfType, nfId string, localVarOptionals *NSSelectionGetParamOpts) (AuthorizedNetworkSliceInfo, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  AuthorizedNetworkSliceInfo
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	AuthorizedNetworkSliceInfo
 	)
 
 	// create path and map variables
@@ -88,7 +94,7 @@ func (a *NetworkSliceInformationDocumentApiService) NSSelectionGet(ctx context.C
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -97,6 +103,29 @@ func (a *NetworkSliceInformationDocumentApiService) NSSelectionGet(ctx context.C
 	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	scopes := []string{"nnssf-nsselection",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return localVarReturnValue, nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "NSSF")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return localVarReturnValue, nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
 	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -116,8 +145,8 @@ func (a *NetworkSliceInformationDocumentApiService) NSSelectionGet(ctx context.C
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

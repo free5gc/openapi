@@ -12,12 +12,12 @@ package Nsmf_EventExposure
 // APIClient manages communication with the Nsmf_EventExposure API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	DefaultApi         *DefaultApiService
-	DefaultCallbackApi *DefaultCallbackApi
+	DefaultApi		*DefaultApiService
+	DefaultCallbackApi	*DefaultCallbackApi
 }
 
 type service struct {

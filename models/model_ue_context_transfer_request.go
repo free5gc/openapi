@@ -10,6 +10,6 @@
 package models
 
 type UeContextTransferRequest struct {
-	JsonData            *UeContextTransferReqData `json:"jsonData,omitempty" multipart:"contentType:application/json"`
-	BinaryDataN1Message []byte                    `json:"binaryDataN1Message,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.RegRequest.N1MessageContent.ContentId"`
+	JsonData		*UeContextTransferReqData	`json:"jsonData,omitempty" multipart:"contentType:application/json"`
+	BinaryDataN1Message	[]byte				`json:"binaryDataN1Message,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.RegRequest.N1MessageContent.ContentId"`
 }

@@ -13,6 +13,6 @@ type RmState string
 
 // List of RmState
 const (
-	RmState_REGISTERED   RmState = "REGISTERED"
-	RmState_DEREGISTERED RmState = "DEREGISTERED"
+	RmState_REGISTERED	RmState	= "REGISTERED"
+	RmState_DEREGISTERED	RmState	= "DEREGISTERED"
 )

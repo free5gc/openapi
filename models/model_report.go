@@ -10,7 +10,7 @@
 package models
 
 type Report struct {
-	NewPei         string  `json:"newPei" yaml:"newPei" bson:"newPei" mapstructure:"NewPei"`
-	Roaming        bool    `json:"roaming" yaml:"roaming" bson:"roaming" mapstructure:"Roaming"`
-	NewServingPlmn *PlmnId `json:"newServingPlmn" yaml:"newServingPlmn" bson:"newServingPlmn" mapstructure:"NewServingPlmn"`
+	NewPei		string	`json:"newPei" yaml:"newPei" bson:"newPei" mapstructure:"NewPei"`
+	Roaming		bool	`json:"roaming" yaml:"roaming" bson:"roaming" mapstructure:"Roaming"`
+	NewServingPlmn	*PlmnId	`json:"newServingPlmn" yaml:"newServingPlmn" bson:"newServingPlmn" mapstructure:"NewServingPlmn"`
 }

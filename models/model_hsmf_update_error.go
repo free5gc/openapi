@@ -14,10 +14,10 @@ import (
 )
 
 type HsmfUpdateError struct {
-	Error        *ProblemDetails  `json:"error"`
-	Pti          int32            `json:"pti,omitempty"`
-	N1smCause    string           `json:"n1smCause,omitempty"`
-	N1SmInfoToUe *RefToBinaryData `json:"n1SmInfoToUe,omitempty"`
-	BackOffTimer int32            `json:"backOffTimer,omitempty"`
-	RecoveryTime *time.Time       `json:"recoveryTime,omitempty"`
+	Error		*ProblemDetails		`json:"error"`
+	Pti		int32			`json:"pti,omitempty"`
+	N1smCause	string			`json:"n1smCause,omitempty"`
+	N1SmInfoToUe	*RefToBinaryData	`json:"n1SmInfoToUe,omitempty"`
+	BackOffTimer	int32			`json:"backOffTimer,omitempty"`
+	RecoveryTime	*time.Time		`json:"recoveryTime,omitempty"`
 }

@@ -11,6 +11,8 @@ package Namf_EventExposure
 
 import (
 	"context"
+	"strconv"
+	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -18,6 +20,9 @@ import (
 	"strings"
 
 	"github.com/free5gc/openapi"
+	"golang.org/x/net/http2"
+	"golang.org/x/oauth2/clientcredentials"
+	"golang.org/x/oauth2"
 	"github.com/free5gc/openapi/models"
 )
 
@@ -36,11 +41,11 @@ IndividualSubscriptionDocumentApiService Namf_EventExposure Unsubscribe service 
 
 func (a *IndividualSubscriptionDocumentApiService) DeleteSubscription(ctx context.Context, subscriptionId string) (*http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Delete")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHttpMethod	= strings.ToUpper("Delete")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -53,7 +58,7 @@ func (a *IndividualSubscriptionDocumentApiService) DeleteSubscription(ctx contex
 
 	localVarHttpContentTypes := []string{}
 
-	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/problem+json"}
@@ -62,6 +67,29 @@ func (a *IndividualSubscriptionDocumentApiService) DeleteSubscription(ctx contex
 	localVarHttpHeaderAccept := openapi.SelectHeaderAccept(localVarHttpHeaderAccepts)
 	if localVarHttpHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHttpHeaderAccept
+	}
+	scopes := []string{"namf-evts",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "AMF")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
 	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -81,8 +109,8 @@ func (a *IndividualSubscriptionDocumentApiService) DeleteSubscription(ctx contex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 
 	switch localVarHttpResponse.StatusCode {
@@ -177,12 +205,12 @@ IndividualSubscriptionDocumentApiService Namf_EventExposure Subscribe Modify ser
 
 func (a *IndividualSubscriptionDocumentApiService) ModifySubscription(ctx context.Context, subscriptionId string, modifySubscriptionRequest interface{}) (models.AmfUpdatedEventSubscription, *http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Patch")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.AmfUpdatedEventSubscription
+		localVarHttpMethod	= strings.ToUpper("Patch")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.AmfUpdatedEventSubscription
 	)
 
 	// create path and map variables
@@ -195,7 +223,7 @@ func (a *IndividualSubscriptionDocumentApiService) ModifySubscription(ctx contex
 
 	localVarHttpContentTypes := []string{"application/json-patch+json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -208,6 +236,29 @@ func (a *IndividualSubscriptionDocumentApiService) ModifySubscription(ctx contex
 
 	// body params
 	localVarPostBody = &modifySubscriptionRequest
+	scopes := []string{"namf-evts",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return localVarReturnValue, nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "AMF")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return localVarReturnValue, nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
+	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHttpMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -226,8 +277,8 @@ func (a *IndividualSubscriptionDocumentApiService) ModifySubscription(ctx contex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 
 	switch localVarHttpResponse.StatusCode {

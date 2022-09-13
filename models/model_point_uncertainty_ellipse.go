@@ -10,8 +10,8 @@
 package models
 
 type PointUncertaintyEllipse struct {
-	Shape              SupportedGadShapes       `json:"shape" yaml:"shape" bson:"shape"`
-	Point              *GeographicalCoordinates `json:"point" yaml:"point" bson:"point"`
-	UncertaintyEllipse *UncertaintyEllipse      `json:"uncertaintyEllipse" yaml:"uncertaintyEllipse" bson:"uncertaintyEllipse"`
-	Confidence         int32                    `json:"confidence" yaml:"confidence" bson:"confidence"`
+	Shape			SupportedGadShapes		`json:"shape" yaml:"shape" bson:"shape"`
+	Point			*GeographicalCoordinates	`json:"point" yaml:"point" bson:"point"`
+	UncertaintyEllipse	*UncertaintyEllipse		`json:"uncertaintyEllipse" yaml:"uncertaintyEllipse" bson:"uncertaintyEllipse"`
+	Confidence		int32				`json:"confidence" yaml:"confidence" bson:"confidence"`
 }

@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * Namf_Location
@@ -14,11 +15,11 @@ package _Namf_Location
 // APIClient manages communication with the Namf_Location API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	IndividualUEContextDocumentApi *IndividualUEContextDocumentApiService
+	IndividualUEContextDocumentApi	*IndividualUEContextDocumentApiService
 }
 
 type service struct {

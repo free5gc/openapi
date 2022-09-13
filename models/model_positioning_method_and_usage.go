@@ -10,7 +10,7 @@
 package models
 
 type PositioningMethodAndUsage struct {
-	Method PositioningMethod `json:"method" yaml:"method" bson:"method"`
-	Mode   PositioningMode   `json:"mode" yaml:"mode" bson:"mode"`
-	Usage  Usage             `json:"usage" yaml:"usage" bson:"usage"`
+	Method	PositioningMethod	`json:"method" yaml:"method" bson:"method"`
+	Mode	PositioningMode		`json:"mode" yaml:"mode" bson:"mode"`
+	Usage	Usage			`json:"usage" yaml:"usage" bson:"usage"`
 }

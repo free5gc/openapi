@@ -11,9 +11,9 @@ package models
 
 // describes the event information delivered in the subscription
 type AfRoutingRequirement struct {
-	AppReloc     bool               `json:"appReloc,omitempty" yaml:"appReloc" bson:"appReloc" mapstructure:"AppReloc"`
-	RouteToLocs  []RouteToLocation  `json:"routeToLocs,omitempty" yaml:"routeToLocs" bson:"routeToLocs" mapstructure:"RouteToLocs"`
-	SpVal        *SpatialValidity   `json:"spVal,omitempty" yaml:"spVal" bson:"spVal" mapstructure:"SpVal"`
-	TempVals     []TemporalValidity `json:"tempVals,omitempty" yaml:"tempVals" bson:"tempVals" mapstructure:"TempVals"`
-	UpPathChgSub *UpPathChgEvent    `json:"upPathChgSub,omitempty" yaml:"upPathChgSub" bson:"upPathChgSub" mapstructure:"UpPathChgSub"`
+	AppReloc	bool			`json:"appReloc,omitempty" yaml:"appReloc" bson:"appReloc" mapstructure:"AppReloc"`
+	RouteToLocs	[]RouteToLocation	`json:"routeToLocs,omitempty" yaml:"routeToLocs" bson:"routeToLocs" mapstructure:"RouteToLocs"`
+	SpVal		*SpatialValidity	`json:"spVal,omitempty" yaml:"spVal" bson:"spVal" mapstructure:"SpVal"`
+	TempVals	[]TemporalValidity	`json:"tempVals,omitempty" yaml:"tempVals" bson:"tempVals" mapstructure:"TempVals"`
+	UpPathChgSub	*UpPathChgEvent		`json:"upPathChgSub,omitempty" yaml:"upPathChgSub" bson:"upPathChgSub" mapstructure:"UpPathChgSub"`
 }

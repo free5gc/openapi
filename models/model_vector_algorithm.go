@@ -13,6 +13,6 @@ type VectorAlgorithm string
 
 // List of VectorAlgorithm
 const (
-	VectorAlgorithm_MILENAGE VectorAlgorithm = "MILENAGE"
-	VectorAlgorithm_TUAK     VectorAlgorithm = "TUAK"
+	VectorAlgorithm_MILENAGE	VectorAlgorithm	= "MILENAGE"
+	VectorAlgorithm_TUAK		VectorAlgorithm	= "TUAK"
 )

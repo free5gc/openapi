@@ -10,7 +10,7 @@
 package models
 
 type PgwInfo struct {
-	Dnn     string  `json:"dnn" yaml:"dnn" bson:"dnn" mapstructure:"Dnn"`
-	PgwFqdn string  `json:"pgwFqdn" yaml:"pgwFqdn" bson:"pgwFqdn" mapstructure:"PgwFqdn"`
-	PlmnId  *PlmnId `json:"plmnId,omitempty" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	Dnn	string	`json:"dnn" yaml:"dnn" bson:"dnn" mapstructure:"Dnn"`
+	PgwFqdn	string	`json:"pgwFqdn" yaml:"pgwFqdn" bson:"pgwFqdn" mapstructure:"PgwFqdn"`
+	PlmnId	*PlmnId	`json:"plmnId,omitempty" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
 }

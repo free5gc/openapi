@@ -13,11 +13,11 @@ type RequestIndication string
 
 // List of RequestIndication
 const (
-	RequestIndication_UE_REQ_PDU_SES_MOD  RequestIndication = "UE_REQ_PDU_SES_MOD"
-	RequestIndication_UE_REQ_PDU_SES_REL  RequestIndication = "UE_REQ_PDU_SES_REL"
-	RequestIndication_PDU_SES_MOB         RequestIndication = "PDU_SES_MOB"
-	RequestIndication_NW_REQ_PDU_SES_AUTH RequestIndication = "NW_REQ_PDU_SES_AUTH"
-	RequestIndication_NW_REQ_PDU_SES_MOD  RequestIndication = "NW_REQ_PDU_SES_MOD"
-	RequestIndication_NW_REQ_PDU_SES_REL  RequestIndication = "NW_REQ_PDU_SES_REL"
-	RequestIndication_EBI_ASSIGNMENT_REQ  RequestIndication = "EBI_ASSIGNMENT_REQ"
+	RequestIndication_UE_REQ_PDU_SES_MOD	RequestIndication	= "UE_REQ_PDU_SES_MOD"
+	RequestIndication_UE_REQ_PDU_SES_REL	RequestIndication	= "UE_REQ_PDU_SES_REL"
+	RequestIndication_PDU_SES_MOB		RequestIndication	= "PDU_SES_MOB"
+	RequestIndication_NW_REQ_PDU_SES_AUTH	RequestIndication	= "NW_REQ_PDU_SES_AUTH"
+	RequestIndication_NW_REQ_PDU_SES_MOD	RequestIndication	= "NW_REQ_PDU_SES_MOD"
+	RequestIndication_NW_REQ_PDU_SES_REL	RequestIndication	= "NW_REQ_PDU_SES_REL"
+	RequestIndication_EBI_ASSIGNMENT_REQ	RequestIndication	= "EBI_ASSIGNMENT_REQ"
 )

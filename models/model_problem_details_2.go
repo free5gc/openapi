@@ -10,12 +10,12 @@
 package models
 
 type ProblemDetails2 struct {
-	Type              string          `json:"type,omitempty" bson:"type"`
-	Title             string          `json:"title,omitempty" bson:"title"`
-	Status            int32           `json:"status,omitempty" bson:"status"`
-	Detail            string          `json:"detail,omitempty" bson:"detail"`
-	Instance          string          `json:"instance,omitempty" bson:"instance"`
-	Cause             string          `json:"cause,omitempty" bson:"cause"`
-	InvalidParams     []InvalidParam2 `json:"invalidParams,omitempty" bson:"invalidParams"`
-	SupportedFeatures string          `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	Type			string		`json:"type,omitempty" bson:"type"`
+	Title			string		`json:"title,omitempty" bson:"title"`
+	Status			int32		`json:"status,omitempty" bson:"status"`
+	Detail			string		`json:"detail,omitempty" bson:"detail"`
+	Instance		string		`json:"instance,omitempty" bson:"instance"`
+	Cause			string		`json:"cause,omitempty" bson:"cause"`
+	InvalidParams		[]InvalidParam2	`json:"invalidParams,omitempty" bson:"invalidParams"`
+	SupportedFeatures	string		`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

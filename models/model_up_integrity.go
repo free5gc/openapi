@@ -13,7 +13,7 @@ type UpIntegrity string
 
 // List of UpIntegrity
 const (
-	UpIntegrity_REQUIRED   UpIntegrity = "REQUIRED"
-	UpIntegrity_PREFERRED  UpIntegrity = "PREFERRED"
-	UpIntegrity_NOT_NEEDED UpIntegrity = "NOT_NEEDED"
+	UpIntegrity_REQUIRED	UpIntegrity	= "REQUIRED"
+	UpIntegrity_PREFERRED	UpIntegrity	= "PREFERRED"
+	UpIntegrity_NOT_NEEDED	UpIntegrity	= "NOT_NEEDED"
 )

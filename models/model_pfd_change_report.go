@@ -10,6 +10,6 @@
 package models
 
 type PfdChangeReport struct {
-	PfdError      *ProblemDetails `json:"pfdError" yaml:"pfdError" bson:"pfdError" mapstructure:"PfdError"`
-	ApplicationId []string        `json:"applicationId" yaml:"applicationId" bson:"applicationId" mapstructure:"ApplicationId"`
+	PfdError	*ProblemDetails	`json:"pfdError" yaml:"pfdError" bson:"pfdError" mapstructure:"PfdError"`
+	ApplicationId	[]string	`json:"applicationId" yaml:"applicationId" bson:"applicationId" mapstructure:"ApplicationId"`
 }

@@ -10,6 +10,6 @@
 package models
 
 type SmsfInfo struct {
-	SmsfInstanceId string  `json:"smsfInstanceId" yaml:"smsfInstanceId" bson:"smsfInstanceId" mapstructure:"SmsfInstanceId"`
-	PlmnId         *PlmnId `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	SmsfInstanceId	string	`json:"smsfInstanceId" yaml:"smsfInstanceId" bson:"smsfInstanceId" mapstructure:"SmsfInstanceId"`
+	PlmnId		*PlmnId	`json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
 }

@@ -10,7 +10,7 @@
 package models
 
 type ServingNfIdentity struct {
-	ServNfInstId string       `json:"servNfInstId,omitempty" yaml:"servNfInstId" bson:"servNfInstId" mapstructure:"ServNfInstId"`
-	Guami        *Guami       `json:"guami,omitempty" yaml:"guami" bson:"guami" mapstructure:"Guami"`
-	AnGwAddr     *AnGwAddress `json:"anGwAddr,omitempty" yaml:"anGwAddr" bson:"anGwAddr" mapstructure:"AnGwAddr"`
+	ServNfInstId	string		`json:"servNfInstId,omitempty" yaml:"servNfInstId" bson:"servNfInstId" mapstructure:"ServNfInstId"`
+	Guami		*Guami		`json:"guami,omitempty" yaml:"guami" bson:"guami" mapstructure:"Guami"`
+	AnGwAddr	*AnGwAddress	`json:"anGwAddr,omitempty" yaml:"anGwAddr" bson:"anGwAddr" mapstructure:"AnGwAddr"`
 }

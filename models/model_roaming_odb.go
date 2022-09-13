@@ -13,6 +13,6 @@ type RoamingOdb string
 
 // List of RoamingOdb
 const (
-	RoamingOdb_PLMN         RoamingOdb = "OUTSIDE_HOME_PLMN"
-	RoamingOdb_PLMN_COUNTRY RoamingOdb = "OUTSIDE_HOME_PLMN_COUNTRY"
+	RoamingOdb_PLMN		RoamingOdb	= "OUTSIDE_HOME_PLMN"
+	RoamingOdb_PLMN_COUNTRY	RoamingOdb	= "OUTSIDE_HOME_PLMN_COUNTRY"
 )

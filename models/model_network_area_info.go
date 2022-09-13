@@ -12,11 +12,11 @@ package models
 // Describes a network area information in which the NF service consumer requests the number of UEs.
 type NetworkAreaInfo struct {
 	// Contains a list of E-UTRA cell identities.
-	Ecgis []Ecgi `json:"ecgis,omitempty" yaml:"ecgis" bson:"ecgis" mapstructure:"Ecgis"`
+	Ecgis	[]Ecgi	`json:"ecgis,omitempty" yaml:"ecgis" bson:"ecgis" mapstructure:"Ecgis"`
 	// Contains a list of NR cell identities.
-	Ncgis []Ncgi `json:"ncgis,omitempty" yaml:"ncgis" bson:"ncgis" mapstructure:"Ncgis"`
+	Ncgis	[]Ncgi	`json:"ncgis,omitempty" yaml:"ncgis" bson:"ncgis" mapstructure:"Ncgis"`
 	// Contains a list of NG RAN nodes.
-	GRanNodeIds []GlobalRanNodeId `json:"gRanNodeIds,omitempty" yaml:"gRanNodeIds" bson:"gRanNodeIds" mapstructure:"GRanNodeIds"`
+	GRanNodeIds	[]GlobalRanNodeId	`json:"gRanNodeIds,omitempty" yaml:"gRanNodeIds" bson:"gRanNodeIds" mapstructure:"GRanNodeIds"`
 	// Contains a list of tracking area identities.
-	Tais []Tai `json:"tais,omitempty" yaml:"tais" bson:"tais" mapstructure:"Tais"`
+	Tais	[]Tai	`json:"tais,omitempty" yaml:"tais" bson:"tais" mapstructure:"Tais"`
 }

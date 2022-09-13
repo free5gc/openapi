@@ -20,11 +20,11 @@ type N1MessageNotifyCallbackDocumentApiService service
 
 func (a *N1MessageNotifyCallbackDocumentApiService) N1MessageNotify(ctx context.Context, n1MessageNotificationUrl string, request models.N1MessageNotify) (*http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -68,8 +68,8 @@ func (a *N1MessageNotifyCallbackDocumentApiService) N1MessageNotify(ctx context.
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 	switch localVarHttpResponse.StatusCode {
 	case 204:

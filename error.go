@@ -11,9 +11,9 @@ package openapi
 
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
-	RawBody     []byte
-	ErrorStatus string
-	ErrorModel  interface{}
+	RawBody		[]byte
+	ErrorStatus	string
+	ErrorModel	interface{}
 }
 
 // Error returns non-empty string if there was an error.

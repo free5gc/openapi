@@ -10,10 +10,10 @@
 package models
 
 type Dynamic5Qi struct {
-	ResourceType      QosResourceType `json:"resourceType"`
-	PriorityLevel     int32           `json:"priorityLevel"`
-	PacketDelayBudget int32           `json:"packetDelayBudget"`
-	PacketErrRate     string          `json:"packetErrRate"`
-	AverWindow        int32           `json:"averWindow,omitempty"`
-	MaxDataBurstVol   int32           `json:"maxDataBurstVol,omitempty"`
+	ResourceType		QosResourceType	`json:"resourceType"`
+	PriorityLevel		int32		`json:"priorityLevel"`
+	PacketDelayBudget	int32		`json:"packetDelayBudget"`
+	PacketErrRate		string		`json:"packetErrRate"`
+	AverWindow		int32		`json:"averWindow,omitempty"`
+	MaxDataBurstVol		int32		`json:"maxDataBurstVol,omitempty"`
 }

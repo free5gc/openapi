@@ -10,6 +10,6 @@
 package models
 
 type SnssaiSmfInfoItem struct {
-	SNssai         *Snssai           `json:"sNssai" yaml:"sNssai" bson:"sNssai" mapstructure:"SNssai"`
-	DnnSmfInfoList *[]DnnSmfInfoItem `json:"dnnSmfInfoList" yaml:"dnnSmfInfoList" bson:"dnnSmfInfoList" mapstructure:"DnnSmfInfoList"`
+	SNssai		*Snssai			`json:"sNssai" yaml:"sNssai" bson:"sNssai" mapstructure:"SNssai"`
+	DnnSmfInfoList	*[]DnnSmfInfoItem	`json:"dnnSmfInfoList" yaml:"dnnSmfInfoList" bson:"dnnSmfInfoList" mapstructure:"DnnSmfInfoList"`
 }

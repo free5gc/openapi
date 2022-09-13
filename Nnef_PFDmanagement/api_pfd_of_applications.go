@@ -44,12 +44,12 @@ type NnefPFDmanagementFetchAllParamOpts struct {
 
 func (a *PFDOfApplicationsApiService) NnefPFDmanagementFetchAll(ctx context.Context, applicationIds []string, localVarOptionals *NnefPFDmanagementFetchAllParamOpts) ([]models.PfdDataForApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []models.PfdDataForApp
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	[]models.PfdDataForApp
 	)
 
 	// create path and map variables
@@ -69,7 +69,7 @@ func (a *PFDOfApplicationsApiService) NnefPFDmanagementFetchAll(ctx context.Cont
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -97,8 +97,8 @@ func (a *PFDOfApplicationsApiService) NnefPFDmanagementFetchAll(ctx context.Cont
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

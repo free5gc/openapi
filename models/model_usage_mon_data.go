@@ -11,9 +11,9 @@ package models
 
 // Contains remain allowed usage data for a subscriber.
 type UsageMonData struct {
-	LimitId      string                       `json:"limitId" bson:"limitId"`
-	Scopes       map[string]UsageMonDataScope `json:"scopes,omitempty" bson:"scopes"`
-	UmLevel      UsageMonLevel                `json:"umLevel,omitempty" bson:"umLevel"`
-	AllowedUsage *UsageThreshold              `json:"allowedUsage,omitempty" bson:"allowedUsage"`
-	ResetTime    *TimePeriod                  `json:"resetTime,omitempty" bson:"resetTime"`
+	LimitId		string				`json:"limitId" bson:"limitId"`
+	Scopes		map[string]UsageMonDataScope	`json:"scopes,omitempty" bson:"scopes"`
+	UmLevel		UsageMonLevel			`json:"umLevel,omitempty" bson:"umLevel"`
+	AllowedUsage	*UsageThreshold			`json:"allowedUsage,omitempty" bson:"allowedUsage"`
+	ResetTime	*TimePeriod			`json:"resetTime,omitempty" bson:"resetTime"`
 }

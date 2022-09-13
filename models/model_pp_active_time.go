@@ -10,7 +10,7 @@
 package models
 
 type PpActiveTime struct {
-	ActiveTime   int32  `json:"activeTime" yaml:"activeTime" bson:"activeTime" mapstructure:"ActiveTime"`
-	AfInstanceId string `json:"afInstanceId" yaml:"afInstanceId" bson:"afInstanceId" mapstructure:"AfInstanceId"`
-	ReferenceId  int32  `json:"referenceId" yaml:"referenceId" bson:"referenceId" mapstructure:"ReferenceId"`
+	ActiveTime	int32	`json:"activeTime" yaml:"activeTime" bson:"activeTime" mapstructure:"ActiveTime"`
+	AfInstanceId	string	`json:"afInstanceId" yaml:"afInstanceId" bson:"afInstanceId" mapstructure:"AfInstanceId"`
+	ReferenceId	int32	`json:"referenceId" yaml:"referenceId" bson:"referenceId" mapstructure:"ReferenceId"`
 }

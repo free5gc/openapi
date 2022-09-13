@@ -10,6 +10,6 @@
 package models
 
 type TraceDataResponse struct {
-	TraceData         *TraceData `json:"traceData,omitempty" yaml:"traceData" bson:"traceData" mapstructure:"TraceData"`
-	SharedTraceDataId string     `json:"sharedTraceDataId,omitempty" yaml:"sharedTraceDataId" bson:"sharedTraceDataId" mapstructure:"SharedTraceDataId"`
+	TraceData		*TraceData	`json:"traceData,omitempty" yaml:"traceData" bson:"traceData" mapstructure:"TraceData"`
+	SharedTraceDataId	string		`json:"sharedTraceDataId,omitempty" yaml:"sharedTraceDataId" bson:"sharedTraceDataId" mapstructure:"SharedTraceDataId"`
 }

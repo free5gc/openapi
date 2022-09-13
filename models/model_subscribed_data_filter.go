@@ -13,6 +13,6 @@ type SubscribedDataFilter string
 
 // List of SubscribedDataFilter
 const (
-	SubscribedDataFilter_SARI       SubscribedDataFilter = "SARI"
-	SubscribedDataFilter_RFSP_INDEX SubscribedDataFilter = "RFSP_INDEX"
+	SubscribedDataFilter_SARI	SubscribedDataFilter	= "SARI"
+	SubscribedDataFilter_RFSP_INDEX	SubscribedDataFilter	= "RFSP_INDEX"
 )

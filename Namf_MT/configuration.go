@@ -15,20 +15,20 @@ import (
 )
 
 type Configuration struct {
-	url           string
-	basePath      string
-	host          string
-	defaultHeader map[string]string
-	userAgent     string
-	httpClient    *http.Client
+	url		string
+	basePath	string
+	host		string
+	defaultHeader	map[string]string
+	userAgent	string
+	httpClient	*http.Client
 }
 
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		basePath:      "https://example.com/namf-mt/v1",
-		url:           "{apiRoot}/namf-mt/v1",
-		defaultHeader: make(map[string]string),
-		userAgent:     "OpenAPI-Generator/1.0.0/go",
+		basePath:	"https://example.com/namf-mt/v1",
+		url:		"{apiRoot}/namf-mt/v1",
+		defaultHeader:	make(map[string]string),
+		userAgent:	"OpenAPI-Generator/1.0.0/go",
 	}
 	return cfg
 }

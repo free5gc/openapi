@@ -39,12 +39,12 @@ TrafficInfluenceAPISubscriptionLevelPUTOperationApiService Updates/replaces an e
 
 func (a *TrafficInfluenceAPISubscriptionLevelPUTOperationApiService) AfIdSubscriptionsSubscriptionIdPut(ctx context.Context, afId string, subscriptionId string, trafficInfluSub models.TrafficInfluSub) (models.TrafficInfluSub, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Put")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.TrafficInfluSub
+		localVarHTTPMethod	= strings.ToUpper("Put")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.TrafficInfluSub
 	)
 
 	// create path and map variables
@@ -58,7 +58,7 @@ func (a *TrafficInfluenceAPISubscriptionLevelPUTOperationApiService) AfIdSubscri
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -89,8 +89,8 @@ func (a *TrafficInfluenceAPISubscriptionLevelPUTOperationApiService) AfIdSubscri
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

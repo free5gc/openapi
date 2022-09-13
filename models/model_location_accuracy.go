@@ -13,6 +13,6 @@ type LocationAccuracy string
 
 // List of LocationAccuracy
 const (
-	LocationAccuracy_CELL_LEVEL LocationAccuracy = "CELL_LEVEL"
-	LocationAccuracy_TA_LEVEL   LocationAccuracy = "TA_LEVEL"
+	LocationAccuracy_CELL_LEVEL	LocationAccuracy	= "CELL_LEVEL"
+	LocationAccuracy_TA_LEVEL	LocationAccuracy	= "TA_LEVEL"
 )

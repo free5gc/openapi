@@ -10,9 +10,9 @@
 package models
 
 type Av5GHeAka struct {
-	AvType   AvType `json:"avType" yaml:"avType" bson:"avType" mapstructure:"AvType"`
-	Rand     string `json:"rand" yaml:"rand" bson:"rand" mapstructure:"Rand"`
-	XresStar string `json:"xresStar" yaml:"xresStar" bson:"xresStar" mapstructure:"XresStar"`
-	Autn     string `json:"autn" yaml:"autn" bson:"autn" mapstructure:"Autn"`
-	Kausf    string `json:"kausf" yaml:"kausf" bson:"kausf" mapstructure:"Kausf"`
+	AvType		AvType	`json:"avType" yaml:"avType" bson:"avType" mapstructure:"AvType"`
+	Rand		string	`json:"rand" yaml:"rand" bson:"rand" mapstructure:"Rand"`
+	XresStar	string	`json:"xresStar" yaml:"xresStar" bson:"xresStar" mapstructure:"XresStar"`
+	Autn		string	`json:"autn" yaml:"autn" bson:"autn" mapstructure:"Autn"`
+	Kausf		string	`json:"kausf" yaml:"kausf" bson:"kausf" mapstructure:"Kausf"`
 }

@@ -10,6 +10,6 @@
 package models
 
 type AmfCreateEventSubscription struct {
-	Subscription      *AmfEventSubscription `json:"subscription" bson:"subscription" `
-	SupportedFeatures string                `json:"supportedFeatures,omitempty" bson:"supportedFeatures" `
+	Subscription		*AmfEventSubscription	`json:"subscription" bson:"subscription" `
+	SupportedFeatures	string			`json:"supportedFeatures,omitempty" bson:"supportedFeatures" `
 }

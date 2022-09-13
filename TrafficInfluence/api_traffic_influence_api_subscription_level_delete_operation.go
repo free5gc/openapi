@@ -37,11 +37,11 @@ TrafficInfluenceAPISubscriptionLevelDELETEOperationApiService Deletes an already
 
 func (a *TrafficInfluenceAPISubscriptionLevelDELETEOperationApiService) AfIdSubscriptionsSubscriptionIdDelete(ctx context.Context, afId string, subscriptionId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Delete")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Delete")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -55,7 +55,7 @@ func (a *TrafficInfluenceAPISubscriptionLevelDELETEOperationApiService) AfIdSubs
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -83,8 +83,8 @@ func (a *TrafficInfluenceAPISubscriptionLevelDELETEOperationApiService) AfIdSubs
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

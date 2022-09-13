@@ -10,19 +10,19 @@
 package models
 
 type SliceInfoForRegistration struct {
-	SubscribedNssai []SubscribedSnssai `json:"subscribedNssai,omitempty" bson:"subscribedNssai"`
+	SubscribedNssai	[]SubscribedSnssai	`json:"subscribedNssai,omitempty" bson:"subscribedNssai"`
 
-	AllowedNssaiCurrentAccess *AllowedNssai `json:"allowedNssaiCurrentAccess,omitempty" bson:"allowedNssaiCurrentAccess"`
+	AllowedNssaiCurrentAccess	*AllowedNssai	`json:"allowedNssaiCurrentAccess,omitempty" bson:"allowedNssaiCurrentAccess"`
 
-	AllowedNssaiOtherAccess *AllowedNssai `json:"allowedNssaiOtherAccess,omitempty" bson:"allowedNssaiOtherAccess"`
+	AllowedNssaiOtherAccess	*AllowedNssai	`json:"allowedNssaiOtherAccess,omitempty" bson:"allowedNssaiOtherAccess"`
 
-	SNssaiForMapping []Snssai `json:"sNssaiForMapping,omitempty" bson:"sNssaiForMapping"`
+	SNssaiForMapping	[]Snssai	`json:"sNssaiForMapping,omitempty" bson:"sNssaiForMapping"`
 
-	RequestedNssai []Snssai `json:"requestedNssai,omitempty" bson:"requestedNssai"`
+	RequestedNssai	[]Snssai	`json:"requestedNssai,omitempty" bson:"requestedNssai"`
 
-	DefaultConfiguredSnssaiInd bool `json:"defaultConfiguredSnssaiInd,omitempty" bson:"defaultConfiguredSnssaiInd"`
+	DefaultConfiguredSnssaiInd	bool	`json:"defaultConfiguredSnssaiInd,omitempty" bson:"defaultConfiguredSnssaiInd"`
 
-	MappingOfNssai []MappingOfSnssai `json:"mappingOfNssai,omitempty" bson:"mappingOfNssai"`
+	MappingOfNssai	[]MappingOfSnssai	`json:"mappingOfNssai,omitempty" bson:"mappingOfNssai"`
 
-	RequestMapping bool `json:"requestMapping,omitempty" bson:"requestMapping"`
+	RequestMapping	bool	`json:"requestMapping,omitempty" bson:"requestMapping"`
 }

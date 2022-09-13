@@ -11,6 +11,8 @@ package Nudr_DataRepository
 
 import (
 	"context"
+	"strconv"
+	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -18,6 +20,9 @@ import (
 	"strings"
 
 	"github.com/antihax/optional"
+	"golang.org/x/net/http2"
+	"golang.org/x/oauth2/clientcredentials"
+	"golang.org/x/oauth2"
 
 	"github.com/free5gc/openapi"
 	"github.com/free5gc/openapi/models"
@@ -40,12 +45,12 @@ SDMSubscriptionsCollectionApiService Create individual sdm subscription
 
 func (a *SDMSubscriptionsCollectionApiService) CreateSdmSubscriptions(ctx context.Context, ueId string, sdmSubscription models.SdmSubscription) (models.SdmSubscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.SdmSubscription
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.SdmSubscription
 	)
 
 	// create path and map variables
@@ -58,7 +63,7 @@ func (a *SDMSubscriptionsCollectionApiService) CreateSdmSubscriptions(ctx contex
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -71,6 +76,29 @@ func (a *SDMSubscriptionsCollectionApiService) CreateSdmSubscriptions(ctx contex
 
 	// body params
 	localVarPostBody = &sdmSubscription
+	scopes := []string{"nudr-dr",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return localVarReturnValue, nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "UDR")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return localVarReturnValue, nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
+	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
@@ -89,8 +117,8 @@ func (a *SDMSubscriptionsCollectionApiService) CreateSdmSubscriptions(ctx contex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -127,12 +155,12 @@ type QuerysdmsubscriptionsParamOpts struct {
 
 func (a *SDMSubscriptionsCollectionApiService) Querysdmsubscriptions(ctx context.Context, ueId string, localVarOptionals *QuerysdmsubscriptionsParamOpts) ([]models.SdmSubscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Get")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  []models.SdmSubscription
+		localVarHTTPMethod	= strings.ToUpper("Get")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	[]models.SdmSubscription
 	)
 
 	// create path and map variables
@@ -149,7 +177,7 @@ func (a *SDMSubscriptionsCollectionApiService) Querysdmsubscriptions(ctx context
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -158,6 +186,29 @@ func (a *SDMSubscriptionsCollectionApiService) Querysdmsubscriptions(ctx context
 	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	scopes := []string{"nudr-dr",}
+	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
+	if !ok {
+		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
+	}
+	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
+	if err != nil {
+		return localVarReturnValue, nil, fmt.Errorf(err.Error())
+	}
+	if oauth {
+		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
+		additional_params.Del("NrfUri")
+		additional_params.Del("EnforceOAuth")
+		additional_params.Add("targetNfType", "UDR")
+		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
+		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
+		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
+		token, err := conf.Token(ctx)
+		if err != nil {
+			return localVarReturnValue, nil, fmt.Errorf(err.Error())
+		}
+		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
 	}
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
@@ -177,8 +228,8 @@ func (a *SDMSubscriptionsCollectionApiService) Querysdmsubscriptions(ctx context
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

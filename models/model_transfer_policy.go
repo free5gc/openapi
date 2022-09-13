@@ -11,11 +11,11 @@ package models
 
 // Describes a transfer policy.
 type TransferPolicy struct {
-	MaxBitRateDl string `json:"maxBitRateDl,omitempty" yaml:"maxBitRateDl" bson:"maxBitRateDl" mapstructure:"MaxBitRateDl"`
-	MaxBitRateUl string `json:"maxBitRateUl,omitempty" yaml:"maxBitRateUl" bson:"maxBitRateUl" mapstructure:"MaxBitRateUl"`
+	MaxBitRateDl	string	`json:"maxBitRateDl,omitempty" yaml:"maxBitRateDl" bson:"maxBitRateDl" mapstructure:"MaxBitRateDl"`
+	MaxBitRateUl	string	`json:"maxBitRateUl,omitempty" yaml:"maxBitRateUl" bson:"maxBitRateUl" mapstructure:"MaxBitRateUl"`
 	// Indicates a rating group for the recommended time window.
-	RatingGroup int32       `json:"ratingGroup" yaml:"ratingGroup" bson:"ratingGroup" mapstructure:"RatingGroup"`
-	RecTimeInt  *TimeWindow `json:"recTimeInt" yaml:"recTimeInt" bson:"recTimeInt" mapstructure:"RecTimeInt"`
+	RatingGroup	int32		`json:"ratingGroup" yaml:"ratingGroup" bson:"ratingGroup" mapstructure:"RatingGroup"`
+	RecTimeInt	*TimeWindow	`json:"recTimeInt" yaml:"recTimeInt" bson:"recTimeInt" mapstructure:"RecTimeInt"`
 	// Contains an identity of a transfer policy.
-	TransPolicyId int32 `json:"transPolicyId" yaml:"transPolicyId" bson:"transPolicyId" mapstructure:"TransPolicyId"`
+	TransPolicyId	int32	`json:"transPolicyId" yaml:"transPolicyId" bson:"transPolicyId" mapstructure:"TransPolicyId"`
 }

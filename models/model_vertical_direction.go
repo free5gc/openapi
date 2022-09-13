@@ -13,6 +13,6 @@ type VerticalDirection string
 
 // List of VerticalDirection
 const (
-	VerticalDirection_UPWARD   VerticalDirection = "UPWARD"
-	VerticalDirection_DOWNWARD VerticalDirection = "DOWNWARD"
+	VerticalDirection_UPWARD	VerticalDirection	= "UPWARD"
+	VerticalDirection_DOWNWARD	VerticalDirection	= "DOWNWARD"
 )

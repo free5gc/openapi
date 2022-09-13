@@ -10,7 +10,7 @@
 package models
 
 type ExposureDataChangeNotification struct {
-	UeId                     string                     `json:"ueId,omitempty" bson:"ueId"`
-	AccessAndMobilityData    *AccessAndMobilityData     `json:"accessAndMobilityData,omitempty" bson:"accessAndMobilityData"`
-	PduSessionManagementData []PduSessionManagementData `json:"pduSessionManagementData,omitempty" bson:"pduSessionManagementData"`
+	UeId				string				`json:"ueId,omitempty" bson:"ueId"`
+	AccessAndMobilityData		*AccessAndMobilityData		`json:"accessAndMobilityData,omitempty" bson:"accessAndMobilityData"`
+	PduSessionManagementData	[]PduSessionManagementData	`json:"pduSessionManagementData,omitempty" bson:"pduSessionManagementData"`
 }

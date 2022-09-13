@@ -13,6 +13,6 @@ type AccuracyFulfilmentIndicator string
 
 // List of AccuracyFulfilmentIndicator
 const (
-	AccuracyFulfilmentIndicator_FULFILLED     AccuracyFulfilmentIndicator = "REQUESTED_ACCURACY_FULFILLED"
-	AccuracyFulfilmentIndicator_NOT_FULFILLED AccuracyFulfilmentIndicator = "REQUESTED_ACCURACY_NOT_FULFILLED"
+	AccuracyFulfilmentIndicator_FULFILLED		AccuracyFulfilmentIndicator	= "REQUESTED_ACCURACY_FULFILLED"
+	AccuracyFulfilmentIndicator_NOT_FULFILLED	AccuracyFulfilmentIndicator	= "REQUESTED_ACCURACY_NOT_FULFILLED"
 )

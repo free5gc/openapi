@@ -10,6 +10,6 @@
 package models
 
 type PpData struct {
-	CommunicationCharacteristics *CommunicationCharacteristics `json:"communicationCharacteristics,omitempty" yaml:"communicationCharacteristics" bson:"communicationCharacteristics" mapstructure:"CommunicationCharacteristics"`
-	SupportedFeatures            string                        `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	CommunicationCharacteristics	*CommunicationCharacteristics	`json:"communicationCharacteristics,omitempty" yaml:"communicationCharacteristics" bson:"communicationCharacteristics" mapstructure:"CommunicationCharacteristics"`
+	SupportedFeatures		string				`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
 }

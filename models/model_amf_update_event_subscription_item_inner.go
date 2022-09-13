@@ -10,7 +10,7 @@
 package models
 
 type AmfUpdateEventSubscriptionItemInner struct {
-	Op    string    `json:"op" bson:"op" `
-	Path  string    `json:"path" bson:"path" `
-	Value *AmfEvent `json:"value,omitempty" bson:"value" `
+	Op	string		`json:"op" bson:"op" `
+	Path	string		`json:"path" bson:"path" `
+	Value	*AmfEvent	`json:"value,omitempty" bson:"value" `
 }

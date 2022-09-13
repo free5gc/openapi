@@ -10,7 +10,7 @@
 package models
 
 type EmergencyInfo struct {
-	PgwFqdn       string     `json:"pgwFqdn,omitempty" yaml:"pgwFqdn" bson:"pgwFqdn" mapstructure:"PgwFqdn"`
-	PgwIpAddress  *IpAddress `json:"pgwIpAddress,omitempty" yaml:"pgwIpAddress" bson:"pgwIpAddress" mapstructure:"PgwIpAddress"`
-	SmfInstanceId string     `json:"smfInstanceId,omitempty" yaml:"smfInstanceId" bson:"smfInstanceId" mapstructure:"SmfInstanceId"`
+	PgwFqdn		string		`json:"pgwFqdn,omitempty" yaml:"pgwFqdn" bson:"pgwFqdn" mapstructure:"PgwFqdn"`
+	PgwIpAddress	*IpAddress	`json:"pgwIpAddress,omitempty" yaml:"pgwIpAddress" bson:"pgwIpAddress" mapstructure:"PgwIpAddress"`
+	SmfInstanceId	string		`json:"smfInstanceId,omitempty" yaml:"smfInstanceId" bson:"smfInstanceId" mapstructure:"SmfInstanceId"`
 }

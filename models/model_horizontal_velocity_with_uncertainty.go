@@ -10,7 +10,7 @@
 package models
 
 type HorizontalVelocityWithUncertainty struct {
-	HSpeed       float32 `json:"hSpeed" yaml:"hSpeed" bson:"hSpeed"`
-	Bearing      int32   `json:"bearing" yaml:"bearing" bson:"bearing"`
-	HUncertainty float32 `json:"hUncertainty" yaml:"hUncertainty" bson:"hUncertainty"`
+	HSpeed		float32	`json:"hSpeed" yaml:"hSpeed" bson:"hSpeed"`
+	Bearing		int32	`json:"bearing" yaml:"bearing" bson:"bearing"`
+	HUncertainty	float32	`json:"hUncertainty" yaml:"hUncertainty" bson:"hUncertainty"`
 }

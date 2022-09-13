@@ -11,7 +11,7 @@ package models
 
 // Identifies the flows
 type Flows struct {
-	ContVers []int32 `json:"contVers,omitempty" yaml:"contVers" bson:"contVers" mapstructure:"ContVers"`
-	FNums    []int32 `json:"fNums,omitempty" yaml:"fNums" bson:"fNums" mapstructure:"FNums"`
-	MedCompN int32   `json:"medCompN" yaml:"medCompN" bson:"medCompN" mapstructure:"MedCompN"`
+	ContVers	[]int32	`json:"contVers,omitempty" yaml:"contVers" bson:"contVers" mapstructure:"ContVers"`
+	FNums		[]int32	`json:"fNums,omitempty" yaml:"fNums" bson:"fNums" mapstructure:"FNums"`
+	MedCompN	int32	`json:"medCompN" yaml:"medCompN" bson:"medCompN" mapstructure:"MedCompN"`
 }

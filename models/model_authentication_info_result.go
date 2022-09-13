@@ -10,8 +10,8 @@
 package models
 
 type AuthenticationInfoResult struct {
-	AuthType             AuthType              `json:"authType" yaml:"authType" bson:"authType" mapstructure:"AuthType"`
-	SupportedFeatures    string                `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
-	AuthenticationVector *AuthenticationVector `json:"authenticationVector,omitempty" yaml:"authenticationVector" bson:"authenticationVector" mapstructure:"AuthenticationVector"`
-	Supi                 string                `json:"supi,omitempty" yaml:"supi" bson:"supi" mapstructure:"Supi"`
+	AuthType		AuthType		`json:"authType" yaml:"authType" bson:"authType" mapstructure:"AuthType"`
+	SupportedFeatures	string			`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	AuthenticationVector	*AuthenticationVector	`json:"authenticationVector,omitempty" yaml:"authenticationVector" bson:"authenticationVector" mapstructure:"AuthenticationVector"`
+	Supi			string			`json:"supi,omitempty" yaml:"supi" bson:"supi" mapstructure:"Supi"`
 }

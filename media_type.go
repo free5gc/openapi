@@ -7,17 +7,17 @@ type MediaKind int
 
 // MediaKind enums
 const (
-	MediaKindUnsupported MediaKind = iota
-	MediaKindPlaintext   MediaKind = iota
+	MediaKindUnsupported	MediaKind	= iota
+	MediaKindPlaintext	MediaKind	= iota
 	MediaKindJSON
 	MediaKindXML
 	MediaKindMultipartRelated
 )
 
 var (
-	jsonRegex             = regexp.MustCompile(`(?i:(?:application|text)/(?:[a-zA-Z0-9./-]+\+)?json)`)
-	xmlRegex              = regexp.MustCompile(`(?i:(?:application|text)/xml)`)
-	multipartRelatedRegex = regexp.MustCompile("(?i:multipart/related)")
+	jsonRegex		= regexp.MustCompile(`(?i:(?:application|text)/(?:[a-zA-Z0-9./-]+\+)?json)`)
+	xmlRegex		= regexp.MustCompile(`(?i:(?:application|text)/xml)`)
+	multipartRelatedRegex	= regexp.MustCompile("(?i:multipart/related)")
 )
 
 // KindOfMediaType - returns Mediakind of the media type

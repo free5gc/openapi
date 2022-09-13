@@ -10,8 +10,8 @@
 package models
 
 type SharedAuthenticationSubscription struct {
-	AuthenticationManagementField string          `json:"authenticationManagementField,omitempty" bson:"authenticationManagementField"`
-	VectorAlgorithm               VectorAlgorithm `json:"vectorAlgorithm" bson:"vectorAlgorithm"`
-	Milenage                      *Milenage       `json:"milenage,omitempty" bson:"milenage"`
-	Tuak                          *Tuak           `json:"tuak,omitempty" bson:"tuak"`
+	AuthenticationManagementField	string		`json:"authenticationManagementField,omitempty" bson:"authenticationManagementField"`
+	VectorAlgorithm			VectorAlgorithm	`json:"vectorAlgorithm" bson:"vectorAlgorithm"`
+	Milenage			*Milenage	`json:"milenage,omitempty" bson:"milenage"`
+	Tuak				*Tuak		`json:"tuak,omitempty" bson:"tuak"`
 }

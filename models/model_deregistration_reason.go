@@ -13,10 +13,10 @@ type DeregistrationReason string
 
 // List of DeregistrationReason
 const (
-	DeregistrationReason_UE_INITIAL_REGISTRATION                       DeregistrationReason = "UE_INITIAL_REGISTRATION"
-	DeregistrationReason_UE_REGISTRATION_AREA_CHANGE                   DeregistrationReason = "UE_REGISTRATION_AREA_CHANGE"
-	DeregistrationReason_SUBSCRIPTION_WITHDRAWN                        DeregistrationReason = "SUBSCRIPTION_WITHDRAWN"
-	DeregistrationReason__5_GS_TO_EPS_MOBILITY                         DeregistrationReason = "5GS_TO_EPS_MOBILITY"
-	DeregistrationReason__5_GS_TO_EPS_MOBILITY_UE_INITIAL_REGISTRATION DeregistrationReason = "5GS_TO_EPS_MOBILITY_UE_INITIAL_REGISTRATION"
-	DeregistrationReason_REREGISTRATION_REQUIRED                       DeregistrationReason = "REREGISTRATION_REQUIRED"
+	DeregistrationReason_UE_INITIAL_REGISTRATION				DeregistrationReason	= "UE_INITIAL_REGISTRATION"
+	DeregistrationReason_UE_REGISTRATION_AREA_CHANGE			DeregistrationReason	= "UE_REGISTRATION_AREA_CHANGE"
+	DeregistrationReason_SUBSCRIPTION_WITHDRAWN				DeregistrationReason	= "SUBSCRIPTION_WITHDRAWN"
+	DeregistrationReason__5_GS_TO_EPS_MOBILITY				DeregistrationReason	= "5GS_TO_EPS_MOBILITY"
+	DeregistrationReason__5_GS_TO_EPS_MOBILITY_UE_INITIAL_REGISTRATION	DeregistrationReason	= "5GS_TO_EPS_MOBILITY_UE_INITIAL_REGISTRATION"
+	DeregistrationReason_REREGISTRATION_REQUIRED				DeregistrationReason	= "REREGISTRATION_REQUIRED"
 )

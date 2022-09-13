@@ -12,7 +12,7 @@ package models
 // Identifies a subscription to policy data change notification.
 type PolicyDataSubscription struct {
 	// string providing an URI formatted according to IETF RFC 3986.
-	NotificationUri       string   `json:"notificationUri" bson:"notificationUri"`
-	MonitoredResourceUris []string `json:"monitoredResourceUris" bson:"monitoredResourceUris"`
-	SupportedFeatures     string   `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	NotificationUri		string		`json:"notificationUri" bson:"notificationUri"`
+	MonitoredResourceUris	[]string	`json:"monitoredResourceUris" bson:"monitoredResourceUris"`
+	SupportedFeatures	string		`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

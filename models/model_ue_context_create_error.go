@@ -10,6 +10,6 @@
 package models
 
 type UeContextCreateError struct {
-	Error     *ProblemDetails `json:"error"`
-	NgapCause *NgApCause      `json:"ngapCause,omitempty"`
+	Error		*ProblemDetails	`json:"error"`
+	NgapCause	*NgApCause	`json:"ngapCause,omitempty"`
 }

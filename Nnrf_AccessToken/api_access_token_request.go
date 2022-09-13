@@ -45,21 +45,21 @@ AccessTokenRequestApiService Access Token Request
 */
 
 type AccessTokenRequestParamOpts struct {
-	NfType             optional.Interface
-	TargetNfType       optional.Interface
-	TargetNfInstanceId optional.Interface
-	RequesterPlmn      optional.Interface
-	TargetPlmn         optional.Interface
+	NfType			optional.Interface
+	TargetNfType		optional.Interface
+	TargetNfInstanceId	optional.Interface
+	RequesterPlmn		optional.Interface
+	TargetPlmn		optional.Interface
 }
 
 func (a *AccessTokenRequestApiService) AccessTokenRequest(ctx context.Context, grantType string, nfInstanceId string, scope string, localVarOptionals *AccessTokenRequestParamOpts) (models.AccessTokenRsp, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.AccessTokenRsp
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.AccessTokenRsp
 	)
 
 	// create path and map variables
@@ -71,7 +71,7 @@ func (a *AccessTokenRequestApiService) AccessTokenRequest(ctx context.Context, g
 
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json"}
@@ -118,8 +118,8 @@ func (a *AccessTokenRequestApiService) AccessTokenRequest(ctx context.Context, g
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

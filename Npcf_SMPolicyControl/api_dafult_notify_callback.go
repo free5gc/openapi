@@ -22,12 +22,12 @@ SMNotification
 
 func (a *DefaultCallbackApi) SmPolicyUpdateNotification(ctx context.Context, notificationUri string, request models.SmPolicyNotification) (interface{}, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  interface{} // PartialSuccessReport or UeCampingRep
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	interface{}	// PartialSuccessReport or UeCampingRep
 	)
 
 	// create path and map variables
@@ -37,7 +37,7 @@ func (a *DefaultCallbackApi) SmPolicyUpdateNotification(ctx context.Context, not
 	localVarFormParams := url.Values{}
 
 	localVarHTTPContentTypes := []string{"application/json"}
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -68,8 +68,8 @@ func (a *DefaultCallbackApi) SmPolicyUpdateNotification(ctx context.Context, not
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -171,11 +171,11 @@ func (a *DefaultCallbackApi) SmPolicyUpdateNotification(ctx context.Context, not
 
 func (a *DefaultCallbackApi) SmPolicyControlTerminationRequestNotification(ctx context.Context, notificationUri string, request models.TerminationNotification) (*http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
+		localVarHTTPMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
 	)
 
 	// create path and map variables
@@ -185,7 +185,7 @@ func (a *DefaultCallbackApi) SmPolicyControlTerminationRequestNotification(ctx c
 	localVarFormParams := url.Values{}
 
 	localVarHTTPContentTypes := []string{"application/json"}
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -216,8 +216,8 @@ func (a *DefaultCallbackApi) SmPolicyControlTerminationRequestNotification(ctx c
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

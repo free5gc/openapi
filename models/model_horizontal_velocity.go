@@ -10,6 +10,6 @@
 package models
 
 type HorizontalVelocity struct {
-	HSpeed  float32 `json:"hSpeed" yaml:"hSpeed" bson:"hSpeed"`
-	Bearing int32   `json:"bearing" yaml:"bearing" bson:"bearing"`
+	HSpeed	float32	`json:"hSpeed" yaml:"hSpeed" bson:"hSpeed"`
+	Bearing	int32	`json:"bearing" yaml:"bearing" bson:"bearing"`
 }

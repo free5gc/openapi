@@ -10,7 +10,7 @@
 package models
 
 type AmfEventNotification struct {
-	NotifyCorrelationId           string           `json:"notifyCorrelationId,omitempty" bson:"notifyCorrelationId" `
-	SubsChangeNotifyCorrelationId string           `json:"subsChangeNotifyCorrelationId,omitempty" bson:"subsChangeNotifyCorrelationId" `
-	ReportList                    []AmfEventReport `json:"reportList,omitempty" bson:"reportList" `
+	NotifyCorrelationId		string			`json:"notifyCorrelationId,omitempty" bson:"notifyCorrelationId" `
+	SubsChangeNotifyCorrelationId	string			`json:"subsChangeNotifyCorrelationId,omitempty" bson:"subsChangeNotifyCorrelationId" `
+	ReportList			[]AmfEventReport	`json:"reportList,omitempty" bson:"reportList" `
 }

@@ -13,6 +13,6 @@ type MediaComponentResourcesStatus string
 
 // List of MediaComponentResourcesStatus
 const (
-	MediaComponentResourcesStatus_ACTIVE   MediaComponentResourcesStatus = "ACTIVE"
-	MediaComponentResourcesStatus_INACTIVE MediaComponentResourcesStatus = "INACTIVE"
+	MediaComponentResourcesStatus_ACTIVE	MediaComponentResourcesStatus	= "ACTIVE"
+	MediaComponentResourcesStatus_INACTIVE	MediaComponentResourcesStatus	= "INACTIVE"
 )

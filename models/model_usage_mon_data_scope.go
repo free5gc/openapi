@@ -11,6 +11,6 @@ package models
 
 // Contains a SNSSAI and DNN combinations to which the UsageMonData instance belongs to.
 type UsageMonDataScope struct {
-	Snssai *Snssai  `json:"snssai" bson:"snssai"`
-	Dnn    []string `json:"dnn,omitempty" bson:"dnn"`
+	Snssai	*Snssai		`json:"snssai" bson:"snssai"`
+	Dnn	[]string	`json:"dnn,omitempty" bson:"dnn"`
 }

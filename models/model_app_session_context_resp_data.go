@@ -11,6 +11,6 @@ package models
 
 // Describes the authorization data of an Individual Application Session Context created by the PCF.
 type AppSessionContextRespData struct {
-	ServAuthInfo ServAuthInfo `json:"servAuthInfo,omitempty" yaml:"servAuthInfo" bson:"servAuthInfo" mapstructure:"ServAuthInfo"`
-	SuppFeat     string       `json:"suppFeat,omitempty" yaml:"suppFeat" bson:"suppFeat" mapstructure:"SuppFeat"`
+	ServAuthInfo	ServAuthInfo	`json:"servAuthInfo,omitempty" yaml:"servAuthInfo" bson:"servAuthInfo" mapstructure:"ServAuthInfo"`
+	SuppFeat	string		`json:"suppFeat,omitempty" yaml:"suppFeat" bson:"suppFeat" mapstructure:"SuppFeat"`
 }

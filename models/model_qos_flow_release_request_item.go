@@ -10,7 +10,7 @@
 package models
 
 type QosFlowReleaseRequestItem struct {
-	Qfi                int32  `json:"qfi"`
-	QosRules           string `json:"qosRules,omitempty"`
-	QosFlowDescription string `json:"qosFlowDescription,omitempty"`
+	Qfi			int32	`json:"qfi"`
+	QosRules		string	`json:"qosRules,omitempty"`
+	QosFlowDescription	string	`json:"qosFlowDescription,omitempty"`
 }

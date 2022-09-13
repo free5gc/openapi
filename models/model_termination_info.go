@@ -11,7 +11,7 @@ package models
 
 // indicates the cause for requesting the deletion of the Individual Application Session Context resource
 type TerminationInfo struct {
-	TermCause TerminationCause `json:"termCause" yaml:"termCause" bson:"termCause" mapstructure:"TermCause"`
+	TermCause	TerminationCause	`json:"termCause" yaml:"termCause" bson:"termCause" mapstructure:"TermCause"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	ResUri string `json:"resUri" yaml:"resUri" bson:"resUri" mapstructure:"ResUri"`
+	ResUri	string	`json:"resUri" yaml:"resUri" bson:"resUri" mapstructure:"ResUri"`
 }

@@ -13,8 +13,8 @@ type FlowDirection2 string
 
 // List of FlowDirection_2
 const (
-	FlowDirection2_DOWNLINK      FlowDirection2 = "DOWNLINK"
-	FlowDirection2_UPLINK        FlowDirection2 = "UPLINK"
-	FlowDirection2_BIDIRECTIONAL FlowDirection2 = "BIDIRECTIONAL"
-	FlowDirection2_UNSPECIFIED   FlowDirection2 = "UNSPECIFIED"
+	FlowDirection2_DOWNLINK		FlowDirection2	= "DOWNLINK"
+	FlowDirection2_UPLINK		FlowDirection2	= "UPLINK"
+	FlowDirection2_BIDIRECTIONAL	FlowDirection2	= "BIDIRECTIONAL"
+	FlowDirection2_UNSPECIFIED	FlowDirection2	= "UNSPECIFIED"
 )

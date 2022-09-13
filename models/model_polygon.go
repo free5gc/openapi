@@ -10,6 +10,6 @@
 package models
 
 type Polygon struct {
-	Shape     SupportedGadShapes        `json:"shape" yaml:"shape" bson:"shape"`
-	PointList []GeographicalCoordinates `json:"pointList" yaml:"pointList" bson:"pointList"`
+	Shape		SupportedGadShapes		`json:"shape" yaml:"shape" bson:"shape"`
+	PointList	[]GeographicalCoordinates	`json:"pointList" yaml:"pointList" bson:"pointList"`
 }

@@ -11,9 +11,9 @@ package models
 
 type EapSession struct {
 	// contains an EAP packet
-	EapPayload string                      `json:"eapPayload" yaml:"eapPayload" bson:"eapPayload"`
-	KSeaf      string                      `json:"kSeaf,omitempty" yaml:"kSeaf" bson:"kSeaf"`
-	Links      map[string]LinksValueSchema `json:"_links,omitempty" yaml:"_links" bson:"_links"`
-	AuthResult AuthResult                  `json:"authResult,omitempty" yaml:"authResult" bson:"authResult"`
-	Supi       string                      `json:"supi,omitempty" yaml:"supi" bson:"supi"`
+	EapPayload	string				`json:"eapPayload" yaml:"eapPayload" bson:"eapPayload"`
+	KSeaf		string				`json:"kSeaf,omitempty" yaml:"kSeaf" bson:"kSeaf"`
+	Links		map[string]LinksValueSchema	`json:"_links,omitempty" yaml:"_links" bson:"_links"`
+	AuthResult	AuthResult			`json:"authResult,omitempty" yaml:"authResult" bson:"authResult"`
+	Supi		string				`json:"supi,omitempty" yaml:"supi" bson:"supi"`
 }

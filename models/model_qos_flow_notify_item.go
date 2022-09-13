@@ -10,6 +10,6 @@
 package models
 
 type QosFlowNotifyItem struct {
-	Qfi               int32             `json:"qfi"`
-	NotificationCause NotificationCause `json:"notificationCause"`
+	Qfi			int32			`json:"qfi"`
+	NotificationCause	NotificationCause	`json:"notificationCause"`
 }

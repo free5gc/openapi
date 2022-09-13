@@ -10,9 +10,9 @@
 package models
 
 type Amf3GppAccessRegistrationModification struct {
-	Guami         *Guami          `json:"guami" bson:"guami"`
-	PurgeFlag     bool            `json:"purgeFlag,omitempty" bson:"purgeFlag"`
-	Pei           string          `json:"pei,omitempty" bson:"pei"`
-	ImsVoPs       ImsVoPs         `json:"imsVoPs,omitempty" bson:"imsVoPs"`
-	BackupAmfInfo []BackupAmfInfo `json:"backupAmfInfo,omitempty" bson:"backupAmfInfo"`
+	Guami		*Guami		`json:"guami" bson:"guami"`
+	PurgeFlag	bool		`json:"purgeFlag,omitempty" bson:"purgeFlag"`
+	Pei		string		`json:"pei,omitempty" bson:"pei"`
+	ImsVoPs		ImsVoPs		`json:"imsVoPs,omitempty" bson:"imsVoPs"`
+	BackupAmfInfo	[]BackupAmfInfo	`json:"backupAmfInfo,omitempty" bson:"backupAmfInfo"`
 }

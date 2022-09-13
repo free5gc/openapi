@@ -10,9 +10,9 @@
 package models
 
 type SmsfRegistration struct {
-	SmsfInstanceId      string                      `json:"smsfInstanceId" yaml:"smsfInstanceId" bson:"smsfInstanceId" mapstructure:"SmsfInstanceId"`
-	SupportedFeatures   string                      `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
-	PlmnId              *PlmnId                     `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
-	SmsfMAPAddress      string                      `json:"smsfMAPAddress,omitempty" yaml:"smsfMAPAddress" bson:"smsfMAPAddress" mapstructure:"SmsfMAPAddress"`
-	SmsfDiameterAddress *NetworkNodeDiameterAddress `json:"smsfDiameterAddress,omitempty" yaml:"smsfDiameterAddress" bson:"smsfDiameterAddress" mapstructure:"SmsfDiameterAddress"`
+	SmsfInstanceId		string				`json:"smsfInstanceId" yaml:"smsfInstanceId" bson:"smsfInstanceId" mapstructure:"SmsfInstanceId"`
+	SupportedFeatures	string				`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	PlmnId			*PlmnId				`json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	SmsfMAPAddress		string				`json:"smsfMAPAddress,omitempty" yaml:"smsfMAPAddress" bson:"smsfMAPAddress" mapstructure:"SmsfMAPAddress"`
+	SmsfDiameterAddress	*NetworkNodeDiameterAddress	`json:"smsfDiameterAddress,omitempty" yaml:"smsfDiameterAddress" bson:"smsfDiameterAddress" mapstructure:"SmsfDiameterAddress"`
 }

@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * Namf_Communication
@@ -14,24 +15,24 @@ package Namf_Communication
 // APIClient manages communication with the Namf_Communication API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	IndividualSubscriptionDocumentApi                             *IndividualSubscriptionDocumentApiService
-	IndividualUeContextDocumentApi                                *IndividualUeContextDocumentApiService
-	N1N2IndividualSubscriptionDocumentApi                         *N1N2IndividualSubscriptionDocumentApiService
-	N1N2MessageCollectionDocumentApi                              *N1N2MessageCollectionDocumentApiService
-	N1N2SubscriptionsCollectionForIndividualUEContextsDocumentApi *N1N2SubscriptionsCollectionForIndividualUEContextsDocumentApiService
-	N1N2MessageTransferStatusNotificationCallbackDocumentApi      *N1N2MessageTransferStatusNotificationCallbackDocumentApiService
-	NonUEN2MessageNotificationIndividualSubscriptionDocumentApi   *NonUEN2MessageNotificationIndividualSubscriptionDocumentApiService
-	NonUEN2MessagesCollectionDocumentApi                          *NonUEN2MessagesCollectionDocumentApiService
-	NonUEN2MessagesSubscriptionsCollectionDocumentApi             *NonUEN2MessagesSubscriptionsCollectionDocumentApiService
-	SubscriptionsCollectionDocumentApi                            *SubscriptionsCollectionDocumentApiService
-	N1MessageNotifyCallbackDocumentApiServiceCallbackDocumentApi  *N1MessageNotifyCallbackDocumentApiService
-	N2InfoNotifyCallbackDocumentApiServiceCallbackDocumentApi     *N2InfoNotifyCallbackDocumentApiService
-	N2MessageNotifyCallbackDocumentApiServiceCallbackDocumentApi  *N2MessageNotifyCallbackDocumentApiService
-	AmfStatusChangeCallbackDocumentApiServiceCallbackDocumentApi  *AmfStatusChangeCallbackDocumentApiService
+	IndividualSubscriptionDocumentApi				*IndividualSubscriptionDocumentApiService
+	IndividualUeContextDocumentApi					*IndividualUeContextDocumentApiService
+	N1N2IndividualSubscriptionDocumentApi				*N1N2IndividualSubscriptionDocumentApiService
+	N1N2MessageCollectionDocumentApi				*N1N2MessageCollectionDocumentApiService
+	N1N2SubscriptionsCollectionForIndividualUEContextsDocumentApi	*N1N2SubscriptionsCollectionForIndividualUEContextsDocumentApiService
+	N1N2MessageTransferStatusNotificationCallbackDocumentApi	*N1N2MessageTransferStatusNotificationCallbackDocumentApiService
+	NonUEN2MessageNotificationIndividualSubscriptionDocumentApi	*NonUEN2MessageNotificationIndividualSubscriptionDocumentApiService
+	NonUEN2MessagesCollectionDocumentApi				*NonUEN2MessagesCollectionDocumentApiService
+	NonUEN2MessagesSubscriptionsCollectionDocumentApi		*NonUEN2MessagesSubscriptionsCollectionDocumentApiService
+	SubscriptionsCollectionDocumentApi				*SubscriptionsCollectionDocumentApiService
+	N1MessageNotifyCallbackDocumentApiServiceCallbackDocumentApi	*N1MessageNotifyCallbackDocumentApiService
+	N2InfoNotifyCallbackDocumentApiServiceCallbackDocumentApi	*N2InfoNotifyCallbackDocumentApiService
+	N2MessageNotifyCallbackDocumentApiServiceCallbackDocumentApi	*N2MessageNotifyCallbackDocumentApiService
+	AmfStatusChangeCallbackDocumentApiServiceCallbackDocumentApi	*AmfStatusChangeCallbackDocumentApiService
 }
 
 type service struct {

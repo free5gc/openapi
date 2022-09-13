@@ -32,8 +32,8 @@ func (MultipartRelatedBinding) BindBody(body []byte, obj interface{}) error {
 }
 
 type MultipartRelatedRender struct {
-	Data        interface{}
-	contentType string
+	Data		interface{}
+	contentType	string
 }
 
 func (r MultipartRelatedRender) Render(w http.ResponseWriter) (err error) {

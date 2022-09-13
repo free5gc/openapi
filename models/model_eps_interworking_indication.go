@@ -13,7 +13,7 @@ type EpsInterworkingIndication string
 
 // List of EpsInterworkingIndication
 const (
-	EpsInterworkingIndication_NONE        EpsInterworkingIndication = "NONE"
-	EpsInterworkingIndication_WITH_N26    EpsInterworkingIndication = "WITH_N26"
-	EpsInterworkingIndication_WITHOUT_N26 EpsInterworkingIndication = "WITHOUT_N26"
+	EpsInterworkingIndication_NONE		EpsInterworkingIndication	= "NONE"
+	EpsInterworkingIndication_WITH_N26	EpsInterworkingIndication	= "WITH_N26"
+	EpsInterworkingIndication_WITHOUT_N26	EpsInterworkingIndication	= "WITHOUT_N26"
 )

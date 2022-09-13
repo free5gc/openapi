@@ -10,10 +10,10 @@
 package models
 
 type PointAltitudeUncertainty struct {
-	Shape               SupportedGadShapes       `json:"shape" yaml:"shape" bson:"shape"`
-	Point               *GeographicalCoordinates `json:"point" yaml:"point" bson:"point"`
-	Altitude            float32                  `json:"altitude" yaml:"altitude" bson:"altitude"`
-	UncertaintyEllipse  *UncertaintyEllipse      `json:"uncertaintyEllipse" yaml:"uncertaintyEllipse" bson:"uncertaintyEllipse"`
-	UncertaintyAltitude float32                  `json:"uncertaintyAltitude" yaml:"uncertaintyAltitude" bson:"uncertaintyAltitude"`
-	Confidence          int32                    `json:"confidence" yaml:"confidence" bson:"confidence"`
+	Shape			SupportedGadShapes		`json:"shape" yaml:"shape" bson:"shape"`
+	Point			*GeographicalCoordinates	`json:"point" yaml:"point" bson:"point"`
+	Altitude		float32				`json:"altitude" yaml:"altitude" bson:"altitude"`
+	UncertaintyEllipse	*UncertaintyEllipse		`json:"uncertaintyEllipse" yaml:"uncertaintyEllipse" bson:"uncertaintyEllipse"`
+	UncertaintyAltitude	float32				`json:"uncertaintyAltitude" yaml:"uncertaintyAltitude" bson:"uncertaintyAltitude"`
+	Confidence		int32				`json:"confidence" yaml:"confidence" bson:"confidence"`
 }

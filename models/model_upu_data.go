@@ -10,6 +10,6 @@
 package models
 
 type UpuData struct {
-	SecPacket        string   `json:"secPacket,omitempty" yaml:"secPacket" bson:"secPacket" mapstructure:"SecPacket"`
-	DefaultConfNssai []Snssai `json:"defaultConfNssai,omitempty" yaml:"defaultConfNssai" bson:"defaultConfNssai" mapstructure:"DefaultConfNssai"`
+	SecPacket		string		`json:"secPacket,omitempty" yaml:"secPacket" bson:"secPacket" mapstructure:"SecPacket"`
+	DefaultConfNssai	[]Snssai	`json:"defaultConfNssai,omitempty" yaml:"defaultConfNssai" bson:"defaultConfNssai" mapstructure:"DefaultConfNssai"`
 }

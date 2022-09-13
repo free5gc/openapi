@@ -11,11 +11,11 @@ package models
 
 type PfdContent struct {
 	// Identifies a PDF of an application identifier.
-	PfdId string `json:"pfdId,omitempty" yaml:"pfdId" bson:"pfdId" mapstructure:"PfdId"`
+	PfdId	string	`json:"pfdId,omitempty" yaml:"pfdId" bson:"pfdId" mapstructure:"PfdId"`
 	// Represents a 3-tuple with protocol, server ip and server port for UL/DL application traffic.
-	FlowDescriptions []string `json:"flowDescriptions,omitempty" yaml:"flowDescriptions" bson:"flowDescriptions" mapstructure:"FlowDescriptions"`
+	FlowDescriptions	[]string	`json:"flowDescriptions,omitempty" yaml:"flowDescriptions" bson:"flowDescriptions" mapstructure:"FlowDescriptions"`
 	// Indicates a URL or a regular expression which is used to match the significant parts of the URL.
-	Urls []string `json:"urls,omitempty" yaml:"urls" bson:"urls" mapstructure:"Urls"`
+	Urls	[]string	`json:"urls,omitempty" yaml:"urls" bson:"urls" mapstructure:"Urls"`
 	// Indicates an FQDN or a regular expression as a domain name matching criteria.
-	DomainNames []string `json:"domainNames,omitempty" yaml:"domainNames" bson:"domainNames" mapstructure:"DomainNames"`
+	DomainNames	[]string	`json:"domainNames,omitempty" yaml:"domainNames" bson:"domainNames" mapstructure:"DomainNames"`
 }

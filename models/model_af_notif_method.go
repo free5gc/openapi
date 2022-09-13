@@ -13,6 +13,6 @@ type AfNotifMethod string
 
 // List of AfNotifMethod
 const (
-	AfNotifMethod_EVENT_DETECTION AfNotifMethod = "EVENT_DETECTION"
-	AfNotifMethod_ONE_TIME        AfNotifMethod = "ONE_TIME"
+	AfNotifMethod_EVENT_DETECTION	AfNotifMethod	= "EVENT_DETECTION"
+	AfNotifMethod_ONE_TIME		AfNotifMethod	= "ONE_TIME"
 )

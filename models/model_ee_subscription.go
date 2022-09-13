@@ -10,9 +10,9 @@
 package models
 
 type EeSubscription struct {
-	CallbackReference string `json:"callbackReference" yaml:"callbackReference" bson:"callbackReference" mapstructure:"CallbackReference"`
+	CallbackReference	string	`json:"callbackReference" yaml:"callbackReference" bson:"callbackReference" mapstructure:"CallbackReference"`
 	// A map (list of key-value pairs where ReferenceId serves as key) of MonitoringConfigurations
-	MonitoringConfigurations map[string]MonitoringConfiguration `json:"monitoringConfigurations" yaml:"monitoringConfigurations" bson:"monitoringConfigurations" mapstructure:"MonitoringConfigurations"`
-	ReportingOptions         *ReportingOptions                  `json:"reportingOptions,omitempty" yaml:"reportingOptions" bson:"reportingOptions" mapstructure:"ReportingOptions"`
-	SupportedFeatures        string                             `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	MonitoringConfigurations	map[string]MonitoringConfiguration	`json:"monitoringConfigurations" yaml:"monitoringConfigurations" bson:"monitoringConfigurations" mapstructure:"MonitoringConfigurations"`
+	ReportingOptions		*ReportingOptions			`json:"reportingOptions,omitempty" yaml:"reportingOptions" bson:"reportingOptions" mapstructure:"ReportingOptions"`
+	SupportedFeatures		string					`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
 }

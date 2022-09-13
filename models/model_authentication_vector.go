@@ -10,12 +10,12 @@
 package models
 
 type AuthenticationVector struct {
-	AvType   AvType `json:"avType" yaml:"avType" bson:"avType" mapstructure:"AvType"`
-	Rand     string `json:"rand" yaml:"rand" bson:"rand" mapstructure:"Rand"`
-	Xres     string `json:"xres" yaml:"xres" bson:"xres" mapstructure:"Xres"`
-	Autn     string `json:"autn" yaml:"autn" bson:"autn" mapstructure:"Autn"`
-	CkPrime  string `json:"ckPrime" yaml:"ckPrime" bson:"ckPrime" mapstructure:"CkPrime"`
-	IkPrime  string `json:"ikPrime" yaml:"ikPrime" bson:"ikPrime" mapstructure:"IkPrime"`
-	XresStar string `json:"xresStar" yaml:"xresStar" bson:"xresStar" mapstructure:"XresStar"`
-	Kausf    string `json:"kausf" yaml:"kausf" bson:"kausf" mapstructure:"Kausf"`
+	AvType		AvType	`json:"avType" yaml:"avType" bson:"avType" mapstructure:"AvType"`
+	Rand		string	`json:"rand" yaml:"rand" bson:"rand" mapstructure:"Rand"`
+	Xres		string	`json:"xres" yaml:"xres" bson:"xres" mapstructure:"Xres"`
+	Autn		string	`json:"autn" yaml:"autn" bson:"autn" mapstructure:"Autn"`
+	CkPrime		string	`json:"ckPrime" yaml:"ckPrime" bson:"ckPrime" mapstructure:"CkPrime"`
+	IkPrime		string	`json:"ikPrime" yaml:"ikPrime" bson:"ikPrime" mapstructure:"IkPrime"`
+	XresStar	string	`json:"xresStar" yaml:"xresStar" bson:"xresStar" mapstructure:"XresStar"`
+	Kausf		string	`json:"kausf" yaml:"kausf" bson:"kausf" mapstructure:"Kausf"`
 }

@@ -13,7 +13,7 @@ type PacketFilterOperation string
 
 // List of PacketFilterOperation
 const (
-	DELETIONPacketFilterOperation     PacketFilterOperation = "DELETION"
-	ADDITIONPacketFilterOperation     PacketFilterOperation = "ADDITION"
-	MODIFICATIONPacketFilterOperation PacketFilterOperation = "MODIFICATION"
+	DELETIONPacketFilterOperation		PacketFilterOperation	= "DELETION"
+	ADDITIONPacketFilterOperation		PacketFilterOperation	= "ADDITION"
+	MODIFICATIONPacketFilterOperation	PacketFilterOperation	= "MODIFICATION"
 )

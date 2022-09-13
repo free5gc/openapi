@@ -10,6 +10,6 @@
 package models
 
 type AssignEbiFailed struct {
-	PduSessionId  int32 `json:"pduSessionId"`
-	FailedArpList []Arp `json:"failedArpList,omitempty"`
+	PduSessionId	int32	`json:"pduSessionId"`
+	FailedArpList	[]Arp	`json:"failedArpList,omitempty"`
 }

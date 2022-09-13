@@ -10,6 +10,6 @@
 package models
 
 type EeProfileData struct {
-	RestrictedEventTypes []EventType `json:"restrictedEventTypes,omitempty" bson:"restrictedEventTypes"`
-	SupportedFeatures    string      `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	RestrictedEventTypes	[]EventType	`json:"restrictedEventTypes,omitempty" bson:"restrictedEventTypes"`
+	SupportedFeatures	string		`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

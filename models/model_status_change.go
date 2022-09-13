@@ -13,6 +13,6 @@ type StatusChange string
 
 // List of StatusChange
 const (
-	StatusChange_UNAVAILABLE StatusChange = "AMF_UNAVAILABLE"
-	StatusChange_AVAILABLE   StatusChange = "AMF_AVAILABLE"
+	StatusChange_UNAVAILABLE	StatusChange	= "AMF_UNAVAILABLE"
+	StatusChange_AVAILABLE		StatusChange	= "AMF_AVAILABLE"
 )

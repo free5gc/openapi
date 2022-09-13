@@ -12,12 +12,12 @@ package Npcf_AMPolicy
 // APIClient manages communication with the Npcf_AMPolicyControl API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	DefaultApi         *DefaultApiService
-	DefaultCallbackApi *DefaultCallbackApiService
+	DefaultApi		*DefaultApiService
+	DefaultCallbackApi	*DefaultCallbackApiService
 }
 
 type service struct {

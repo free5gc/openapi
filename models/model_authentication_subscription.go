@@ -10,14 +10,14 @@
 package models
 
 type AuthenticationSubscription struct {
-	AuthenticationMethod               AuthMethod      `json:"authenticationMethod" bson:"authenticationMethod"`
-	PermanentKey                       *PermanentKey   `json:"permanentKey" bson:"permanentKey"`
-	SequenceNumber                     string          `json:"sequenceNumber" bson:"sequenceNumber"`
-	AuthenticationManagementField      string          `json:"authenticationManagementField,omitempty" bson:"authenticationManagementField"`
-	VectorAlgorithm                    VectorAlgorithm `json:"vectorAlgorithm,omitempty" bson:"vectorAlgorithm"`
-	Milenage                           *Milenage       `json:"milenage,omitempty" bson:"milenage"`
-	Tuak                               *Tuak           `json:"tuak,omitempty" bson:"tuak"`
-	Opc                                *Opc            `json:"opc,omitempty" bson:"opc"`
-	Topc                               *Topc           `json:"topc,omitempty" bson:"topc"`
-	SharedAuthenticationSubscriptionId *SharedData     `json:"sharedAuthenticationSubscriptionId,omitempty" bson:"sharedAuthenticationSubscriptionId"`
+	AuthenticationMethod			AuthMethod	`json:"authenticationMethod" bson:"authenticationMethod"`
+	PermanentKey				*PermanentKey	`json:"permanentKey" bson:"permanentKey"`
+	SequenceNumber				string		`json:"sequenceNumber" bson:"sequenceNumber"`
+	AuthenticationManagementField		string		`json:"authenticationManagementField,omitempty" bson:"authenticationManagementField"`
+	VectorAlgorithm				VectorAlgorithm	`json:"vectorAlgorithm,omitempty" bson:"vectorAlgorithm"`
+	Milenage				*Milenage	`json:"milenage,omitempty" bson:"milenage"`
+	Tuak					*Tuak		`json:"tuak,omitempty" bson:"tuak"`
+	Opc					*Opc		`json:"opc,omitempty" bson:"opc"`
+	Topc					*Topc		`json:"topc,omitempty" bson:"topc"`
+	SharedAuthenticationSubscriptionId	*SharedData	`json:"sharedAuthenticationSubscriptionId,omitempty" bson:"sharedAuthenticationSubscriptionId"`
 }

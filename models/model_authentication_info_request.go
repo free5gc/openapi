@@ -10,8 +10,8 @@
 package models
 
 type AuthenticationInfoRequest struct {
-	SupportedFeatures     string                 `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
-	ServingNetworkName    string                 `json:"servingNetworkName" yaml:"servingNetworkName" bson:"servingNetworkName" mapstructure:"ServingNetworkName"`
-	ResynchronizationInfo *ResynchronizationInfo `json:"resynchronizationInfo,omitempty" yaml:"resynchronizationInfo" bson:"resynchronizationInfo" mapstructure:"ResynchronizationInfo"`
-	AusfInstanceId        string                 `json:"ausfInstanceId" yaml:"ausfInstanceId" bson:"ausfInstanceId" mapstructure:"AusfInstanceId"`
+	SupportedFeatures	string			`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	ServingNetworkName	string			`json:"servingNetworkName" yaml:"servingNetworkName" bson:"servingNetworkName" mapstructure:"ServingNetworkName"`
+	ResynchronizationInfo	*ResynchronizationInfo	`json:"resynchronizationInfo,omitempty" yaml:"resynchronizationInfo" bson:"resynchronizationInfo" mapstructure:"ResynchronizationInfo"`
+	AusfInstanceId		string			`json:"ausfInstanceId" yaml:"ausfInstanceId" bson:"ausfInstanceId" mapstructure:"AusfInstanceId"`
 }

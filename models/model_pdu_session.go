@@ -10,7 +10,7 @@
 package models
 
 type PduSession struct {
-	Dnn           string  `json:"dnn" yaml:"dnn" bson:"dnn" mapstructure:"Dnn"`
-	SmfInstanceId string  `json:"smfInstanceId" yaml:"smfInstanceId" bson:"smfInstanceId" mapstructure:"SmfInstanceId"`
-	PlmnId        *PlmnId `json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
+	Dnn		string	`json:"dnn" yaml:"dnn" bson:"dnn" mapstructure:"Dnn"`
+	SmfInstanceId	string	`json:"smfInstanceId" yaml:"smfInstanceId" bson:"smfInstanceId" mapstructure:"SmfInstanceId"`
+	PlmnId		*PlmnId	`json:"plmnId" yaml:"plmnId" bson:"plmnId" mapstructure:"PlmnId"`
 }

@@ -20,12 +20,12 @@ type N2MessageNotifyCallbackDocumentApiService service
 
 func (a *N2MessageNotifyCallbackDocumentApiService) N2InfoNotify(ctx context.Context, n2InfoNotifyUrl string, request models.N2InformationNotification) (models.N2InfoNotifyResponse, *http.Response, error) {
 	var (
-		localVarHttpMethod   = strings.ToUpper("Post")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.N2InfoNotifyResponse
+		localVarHttpMethod	= strings.ToUpper("Post")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.N2InfoNotifyResponse
 	)
 
 	// create path and map variables
@@ -35,7 +35,7 @@ func (a *N2MessageNotifyCallbackDocumentApiService) N2InfoNotify(ctx context.Con
 	localVarFormParams := url.Values{}
 
 	localVarHttpContentTypes := []string{"application / json"}
-	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/problem+json"}
@@ -63,8 +63,8 @@ func (a *N2MessageNotifyCallbackDocumentApiService) N2InfoNotify(ctx context.Con
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHttpResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHttpResponse.Status,
 	}
 	switch localVarHttpResponse.StatusCode {
 	case 200:

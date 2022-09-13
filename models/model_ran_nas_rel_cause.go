@@ -10,9 +10,9 @@
 package models
 
 type RanNasRelCause struct {
-	NgApCause *NgApCause `json:"ngApCause,omitempty" bson:"ngApCause"`
+	NgApCause	*NgApCause	`json:"ngApCause,omitempty" bson:"ngApCause"`
 
-	Var5gMmCause int32 `json:"5gMmCause,omitempty" bson:"5gMmCause"`
+	Var5gMmCause	int32	`json:"5gMmCause,omitempty" bson:"5gMmCause"`
 
-	Var5gSmCause int32 `json:"5gSmCause,omitempty" bson:"5gSmCause"`
+	Var5gSmCause	int32	`json:"5gSmCause,omitempty" bson:"5gSmCause"`
 }

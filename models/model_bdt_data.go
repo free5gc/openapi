@@ -11,8 +11,8 @@ package models
 
 // Contains the background data transfer data.
 type BdtData struct {
-	AspId       string          `json:"aspId,omitempty" bson:"aspId"`
-	TransPolicy TransferPolicy  `json:"transPolicy" bson:"transPolicy"`
-	BdtRefId    string          `json:"bdtRefId,omitempty" bson:"bdtRefId"`
-	NwAreaInfo  NetworkAreaInfo `json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
+	AspId		string		`json:"aspId,omitempty" bson:"aspId"`
+	TransPolicy	TransferPolicy	`json:"transPolicy" bson:"transPolicy"`
+	BdtRefId	string		`json:"bdtRefId,omitempty" bson:"bdtRefId"`
+	NwAreaInfo	NetworkAreaInfo	`json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
 }

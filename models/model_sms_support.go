@@ -13,8 +13,8 @@ type SmsSupport string
 
 // List of SmsSupport
 const (
-	SmsSupport__3_GPP    SmsSupport = "3GPP"
-	SmsSupport_NON_3_GPP SmsSupport = "NON_3GPP"
-	SmsSupport_BOTH      SmsSupport = "BOTH"
-	SmsSupport_NONE      SmsSupport = "NONE"
+	SmsSupport__3_GPP	SmsSupport	= "3GPP"
+	SmsSupport_NON_3_GPP	SmsSupport	= "NON_3GPP"
+	SmsSupport_BOTH		SmsSupport	= "BOTH"
+	SmsSupport_NONE		SmsSupport	= "NONE"
 )

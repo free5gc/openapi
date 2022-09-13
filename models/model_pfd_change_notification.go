@@ -10,8 +10,8 @@
 package models
 
 type PfdChangeNotification struct {
-	ApplicationId string       `json:"applicationId" yaml:"applicationId" bson:"applicationId" mapstructure:"ApplicationId"`
-	RemovalFlag   bool         `json:"removalFlag,omitempty" yaml:"removalFlag" bson:"removalFlag" mapstructure:"RemovalFlag"`
-	PartialFlag   bool         `json:"partialFlag,omitempty" yaml:"partialFlag" bson:"partialFlag" mapstructure:"PartialFlag"`
-	Pfds          []PfdContent `json:"pfds,omitempty" yaml:"pfds" bson:"pfds" mapstructure:"Pfds"`
+	ApplicationId	string		`json:"applicationId" yaml:"applicationId" bson:"applicationId" mapstructure:"ApplicationId"`
+	RemovalFlag	bool		`json:"removalFlag,omitempty" yaml:"removalFlag" bson:"removalFlag" mapstructure:"RemovalFlag"`
+	PartialFlag	bool		`json:"partialFlag,omitempty" yaml:"partialFlag" bson:"partialFlag" mapstructure:"PartialFlag"`
+	Pfds		[]PfdContent	`json:"pfds,omitempty" yaml:"pfds" bson:"pfds" mapstructure:"Pfds"`
 }

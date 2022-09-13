@@ -11,7 +11,7 @@ package models
 
 type TimeWindow struct {
 	// string with format \"date-time\" as defined in OpenAPI.
-	StartTime string `json:"startTime" yaml:"startTime" bson:"startTime" mapstructure:"StartTime"`
+	StartTime	string	`json:"startTime" yaml:"startTime" bson:"startTime" mapstructure:"StartTime"`
 	// string with format \"date-time\" as defined in OpenAPI.
-	StopTime string `json:"stopTime" yaml:"stopTime" bson:"stopTime" mapstructure:"StopTime"`
+	StopTime	string	`json:"stopTime" yaml:"stopTime" bson:"stopTime" mapstructure:"StopTime"`
 }

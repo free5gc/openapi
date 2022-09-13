@@ -11,6 +11,6 @@ package models
 
 // describes the event information delivered in the subscription
 type AfEventSubscription struct {
-	Event       AfEvent       `json:"event" yaml:"event" bson:"event" mapstructure:"Event"`
-	NotifMethod AfNotifMethod `json:"notifMethod,omitempty" yaml:"notifMethod" bson:"notifMethod" mapstructure:"NotifMethod"`
+	Event		AfEvent		`json:"event" yaml:"event" bson:"event" mapstructure:"Event"`
+	NotifMethod	AfNotifMethod	`json:"notifMethod,omitempty" yaml:"notifMethod" bson:"notifMethod" mapstructure:"NotifMethod"`
 }

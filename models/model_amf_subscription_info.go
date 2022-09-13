@@ -10,8 +10,8 @@
 package models
 
 type AmfSubscriptionInfo struct {
-	AmfInstanceId string `json:"amfInstanceId" bson:"amfInstanceId"`
+	AmfInstanceId	string	`json:"amfInstanceId" bson:"amfInstanceId"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	SubscriptionId                string `json:"subscriptionId" bson:"subscriptionId"`
-	SubsChangeNotifyCorrelationId string `json:"subsChangeNotifyCorrelationId,omitempty" bson:"subsChangeNotifyCorrelationId"`
+	SubscriptionId			string	`json:"subscriptionId" bson:"subscriptionId"`
+	SubsChangeNotifyCorrelationId	string	`json:"subsChangeNotifyCorrelationId,omitempty" bson:"subsChangeNotifyCorrelationId"`
 }

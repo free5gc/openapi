@@ -10,6 +10,6 @@
 package models
 
 type QosFlowItem struct {
-	Qfi   int32 `json:"qfi"`
-	Cause Cause `json:"cause,omitempty"`
+	Qfi	int32	`json:"qfi"`
+	Cause	Cause	`json:"cause,omitempty"`
 }

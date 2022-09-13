@@ -10,8 +10,8 @@
 package models
 
 type AssignedEbiData struct {
-	PduSessionId    int32           `json:"pduSessionId"`
-	AssignedEbiList []EbiArpMapping `json:"assignedEbiList,omitempty"`
-	FailedArpList   []Arp           `json:"failedArpList,omitempty"`
-	ReleasedEbiList []int32         `json:"releasedEbiList,omitempty"`
+	PduSessionId	int32		`json:"pduSessionId"`
+	AssignedEbiList	[]EbiArpMapping	`json:"assignedEbiList,omitempty"`
+	FailedArpList	[]Arp		`json:"failedArpList,omitempty"`
+	ReleasedEbiList	[]int32		`json:"releasedEbiList,omitempty"`
 }

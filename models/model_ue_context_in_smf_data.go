@@ -11,7 +11,7 @@ package models
 
 type UeContextInSmfData struct {
 	// A map (list of key-value pairs where PduSessionId serves as key) of PduSessions
-	PduSessions   map[string]PduSession `json:"pduSessions,omitempty" yaml:"pduSessions" bson:"pduSessions" mapstructure:"PduSessions"`
-	PgwInfo       []PgwInfo             `json:"pgwInfo,omitempty" yaml:"pgwInfo" bson:"pgwInfo" mapstructure:"PgwInfo"`
-	EmergencyInfo *EmergencyInfo        `json:"emergencyInfo,omitempty" yaml:"emergencyInfo" bson:"emergencyInfo" mapstructure:"EmergencyInfo"`
+	PduSessions	map[string]PduSession	`json:"pduSessions,omitempty" yaml:"pduSessions" bson:"pduSessions" mapstructure:"PduSessions"`
+	PgwInfo		[]PgwInfo		`json:"pgwInfo,omitempty" yaml:"pgwInfo" bson:"pgwInfo" mapstructure:"PgwInfo"`
+	EmergencyInfo	*EmergencyInfo		`json:"emergencyInfo,omitempty" yaml:"emergencyInfo" bson:"emergencyInfo" mapstructure:"EmergencyInfo"`
 }

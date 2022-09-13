@@ -10,9 +10,9 @@
 package models
 
 type ChangeItem struct {
-	Op        ChangeType  `json:"op" yaml:"op" bson:"op" mapstructure:"Op"`
-	Path      string      `json:"path" yaml:"path" bson:"path" mapstructure:"Path"`
-	From      string      `json:"from,omitempty" yaml:"from" bson:"from" mapstructure:"From"`
-	OrigValue interface{} `json:"origValue,omitempty" yaml:"origValue" bson:"origValue" mapstructure:"OrigValue"`
-	NewValue  interface{} `json:"newValue,omitempty" yaml:"newValue" bson:"newValue" mapstructure:"NewValue"`
+	Op		ChangeType	`json:"op" yaml:"op" bson:"op" mapstructure:"Op"`
+	Path		string		`json:"path" yaml:"path" bson:"path" mapstructure:"Path"`
+	From		string		`json:"from,omitempty" yaml:"from" bson:"from" mapstructure:"From"`
+	OrigValue	interface{}	`json:"origValue,omitempty" yaml:"origValue" bson:"origValue" mapstructure:"OrigValue"`
+	NewValue	interface{}	`json:"newValue,omitempty" yaml:"newValue" bson:"newValue" mapstructure:"NewValue"`
 }

@@ -11,6 +11,6 @@ package models
 
 // describes the event information delivered in the notification
 type AfEventNotification struct {
-	Event AfEvent `json:"event" yaml:"event" bson:"event" mapstructure:"Event"`
-	Flows []Flows `json:"flows,omitempty" yaml:"flows" bson:"flows" mapstructure:"Flows"`
+	Event	AfEvent	`json:"event" yaml:"event" bson:"event" mapstructure:"Event"`
+	Flows	[]Flows	`json:"flows,omitempty" yaml:"flows" bson:"flows" mapstructure:"Flows"`
 }

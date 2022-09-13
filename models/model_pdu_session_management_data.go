@@ -14,15 +14,15 @@ import (
 )
 
 type PduSessionManagementData struct {
-	PduSessionStatus       PduSessionStatus  `json:"pduSessionStatus,omitempty" bson:"pduSessionStatus"`
-	PduSessionStatusTs     *time.Time        `json:"pduSessionStatusTs,omitempty" bson:"pduSessionStatusTs"`
-	Dnai                   string            `json:"dnai,omitempty" bson:"dnai"`
-	DnaiTs                 *time.Time        `json:"dnaiTs,omitempty" bson:"dnaiTs"`
-	N6TrafficRoutingInfo   []RouteToLocation `json:"n6TrafficRoutingInfo,omitempty" bson:"n6TrafficRoutingInfo"`
-	N6TrafficRoutingInfoTs *time.Time        `json:"n6TrafficRoutingInfoTs,omitempty" bson:"n6TrafficRoutingInfoTs"`
-	Ipv4Addr               string            `json:"ipv4Addr,omitempty" bson:"ipv4Addr"`
+	PduSessionStatus	PduSessionStatus	`json:"pduSessionStatus,omitempty" bson:"pduSessionStatus"`
+	PduSessionStatusTs	*time.Time		`json:"pduSessionStatusTs,omitempty" bson:"pduSessionStatusTs"`
+	Dnai			string			`json:"dnai,omitempty" bson:"dnai"`
+	DnaiTs			*time.Time		`json:"dnaiTs,omitempty" bson:"dnaiTs"`
+	N6TrafficRoutingInfo	[]RouteToLocation	`json:"n6TrafficRoutingInfo,omitempty" bson:"n6TrafficRoutingInfo"`
+	N6TrafficRoutingInfoTs	*time.Time		`json:"n6TrafficRoutingInfoTs,omitempty" bson:"n6TrafficRoutingInfoTs"`
+	Ipv4Addr		string			`json:"ipv4Addr,omitempty" bson:"ipv4Addr"`
 	// UE IPv6 prefix.
-	Ipv6Prefix []string   `json:"ipv6Prefix,omitempty" bson:"ipv6Prefix"`
-	IpAddrTs   *time.Time `json:"ipAddrTs,omitempty" bson:"ipAddrTs"`
-	Dnn        string     `json:"dnn,omitempty" bson:"dnn"`
+	Ipv6Prefix	[]string	`json:"ipv6Prefix,omitempty" bson:"ipv6Prefix"`
+	IpAddrTs	*time.Time	`json:"ipAddrTs,omitempty" bson:"ipAddrTs"`
+	Dnn		string		`json:"dnn,omitempty" bson:"dnn"`
 }

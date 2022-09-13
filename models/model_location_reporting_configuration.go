@@ -10,7 +10,7 @@
 package models
 
 type LocationReportingConfiguration struct {
-	CurrentLocation bool             `json:"currentLocation" yaml:"currentLocation" bson:"currentLocation" mapstructure:"CurrentLocation"`
-	OneTime         bool             `json:"oneTime,omitempty" yaml:"oneTime" bson:"oneTime" mapstructure:"OneTime"`
-	Accuracy        LocationAccuracy `json:"accuracy,omitempty" yaml:"accuracy" bson:"accuracy" mapstructure:"Accuracy"`
+	CurrentLocation	bool			`json:"currentLocation" yaml:"currentLocation" bson:"currentLocation" mapstructure:"CurrentLocation"`
+	OneTime		bool			`json:"oneTime,omitempty" yaml:"oneTime" bson:"oneTime" mapstructure:"OneTime"`
+	Accuracy	LocationAccuracy	`json:"accuracy,omitempty" yaml:"accuracy" bson:"accuracy" mapstructure:"Accuracy"`
 }

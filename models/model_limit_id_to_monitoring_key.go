@@ -11,6 +11,6 @@ package models
 
 // Contains the limit identifier and the corresponding monitoring key for a given S-NSSAI and DNN.
 type LimitIdToMonitoringKey struct {
-	LimitId string   `json:"limitId" bson:"limitId"`
-	Monkey  []string `json:"monkey,omitempty" bson:"monkey"`
+	LimitId	string		`json:"limitId" bson:"limitId"`
+	Monkey	[]string	`json:"monkey,omitempty" bson:"monkey"`
 }

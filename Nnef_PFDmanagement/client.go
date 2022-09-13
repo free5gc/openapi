@@ -12,15 +12,15 @@ package Nnef_PFDmanagement
 // APIClient manages communication with the Nnef_PFDmanagement Sevice API API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	IndividualApplicationPFDApi  *IndividualApplicationPFDApiService
-	IndividualPFDSubscriptionApi *IndividualPFDSubscriptionApiService
-	PFDOfApplicationsApi         *PFDOfApplicationsApiService
-	PFDSubscriptionsApi          *PFDSubscriptionsApiService
-	NotificationApi              *NotificationApiService
+	IndividualApplicationPFDApi	*IndividualApplicationPFDApiService
+	IndividualPFDSubscriptionApi	*IndividualPFDSubscriptionApiService
+	PFDOfApplicationsApi		*PFDOfApplicationsApiService
+	PFDSubscriptionsApi		*PFDSubscriptionsApiService
+	NotificationApi			*NotificationApiService
 }
 
 type service struct {

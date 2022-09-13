@@ -14,9 +14,9 @@ import (
 )
 
 type MonitoringReport struct {
-	ReferenceId int32      `json:"referenceId" yaml:"referenceId" bson:"referenceId" mapstructure:"ReferenceId"`
-	EventType   EventType  `json:"eventType" yaml:"eventType" bson:"eventType" mapstructure:"EventType"`
-	Report      *Report    `json:"report,omitempty" yaml:"report" bson:"report" mapstructure:"Report"`
-	Gpsi        string     `json:"gpsi,omitempty" yaml:"gpsi" bson:"gpsi" mapstructure:"Gpsi"`
-	TimeStamp   *time.Time `json:"timeStamp" yaml:"timeStamp" bson:"timeStamp" mapstructure:"TimeStamp"`
+	ReferenceId	int32		`json:"referenceId" yaml:"referenceId" bson:"referenceId" mapstructure:"ReferenceId"`
+	EventType	EventType	`json:"eventType" yaml:"eventType" bson:"eventType" mapstructure:"EventType"`
+	Report		*Report		`json:"report,omitempty" yaml:"report" bson:"report" mapstructure:"Report"`
+	Gpsi		string		`json:"gpsi,omitempty" yaml:"gpsi" bson:"gpsi" mapstructure:"Gpsi"`
+	TimeStamp	*time.Time	`json:"timeStamp" yaml:"timeStamp" bson:"timeStamp" mapstructure:"TimeStamp"`
 }

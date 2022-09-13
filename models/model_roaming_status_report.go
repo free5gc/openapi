@@ -10,6 +10,6 @@
 package models
 
 type RoamingStatusReport struct {
-	Roaming        bool    `json:"roaming" yaml:"roaming" bson:"roaming" mapstructure:"Roaming"`
-	NewServingPlmn *PlmnId `json:"newServingPlmn" yaml:"newServingPlmn" bson:"newServingPlmn" mapstructure:"NewServingPlmn"`
+	Roaming		bool	`json:"roaming" yaml:"roaming" bson:"roaming" mapstructure:"Roaming"`
+	NewServingPlmn	*PlmnId	`json:"newServingPlmn" yaml:"newServingPlmn" bson:"newServingPlmn" mapstructure:"NewServingPlmn"`
 }

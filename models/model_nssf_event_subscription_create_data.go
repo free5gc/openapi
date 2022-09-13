@@ -14,11 +14,11 @@ import (
 )
 
 type NssfEventSubscriptionCreateData struct {
-	NfNssaiAvailabilityUri string `json:"nfNssaiAvailabilityUri" bson:"nfNssaiAvailabilityUri" yaml:"nfNssaiAvailabilityUri"`
+	NfNssaiAvailabilityUri	string	`json:"nfNssaiAvailabilityUri" bson:"nfNssaiAvailabilityUri" yaml:"nfNssaiAvailabilityUri"`
 
-	TaiList []Tai `json:"taiList" bson:"taiList" yaml:"taiList"`
+	TaiList	[]Tai	`json:"taiList" bson:"taiList" yaml:"taiList"`
 
-	Event NssfEventType `json:"event" bson:"event" yaml:"event"`
+	Event	NssfEventType	`json:"event" bson:"event" yaml:"event"`
 
-	Expiry *time.Time `json:"expiry,omitempty" bson:"expiry" yaml:"expiry"`
+	Expiry	*time.Time	`json:"expiry,omitempty" bson:"expiry" yaml:"expiry"`
 }

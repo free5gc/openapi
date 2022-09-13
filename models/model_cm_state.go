@@ -13,6 +13,6 @@ type CmState string
 
 // List of CmState
 const (
-	CmState_IDLE      CmState = "IDLE"
-	CmState_CONNECTED CmState = "CONNECTED"
+	CmState_IDLE		CmState	= "IDLE"
+	CmState_CONNECTED	CmState	= "CONNECTED"
 )

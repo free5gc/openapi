@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * NRF NFManagement Service
@@ -14,15 +15,15 @@ package Nnrf_NFManagement
 // APIClient manages communication with the NRF NFManagement Service API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	NFInstanceIDDocumentApi    *NFInstanceIDDocumentApiService
-	NFInstancesStoreApi        *NFInstancesStoreApiService
-	SubscriptionIDDocumentApi  *SubscriptionIDDocumentApiService
-	SubscriptionsCollectionApi *SubscriptionsCollectionApiService
-	NotificationApi            *NotificationApiService
+	NFInstanceIDDocumentApi		*NFInstanceIDDocumentApiService
+	NFInstancesStoreApi		*NFInstancesStoreApiService
+	SubscriptionIDDocumentApi	*SubscriptionIDDocumentApiService
+	SubscriptionsCollectionApi	*SubscriptionsCollectionApiService
+	NotificationApi			*NotificationApiService
 }
 
 type service struct {

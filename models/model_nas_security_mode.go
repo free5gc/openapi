@@ -10,6 +10,6 @@
 package models
 
 type NasSecurityMode struct {
-	IntegrityAlgorithm IntegrityAlgorithm `json:"integrityAlgorithm"`
-	CipheringAlgorithm CipheringAlgorithm `json:"cipheringAlgorithm"`
+	IntegrityAlgorithm	IntegrityAlgorithm	`json:"integrityAlgorithm"`
+	CipheringAlgorithm	CipheringAlgorithm	`json:"cipheringAlgorithm"`
 }

@@ -10,9 +10,9 @@
 package models
 
 type Constants struct {
-	C1 string `json:"c1" bson:"c1"`
-	C2 string `json:"c2" bson:"c2"`
-	C3 string `json:"c3" bson:"c3"`
-	C4 string `json:"c4" bson:"c4"`
-	C5 string `json:"c5" bson:"c5"`
+	C1	string	`json:"c1" bson:"c1"`
+	C2	string	`json:"c2" bson:"c2"`
+	C3	string	`json:"c3" bson:"c3"`
+	C4	string	`json:"c4" bson:"c4"`
+	C5	string	`json:"c5" bson:"c5"`
 }

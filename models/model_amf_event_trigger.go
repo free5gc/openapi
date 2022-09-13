@@ -13,6 +13,6 @@ type AmfEventTrigger string
 
 // List of AmfEventTrigger
 const (
-	AmfEventTrigger_ONE_TIME   AmfEventTrigger = "ONE_TIME"
-	AmfEventTrigger_CONTINUOUS AmfEventTrigger = "CONTINUOUS"
+	AmfEventTrigger_ONE_TIME	AmfEventTrigger	= "ONE_TIME"
+	AmfEventTrigger_CONTINUOUS	AmfEventTrigger	= "CONTINUOUS"
 )

@@ -13,6 +13,6 @@ type TriggerCategory string
 
 // List of TriggerCategory
 const (
-	TriggerCategory_IMMEDIATE_REPORT TriggerCategory = "IMMEDIATE_REPORT"
-	TriggerCategory_DEFERRED_REPORT  TriggerCategory = "DEFERRED_REPORT"
+	TriggerCategory_IMMEDIATE_REPORT	TriggerCategory	= "IMMEDIATE_REPORT"
+	TriggerCategory_DEFERRED_REPORT		TriggerCategory	= "DEFERRED_REPORT"
 )

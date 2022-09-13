@@ -10,6 +10,6 @@
 package models
 
 type OdbData struct {
-	RoamingOdb        RoamingOdb        `json:"roamingOdb,omitempty" bson:"roamingOdb"`
-	OdbPacketServices OdbPacketServices `json:"odbPacketServices,omitempty" bson:"odbPacketServices"`
+	RoamingOdb		RoamingOdb		`json:"roamingOdb,omitempty" bson:"roamingOdb"`
+	OdbPacketServices	OdbPacketServices	`json:"odbPacketServices,omitempty" bson:"odbPacketServices"`
 }

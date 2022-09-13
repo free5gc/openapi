@@ -10,6 +10,6 @@
 package models
 
 type NetworkNodeDiameterAddress struct {
-	Name  string `json:"name" yaml:"name" bson:"name" mapstructure:"Name"`
-	Realm string `json:"realm" yaml:"realm" bson:"realm" mapstructure:"Realm"`
+	Name	string	`json:"name" yaml:"name" bson:"name" mapstructure:"Name"`
+	Realm	string	`json:"realm" yaml:"realm" bson:"realm" mapstructure:"Realm"`
 }

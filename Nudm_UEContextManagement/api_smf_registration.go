@@ -39,12 +39,12 @@ SMFRegistrationApiService register as SMF
 
 func (a *SMFRegistrationApiService) SmfRegistrationsPduSessionId(ctx context.Context, ueId string, pduSessionId int32, smfRegistration models.SmfRegistration) (models.SmfRegistration, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("Put")
-		localVarPostBody     interface{}
-		localVarFormFileName string
-		localVarFileName     string
-		localVarFileBytes    []byte
-		localVarReturnValue  models.SmfRegistration
+		localVarHTTPMethod	= strings.ToUpper("Put")
+		localVarPostBody	interface{}
+		localVarFormFileName	string
+		localVarFileName	string
+		localVarFileBytes	[]byte
+		localVarReturnValue	models.SmfRegistration
 	)
 
 	// create path and map variables
@@ -64,7 +64,7 @@ func (a *SMFRegistrationApiService) SmfRegistrationsPduSessionId(ctx context.Con
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -95,8 +95,8 @@ func (a *SMFRegistrationApiService) SmfRegistrationsPduSessionId(ctx context.Con
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:     localVarBody,
-		ErrorStatus: localVarHTTPResponse.Status,
+		RawBody:	localVarBody,
+		ErrorStatus:	localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {

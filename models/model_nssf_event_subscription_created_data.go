@@ -14,9 +14,9 @@ import (
 )
 
 type NssfEventSubscriptionCreatedData struct {
-	SubscriptionId string `json:"subscriptionId" bson:"subscriptionId"`
+	SubscriptionId	string	`json:"subscriptionId" bson:"subscriptionId"`
 
-	Expiry *time.Time `json:"expiry,omitempty" bson:"expiry"`
+	Expiry	*time.Time	`json:"expiry,omitempty" bson:"expiry"`
 
-	AuthorizedNssaiAvailabilityData []AuthorizedNssaiAvailabilityData `json:"authorizedNssaiAvailabilityData,omitempty" bson:"authorizedNssaiAvailabilityData"`
+	AuthorizedNssaiAvailabilityData	[]AuthorizedNssaiAvailabilityData	`json:"authorizedNssaiAvailabilityData,omitempty" bson:"authorizedNssaiAvailabilityData"`
 }

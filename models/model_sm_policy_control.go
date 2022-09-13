@@ -10,6 +10,6 @@
 package models
 
 type SmPolicyControl struct {
-	Context *SmPolicyContextData `json:"context" yaml:"context" bson:"context" mapstructure:"Context"`
-	Policy  *SmPolicyDecision    `json:"policy" yaml:"policy" bson:"policy" mapstructure:"Policy"`
+	Context	*SmPolicyContextData	`json:"context" yaml:"context" bson:"context" mapstructure:"Context"`
+	Policy	*SmPolicyDecision	`json:"policy" yaml:"policy" bson:"policy" mapstructure:"Policy"`
 }

@@ -10,11 +10,11 @@
 package models
 
 type EllipsoidArc struct {
-	Shape             SupportedGadShapes       `json:"shape" yaml:"shape" bson:"shape"`
-	Point             *GeographicalCoordinates `json:"point" yaml:"point" bson:"point"`
-	InnerRadius       int32                    `json:"innerRadius" yaml:"innerRadius" bson:"innerRadius"`
-	UncertaintyRadius float32                  `json:"uncertaintyRadius" yaml:"uncertaintyRadius" bson:"uncertaintyRadius"`
-	OffsetAngle       int32                    `json:"offsetAngle" yaml:"offsetAngle" bson:"offsetAngle"`
-	IncludedAngle     int32                    `json:"includedAngle" yaml:"includedAngle" bson:"includedAngle"`
-	Confidence        int32                    `json:"confidence" yaml:"confidence" bson:"confidence"`
+	Shape			SupportedGadShapes		`json:"shape" yaml:"shape" bson:"shape"`
+	Point			*GeographicalCoordinates	`json:"point" yaml:"point" bson:"point"`
+	InnerRadius		int32				`json:"innerRadius" yaml:"innerRadius" bson:"innerRadius"`
+	UncertaintyRadius	float32				`json:"uncertaintyRadius" yaml:"uncertaintyRadius" bson:"uncertaintyRadius"`
+	OffsetAngle		int32				`json:"offsetAngle" yaml:"offsetAngle" bson:"offsetAngle"`
+	IncludedAngle		int32				`json:"includedAngle" yaml:"includedAngle" bson:"includedAngle"`
+	Confidence		int32				`json:"confidence" yaml:"confidence" bson:"confidence"`
 }

@@ -11,6 +11,6 @@ package models
 
 // describes the status of the PCC rule(s) related to certain media components.
 type ResourcesAllocationInfo struct {
-	McResourcStatus MediaComponentResourcesStatus `json:"mcResourcStatus" yaml:"mcResourcStatus" bson:"mcResourcStatus" mapstructure:"McResourcStatus"`
-	Flows           []Flows                       `json:"flows,omitempty" yaml:"flows" bson:"flows" mapstructure:"Flows"`
+	McResourcStatus	MediaComponentResourcesStatus	`json:"mcResourcStatus" yaml:"mcResourcStatus" bson:"mcResourcStatus" mapstructure:"McResourcStatus"`
+	Flows		[]Flows				`json:"flows,omitempty" yaml:"flows" bson:"flows" mapstructure:"Flows"`
 }

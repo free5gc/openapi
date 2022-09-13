@@ -14,9 +14,9 @@ import (
 )
 
 type QosFlowUsageReport struct {
-	Qfi            int32      `json:"qfi"`
-	StartTimeStamp *time.Time `json:"startTimeStamp"`
-	EndTimeStamp   *time.Time `json:"endTimeStamp"`
-	DownlinkVolume int64      `json:"downlinkVolume"`
-	UplinkVolume   int64      `json:"uplinkVolume"`
+	Qfi		int32		`json:"qfi"`
+	StartTimeStamp	*time.Time	`json:"startTimeStamp"`
+	EndTimeStamp	*time.Time	`json:"endTimeStamp"`
+	DownlinkVolume	int64		`json:"downlinkVolume"`
+	UplinkVolume	int64		`json:"uplinkVolume"`
 }

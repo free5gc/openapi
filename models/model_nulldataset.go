@@ -13,8 +13,8 @@ type Nulldataset string
 
 // List of nulldataset
 const (
-	Nulldataset_SUBSCRIPTION Nulldataset = "SUBSCRIPTION"
-	Nulldataset_POLICY       Nulldataset = "POLICY"
-	Nulldataset_EXPOSURE     Nulldataset = "EXPOSURE"
-	Nulldataset_APPLICATION  Nulldataset = "APPLICATION"
+	Nulldataset_SUBSCRIPTION	Nulldataset	= "SUBSCRIPTION"
+	Nulldataset_POLICY		Nulldataset	= "POLICY"
+	Nulldataset_EXPOSURE		Nulldataset	= "EXPOSURE"
+	Nulldataset_APPLICATION		Nulldataset	= "APPLICATION"
 )

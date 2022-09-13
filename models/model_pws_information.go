@@ -10,9 +10,9 @@
 package models
 
 type PwsInformation struct {
-	MessageIdentifier int32          `json:"messageIdentifier"`
-	SerialNumber      int32          `json:"serialNumber"`
-	PwsContainer      *N2InfoContent `json:"pwsContainer"`
-	SendRanResponse   bool           `json:"sendRanResponse,omitempty"`
-	OmcId             string         `json:"omcId,omitempty"`
+	MessageIdentifier	int32		`json:"messageIdentifier"`
+	SerialNumber		int32		`json:"serialNumber"`
+	PwsContainer		*N2InfoContent	`json:"pwsContainer"`
+	SendRanResponse		bool		`json:"sendRanResponse,omitempty"`
+	OmcId			string		`json:"omcId,omitempty"`
 }

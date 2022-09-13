@@ -10,6 +10,6 @@
 package models
 
 type IdentityData struct {
-	SupiList []string `json:"supiList,omitempty" bson:"supiList"`
-	GpsiList []string `json:"gpsiList,omitempty" bson:"gpsiList"`
+	SupiList	[]string	`json:"supiList,omitempty" bson:"supiList"`
+	GpsiList	[]string	`json:"gpsiList,omitempty" bson:"gpsiList"`
 }

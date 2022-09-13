@@ -11,7 +11,7 @@ package models
 
 type SessionRuleReport struct {
 	// Contains the identifier of the affected session rule(s).
-	RuleIds             []string               `json:"ruleIds" yaml:"ruleIds" bson:"ruleIds" mapstructure:"RuleIds"`
-	RuleStatus          RuleStatus             `json:"ruleStatus" yaml:"ruleStatus" bson:"ruleStatus" mapstructure:"RuleStatus"`
-	SessRuleFailureCode SessionRuleFailureCode `json:"sessRuleFailureCode,omitempty" yaml:"sessRuleFailureCode" bson:"sessRuleFailureCode" mapstructure:"SessRuleFailureCode"`
+	RuleIds			[]string		`json:"ruleIds" yaml:"ruleIds" bson:"ruleIds" mapstructure:"RuleIds"`
+	RuleStatus		RuleStatus		`json:"ruleStatus" yaml:"ruleStatus" bson:"ruleStatus" mapstructure:"RuleStatus"`
+	SessRuleFailureCode	SessionRuleFailureCode	`json:"sessRuleFailureCode,omitempty" yaml:"sessRuleFailureCode" bson:"sessRuleFailureCode" mapstructure:"SessRuleFailureCode"`
 }

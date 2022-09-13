@@ -13,7 +13,7 @@ type ServAuthInfo string
 
 // List of ServAuthInfo
 const (
-	ServAuthInfo_NOT_KNOWN       ServAuthInfo = "TP_NOT_KNOWN"
-	ServAuthInfo_EXPIRED         ServAuthInfo = "TP_EXPIRED"
-	ServAuthInfo_NOT_YET_OCURRED ServAuthInfo = "TP_NOT_YET_OCURRED"
+	ServAuthInfo_NOT_KNOWN		ServAuthInfo	= "TP_NOT_KNOWN"
+	ServAuthInfo_EXPIRED		ServAuthInfo	= "TP_EXPIRED"
+	ServAuthInfo_NOT_YET_OCURRED	ServAuthInfo	= "TP_NOT_YET_OCURRED"
 )

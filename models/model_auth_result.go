@@ -13,7 +13,7 @@ type AuthResult string
 
 // List of AuthResult
 const (
-	AuthResult_SUCCESS AuthResult = "AUTHENTICATION_SUCCESS"
-	AuthResult_FAILURE AuthResult = "AUTHENTICATION_FAILURE"
-	AuthResult_ONGOING AuthResult = "AUTHENTICATION_ONGOING"
+	AuthResult_SUCCESS	AuthResult	= "AUTHENTICATION_SUCCESS"
+	AuthResult_FAILURE	AuthResult	= "AUTHENTICATION_FAILURE"
+	AuthResult_ONGOING	AuthResult	= "AUTHENTICATION_ONGOING"
 )

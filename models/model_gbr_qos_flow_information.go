@@ -10,11 +10,11 @@
 package models
 
 type GbrQosFlowInformation struct {
-	MaxFbrDl            string              `json:"maxFbrDl"`
-	MaxFbrUl            string              `json:"maxFbrUl"`
-	GuaFbrDl            string              `json:"guaFbrDl"`
-	GuaFbrUl            string              `json:"guaFbrUl"`
-	NotifControl        NotificationControl `json:"notifControl,omitempty"`
-	MaxPacketLossRateDl int32               `json:"maxPacketLossRateDl,omitempty"`
-	MaxPacketLossRateUl int32               `json:"maxPacketLossRateUl,omitempty"`
+	MaxFbrDl		string			`json:"maxFbrDl"`
+	MaxFbrUl		string			`json:"maxFbrUl"`
+	GuaFbrDl		string			`json:"guaFbrDl"`
+	GuaFbrUl		string			`json:"guaFbrUl"`
+	NotifControl		NotificationControl	`json:"notifControl,omitempty"`
+	MaxPacketLossRateDl	int32			`json:"maxPacketLossRateDl,omitempty"`
+	MaxPacketLossRateUl	int32			`json:"maxPacketLossRateUl,omitempty"`
 }

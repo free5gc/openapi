@@ -13,11 +13,11 @@ type PositioningMethod string
 
 // List of PositioningMethod
 const (
-	PositioningMethod_CELLID              PositioningMethod = "CELLID"
-	PositioningMethod_ECID                PositioningMethod = "ECID"
-	PositioningMethod_OTDOA               PositioningMethod = "OTDOA"
-	PositioningMethod_BAROMETRIC_PRESSURE PositioningMethod = "BAROMETRIC_PRESSURE"
-	PositioningMethod_WLAN                PositioningMethod = "WLAN"
-	PositioningMethod_BLUETOOTH           PositioningMethod = "BLUETOOTH"
-	PositioningMethod_MBS                 PositioningMethod = "MBS"
+	PositioningMethod_CELLID		PositioningMethod	= "CELLID"
+	PositioningMethod_ECID			PositioningMethod	= "ECID"
+	PositioningMethod_OTDOA			PositioningMethod	= "OTDOA"
+	PositioningMethod_BAROMETRIC_PRESSURE	PositioningMethod	= "BAROMETRIC_PRESSURE"
+	PositioningMethod_WLAN			PositioningMethod	= "WLAN"
+	PositioningMethod_BLUETOOTH		PositioningMethod	= "BLUETOOTH"
+	PositioningMethod_MBS			PositioningMethod	= "MBS"
 )

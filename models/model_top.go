@@ -10,7 +10,7 @@
 package models
 
 type Top struct {
-	TopValue            string `json:"topValue" bson:"topValue"`
-	EncryptionKey       int32  `json:"encryptionKey" bson:"encryptionKey"`
-	EncryptionAlgorithm int32  `json:"encryptionAlgorithm" bson:"encryptionAlgorithm"`
+	TopValue		string	`json:"topValue" bson:"topValue"`
+	EncryptionKey		int32	`json:"encryptionKey" bson:"encryptionKey"`
+	EncryptionAlgorithm	int32	`json:"encryptionAlgorithm" bson:"encryptionAlgorithm"`
 }

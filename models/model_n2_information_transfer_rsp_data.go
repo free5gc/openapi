@@ -10,7 +10,7 @@
 package models
 
 type N2InformationTransferRspData struct {
-	Result            N2InformationTransferResult `json:"result"`
-	PwsRspData        *PwsResponseData            `json:"pwsRspData,omitempty"`
-	SupportedFeatures string                      `json:"supportedFeatures,omitempty"`
+	Result			N2InformationTransferResult	`json:"result"`
+	PwsRspData		*PwsResponseData		`json:"pwsRspData,omitempty"`
+	SupportedFeatures	string				`json:"supportedFeatures,omitempty"`
 }

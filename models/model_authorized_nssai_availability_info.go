@@ -10,7 +10,7 @@
 package models
 
 type AuthorizedNssaiAvailabilityInfo struct {
-	AuthorizedNssaiAvailabilityData []AuthorizedNssaiAvailabilityData `json:"authorizedNssaiAvailabilityData" bson:"authorizedNssaiAvailabilityData"`
+	AuthorizedNssaiAvailabilityData	[]AuthorizedNssaiAvailabilityData	`json:"authorizedNssaiAvailabilityData" bson:"authorizedNssaiAvailabilityData"`
 
-	SupportedFeatures string `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
+	SupportedFeatures	string	`json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
 }

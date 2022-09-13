@@ -17,14 +17,14 @@ type ContextKey string
 
 // BasicAuth provides basic http authentication to a request passed via context using ContextBasicAuth
 type BasicAuth struct {
-	UserName string `json:"userName,omitempty"`
-	Password string `json:"password,omitempty"`
+	UserName	string	`json:"userName,omitempty"`
+	Password	string	`json:"password,omitempty"`
 }
 
 // APIKey provides API key based authentication to a request passed via context using ContextAPIKey
 type APIKey struct {
-	Key    string
-	Prefix string
+	Key	string
+	Prefix	string
 }
 
 func (c ContextKey) String() string {
@@ -33,14 +33,15 @@ func (c ContextKey) String() string {
 
 const (
 	// ContextOAuth2 takes an oauth2.TokenSource as authentication for the request.
-	ContextOAuth2 = ContextKey("token")
+	ContextOAuth2	= ContextKey("token")
 
 	// ContextBasicAuth takes BasicAuth as authentication for the request.
-	ContextBasicAuth = ContextKey("basic")
+	ContextBasicAuth	= ContextKey("basic")
 
 	// ContextAccessToken takes a string oauth2 access token as authentication for the request.
-	ContextAccessToken = ContextKey("accesstoken")
+	ContextAccessToken	= ContextKey("accesstoken")
 
 	// ContextAPIKey takes an APIKey as authentication for the request
-	ContextAPIKey = ContextKey("apikey")
+	ContextAPIKey			= ContextKey("apikey")
+	ContextOAuthAdditionalParams	= ContextKey("additional_params")
 )

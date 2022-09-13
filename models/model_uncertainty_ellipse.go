@@ -10,7 +10,7 @@
 package models
 
 type UncertaintyEllipse struct {
-	SemiMajor        float32 `json:"semiMajor" yaml:"semiMajor" bson:"semiMajor"`
-	SemiMinor        float32 `json:"semiMinor" yaml:"semiMinor" bson:"semiMinor"`
-	OrientationMajor int32   `json:"orientationMajor" yaml:"orientationMajor" bson:"orientationMajor"`
+	SemiMajor		float32	`json:"semiMajor" yaml:"semiMajor" bson:"semiMajor"`
+	SemiMinor		float32	`json:"semiMinor" yaml:"semiMinor" bson:"semiMinor"`
+	OrientationMajor	int32	`json:"orientationMajor" yaml:"orientationMajor" bson:"orientationMajor"`
 }

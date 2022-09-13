@@ -11,6 +11,6 @@ package models
 
 // Represents an Individual BDT policy resource.
 type BdtPolicy struct {
-	BdtPolData *BdtPolicyData `json:"bdtPolData,omitempty" yaml:"bdtPolData" bson:"bdtPolData" mapstructure:"BdtPolData"`
-	BdtReqData *BdtReqData    `json:"bdtReqData,omitempty" yaml:"bdtReqData" bson:"bdtReqData" mapstructure:"BdtReqData"`
+	BdtPolData	*BdtPolicyData	`json:"bdtPolData,omitempty" yaml:"bdtPolData" bson:"bdtPolData" mapstructure:"BdtPolData"`
+	BdtReqData	*BdtReqData	`json:"bdtReqData,omitempty" yaml:"bdtReqData" bson:"bdtReqData" mapstructure:"BdtReqData"`
 }

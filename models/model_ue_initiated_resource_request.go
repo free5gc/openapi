@@ -10,9 +10,9 @@
 package models
 
 type UeInitiatedResourceRequest struct {
-	PccRuleId    string             `json:"pccRuleId,omitempty" yaml:"pccRuleId" bson:"pccRuleId" mapstructure:"PccRuleId"`
-	RuleOp       RuleOperation      `json:"ruleOp,omitempty" yaml:"ruleOp" bson:"ruleOp" mapstructure:"RuleOp"`
-	Precedence   int32              `json:"precedence,omitempty" yaml:"precedence" bson:"precedence" mapstructure:"Precedence"`
-	PackFiltInfo []PacketFilterInfo `json:"packFiltInfo" yaml:"packFiltInfo" bson:"packFiltInfo" mapstructure:"PackFiltInfo"`
-	ReqQos       *RequestedQos      `json:"reqQos,omitempty" yaml:"reqQos" bson:"reqQos" mapstructure:"ReqQos"`
+	PccRuleId	string			`json:"pccRuleId,omitempty" yaml:"pccRuleId" bson:"pccRuleId" mapstructure:"PccRuleId"`
+	RuleOp		RuleOperation		`json:"ruleOp,omitempty" yaml:"ruleOp" bson:"ruleOp" mapstructure:"RuleOp"`
+	Precedence	int32			`json:"precedence,omitempty" yaml:"precedence" bson:"precedence" mapstructure:"Precedence"`
+	PackFiltInfo	[]PacketFilterInfo	`json:"packFiltInfo" yaml:"packFiltInfo" bson:"packFiltInfo" mapstructure:"PackFiltInfo"`
+	ReqQos		*RequestedQos		`json:"reqQos,omitempty" yaml:"reqQos" bson:"reqQos" mapstructure:"ReqQos"`
 }

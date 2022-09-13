@@ -10,7 +10,7 @@
 package models
 
 type RequestedQos struct {
-	Var5qi int32  `json:"5qi" yaml:"5qi" bson:"5qi" mapstructure:"Var5qi"`
-	GbrUl  string `json:"gbrUl,omitempty" yaml:"gbrUl" bson:"gbrUl" mapstructure:"GbrUl"`
-	GbrDl  string `json:"gbrDl,omitempty" yaml:"gbrDl" bson:"gbrDl" mapstructure:"GbrDl"`
+	Var5qi	int32	`json:"5qi" yaml:"5qi" bson:"5qi" mapstructure:"Var5qi"`
+	GbrUl	string	`json:"gbrUl,omitempty" yaml:"gbrUl" bson:"gbrUl" mapstructure:"GbrUl"`
+	GbrDl	string	`json:"gbrDl,omitempty" yaml:"gbrDl" bson:"gbrDl" mapstructure:"GbrDl"`
 }

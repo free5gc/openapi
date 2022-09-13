@@ -10,9 +10,9 @@
 package models
 
 type RequestLocInfo struct {
-	Req5gsLoc         bool   `json:"req5gsLoc,omitempty" yaml:"req5gsLoc" bson:"req5gsLoc"`
-	ReqCurrentLoc     bool   `json:"reqCurrentLoc,omitempty" yaml:"reqCurrentLoc" bson:"reqCurrentLoc"`
-	ReqRatType        bool   `json:"reqRatType,omitempty" yaml:"reqRatType" bson:"reqRatType"`
-	ReqTimeZone       bool   `json:"reqTimeZone,omitempty" yaml:"reqTimeZone" bson:"reqTimeZone"`
-	SupportedFeatures string `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures"`
+	Req5gsLoc		bool	`json:"req5gsLoc,omitempty" yaml:"req5gsLoc" bson:"req5gsLoc"`
+	ReqCurrentLoc		bool	`json:"reqCurrentLoc,omitempty" yaml:"reqCurrentLoc" bson:"reqCurrentLoc"`
+	ReqRatType		bool	`json:"reqRatType,omitempty" yaml:"reqRatType" bson:"reqRatType"`
+	ReqTimeZone		bool	`json:"reqTimeZone,omitempty" yaml:"reqTimeZone" bson:"reqTimeZone"`
+	SupportedFeatures	string	`json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures"`
 }

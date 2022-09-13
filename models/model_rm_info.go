@@ -10,6 +10,6 @@
 package models
 
 type RmInfo struct {
-	RmState    RmState    `json:"rmState" bson:"rmState"`
-	AccessType AccessType `json:"accessType" bson:"accessType"`
+	RmState		RmState		`json:"rmState" bson:"rmState"`
+	AccessType	AccessType	`json:"accessType" bson:"accessType"`
 }

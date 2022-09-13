@@ -10,6 +10,6 @@
 package models
 
 type Ipv4AddressRange struct {
-	Start string `json:"start,omitempty" yaml:"start" bson:"start" mapstructure:"Start"`
-	End   string `json:"end,omitempty" yaml:"end" bson:"end" mapstructure:"End"`
+	Start	string	`json:"start,omitempty" yaml:"start" bson:"start" mapstructure:"Start"`
+	End	string	`json:"end,omitempty" yaml:"end" bson:"end" mapstructure:"End"`
 }

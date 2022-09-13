@@ -15,6 +15,6 @@ import (
 
 // Indicates the time interval(s) during which the AF request is to be applied
 type TemporalValidity struct {
-	StartTime *time.Time `json:"startTime,omitempty" yaml:"startTime" bson:"startTime" mapstructure:"StartTime"`
-	StopTime  *time.Time `json:"stopTime,omitempty" yaml:"stopTime" bson:"stopTime" mapstructure:"StopTime"`
+	StartTime	*time.Time	`json:"startTime,omitempty" yaml:"startTime" bson:"startTime" mapstructure:"StartTime"`
+	StopTime	*time.Time	`json:"stopTime,omitempty" yaml:"stopTime" bson:"stopTime" mapstructure:"StopTime"`
 }

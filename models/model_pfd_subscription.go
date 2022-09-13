@@ -10,7 +10,7 @@
 package models
 
 type PfdSubscription struct {
-	ApplicationIds    []string `json:"applicationIds,omitempty" yaml:"applicationIds" bson:"applicationIds" mapstructure:"ApplicationIds"`
-	NotifyUri         string   `json:"notifyUri" yaml:"notifyUri" bson:"notifyUri" mapstructure:"NotifyUri"`
-	SupportedFeatures string   `json:"supportedFeatures" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	ApplicationIds		[]string	`json:"applicationIds,omitempty" yaml:"applicationIds" bson:"applicationIds" mapstructure:"ApplicationIds"`
+	NotifyUri		string		`json:"notifyUri" yaml:"notifyUri" bson:"notifyUri" mapstructure:"NotifyUri"`
+	SupportedFeatures	string		`json:"supportedFeatures" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
 }

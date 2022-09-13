@@ -10,6 +10,6 @@
 package models
 
 type UeContextTransferResponse struct {
-	JsonData                *UeContextTransferRspData `json:"jsonData,omitempty" multipart:"contentType:application/json"`
-	BinaryDataN2Information []byte                    `json:"binaryDataN2Information,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.UeRadioCapability.NgapData.ContentId"`
+	JsonData		*UeContextTransferRspData	`json:"jsonData,omitempty" multipart:"contentType:application/json"`
+	BinaryDataN2Information	[]byte				`json:"binaryDataN2Information,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.UeRadioCapability.NgapData.ContentId"`
 }

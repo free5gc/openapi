@@ -10,6 +10,6 @@
 package models
 
 type StatusInfo struct {
-	ResourceStatus ResourceStatus `json:"resourceStatus"`
-	Cause          Cause          `json:"cause,omitempty"`
+	ResourceStatus	ResourceStatus	`json:"resourceStatus"`
+	Cause		Cause		`json:"cause,omitempty"`
 }

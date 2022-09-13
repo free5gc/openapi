@@ -13,12 +13,12 @@ type DataSetName string
 
 // List of DataSetName
 const (
-	DataSetName_AM       DataSetName = "AM"
-	DataSetName_SMF_SEL  DataSetName = "SMF_SEL"
-	DataSetName_UEC_SMF  DataSetName = "UEC_SMF"
-	DataSetName_UEC_SMSF DataSetName = "UEC_SMSF"
-	DataSetName_SMS_SUB  DataSetName = "SMS_SUB"
-	DataSetName_SM       DataSetName = "SM"
-	DataSetName_TRACE    DataSetName = "TRACE"
-	DataSetName_SMS_MNG  DataSetName = "SMS_MNG"
+	DataSetName_AM		DataSetName	= "AM"
+	DataSetName_SMF_SEL	DataSetName	= "SMF_SEL"
+	DataSetName_UEC_SMF	DataSetName	= "UEC_SMF"
+	DataSetName_UEC_SMSF	DataSetName	= "UEC_SMSF"
+	DataSetName_SMS_SUB	DataSetName	= "SMS_SUB"
+	DataSetName_SM		DataSetName	= "SM"
+	DataSetName_TRACE	DataSetName	= "TRACE"
+	DataSetName_SMS_MNG	DataSetName	= "SMS_MNG"
 )

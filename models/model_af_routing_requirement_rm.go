@@ -11,9 +11,9 @@ package models
 
 // this data type is defined in the same way as the AfRoutingRequirement data type, but with the OpenAPI nullable property set to true and the spVal and tempVals attributes defined as removable.
 type AfRoutingRequirementRm struct {
-	AppReloc     bool               `json:"appReloc,omitempty" yaml:"appReloc" bson:"appReloc" mapstructure:"AppReloc"`
-	RouteToLocs  []RouteToLocation  `json:"routeToLocs,omitempty" yaml:"routeToLocs" bson:"routeToLocs" mapstructure:"RouteToLocs"`
-	SpVal        *SpatialValidityRm `json:"spVal,omitempty" yaml:"spVal" bson:"spVal" mapstructure:"SpVal"`
-	TempVals     []TemporalValidity `json:"tempVals,omitempty" yaml:"tempVals" bson:"tempVals" mapstructure:"TempVals"`
-	UpPathChgSub *UpPathChgEvent    `json:"upPathChgSub,omitempty" yaml:"upPathChgSub" bson:"upPathChgSub" mapstructure:"UpPathChgSub"`
+	AppReloc	bool			`json:"appReloc,omitempty" yaml:"appReloc" bson:"appReloc" mapstructure:"AppReloc"`
+	RouteToLocs	[]RouteToLocation	`json:"routeToLocs,omitempty" yaml:"routeToLocs" bson:"routeToLocs" mapstructure:"RouteToLocs"`
+	SpVal		*SpatialValidityRm	`json:"spVal,omitempty" yaml:"spVal" bson:"spVal" mapstructure:"SpVal"`
+	TempVals	[]TemporalValidity	`json:"tempVals,omitempty" yaml:"tempVals" bson:"tempVals" mapstructure:"TempVals"`
+	UpPathChgSub	*UpPathChgEvent		`json:"upPathChgSub,omitempty" yaml:"upPathChgSub" bson:"upPathChgSub" mapstructure:"UpPathChgSub"`
 }

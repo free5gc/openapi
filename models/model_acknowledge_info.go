@@ -14,8 +14,8 @@ import (
 )
 
 type AcknowledgeInfo struct {
-	SorMacIue        string     `json:"sorMacIue,omitempty" yaml:"sorMacIue" bson:"sorMacIue" mapstructure:"SorMacIue"`
-	UpuMacIue        string     `json:"upuMacIue,omitempty" yaml:"upuMacIue" bson:"upuMacIue" mapstructure:"UpuMacIue"`
-	SecuredPacket    string     `json:"securedPacket,omitempty" yaml:"securedPacket" bson:"securedPacket" mapstructure:"SecuredPacket"`
-	ProvisioningTime *time.Time `json:"provisioningTime" yaml:"provisioningTime" bson:"provisioningTime" mapstructure:"ProvisioningTime"`
+	SorMacIue		string		`json:"sorMacIue,omitempty" yaml:"sorMacIue" bson:"sorMacIue" mapstructure:"SorMacIue"`
+	UpuMacIue		string		`json:"upuMacIue,omitempty" yaml:"upuMacIue" bson:"upuMacIue" mapstructure:"UpuMacIue"`
+	SecuredPacket		string		`json:"securedPacket,omitempty" yaml:"securedPacket" bson:"securedPacket" mapstructure:"SecuredPacket"`
+	ProvisioningTime	*time.Time	`json:"provisioningTime" yaml:"provisioningTime" bson:"provisioningTime" mapstructure:"ProvisioningTime"`
 }

@@ -10,7 +10,7 @@
 package models
 
 type UpuSecurityInfo struct {
-	UpuMacIausf string `json:"upuMacIausf" yaml:"upuMacIausf" bson:"upuMacIausf"`
-	CounterUpu  string `json:"counterUpu" yaml:"counterUpu" bson:"counterUpu"`
-	UpuXmacIue  string `json:"upuXmacIue,omitempty" yaml:"upuXmacIue" bson:"upuXmacIue"`
+	UpuMacIausf	string	`json:"upuMacIausf" yaml:"upuMacIausf" bson:"upuMacIausf"`
+	CounterUpu	string	`json:"counterUpu" yaml:"counterUpu" bson:"counterUpu"`
+	UpuXmacIue	string	`json:"upuXmacIue,omitempty" yaml:"upuXmacIue" bson:"upuXmacIue"`
 }

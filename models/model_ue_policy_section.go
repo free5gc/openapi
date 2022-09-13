@@ -11,6 +11,6 @@ package models
 
 // Contains the UE policy section.
 type UePolicySection struct {
-	UePolicySectionInfo string `json:"uePolicySectionInfo" bson:"uePolicySectionInfo"`
-	Upsi                string `json:"upsi" bson:"upsi"`
+	UePolicySectionInfo	string	`json:"uePolicySectionInfo" bson:"uePolicySectionInfo"`
+	Upsi			string	`json:"upsi" bson:"upsi"`
 }

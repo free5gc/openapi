@@ -13,7 +13,7 @@ type DnnSelectionMode string
 
 // List of DnnSelectionMode
 const (
-	DnnSelectionMode_VERIFIED            DnnSelectionMode = "VERIFIED"
-	DnnSelectionMode_UE_DNN_NOT_VERIFIED DnnSelectionMode = "UE_DNN_NOT_VERIFIED"
-	DnnSelectionMode_NW_DNN_NOT_VERIFIED DnnSelectionMode = "NW_DNN_NOT_VERIFIED"
+	DnnSelectionMode_VERIFIED		DnnSelectionMode	= "VERIFIED"
+	DnnSelectionMode_UE_DNN_NOT_VERIFIED	DnnSelectionMode	= "UE_DNN_NOT_VERIFIED"
+	DnnSelectionMode_NW_DNN_NOT_VERIFIED	DnnSelectionMode	= "NW_DNN_NOT_VERIFIED"
 )

@@ -11,14 +11,14 @@ package models
 
 type TrafficInfluSubPatch struct {
 	// Identifies whether an application can be relocated once a location of the application has been selected.
-	AppReloInd bool `json:"appReloInd,omitempty" yaml:"appReloInd" bson:"appReloInd" mapstructure:"AppReloInd"`
+	AppReloInd	bool	`json:"appReloInd,omitempty" yaml:"appReloInd" bson:"appReloInd" mapstructure:"AppReloInd"`
 	// Identifies IP packet filters.
-	TrafficFilters []FlowInfo `json:"trafficFilters,omitempty" yaml:"trafficFilters" bson:"trafficFilters" mapstructure:"TrafficFilters"`
+	TrafficFilters	[]FlowInfo	`json:"trafficFilters,omitempty" yaml:"trafficFilters" bson:"trafficFilters" mapstructure:"TrafficFilters"`
 	// Identifies Ethernet packet filters.
-	EthTrafficFilters []EthFlowDescription `json:"ethTrafficFilters,omitempty" yaml:"ethTrafficFilters" bson:"ethTrafficFilters" mapstructure:"EthTrafficFilters"`
+	EthTrafficFilters	[]EthFlowDescription	`json:"ethTrafficFilters,omitempty" yaml:"ethTrafficFilters" bson:"ethTrafficFilters" mapstructure:"EthTrafficFilters"`
 	// Identifies the N6 traffic routing requirement.
-	TrafficRoutes  []RouteToLocation  `json:"trafficRoutes,omitempty" yaml:"trafficRoutes" bson:"trafficRoutes" mapstructure:"TrafficRoutes"`
-	TempValidities []TemporalValidity `json:"tempValidities,omitempty" yaml:"tempValidities" bson:"tempValidities" mapstructure:"TempValidities"`
+	TrafficRoutes	[]RouteToLocation	`json:"trafficRoutes,omitempty" yaml:"trafficRoutes" bson:"trafficRoutes" mapstructure:"TrafficRoutes"`
+	TempValidities	[]TemporalValidity	`json:"tempValidities,omitempty" yaml:"tempValidities" bson:"tempValidities" mapstructure:"TempValidities"`
 	// Identifies a geographic zone that the AF request applies only to the traffic of UE(s) located in this specific zone.
-	ValidGeoZoneIds []string `json:"validGeoZoneIds,omitempty" yaml:"validGeoZoneIds" bson:"validGeoZoneIds" mapstructure:"ValidGeoZoneIds"`
+	ValidGeoZoneIds	[]string	`json:"validGeoZoneIds,omitempty" yaml:"validGeoZoneIds" bson:"validGeoZoneIds" mapstructure:"ValidGeoZoneIds"`
 }

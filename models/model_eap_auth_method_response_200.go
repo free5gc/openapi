@@ -11,7 +11,7 @@ package models
 
 type EapAuthMethodResponse200 struct {
 	// contains an EAP packet
-	EapPayload string `json:"eapPayload" yaml:"eapPayload" bson:"eapPayload"`
+	EapPayload	string	`json:"eapPayload" yaml:"eapPayload" bson:"eapPayload"`
 	// URI : /{eapSessionUri}
-	Links map[string]LinksValueSchema `json:"_links" yaml:"_links" bson:"_links"`
+	Links	map[string]LinksValueSchema	`json:"_links" yaml:"_links" bson:"_links"`
 }

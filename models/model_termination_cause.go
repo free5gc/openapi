@@ -13,6 +13,6 @@ type TerminationCause string
 
 // List of TerminationCause
 const (
-	TerminationCause_ALL_SDF_DEACTIVATION    TerminationCause = "ALL_SDF_DEACTIVATION"
-	TerminationCause_PDU_SESSION_TERMINATION TerminationCause = "PDU_SESSION_TERMINATION"
+	TerminationCause_ALL_SDF_DEACTIVATION		TerminationCause	= "ALL_SDF_DEACTIVATION"
+	TerminationCause_PDU_SESSION_TERMINATION	TerminationCause	= "PDU_SESSION_TERMINATION"
 )

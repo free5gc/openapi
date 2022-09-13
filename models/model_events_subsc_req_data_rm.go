@@ -11,8 +11,8 @@ package models
 
 // this data type is defined in the same way as the EventsSubscReqData data type, but with the OpenAPI nullable property set to true.
 type EventsSubscReqDataRm struct {
-	Events []AfEventSubscription `json:"events" yaml:"events" bson:"events" mapstructure:"Events"`
+	Events	[]AfEventSubscription	`json:"events" yaml:"events" bson:"events" mapstructure:"Events"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	NotifUri string            `json:"notifUri,omitempty" yaml:"notifUri" bson:"notifUri" mapstructure:"NotifUri"`
-	UsgThres *UsageThresholdRm `json:"usgThres,omitempty" yaml:"usgThres" bson:"usgThres" mapstructure:"UsgThres"`
+	NotifUri	string			`json:"notifUri,omitempty" yaml:"notifUri" bson:"notifUri" mapstructure:"NotifUri"`
+	UsgThres	*UsageThresholdRm	`json:"usgThres,omitempty" yaml:"usgThres" bson:"usgThres" mapstructure:"UsgThres"`
 }

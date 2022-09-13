@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * Nausf_SoRProtection Service
@@ -14,11 +15,11 @@ package Nausf_SoRProtection
 // APIClient manages communication with the Nausf_SoRProtection Service API v1.0.1
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	DefaultApi *DefaultApiService
+	DefaultApi	*DefaultApiService
 }
 
 type service struct {

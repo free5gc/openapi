@@ -14,6 +14,6 @@ import (
 )
 
 type ExpectedUeBehavior struct {
-	ExpMoveTrajectory []UserLocation `json:"expMoveTrajectory"`
-	ValidityTime      *time.Time     `json:"validityTime"`
+	ExpMoveTrajectory	[]UserLocation	`json:"expMoveTrajectory"`
+	ValidityTime		*time.Time	`json:"validityTime"`
 }

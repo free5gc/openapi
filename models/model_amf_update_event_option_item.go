@@ -14,7 +14,7 @@ import (
 )
 
 type AmfUpdateEventOptionItem struct {
-	Op    string     `json:"op" bson:"op" `
-	Path  string     `json:"path" bson:"path" `
-	Value *time.Time `json:"value" bson:"value" `
+	Op	string		`json:"op" bson:"op" `
+	Path	string		`json:"path" bson:"path" `
+	Value	*time.Time	`json:"value" bson:"value" `
 }

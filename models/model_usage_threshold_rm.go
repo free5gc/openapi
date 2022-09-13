@@ -11,11 +11,11 @@ package models
 
 type UsageThresholdRm struct {
 	// Unsigned integer identifying a period of time in units of seconds with \"nullable=true\" property.
-	Duration int32 `json:"duration,omitempty" yaml:"duration" bson:"duration" mapstructure:"Duration"`
+	Duration	int32	`json:"duration,omitempty" yaml:"duration" bson:"duration" mapstructure:"Duration"`
 	// Unsigned integer identifying a volume in units of bytes with \"nullable=true\" property.
-	TotalVolume int64 `json:"totalVolume,omitempty" yaml:"totalVolume" bson:"totalVolume" mapstructure:"TotalVolume"`
+	TotalVolume	int64	`json:"totalVolume,omitempty" yaml:"totalVolume" bson:"totalVolume" mapstructure:"TotalVolume"`
 	// Unsigned integer identifying a volume in units of bytes with \"nullable=true\" property.
-	DownlinkVolume int64 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume" bson:"downlinkVolume" mapstructure:"DownlinkVolume"`
+	DownlinkVolume	int64	`json:"downlinkVolume,omitempty" yaml:"downlinkVolume" bson:"downlinkVolume" mapstructure:"DownlinkVolume"`
 	// Unsigned integer identifying a volume in units of bytes with \"nullable=true\" property.
-	UplinkVolume int64 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume" bson:"uplinkVolume" mapstructure:"UplinkVolume"`
+	UplinkVolume	int64	`json:"uplinkVolume,omitempty" yaml:"uplinkVolume" bson:"uplinkVolume" mapstructure:"UplinkVolume"`
 }

@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * NRF NFDiscovery Service
@@ -14,11 +15,11 @@ package Nnrf_NFDiscovery
 // APIClient manages communication with the NRF NFDiscovery Service API v1.0.0
 // In most cases there should be only one, shared, APIClient.
 type APIClient struct {
-	cfg    *Configuration
-	common service // Reuse a single struct instead of allocating one for each service on the heap.
+	cfg	*Configuration
+	common	service	// Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	NFInstancesStoreApi *NFInstancesStoreApiService
+	NFInstancesStoreApi	*NFInstancesStoreApiService
 }
 
 type service struct {

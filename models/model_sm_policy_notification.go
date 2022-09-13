@@ -10,6 +10,6 @@
 package models
 
 type SmPolicyNotification struct {
-	ResourceUri      string            `json:"resourceUri,omitempty" yaml:"resourceUri" bson:"resourceUri" mapstructure:"ResourceUri"`
-	SmPolicyDecision *SmPolicyDecision `json:"smPolicyDecision,omitempty" yaml:"smPolicyDecision" bson:"smPolicyDecision" mapstructure:"SmPolicyDecision"`
+	ResourceUri		string			`json:"resourceUri,omitempty" yaml:"resourceUri" bson:"resourceUri" mapstructure:"ResourceUri"`
+	SmPolicyDecision	*SmPolicyDecision	`json:"smPolicyDecision,omitempty" yaml:"smPolicyDecision" bson:"smPolicyDecision" mapstructure:"SmPolicyDecision"`
 }
