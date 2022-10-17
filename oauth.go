@@ -7,19 +7,16 @@ import (
 	"crypto/x509"
 	"crypto/x509/pkix"
 	"encoding/pem"
-	"fmt"
-	"io/ioutil"
 	"math/big"
-	"net/http"
 	"net/url"
 	"os"
 	"strings"
 	"time"
 
 	"github.com/golang-jwt/jwt"
+	"github.com/pkg/errors"
 
 	"github.com/free5gc/openapi/models"
-	"github.com/free5gc/util/httpwrapper"
 )
 
 type CCAClaims struct {
@@ -28,7 +25,7 @@ type CCAClaims struct {
 	jwt.StandardClaims
 }
 
-func GenClientCredentialAssertion(sub string, aud string, keyPath string) (string, error) {
+func GenerateClientCredentialAssertion(sub string, aud string, keyPath string) (string, error) {
 	var expiration int32 = 1000
 	now := int32(time.Now().Unix())
 
@@ -42,88 +39,74 @@ func GenClientCredentialAssertion(sub string, aud string, keyPath string) (strin
 	}
 
 	// Use RSA as a signing method
-	signBytes, err := ioutil.ReadFile(keyPath)
+	signKey, err := ParsePrivateKeyFromPEM(keyPath)
 	if err != nil {
-		return "", err
-	}
-	signKey, err := jwt.ParseRSAPrivateKeyFromPEM(signBytes)
-	if err != nil {
-		return "", err
+		return "", errors.Wrapf(err, "gen CCAClaims")
 	}
 	token := jwt.NewWithClaims(jwt.GetSigningMethod("RS512"), accessTokenClaims)
 	accessToken, err := token.SignedString(signKey)
 	if err != nil {
-		return "", err
+		return "", errors.Wrapf(err, "gen CCAClaims")
 	}
 	return accessToken, nil
 }
 
-func OAuthVerify(request *httpwrapper.Request, serviceName string, pubKeyPath string) *httpwrapper.Response {
-	verifyBytes, err := ioutil.ReadFile(pubKeyPath)
+func VerifyOAuth(authorization string, serviceName string, certPath string) error {
+	verifyKey, err := ParsePublicKeyFromPEM(certPath)
 	if err != nil {
-		fmt.Println("VerifyBytes failed")
-		return httpwrapper.NewResponse(http.StatusBadRequest, nil, err)
-	}
-	verifyKey, err := jwt.ParseRSAPublicKeyFromPEM(verifyBytes)
-	if err != nil {
-		fmt.Println("VerifyKey failed")
-		return httpwrapper.NewResponse(http.StatusBadRequest, nil, err)
-	}
-	if request.Header.Get("Authorization") == "" {
-		fmt.Println("no access token")
-		return httpwrapper.NewResponse(http.StatusBadRequest, nil, err)
-	}
-	auth := strings.Split(request.Header.Get("Authorization"), " ")
-	tokenString := strings.TrimSpace(auth[1])
-	token, err := jwt.ParseWithClaims(tokenString, &models.AccessTokenClaims{}, func(token *jwt.Token) (interface{}, error) {
-		return verifyKey, nil
-	})
-	if err != nil {
-		fmt.Println(err.Error())
-		return httpwrapper.NewResponse(http.StatusUnauthorized, nil, err)
+		return errors.Wrapf(err, "verify OAuth")
 	}
 
-	if !VerifyScope(token.Claims.(*models.AccessTokenClaims).Scope, serviceName) {
-		return httpwrapper.NewResponse(http.StatusForbidden, nil, nil)
+	auth_fields := strings.Fields(authorization)
+	if len(auth_fields) < 2 {
+		return errors.Errorf("verify OAuth Authorization header invalid")
+	}
+
+	access_token := auth_fields[1]
+	token, err := jwt.ParseWithClaims(
+		access_token,
+		&models.AccessTokenClaims{},
+		func(token *jwt.Token) (interface{}, error) {
+			return verifyKey, nil
+		})
+	if err != nil {
+		return errors.Wrapf(err, "verify OAuth parse")
+	}
+
+	if !verifyScope(token.Claims.(*models.AccessTokenClaims).Scope, serviceName) {
+		return errors.Wrapf(err, "verify OAuth scope")
 	}
 	return nil
 }
 
-func VerifyScope(scope string, serviceName string) bool {
+func verifyScope(scope string, serviceName string) bool {
 	return strings.Contains(scope, serviceName)
 }
 
-func LoadRootKey(rootKeyPath string) (*rsa.PrivateKey, error) {
-	priv, err := ioutil.ReadFile(rootKeyPath)
+func GenerateRootCertificate(
+	nfType, nfId, rootCertPath string,
+	rootPrivKey *rsa.PrivateKey,
+) (*x509.Certificate, error) {
+	rootCert, err := GenerateCertificate(
+		"", "", rootCertPath, &rootPrivKey.PublicKey, nil, rootPrivKey)
 	if err != nil {
-		fmt.Println("Read root key file error: ", err)
+		return nil, errors.Wrapf(err, "gen root cert")
 	}
-	privPem, _ := pem.Decode(priv)
-	privPemBytes := privPem.Bytes
-	var parsedKey interface{}
-	if parsedKey, err = x509.ParsePKCS1PrivateKey(privPemBytes); err != nil {
-		if parsedKey, err = x509.ParsePKCS8PrivateKey(privPemBytes); err != nil {
-			fmt.Println("parsed key error: ", err)
-		}
-	}
-	var privateKey *rsa.PrivateKey
-	var ok bool
-	privateKey, ok = parsedKey.(*rsa.PrivateKey)
-	if !ok {
-		fmt.Println("no ok")
-	}
-
-	return privateKey, nil
+	return rootCert, nil
 }
 
-func GenCertificate(nfType string, nfId string, rootPemPath string,
-	rootKeyPath string, pemPath string, keyPath string) error {
+func GenerateCertificate(
+	nfType, nfId, certPemPath string,
+	pubKey *rsa.PublicKey,
+	rootCert *x509.Certificate,
+	rootPrivKey *rsa.PrivateKey,
+) (*x509.Certificate, error) {
 	max := new(big.Int)
 	max.Exp(big.NewInt(16), big.NewInt(40), nil)
 	sn, _ := rand.Int(rand.Reader, max)
 	uri, err := url.Parse("urn:uuid:" + nfId)
 	if err != nil {
-		fmt.Println("Parse url error: ", err)
+		return nil, errors.Wrapf(err, "gen cert url")
 	}
 
 	temp := &x509.Certificate{
@@ -134,56 +117,149 @@ func GenCertificate(nfType string, nfId string, rootPemPath string,
 			Locality:           []string{"Hsinchu"},
 			Organization:       []string{"free5gc"},
 			OrganizationalUnit: []string{"free5gc"},
-			CommonName:         strings.ToUpper(nfType),
 		},
 		NotBefore: time.Now(),
 		NotAfter:  time.Now().AddDate(1, 0, 0),
-		DNSNames:  []string{nfType},
-		URIs:      []*url.URL{uri},
 	}
 
-	keyString, err := ioutil.ReadFile(keyPath)
-	if err != nil {
-		fmt.Println("Read key file error: ", err)
-		return err
+	if nfType != "" {
+		temp.Subject.CommonName = strings.ToUpper(nfType)
+		temp.DNSNames = []string{nfType}
 	}
-	keyBlock, _ := pem.Decode([]byte(keyString))
-	certPrivKey, err := x509.ParsePKCS1PrivateKey(keyBlock.Bytes)
-	if err != nil {
-		fmt.Println("Parse private key error: ", err)
-		return err
+	if nfId != "" {
+		temp.URIs = []*url.URL{uri}
 	}
-
-	if err != nil {
-		fmt.Println("Generate Key error: ", err)
-		return err
+	if rootCert == nil {
+		// generate self-signed certificate
+		rootCert = temp
 	}
 
-	rootCrt, err := ioutil.ReadFile(rootPemPath)
+	b, err := x509.CreateCertificate(
+		rand.Reader, temp, rootCert, pubKey, rootPrivKey)
 	if err != nil {
-		fmt.Println("Read root certificate error: ", err)
-		return err
-	}
-	block, _ := pem.Decode([]byte(rootCrt))
-	ca, err := x509.ParseCertificate(block.Bytes)
-	if err != nil {
-		fmt.Println("Parse root certificate error: ", err)
-		return err
+		return nil, errors.Wrapf(err, "gen cert create")
 	}
 
-	rootKey, _ := LoadRootKey(rootKeyPath)
-
-	cert, err := x509.CreateCertificate(rand.Reader, temp, ca, &certPrivKey.PublicKey, rootKey)
+	cert, err := x509.ParseCertificate(b)
 	if err != nil {
-		fmt.Println("Create Certificate error: ", err)
-		return err
+		return nil, errors.Wrapf(err, "gen cert parse")
 	}
-	out := &bytes.Buffer{}
-	pem.Encode(out, &pem.Block{Type: "CERTIFICATE", Bytes: cert})
-	certFile, _ := os.OpenFile(pemPath, os.O_RDWR|os.O_CREATE, 0666)
-	out.WriteTo(certFile)
-	certFile.Close()
-	fmt.Println("finish generate cert")
 
-	return nil
+	if certPemPath != "" {
+		out := &bytes.Buffer{}
+		err = pem.Encode(out, &pem.Block{Type: "CERTIFICATE", Bytes: b})
+		if err != nil {
+			return nil, errors.Wrapf(err, "gen cert file encode")
+		}
+
+		certFile, err := os.Create(certPemPath)
+		if err != nil {
+			return nil, errors.Wrapf(err, "gen cert file create")
+		}
+		defer certFile.Close() // nolint
+
+		_, err = out.WriteTo(certFile)
+		if err != nil {
+			return nil, errors.Wrapf(err, "gen cert file write")
+		}
+	}
+
+	return cert, nil
+}
+
+func ParsePublicKeyFromPEM(pemPath string) (*rsa.PublicKey, error) {
+	b, err := os.ReadFile(pemPath)
+	if err != nil {
+		return nil, errors.Wrapf(err, "pubkey read")
+	}
+
+	pubKey, err := jwt.ParseRSAPublicKeyFromPEM(b)
+	if err != nil {
+		return nil, errors.Wrapf(err, "pubkey parse")
+	}
+
+	return pubKey, nil
+}
+
+func ParsePrivateKeyFromPEM(pemPath string) (*rsa.PrivateKey, error) {
+	b, err := os.ReadFile(pemPath)
+	if err != nil {
+		return nil, errors.Wrapf(err, "privkey read")
+	}
+
+	privKey, err := jwt.ParseRSAPrivateKeyFromPEM(b)
+	if err != nil {
+		return nil, errors.Wrapf(err, "privkey parse")
+	}
+
+	return privKey, nil
+}
+
+func ParseCertFromPEM(pemPath string) (*x509.Certificate, error) {
+	b, err := os.ReadFile(pemPath)
+	if err != nil {
+		return nil, errors.Wrapf(err, "read cert pem")
+	}
+
+	block, _ := pem.Decode(b)
+	cert, err := x509.ParseCertificate(block.Bytes)
+	if err != nil {
+		return nil, errors.Wrapf(err, "parse cert pem")
+	}
+
+	return cert, nil
+}
+
+func GenerateRSAKeyPair(pubPemPath, privPemPath string) (*rsa.PrivateKey, error) {
+	const rsaKeyBitSize = 2048
+
+	// generate key
+	privKey, err := rsa.GenerateKey(rand.Reader, rsaKeyBitSize)
+	if err != nil {
+		return nil, errors.Wrapf(err, "generate rsa key")
+	}
+
+	if pubPemPath != "" {
+		// dump public key to file
+		pubPem, err := os.Create(pubPemPath)
+		if err != nil {
+			return nil, errors.Wrapf(err, "generate rsa pub key create file")
+		}
+		defer pubPem.Close() // nolint
+
+		pubKey := &privKey.PublicKey
+		pubKeyBytes, err := x509.MarshalPKIXPublicKey(pubKey)
+		if err != nil {
+			return nil, errors.Wrapf(err, "generate rsa pub key marshal")
+		}
+		pubKeyBlock := &pem.Block{
+			Type:  "PUBLIC KEY",
+			Bytes: pubKeyBytes,
+		}
+
+		err = pem.Encode(pubPem, pubKeyBlock)
+		if err != nil {
+			return nil, errors.Wrapf(err, "generate rsa pub key pem")
+		}
+	}
+
+	if privPemPath != "" {
+		// dump private key to file
+		privPem, err := os.Create(privPemPath)
+		if err != nil {
+			return nil, errors.Wrapf(err, "generate rsa priv key create file")
+		}
+		defer privPem.Close() // nolint
+
+		privKeyBlock := &pem.Block{
+			Type:  "PRIVATE KEY",
+			Bytes: x509.MarshalPKCS1PrivateKey(privKey),
+		}
+
+		err = pem.Encode(privPem, privKeyBlock)
+		if err != nil {
+			return nil, errors.Wrapf(err, "generate rsa priv key pem")
+		}
+	}
+	return privKey, nil
 }
