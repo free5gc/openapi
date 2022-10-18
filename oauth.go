@@ -88,7 +88,7 @@ func verifyScope(scope, serviceName string) bool {
 }
 
 func GenerateRootCertificate(
-	nfType, nfId, rootCertPath string,
+	rootCertPath string,
 	rootPrivKey *rsa.PrivateKey,
 ) (*x509.Certificate, error) {
 	rootCert, err := GenerateCertificate(
