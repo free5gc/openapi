@@ -10,6 +10,7 @@ import (
 	"math/big"
 	"net/url"
 	"os"
+	"path/filepath"
 	"strings"
 	"time"
 
@@ -266,4 +267,13 @@ func GenerateRSAKeyPair(pubPemPath, privPemPath string) (*rsa.PrivateKey, error)
 		}
 	}
 	return privKey, nil
+}
+
+func GetNFCertFileName(nfType string) string {
+	return strings.ToLower(nfType) + ".pem"
+}
+
+func GetNFCertPath(base, nfType string) string {
+	// Note: NF's cert should be put in the same base path
+	return filepath.Join(base, GetNFCertFileName(nfType))
 }
