@@ -25,7 +25,9 @@ type CCAClaims struct {
 	jwt.StandardClaims
 }
 
-func GenerateClientCredentialAssertion(sub string, aud string, keyPath string) (string, error) {
+func GenerateClientCredentialAssertion(
+	sub, aud, keyPath string,
+) (string, error) {
 	var expiration int32 = 1000
 	now := int32(time.Now().Unix())
 
@@ -51,7 +53,9 @@ func GenerateClientCredentialAssertion(sub string, aud string, keyPath string) (
 	return accessToken, nil
 }
 
-func VerifyOAuth(authorization string, serviceName string, certPath string) error {
+func VerifyOAuth(
+	authorization, serviceName, certPath string,
+) error {
 	verifyKey, err := ParsePublicKeyFromPEM(certPath)
 	if err != nil {
 		return errors.Wrapf(err, "verify OAuth")
@@ -79,7 +83,7 @@ func VerifyOAuth(authorization string, serviceName string, certPath string) erro
 	return nil
 }
 
-func verifyScope(scope string, serviceName string) bool {
+func verifyScope(scope, serviceName string) bool {
 	return strings.Contains(scope, serviceName)
 }
 
@@ -104,10 +108,6 @@ func GenerateCertificate(
 	max := new(big.Int)
 	max.Exp(big.NewInt(16), big.NewInt(40), nil)
 	sn, _ := rand.Int(rand.Reader, max)
-	uri, err := url.Parse("urn:uuid:" + nfId)
-	if err != nil {
-		return nil, errors.Wrapf(err, "gen cert url")
-	}
 
 	temp := &x509.Certificate{
 		SerialNumber: sn,
@@ -119,7 +119,7 @@ func GenerateCertificate(
 			OrganizationalUnit: []string{"free5gc"},
 		},
 		NotBefore: time.Now(),
-		NotAfter:  time.Now().AddDate(1, 0, 0),
+		NotAfter:  time.Now().AddDate(10, 0, 0),
 	}
 
 	if nfType != "" {
@@ -127,6 +127,10 @@ func GenerateCertificate(
 		temp.DNSNames = []string{nfType}
 	}
 	if nfId != "" {
+		uri, err := url.Parse("urn:uuid:" + nfId)
+		if err != nil {
+			return nil, errors.Wrapf(err, "gen cert url")
+		}
 		temp.URIs = []*url.URL{uri}
 	}
 	if rootCert == nil {
@@ -167,8 +171,8 @@ func GenerateCertificate(
 	return cert, nil
 }
 
-func ParsePublicKeyFromPEM(pemPath string) (*rsa.PublicKey, error) {
-	b, err := os.ReadFile(pemPath)
+func ParsePublicKeyFromPEM(pubPemPath string) (*rsa.PublicKey, error) {
+	b, err := os.ReadFile(pubPemPath)
 	if err != nil {
 		return nil, errors.Wrapf(err, "pubkey read")
 	}
@@ -181,8 +185,8 @@ func ParsePublicKeyFromPEM(pemPath string) (*rsa.PublicKey, error) {
 	return pubKey, nil
 }
 
-func ParsePrivateKeyFromPEM(pemPath string) (*rsa.PrivateKey, error) {
-	b, err := os.ReadFile(pemPath)
+func ParsePrivateKeyFromPEM(privPemPath string) (*rsa.PrivateKey, error) {
+	b, err := os.ReadFile(privPemPath)
 	if err != nil {
 		return nil, errors.Wrapf(err, "privkey read")
 	}
@@ -195,8 +199,8 @@ func ParsePrivateKeyFromPEM(pemPath string) (*rsa.PrivateKey, error) {
 	return privKey, nil
 }
 
-func ParseCertFromPEM(pemPath string) (*x509.Certificate, error) {
-	b, err := os.ReadFile(pemPath)
+func ParseCertFromPEM(certPemPath string) (*x509.Certificate, error) {
+	b, err := os.ReadFile(certPemPath)
 	if err != nil {
 		return nil, errors.Wrapf(err, "read cert pem")
 	}
