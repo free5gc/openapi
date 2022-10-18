@@ -34,4 +34,5 @@ type NfService struct {
 	RecoveryTime                     *time.Time                        `json:"recoveryTime,omitempty" yaml:"recoveryTime" bson:"recoveryTime" mapstructure:"RecoveryTime"`
 	ChfServiceInfo                   *ChfServiceInfo                   `json:"chfServiceInfo,omitempty" yaml:"chfServiceInfo" bson:"chfServiceInfo" mapstructure:"ChfServiceInfo"`
 	SupportedFeatures                string                            `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	Oauth2Required                   string                            `json:"oauth2Required,omitempty" yaml:"oauth2Required" bson:"oauth2Required" mapstructure:"oauth2Required"`
 }
