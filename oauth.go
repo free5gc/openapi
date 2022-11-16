@@ -55,7 +55,7 @@ func GenerateClientCredentialAssertion(
 }
 
 func VerifyOAuth(
-	authorization, serviceName string, certPath string,
+	authorization, serviceName, certPath string,
 ) error {
 	verifyKey, err := ParsePublicKeyFromPEM(certPath)
 	if err != nil {
@@ -90,7 +90,7 @@ func VerifyOAuth(
 	return nil
 }
 
-func verifyScope(scope string, serviceName string) bool {
+func verifyScope(scope, serviceName string) bool {
 	if len(serviceName) == 0{
 		return true
 	}
