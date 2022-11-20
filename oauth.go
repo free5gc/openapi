@@ -72,6 +72,12 @@ func VerifyOAuth(
 		access_token,
 		&models.AccessTokenClaims{},
 		func(token *jwt.Token) (interface{}, error) {
+			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
+				return nil, errors.Wrapf(err, "Unexpected signing method")
+			}
+			if token.Header["alg"] != "RS512" {
+				return nil, errors.Wrapf(err, "Unexpected signing method")
+			}
 			return verifyKey, nil
 		})
 	if err != nil {
@@ -85,7 +91,25 @@ func VerifyOAuth(
 }
 
 func verifyScope(scope, serviceName string) bool {
-	return strings.Contains(scope, serviceName)
+	if len(serviceName) == 0{
+		return true
+	}
+	if len(scope) != 0 {
+		scopeSplit := strings.Fields(scope)
+		found := false
+		for _, item := range scopeSplit {
+			if item == serviceName {
+				found = true
+				break
+			}
+		}
+		if !found {
+			return false
+		}
+	} else {
+		return false
+	}
+	return true
 }
 
 func GenerateRootCertificate(
