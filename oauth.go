@@ -91,7 +91,7 @@ func VerifyOAuth(
 }
 
 func verifyScope(scope, serviceName string) bool {
-	if len(serviceName) == 0{
+	if len(serviceName) == 0 {
 		return true
 	}
 	if len(scope) != 0 {
