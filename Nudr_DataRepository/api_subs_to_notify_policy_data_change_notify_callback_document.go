@@ -16,9 +16,9 @@ var (
 	_ context.Context
 )
 
-type PolicyDataChangeNotificationCallbackDocumentApiService service
+type PolicyDataChangeNotifyCallbackDocumentApiService service
 
-func (a *PolicyDataChangeNotificationCallbackDocumentApiService) PolicyDataChangeNotification(ctx context.Context, policyDataChangeNotificationUrl string, request models.PolicyDataChangeNotification) (*http.Response, error) {
+func (a *PolicyDataChangeNotifyCallbackDocumentApiService) PolicyDataChangeNotify(ctx context.Context, policyDataChangeNotifyUrl string, request models.PolicyDataChangeNotification) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -28,7 +28,7 @@ func (a *PolicyDataChangeNotificationCallbackDocumentApiService) PolicyDataChang
 	)
 
 	// create path and map variables
-	localVarPath := policyDataChangeNotificationUrl
+	localVarPath := policyDataChangeNotifyUrl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
@@ -145,6 +145,6 @@ func (a *PolicyDataChangeNotificationCallbackDocumentApiService) PolicyDataChang
 		apiError.ErrorModel = v
 		return localVarHttpResponse, apiError
 	default:
-		return localVarHttpResponse, openapi.ReportError("%d is not a valid status code in OnDataChangeNotify", localVarHttpResponse.StatusCode)
+		return localVarHttpResponse, openapi.ReportError("%d is not a valid status code in PolicyDataChangeNotify", localVarHttpResponse.StatusCode)
 	}
 }

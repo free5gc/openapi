@@ -1,4 +1,5 @@
-//+build !debug
+//go:build !debug
+// +build !debug
 
 /*
  * Nudr_DataRepository API OpenAPI file
@@ -18,46 +19,51 @@ type APIClient struct {
 	common service // Reuse a single struct instead of allocating one for each service on the heap.
 
 	// API Services
-	AMF3GPPAccessRegistrationDocumentApi            *AMF3GPPAccessRegistrationDocumentApiService
-	AMFNon3GPPAccessRegistrationDocumentApi         *AMFNon3GPPAccessRegistrationDocumentApiService
-	AccessAndMobilityDataApi                        *AccessAndMobilityDataApiService
-	AccessAndMobilitySubscriptionDataDocumentApi    *AccessAndMobilitySubscriptionDataDocumentApiService
-	AmfSubscriptionInfoDocumentApi                  *AmfSubscriptionInfoDocumentApiService
-	AuthEventDocumentApi                            *AuthEventDocumentApiService
-	AuthenticationDataDocumentApi                   *AuthenticationDataDocumentApiService
-	AuthenticationSoRDocumentApi                    *AuthenticationSoRDocumentApiService
-	AuthenticationStatusDocumentApi                 *AuthenticationStatusDocumentApiService
-	CreateAMFSubscriptionInfoDocumentApi            *CreateAMFSubscriptionInfoDocumentApiService
-	DefaultApi                                      *DefaultApiService
-	EventAMFSubscriptionInfoDocumentApi             *EventAMFSubscriptionInfoDocumentApiService
-	EventExposureDataDocumentApi                    *EventExposureDataDocumentApiService
-	EventExposureGroupSubscriptionsCollectionApi    *EventExposureGroupSubscriptionsCollectionApiService
-	EventExposureSubscriptionDocumentApi            *EventExposureSubscriptionDocumentApiService
-	EventExposureSubscriptionsCollectionApi         *EventExposureSubscriptionsCollectionApiService
-	OperatorSpecificDataContainerDocumentApi        *OperatorSpecificDataContainerDocumentApiService
-	ParameterProvisionDocumentApi                   *ParameterProvisionDocumentApiService
-	PduSessionManagementDataApi                     *PduSessionManagementDataApiService
-	ProvisionedDataDocumentApi                      *ProvisionedDataDocumentApiService
-	ProvisionedParameterDataDocumentApi             *ProvisionedParameterDataDocumentApiService
-	QueryAMFSubscriptionInfoDocumentApi             *QueryAMFSubscriptionInfoDocumentApiService
-	QueryIdentityDataBySUPIOrGPSIDocumentApi        *QueryIdentityDataBySUPIOrGPSIDocumentApiService
-	QueryODBDataBySUPIOrGPSIDocumentApi             *QueryODBDataBySUPIOrGPSIDocumentApiService
-	RetrievalOfSharedDataApi                        *RetrievalOfSharedDataApiService
-	SDMSubscriptionDocumentApi                      *SDMSubscriptionDocumentApiService
-	SDMSubscriptionsCollectionApi                   *SDMSubscriptionsCollectionApiService
-	SMFRegistrationDocumentApi                      *SMFRegistrationDocumentApiService
-	SMFRegistrationsCollectionApi                   *SMFRegistrationsCollectionApiService
-	SMFSelectionSubscriptionDataDocumentApi         *SMFSelectionSubscriptionDataDocumentApiService
-	SMSF3GPPRegistrationDocumentApi                 *SMSF3GPPRegistrationDocumentApiService
-	SMSFNon3GPPRegistrationDocumentApi              *SMSFNon3GPPRegistrationDocumentApiService
-	SMSManagementSubscriptionDataDocumentApi        *SMSManagementSubscriptionDataDocumentApiService
-	SMSSubscriptionDataDocumentApi                  *SMSSubscriptionDataDocumentApiService
-	SessionManagementSubscriptionDataApi            *SessionManagementSubscriptionDataApiService
-	SubsToNofifyCollectionApi                       *SubsToNofifyCollectionApiService
-	SubsToNotifyDocumentApi                         *SubsToNotifyDocumentApiService
-	TraceDataDocumentApi                            *TraceDataDocumentApiService
-	DataChangeNotifyCallbackDocumentApi             *DataChangeNotifyCallbackDocumentApiService
-	PolicyDataChangeNotificationCallbackDocumentApi *PolicyDataChangeNotificationCallbackDocumentApiService
+	AMF3GPPAccessRegistrationDocumentApi           *AMF3GPPAccessRegistrationDocumentApiService
+	AMFNon3GPPAccessRegistrationDocumentApi        *AMFNon3GPPAccessRegistrationDocumentApiService
+	AccessAndMobilityDataApi                       *AccessAndMobilityDataApiService
+	AccessAndMobilitySubscriptionDataDocumentApi   *AccessAndMobilitySubscriptionDataDocumentApiService
+	AmfSubscriptionInfoDocumentApi                 *AmfSubscriptionInfoDocumentApiService
+	AuthEventDocumentApi                           *AuthEventDocumentApiService
+	AuthenticationDataDocumentApi                  *AuthenticationDataDocumentApiService
+	AuthenticationSoRDocumentApi                   *AuthenticationSoRDocumentApiService
+	AuthenticationStatusDocumentApi                *AuthenticationStatusDocumentApiService
+	CreateAMFSubscriptionInfoDocumentApi           *CreateAMFSubscriptionInfoDocumentApiService
+	DefaultApi                                     *DefaultApiService
+	EventAMFSubscriptionInfoDocumentApi            *EventAMFSubscriptionInfoDocumentApiService
+	EventExposureDataDocumentApi                   *EventExposureDataDocumentApiService
+	EventExposureGroupSubscriptionsCollectionApi   *EventExposureGroupSubscriptionsCollectionApiService
+	EventExposureSubscriptionDocumentApi           *EventExposureSubscriptionDocumentApiService
+	EventExposureSubscriptionsCollectionApi        *EventExposureSubscriptionsCollectionApiService
+	OperatorSpecificDataContainerDocumentApi       *OperatorSpecificDataContainerDocumentApiService
+	ParameterProvisionDocumentApi                  *ParameterProvisionDocumentApiService
+	PduSessionManagementDataApi                    *PduSessionManagementDataApiService
+	ProvisionedDataDocumentApi                     *ProvisionedDataDocumentApiService
+	ProvisionedParameterDataDocumentApi            *ProvisionedParameterDataDocumentApiService
+	QueryAMFSubscriptionInfoDocumentApi            *QueryAMFSubscriptionInfoDocumentApiService
+	QueryIdentityDataBySUPIOrGPSIDocumentApi       *QueryIdentityDataBySUPIOrGPSIDocumentApiService
+	QueryODBDataBySUPIOrGPSIDocumentApi            *QueryODBDataBySUPIOrGPSIDocumentApiService
+	RetrievalOfSharedDataApi                       *RetrievalOfSharedDataApiService
+	SDMSubscriptionDocumentApi                     *SDMSubscriptionDocumentApiService
+	SDMSubscriptionsCollectionApi                  *SDMSubscriptionsCollectionApiService
+	SMFRegistrationDocumentApi                     *SMFRegistrationDocumentApiService
+	SMFRegistrationsCollectionApi                  *SMFRegistrationsCollectionApiService
+	SMFSelectionSubscriptionDataDocumentApi        *SMFSelectionSubscriptionDataDocumentApiService
+	SMSF3GPPRegistrationDocumentApi                *SMSF3GPPRegistrationDocumentApiService
+	SMSFNon3GPPRegistrationDocumentApi             *SMSFNon3GPPRegistrationDocumentApiService
+	SMSManagementSubscriptionDataDocumentApi       *SMSManagementSubscriptionDataDocumentApiService
+	SMSSubscriptionDataDocumentApi                 *SMSSubscriptionDataDocumentApiService
+	SessionManagementSubscriptionDataApi           *SessionManagementSubscriptionDataApiService
+	SubsToNofifyCollectionApi                      *SubsToNofifyCollectionApiService
+	SubsToNotifyDocumentApi                        *SubsToNotifyDocumentApiService
+	TraceDataDocumentApi                           *TraceDataDocumentApiService
+	DataChangeNotifyCallbackDocumentApi            *DataChangeNotifyCallbackDocumentApiService
+	PolicyDataChangeNotifyCallbackDocumentApi      *PolicyDataChangeNotifyCallbackDocumentApiService
+	InfluenceDataUpdateNotifyCallbackDocumentApi   *InfluenceDataUpdateNotifyCallbackDocumentApiService
+	InfluenceDataApi                               *InfluenceDataApiService
+	IndividualInfluenceDataDocumentApi             *IndividualInfluenceDataDocumentApiService
+	InfluenceDataSubscriptionsCollectionApi        *InfluenceDataSubscriptionsCollectionApiService
+	IndividualInfluenceDataSubscriptionDocumentApi *IndividualInfluenceDataSubscriptionDocumentApiService
 }
 
 type service struct {
@@ -111,6 +117,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.SubsToNotifyDocumentApi = (*SubsToNotifyDocumentApiService)(&c.common)
 	c.TraceDataDocumentApi = (*TraceDataDocumentApiService)(&c.common)
 	c.DataChangeNotifyCallbackDocumentApi = (*DataChangeNotifyCallbackDocumentApiService)(&c.common)
-	c.PolicyDataChangeNotificationCallbackDocumentApi = (*PolicyDataChangeNotificationCallbackDocumentApiService)(&c.common)
+	c.PolicyDataChangeNotifyCallbackDocumentApi = (*PolicyDataChangeNotifyCallbackDocumentApiService)(&c.common)
+	c.InfluenceDataUpdateNotifyCallbackDocumentApi = (*InfluenceDataUpdateNotifyCallbackDocumentApiService)(&c.common)
+	c.InfluenceDataApi = (*InfluenceDataApiService)(&c.common)
+	c.IndividualInfluenceDataDocumentApi = (*IndividualInfluenceDataDocumentApiService)(&c.common)
+	c.InfluenceDataSubscriptionsCollectionApi = (*InfluenceDataSubscriptionsCollectionApiService)(&c.common)
+	c.IndividualInfluenceDataSubscriptionDocumentApi = (*IndividualInfluenceDataSubscriptionDocumentApiService)(&c.common)
 	return c
 }
