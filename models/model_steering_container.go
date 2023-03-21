@@ -9,5 +9,4 @@
 
 package models
 
-type SteeringContainer struct {
-}
+type SteeringContainer struct{}
