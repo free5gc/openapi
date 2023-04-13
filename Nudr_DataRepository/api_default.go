@@ -11,18 +11,18 @@ package Nudr_DataRepository
 
 import (
 	"context"
-	"strconv"
 	"crypto/tls"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strconv"
 	"strings"
 
 	"github.com/antihax/optional"
 	"golang.org/x/net/http2"
-	"golang.org/x/oauth2/clientcredentials"
 	"golang.org/x/oauth2"
+	"golang.org/x/oauth2/clientcredentials"
 
 	"github.com/free5gc/openapi"
 	"github.com/free5gc/openapi/models"
@@ -38,1644 +38,16 @@ type DefaultApiService service
 /*
 DefaultApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ApplicationDataInfluenceDataGetParamOpts - Optional Parameters:
- * @param "InfluenceIds" (optional.Interface of []string) -  Each element identifies a service.
- * @param "Dnns" (optional.Interface of []string) -  Each element identifies a DNN.
- * @param "Snssais" (optional.Interface of []models.Snssai) -  Each element identifies a slice.
- * @param "InternalGroupIds" (optional.Interface of []string) -  Each element identifies a group of users.
- * @param "Supis" (optional.Interface of []string) -  Each element identifies the user.
-@return []models.TrafficInfluData
-*/
-
-type ApplicationDataInfluenceDataGetParamOpts struct {
-	InfluenceIds		optional.Interface
-	Dnns			optional.Interface
-	Snssais			optional.Interface
-	InternalGroupIds	optional.Interface
-	Supis			optional.Interface
-}
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataGet(ctx context.Context, localVarOptionals *ApplicationDataInfluenceDataGetParamOpts) ([]models.TrafficInfluData, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	[]models.TrafficInfluData
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if localVarOptionals != nil && localVarOptionals.InfluenceIds.IsSet() {
-		localVarQueryParams.Add("influence-Ids", openapi.ParameterToString(localVarOptionals.InfluenceIds.Value(), "csv"))
-	}
-	if localVarOptionals != nil && localVarOptionals.Dnns.IsSet() {
-		localVarQueryParams.Add("dnns", openapi.ParameterToString(localVarOptionals.Dnns.Value(), "csv"))
-	}
-	if localVarOptionals != nil && localVarOptionals.Snssais.IsSet() {
-		localVarQueryParams.Add("snssais", openapi.ParameterToString(localVarOptionals.Snssais.Value(), "csv"))
-	}
-	if localVarOptionals != nil && localVarOptionals.InternalGroupIds.IsSet() {
-		localVarQueryParams.Add("internal-Group-Ids", openapi.ParameterToString(localVarOptionals.InternalGroupIds.Value(), "csv"))
-	}
-	if localVarOptionals != nil && localVarOptionals.Supis.IsSet() {
-		localVarQueryParams.Add("supis", openapi.ParameterToString(localVarOptionals.Supis.Value(), "csv"))
-	}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 200:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 406:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 414:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param influenceId The Identifier of an Individual Influence Data to be updated.It shall apply the format of Data type string.
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataInfluenceIdDelete(ctx context.Context, influenceId string) (*http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/{influenceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"influenceId"+"}", fmt.Sprintf("%v", influenceId), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 204:
-		return localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	default:
-		return localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param influenceId The Identifier of an Individual Influence Data to be updated.It shall apply the format of Data type string.
- * @param trafficInfluDataPatch
-@return models.TrafficInfluData
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataInfluenceIdPatch(ctx context.Context, influenceId string, trafficInfluDataPatch models.TrafficInfluDataPatch) (models.TrafficInfluData, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Patch")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.TrafficInfluData
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/{influenceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"influenceId"+"}", fmt.Sprintf("%v", influenceId), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	// body params
-	localVarPostBody = &trafficInfluDataPatch
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 200:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 204:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 411:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 413:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 415:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param influenceId The Identifier of an Individual Influence Data to be created or updated.It shall apply the format of Data type string.
- * @param trafficInfluData
-@return models.TrafficInfluData
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataInfluenceIdPut(ctx context.Context, influenceId string, trafficInfluData models.TrafficInfluData) (models.TrafficInfluData, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.TrafficInfluData
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/{influenceId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"influenceId"+"}", fmt.Sprintf("%v", influenceId), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	// body params
-	localVarPostBody = &trafficInfluData
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 201:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 200:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 204:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 411:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 413:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 414:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 415:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param optional nil or *ApplicationDataInfluenceDataSubsToNotifyGetParamOpts - Optional Parameters:
- * @param "Dnn" (optional.String) -  Identifies a DNN.
- * @param "Snssai" (optional.Interface of models.Snssai) -  Identifies a slice.
- * @param "InternalGroupId" (optional.String) -  Identifies a group of users.
- * @param "Supi" (optional.String) -  Identifies a user.
-@return []models.TrafficInfluSub
-*/
-
-type ApplicationDataInfluenceDataSubsToNotifyGetParamOpts struct {
-	Dnn		optional.String
-	Snssai		optional.Interface
-	InternalGroupId	optional.String
-	Supi		optional.String
-}
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifyGet(ctx context.Context, localVarOptionals *ApplicationDataInfluenceDataSubsToNotifyGetParamOpts) ([]models.TrafficInfluSub, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	[]models.TrafficInfluSub
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/subs-to-notify"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() && localVarOptionals.Dnn.Value() != "" {
-		localVarQueryParams.Add("dnn", openapi.ParameterToString(localVarOptionals.Dnn.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Snssai.IsSet() {
-		localVarQueryParams.Add("snssai", openapi.ParameterToString(localVarOptionals.Snssai.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.InternalGroupId.IsSet() && localVarOptionals.InternalGroupId.Value() != "" {
-		localVarQueryParams.Add("internal-Group-Id", openapi.ParameterToString(localVarOptionals.InternalGroupId.Value(), ""))
-	}
-	if localVarOptionals != nil && localVarOptionals.Supi.IsSet() && localVarOptionals.Supi.Value() != "" {
-		localVarQueryParams.Add("supi", openapi.ParameterToString(localVarOptionals.Supi.Value(), ""))
-	}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 200:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 406:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 414:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param trafficInfluSub
-@return models.TrafficInfluSub
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifyPost(ctx context.Context, trafficInfluSub models.TrafficInfluSub) (models.TrafficInfluSub, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Post")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.TrafficInfluSub
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/subs-to-notify"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	// body params
-	localVarPostBody = &trafficInfluSub
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 201:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 411:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 413:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 415:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param subscriptionId String identifying a subscription to the Individual Influence Data Subscription
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifySubscriptionIdDelete(ctx context.Context, subscriptionId string) (*http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/subs-to-notify/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", fmt.Sprintf("%v", subscriptionId), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 204:
-		return localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarHTTPResponse, apiError
-	default:
-		return localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param subscriptionId String identifying a subscription to the Individual Influence Data Subscription
-@return models.TrafficInfluSub
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifySubscriptionIdGet(ctx context.Context, subscriptionId string) (models.TrafficInfluSub, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.TrafficInfluSub
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/subs-to-notify/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", fmt.Sprintf("%v", subscriptionId), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 200:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 406:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 414:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param subscriptionId String identifying a subscription to the Individual Influence Data Subscription
- * @param trafficInfluSub
-@return models.TrafficInfluSub
-*/
-
-func (a *DefaultApiService) ApplicationDataInfluenceDataSubsToNotifySubscriptionIdPut(ctx context.Context, subscriptionId string, trafficInfluSub models.TrafficInfluSub) (models.TrafficInfluSub, *http.Response, error) {
-	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.TrafficInfluSub
-	)
-
-	// create path and map variables
-	localVarPath := a.client.cfg.BasePath() + "/application-data/influenceData/subs-to-notify/{subscriptionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"subscriptionId"+"}", fmt.Sprintf("%v", subscriptionId), -1)
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := openapi.SelectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-
-	// body params
-	localVarPostBody = &trafficInfluSub
-	scopes := []string{"nudr-dr",}
-	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
-	if !ok {
-		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
-	}
-	oauth, err := strconv.ParseBool(additional_params["OAuth"][0])
-	if err != nil {
-		return localVarReturnValue, nil, fmt.Errorf(err.Error())
-	}
-	if oauth {
-		tokenUrl := fmt.Sprintf("%v/oauth2/token", additional_params["NrfUri"][0])
-		additional_params.Del("NrfUri")
-		additional_params.Del("OAuth")
-		additional_params.Add("targetNfType", "UDR")
-		conf := &clientcredentials.Config{Scopes: scopes, TokenURL: tokenUrl, AuthStyle: oauth2.AuthStyleInParams, EndpointParams: additional_params}
-		http_client := &http.Client{Transport: &http2.Transport{TLSClientConfig: &tls.Config{InsecureSkipVerify: true}}}
-		ctx = context.WithValue(ctx, oauth2.HTTPClient, http_client)
-		token, err := conf.Token(ctx)
-		if err != nil {
-			return localVarReturnValue, nil, fmt.Errorf(err.Error())
-		}
-		ctx = context.WithValue(ctx, openapi.ContextAccessToken, token.AccessToken)
-	}
-
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
-	}
-
-	switch localVarHTTPResponse.StatusCode {
-	case 200:
-		err = openapi.Deserialize(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-		}
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 204:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	case 400:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 401:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 403:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 404:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 411:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 413:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 415:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 429:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 500:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	case 503:
-		var v models.ProblemDetails
-		err = openapi.Deserialize(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			apiError.ErrorStatus = err.Error()
-			return localVarReturnValue, localVarHTTPResponse, apiError
-		}
-		apiError.ErrorModel = v
-		return localVarReturnValue, localVarHTTPResponse, apiError
-	default:
-		return localVarReturnValue, localVarHTTPResponse, nil
-	}
-}
-
-/*
-DefaultApiService
- * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param appId Indicate the application identifier for the request pfd(s).It shall apply the format of Data type ApplicationId.
 */
 
 func (a *DefaultApiService) ApplicationDataPfdsAppIdDelete(ctx context.Context, appId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Delete")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -1688,7 +60,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdDelete(ctx context.Context, 
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -1698,7 +70,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdDelete(ctx context.Context, 
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -1739,8 +111,8 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdDelete(ctx context.Context, 
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -1823,12 +195,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ApplicationDataPfdsAppIdGet(ctx context.Context, appId string) (models.PfdDataForApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.PfdDataForApp
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.PfdDataForApp
 	)
 
 	// create path and map variables
@@ -1841,7 +213,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdGet(ctx context.Context, app
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -1851,7 +223,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdGet(ctx context.Context, app
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -1892,8 +264,8 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdGet(ctx context.Context, app
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -1983,12 +355,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ApplicationDataPfdsAppIdPut(ctx context.Context, appId string, pfdDataForApp models.PfdDataForApp) (models.PfdDataForApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.PfdDataForApp
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.PfdDataForApp
 	)
 
 	// create path and map variables
@@ -2001,7 +373,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdPut(ctx context.Context, app
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -2014,7 +386,7 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdPut(ctx context.Context, app
 
 	// body params
 	localVarPostBody = &pfdDataForApp
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -2055,8 +427,8 @@ func (a *DefaultApiService) ApplicationDataPfdsAppIdPut(ctx context.Context, app
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -2192,12 +564,12 @@ type ApplicationDataPfdsGetParamOpts struct {
 
 func (a *DefaultApiService) ApplicationDataPfdsGet(ctx context.Context, localVarOptionals *ApplicationDataPfdsGetParamOpts) ([]models.PfdDataForApp, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	[]models.PfdDataForApp
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []models.PfdDataForApp
 	)
 
 	// create path and map variables
@@ -2215,7 +587,7 @@ func (a *DefaultApiService) ApplicationDataPfdsGet(ctx context.Context, localVar
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -2225,7 +597,7 @@ func (a *DefaultApiService) ApplicationDataPfdsGet(ctx context.Context, localVar
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -2266,8 +638,8 @@ func (a *DefaultApiService) ApplicationDataPfdsGet(ctx context.Context, localVar
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -2365,12 +737,12 @@ DefaultApiService
 
 func (a *DefaultApiService) ExposureDataSubsToNotifyPost(ctx context.Context, exposureDataSubscription models.ExposureDataSubscription) (models.ExposureDataSubscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Post")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.ExposureDataSubscription
+		localVarHTTPMethod   = strings.ToUpper("Post")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.ExposureDataSubscription
 	)
 
 	// create path and map variables
@@ -2382,7 +754,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifyPost(ctx context.Context, ex
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -2395,7 +767,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifyPost(ctx context.Context, ex
 
 	// body params
 	localVarPostBody = &exposureDataSubscription
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -2436,8 +808,8 @@ func (a *DefaultApiService) ExposureDataSubsToNotifyPost(ctx context.Context, ex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -2550,11 +922,11 @@ DefaultApiService Deletes a subcription for notifications
 
 func (a *DefaultApiService) ExposureDataSubsToNotifySubIdDelete(ctx context.Context, subId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Delete")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -2567,7 +939,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdDelete(ctx context.Cont
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -2577,7 +949,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdDelete(ctx context.Cont
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -2618,8 +990,8 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdDelete(ctx context.Cont
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -2703,12 +1075,12 @@ DefaultApiService updates a subcription for notifications
 
 func (a *DefaultApiService) ExposureDataSubsToNotifySubIdPut(ctx context.Context, subId string, exposureDataSubscription models.ExposureDataSubscription) (models.ExposureDataSubscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.ExposureDataSubscription
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.ExposureDataSubscription
 	)
 
 	// create path and map variables
@@ -2721,7 +1093,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdPut(ctx context.Context
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -2734,7 +1106,7 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdPut(ctx context.Context
 
 	// body params
 	localVarPostBody = &exposureDataSubscription
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -2775,8 +1147,8 @@ func (a *DefaultApiService) ExposureDataSubsToNotifySubIdPut(ctx context.Context
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -2889,11 +1261,11 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdDelete(ctx context.Context, bdtReferenceId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Delete")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -2906,7 +1278,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdDelete(ctx context.Co
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -2916,7 +1288,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdDelete(ctx context.Co
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -2957,8 +1329,8 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdDelete(ctx context.Co
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -3041,12 +1413,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdGet(ctx context.Context, bdtReferenceId string) (models.BdtData, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.BdtData
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.BdtData
 	)
 
 	// create path and map variables
@@ -3059,7 +1431,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdGet(ctx context.Conte
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -3069,7 +1441,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdGet(ctx context.Conte
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -3110,8 +1482,8 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdGet(ctx context.Conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -3205,11 +1577,11 @@ type PolicyDataBdtDataBdtReferenceIdPutParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdPut(ctx context.Context, bdtReferenceId string, localVarOptionals *PolicyDataBdtDataBdtReferenceIdPutParamOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -3222,7 +1594,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdPut(ctx context.Conte
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -3241,7 +1613,7 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdPut(ctx context.Conte
 		}
 		localVarPostBody = &localVarOptionalBdtData
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -3282,8 +1654,8 @@ func (a *DefaultApiService) PolicyDataBdtDataBdtReferenceIdPut(ctx context.Conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -3401,12 +1773,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataBdtDataGet(ctx context.Context) ([]models.BdtData, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	[]models.BdtData
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  []models.BdtData
 	)
 
 	// create path and map variables
@@ -3418,7 +1790,7 @@ func (a *DefaultApiService) PolicyDataBdtDataGet(ctx context.Context) ([]models.
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -3428,7 +1800,7 @@ func (a *DefaultApiService) PolicyDataBdtDataGet(ctx context.Context) ([]models.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -3469,8 +1841,8 @@ func (a *DefaultApiService) PolicyDataBdtDataGet(ctx context.Context) ([]models.
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -3559,12 +1931,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataPlmnsPlmnIdUePolicySetGet(ctx context.Context, plmnId string) (models.UePolicySet, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.UePolicySet
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.UePolicySet
 	)
 
 	// create path and map variables
@@ -3577,7 +1949,7 @@ func (a *DefaultApiService) PolicyDataPlmnsPlmnIdUePolicySetGet(ctx context.Cont
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -3587,7 +1959,7 @@ func (a *DefaultApiService) PolicyDataPlmnsPlmnIdUePolicySetGet(ctx context.Cont
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -3628,8 +2000,8 @@ func (a *DefaultApiService) PolicyDataPlmnsPlmnIdUePolicySetGet(ctx context.Cont
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -3727,12 +2099,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataSponsorConnectivityDataSponsorIdGet(ctx context.Context, sponsorId string) (models.SponsorConnectivityData, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.SponsorConnectivityData
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.SponsorConnectivityData
 	)
 
 	// create path and map variables
@@ -3745,7 +2117,7 @@ func (a *DefaultApiService) PolicyDataSponsorConnectivityDataSponsorIdGet(ctx co
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -3755,7 +2127,7 @@ func (a *DefaultApiService) PolicyDataSponsorConnectivityDataSponsorIdGet(ctx co
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -3796,8 +2168,8 @@ func (a *DefaultApiService) PolicyDataSponsorConnectivityDataSponsorIdGet(ctx co
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -3893,12 +2265,12 @@ type PolicyDataSubsToNotifyPostParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataSubsToNotifyPost(ctx context.Context, localVarOptionals *PolicyDataSubsToNotifyPostParamOpts) (models.PolicyDataSubscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Post")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.PolicyDataSubscription
+		localVarHTTPMethod   = strings.ToUpper("Post")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.PolicyDataSubscription
 	)
 
 	// create path and map variables
@@ -3910,7 +2282,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifyPost(ctx context.Context, loca
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -3929,7 +2301,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifyPost(ctx context.Context, loca
 		}
 		localVarPostBody = &localVarOptionalPolicyDataSubscription
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -3970,8 +2342,8 @@ func (a *DefaultApiService) PolicyDataSubsToNotifyPost(ctx context.Context, loca
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -4084,11 +2456,11 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdDelete(ctx context.Context, subsId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Delete")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -4101,7 +2473,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdDelete(ctx context.Conte
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -4111,7 +2483,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdDelete(ctx context.Conte
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -4152,8 +2524,8 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdDelete(ctx context.Conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -4242,12 +2614,12 @@ type PolicyDataSubsToNotifySubsIdPutParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdPut(ctx context.Context, subsId string, localVarOptionals *PolicyDataSubsToNotifySubsIdPutParamOpts) (models.PolicyDataSubscription, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.PolicyDataSubscription
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.PolicyDataSubscription
 	)
 
 	// create path and map variables
@@ -4260,7 +2632,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdPut(ctx context.Context,
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -4279,7 +2651,7 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdPut(ctx context.Context,
 		}
 		localVarPostBody = &localVarOptionalPolicyDataSubscription
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -4320,8 +2692,8 @@ func (a *DefaultApiService) PolicyDataSubsToNotifySubsIdPut(ctx context.Context,
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -4435,12 +2807,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataUesUeIdAmDataGet(ctx context.Context, ueId string) (models.AmPolicyData, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.AmPolicyData
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.AmPolicyData
 	)
 
 	// create path and map variables
@@ -4453,7 +2825,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdAmDataGet(ctx context.Context, ueId
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -4463,7 +2835,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdAmDataGet(ctx context.Context, ueId
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -4504,8 +2876,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdAmDataGet(ctx context.Context, ueId
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -4600,12 +2972,12 @@ type PolicyDataUesUeIdOperatorSpecificDataGetParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataGet(ctx context.Context, ueId string, localVarOptionals *PolicyDataUesUeIdOperatorSpecificDataGetParamOpts) (map[string]models.OperatorSpecificDataContainer, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	map[string]models.OperatorSpecificDataContainer
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  map[string]models.OperatorSpecificDataContainer
 	)
 
 	// create path and map variables
@@ -4616,13 +2988,13 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataGet(ctx context
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() && localVarOptionals.Fields.Value() != "" {
 		localVarQueryParams.Add("fields", openapi.ParameterToString(localVarOptionals.Fields.Value(), "csv"))
 	}
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -4632,7 +3004,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataGet(ctx context
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -4673,8 +3045,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataGet(ctx context
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -4772,11 +3144,11 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPatch(ctx context.Context, ueId string, patchItem []models.PatchItem) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Patch")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Patch")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -4789,7 +3161,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPatch(ctx conte
 
 	localVarHTTPContentTypes := []string{"application/json-patch+json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -4802,7 +3174,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPatch(ctx conte
 
 	// body params
 	localVarPostBody = &patchItem
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -4843,8 +3215,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPatch(ctx conte
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -4953,12 +3325,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPut(ctx context.Context, ueId string, requestBody map[string]models.OperatorSpecificDataContainer) (models.OperatorSpecificDataContainer, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.OperatorSpecificDataContainer
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.OperatorSpecificDataContainer
 	)
 
 	// create path and map variables
@@ -4971,7 +3343,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPut(ctx context
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -4984,7 +3356,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPut(ctx context
 
 	// body params
 	localVarPostBody = &requestBody
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -5025,8 +3397,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdOperatorSpecificDataPut(ctx context
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -5143,19 +3515,19 @@ DefaultApiService
 */
 
 type PolicyDataUesUeIdSmDataGetParamOpts struct {
-	Snssai	optional.Interface
-	Dnn	optional.String
-	Fields	optional.Interface
+	Snssai optional.Interface
+	Dnn    optional.String
+	Fields optional.Interface
 }
 
 func (a *DefaultApiService) PolicyDataUesUeIdSmDataGet(ctx context.Context, ueId string, localVarOptionals *PolicyDataUesUeIdSmDataGetParamOpts) (models.SmPolicyData, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.SmPolicyData
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.SmPolicyData
 	)
 
 	// create path and map variables
@@ -5166,19 +3538,19 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataGet(ctx context.Context, ueId
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	if localVarOptionals != nil && localVarOptionals.Snssai.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Snssai.IsSet() && localVarOptionals.Snssai.Value() != "" {
 		localVarQueryParams.Add("snssai", openapi.ParameterToString(localVarOptionals.Snssai.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Dnn.IsSet() && localVarOptionals.Dnn.Value() != "" {
 		localVarQueryParams.Add("dnn", openapi.ParameterToString(localVarOptionals.Dnn.Value(), ""))
 	}
-	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() {
+	if localVarOptionals != nil && localVarOptionals.Fields.IsSet() && localVarOptionals.Fields.Value() != "" {
 		localVarQueryParams.Add("fields", openapi.ParameterToString(localVarOptionals.Fields.Value(), "csv"))
 	}
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -5188,7 +3560,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataGet(ctx context.Context, ueId
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -5229,8 +3601,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataGet(ctx context.Context, ueId
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -5333,11 +3705,11 @@ type PolicyDataUesUeIdSmDataPatchParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataUesUeIdSmDataPatch(ctx context.Context, ueId string, localVarOptionals *PolicyDataUesUeIdSmDataPatchParamOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Patch")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Patch")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -5350,7 +3722,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataPatch(ctx context.Context, ue
 
 	localVarHTTPContentTypes := []string{"application/merge-patch+json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -5369,7 +3741,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataPatch(ctx context.Context, ue
 		}
 		localVarPostBody = &localVarOptionalRequestBody
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -5410,8 +3782,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataPatch(ctx context.Context, ue
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -5521,11 +3893,11 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdDelete(ctx context.Context, ueId string, usageMonId string) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Delete")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Delete")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -5539,7 +3911,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdDelete(ctx context.
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -5549,7 +3921,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdDelete(ctx context.
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -5590,8 +3962,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdDelete(ctx context.
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -5675,12 +4047,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdGet(ctx context.Context, ueId string, usageMonId string) (models.UsageMonData, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.UsageMonData
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.UsageMonData
 	)
 
 	// create path and map variables
@@ -5694,7 +4066,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdGet(ctx context.Con
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -5704,7 +4076,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdGet(ctx context.Con
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -5745,8 +4117,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdGet(ctx context.Con
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -5852,11 +4224,11 @@ type PolicyDataUesUeIdSmDataUsageMonIdPutParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdPut(ctx context.Context, ueId string, usageMonId string, localVarOptionals *PolicyDataUesUeIdSmDataUsageMonIdPutParamOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -5870,7 +4242,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdPut(ctx context.Con
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -5889,7 +4261,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdPut(ctx context.Con
 		}
 		localVarPostBody = &localVarOptionalUsageMonData
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -5930,8 +4302,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdSmDataUsageMonIdPut(ctx context.Con
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -6050,12 +4422,12 @@ DefaultApiService
 
 func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetGet(ctx context.Context, ueId string) (models.UePolicySet, *http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Get")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
-		localVarReturnValue	models.UePolicySet
+		localVarHTTPMethod   = strings.ToUpper("Get")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
+		localVarReturnValue  models.UePolicySet
 	)
 
 	// create path and map variables
@@ -6068,7 +4440,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetGet(ctx context.Context,
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
@@ -6078,7 +4450,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetGet(ctx context.Context,
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return localVarReturnValue, nil, fmt.Errorf("OAuth parameters are invalid")
@@ -6119,8 +4491,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetGet(ctx context.Context,
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -6214,11 +4586,11 @@ type PolicyDataUesUeIdUePolicySetPatchParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPatch(ctx context.Context, ueId string, localVarOptionals *PolicyDataUesUeIdUePolicySetPatchParamOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Patch")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Patch")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -6231,7 +4603,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPatch(ctx context.Contex
 
 	localVarHTTPContentTypes := []string{"application/merge-patch+json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -6250,7 +4622,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPatch(ctx context.Contex
 		}
 		localVarPostBody = &localVarOptionalUePolicySet
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -6291,8 +4663,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPatch(ctx context.Contex
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
@@ -6407,11 +4779,11 @@ type PolicyDataUesUeIdUePolicySetPutParamOpts struct {
 
 func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPut(ctx context.Context, ueId string, localVarOptionals *PolicyDataUesUeIdUePolicySetPutParamOpts) (*http.Response, error) {
 	var (
-		localVarHTTPMethod	= strings.ToUpper("Put")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHTTPMethod   = strings.ToUpper("Put")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
@@ -6424,7 +4796,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPut(ctx context.Context,
 
 	localVarHTTPContentTypes := []string{"application/json"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/problem+json"}
@@ -6443,7 +4815,7 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPut(ctx context.Context,
 		}
 		localVarPostBody = &localVarOptionalUePolicySet
 	}
-	scopes := []string{"nudr-dr",}
+	scopes := []string{"nudr-dr"}
 	additional_params, ok := ctx.Value(openapi.ContextOAuthAdditionalParams).(url.Values)
 	if !ok {
 		return nil, fmt.Errorf("OAuth parameters are invalid")
@@ -6484,8 +4856,8 @@ func (a *DefaultApiService) PolicyDataUesUeIdUePolicySetPut(ctx context.Context,
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHTTPResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHTTPResponse.Status,
 	}
 
 	switch localVarHTTPResponse.StatusCode {
