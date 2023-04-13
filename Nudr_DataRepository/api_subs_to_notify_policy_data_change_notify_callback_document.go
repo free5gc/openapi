@@ -16,25 +16,25 @@ var (
 	_ context.Context
 )
 
-type PolicyDataChangeNotificationCallbackDocumentApiService service
+type PolicyDataChangeNotifyCallbackDocumentApiService service
 
-func (a *PolicyDataChangeNotificationCallbackDocumentApiService) PolicyDataChangeNotification(ctx context.Context, policyDataChangeNotificationUrl string, request models.PolicyDataChangeNotification) (*http.Response, error) {
+func (a *PolicyDataChangeNotifyCallbackDocumentApiService) PolicyDataChangeNotify(ctx context.Context, policyDataChangeNotifyUrl string, request models.PolicyDataChangeNotification) (*http.Response, error) {
 	var (
-		localVarHttpMethod	= strings.ToUpper("Post")
-		localVarPostBody	interface{}
-		localVarFormFileName	string
-		localVarFileName	string
-		localVarFileBytes	[]byte
+		localVarHttpMethod   = strings.ToUpper("Post")
+		localVarPostBody     interface{}
+		localVarFormFileName string
+		localVarFileName     string
+		localVarFileBytes    []byte
 	)
 
 	// create path and map variables
-	localVarPath := policyDataChangeNotificationUrl
+	localVarPath := policyDataChangeNotifyUrl
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	localVarHttpContentTypes := []string{"application/json"}
-	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0]	// use the first content type specified in 'consumes'
+	localVarHeaderParams["Content-Type"] = localVarHttpContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
 	localVarHttpHeaderAccepts := []string{"application/problem+json"}
@@ -65,8 +65,8 @@ func (a *PolicyDataChangeNotificationCallbackDocumentApiService) PolicyDataChang
 	}
 
 	apiError := openapi.GenericOpenAPIError{
-		RawBody:	localVarBody,
-		ErrorStatus:	localVarHttpResponse.Status,
+		RawBody:     localVarBody,
+		ErrorStatus: localVarHttpResponse.Status,
 	}
 	switch localVarHttpResponse.StatusCode {
 
@@ -145,6 +145,6 @@ func (a *PolicyDataChangeNotificationCallbackDocumentApiService) PolicyDataChang
 		apiError.ErrorModel = v
 		return localVarHttpResponse, apiError
 	default:
-		return localVarHttpResponse, openapi.ReportError("%d is not a valid status code in OnDataChangeNotify", localVarHttpResponse.StatusCode)
+		return localVarHttpResponse, openapi.ReportError("%d is not a valid status code in PolicyDataChangeNotify", localVarHttpResponse.StatusCode)
 	}
 }
