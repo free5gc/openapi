@@ -9,5 +9,4 @@
 
 package models_nef
 
-type Ipv6Prefix struct {
-}
+type Ipv6Prefix struct{}

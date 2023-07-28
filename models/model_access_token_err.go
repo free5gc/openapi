@@ -9,6 +9,7 @@
 
 package models
 
+// Error returned in the access token response message
 type AccessTokenErr struct {
 	Error            string `json:"error" yaml:"error" bson:"error" mapstructure:"Error"`
 	ErrorDescription string `json:"error_description,omitempty" yaml:"error_description" bson:"error_description" mapstructure:"ErrorDescription"`

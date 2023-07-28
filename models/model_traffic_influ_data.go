@@ -15,46 +15,34 @@ import (
 
 type TrafficInfluData struct {
 	// Contains the Notification Correlation Id allocated by the NEF for the UP path change notification.
-	UpPathChgNotifCorreId string `json:"upPathChgNotifCorreId,omitempty" bson:"upPathChgNotifCorreId"`
+	UpPathChgNotifCorreId string `json:"upPathChgNotifCorreId,omitempty" yaml:"upPathChgNotifCorreId" bson:"upPathChgNotifCorreId" mapstructure:"UpPathChgNotifCorreId"`
 	// Identifies whether an application can be relocated once a location of the application has been selected.
-	AppReloInd bool `json:"appReloInd,omitempty" bson:"appReloInd"`
+	AppReloInd bool `json:"appReloInd,omitempty" yaml:"appReloInd" bson:"appReloInd" mapstructure:"AppReloInd"`
 	// Identifies an application.
-	AfAppId string `json:"afAppId,omitempty" bson:"afAppId"`
-	Dnn     string `json:"dnn,omitempty" bson:"dnn"`
+	AfAppId string `json:"afAppId,omitempty" yaml:"afAppId" bson:"afAppId" mapstructure:"AfAppId"`
+	Dnn     string `json:"dnn,omitempty" yaml:"dnn" bson:"dnn" mapstructure:"Dnn"`
 	// Identifies Ethernet packet filters. Either \"trafficFilters\" or \"ethTrafficFilters\" shall be included if applicable.
-	EthTrafficFilters []EthFlowDescription `json:"ethTrafficFilters,omitempty" bson:"ethTrafficFilters"`
-	Snssai            *Snssai `json:"snssai,omitempty" bson:"snssai"`
+	EthTrafficFilters []EthFlowDescription `json:"ethTrafficFilters,omitempty" yaml:"ethTrafficFilters" bson:"ethTrafficFilters" mapstructure:"EthTrafficFilters"`
+	Snssai            *Snssai              `json:"snssai,omitempty" yaml:"snssai" bson:"snssai" mapstructure:"Snssai"`
 	// Identifies a group of users.
-	InterGroupId string `json:"interGroupId,omitempty" bson:"interGroupId"`
-	Supi         string `json:"supi,omitempty" bson:"supi"`
+	InterGroupId string `json:"interGroupId,omitempty" yaml:"interGroupId" bson:"interGroupId" mapstructure:"InterGroupId"`
+	Supi         string `json:"supi,omitempty" yaml:"supi" bson:"supi" mapstructure:"Supi"`
 	// Identifies IP packet filters. Either \"trafficFilters\" or \"ethTrafficFilters\" shall be included if applicable.
-	TrafficFilters []FlowInfo `json:"trafficFilters,omitempty" bson:"trafficFilters"`
+	TrafficFilters []FlowInfo `json:"trafficFilters,omitempty" yaml:"trafficFilters" bson:"trafficFilters" mapstructure:"TrafficFilters"`
 	// Identifies the N6 traffic routing requirement.
-	TrafficRoutes []RouteToLocation `json:"trafficRoutes,omitempty" bson:"trafficRoutes"`
-
-	TraffCorreInd bool `json:"traffCorreInd,omitempty" bson:"traffCorreInd"`
-
-	ValidStartTime *time.Time `json:"validStartTime,omitempty" bson:"validStartTime"`
-
-	ValidEndTime *time.Time `json:"validEndTime,omitempty" bson:"validEndTime"`
-
+	TrafficRoutes  []RouteToLocation `json:"trafficRoutes,omitempty" yaml:"trafficRoutes" bson:"trafficRoutes" mapstructure:"TrafficRoutes"`
+	TraffCorreInd  bool              `json:"traffCorreInd,omitempty" yaml:"traffCorreInd" bson:"traffCorreInd" mapstructure:"TraffCorreInd"`
+	ValidStartTime *time.Time        `json:"validStartTime,omitempty" yaml:"validStartTime" bson:"validStartTime" mapstructure:"ValidStartTime"`
+	ValidEndTime   *time.Time        `json:"validEndTime,omitempty" yaml:"validEndTime" bson:"validEndTime" mapstructure:"ValidEndTime"`
 	// Identifies the temporal validities for the N6 traffic routing requirement.
-	TempValidities []TemporalValidity `json:"tempValidities,omitempty" bson:"tempValidities"`
-
-	NwAreaInfo *NetworkAreaInfo `json:"nwAreaInfo,omitempty" bson:"nwAreaInfo"`
-
+	TempValidities []TemporalValidity `json:"tempValidities,omitempty" yaml:"tempValidities" bson:"tempValidities" mapstructure:"TempValidities"`
+	NwAreaInfo     *NetworkAreaInfo   `json:"nwAreaInfo,omitempty" yaml:"nwAreaInfo" bson:"nwAreaInfo" mapstructure:"NwAreaInfo"`
 	// string providing an URI formatted according to IETF RFC 3986.
-	UpPathChgNotifUri string `json:"upPathChgNotifUri,omitempty" bson:"upPathChgNotifUri"`
-
-	SubscribedEvents []SubscribedEvent `json:"subscribedEvents,omitempty" bson:"subscribedEvents"`
-
-	DnaiChgType DnaiChangeType `json:"dnaiChgType,omitempty" bson:"dnaiChgType"`
-
-	AfAckInd bool `json:"afAckInd,omitempty" bson:"afAckInd"`
-
-	AddrPreserInd bool `json:"addrPreserInd,omitempty" bson:"addrPreserInd"`
-
-	SupportedFeatures string `json:"supportedFeatures,omitempty" bson:"supportedFeatures"`
-
-	ResUri string `json:"resUri,omitempty" bson:"resUri"`
+	UpPathChgNotifUri string            `json:"upPathChgNotifUri,omitempty" yaml:"upPathChgNotifUri" bson:"upPathChgNotifUri" mapstructure:"UpPathChgNotifUri"`
+	SubscribedEvents  []SubscribedEvent `json:"subscribedEvents,omitempty" yaml:"subscribedEvents" bson:"subscribedEvents" mapstructure:"SubscribedEvents"`
+	DnaiChgType       DnaiChangeType    `json:"dnaiChgType,omitempty" yaml:"dnaiChgType" bson:"dnaiChgType" mapstructure:"DnaiChgType"`
+	AfAckInd          bool              `json:"afAckInd,omitempty" yaml:"afAckInd" bson:"afAckInd" mapstructure:"AfAckInd"`
+	AddrPreserInd     bool              `json:"addrPreserInd,omitempty" yaml:"addrPreserInd" bson:"addrPreserInd" mapstructure:"AddrPreserInd"`
+	SupportedFeatures string            `json:"supportedFeatures,omitempty" yaml:"supportedFeatures" bson:"supportedFeatures" mapstructure:"SupportedFeatures"`
+	ResUri            string            `json:"resUri,omitempty" yaml:"resUri" bson:"resUri" mapstructure:"ResUri"`
 }

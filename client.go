@@ -79,7 +79,7 @@ func SelectHeaderAccept(accepts []string) string {
 // contains is a case insenstive match, finding needle in a haystack
 func contains(haystack []string, needle string) bool {
 	for _, a := range haystack {
-		if strings.ToLower(a) == strings.ToLower(needle) {
+		if strings.EqualFold(a, needle) {
 			return true
 		}
 	}
@@ -129,12 +129,12 @@ func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 	if cfg.HTTPClient() != nil {
 		return cfg.HTTPClient().Do(request)
 	}
-
 	if request.URL.Scheme == "https" {
 		return innerHTTP2Client.Do(request)
 	} else if request.URL.Scheme == "http" {
 		return innerHTTP2CleartextClient.Do(request)
 	}
+
 	return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
 }
 
@@ -343,8 +343,8 @@ func PrepareRequest(
 	formParams url.Values,
 	formFileName string,
 	fileName string,
-	fileBytes []byte) (localVarRequest *http.Request, err error) {
-
+	fileBytes []byte,
+) (localVarRequest *http.Request, err error) {
 	var body *bytes.Buffer
 
 	// Detect postBody type and post.

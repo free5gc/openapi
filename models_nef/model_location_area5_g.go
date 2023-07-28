@@ -14,7 +14,6 @@ import (
 )
 
 type LocationArea5G struct {
-
 	// Identifies a list of geographic area of the user where the UE is located.
 	GeographicAreas []models.GeographicArea `json:"geographicAreas,omitempty" bson:"geographicAreas"`
 

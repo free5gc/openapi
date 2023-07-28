@@ -14,7 +14,6 @@ import (
 )
 
 type TrafficInfluSub struct {
-
 	// Identifies a service on behalf of which the AF is issuing the request.
 	AfServiceId string `json:"afServiceId,omitempty" bson:"afServiceId"`
 

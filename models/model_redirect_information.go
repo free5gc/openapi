@@ -10,7 +10,6 @@
 package models
 
 type RedirectInformation struct {
-
 	// Indicates the redirect is enable.
 	RedirectEnabled bool `json:"redirectEnabled,omitempty" bson:"redirectEnabled"`
 

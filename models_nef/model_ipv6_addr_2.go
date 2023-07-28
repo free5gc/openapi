@@ -9,5 +9,4 @@
 
 package models_nef
 
-type Ipv6Addr2 struct {
-}
+type Ipv6Addr2 struct{}
