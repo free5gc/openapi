@@ -53,11 +53,8 @@ func (a *IndividualTrafficInfluenceSubscriptionApiService) AfIdSubscriptionsSubs
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
 	// set Content-Type header
-	localVarHTTPContentTypes = []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]
 
@@ -193,11 +190,8 @@ func (a *IndividualTrafficInfluenceSubscriptionApiService) AfIdSubscriptionsSubs
 	localVarQueryParams := _neturl.Values{}
 	localVarFormParams := _neturl.Values{}
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
 	// set Content-Type header
-	localVarHTTPContentTypes = []string{"application/json"}
+	localVarHTTPContentTypes := []string{"application/json"}
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0]
 
 	// to determine the Accept header

@@ -14,7 +14,6 @@ import (
 )
 
 type LocationArea struct {
-
 	// Indicates a list of Cell Global Identities of the user which identifies the cell the UE is registered.
 	CellIds []string `json:"cellIds,omitempty" bson:"cellIds"`
 

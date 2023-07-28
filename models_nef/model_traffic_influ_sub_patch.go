@@ -14,7 +14,6 @@ import (
 )
 
 type TrafficInfluSubPatch struct {
-
 	// Identifies whether an application can be relocated once a location of the application has been selected.
 	AppReloInd bool `json:"appReloInd,omitempty" bson:"appReloInd"`
 
