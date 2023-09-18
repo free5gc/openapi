@@ -18,7 +18,7 @@ var (
 
 type DeregistrationNotificationCallbackApiService service
 
-func (a *DeregistrationNotificationCallbackApiService) DeregistrationNotify(ctx context.Context, onDeregistrationNotifyUrl string, request models.DeregistrationData) (*http.Response, error) {
+func (a *DeregistrationNotificationCallbackApiService) DeregistrationNotify(ctx context.Context, onDeregistrationNotifyUrl string, request models.DeregistrationData, queryParams url.Values) (*http.Response, error) {
 	var (
 		localVarHttpMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -30,7 +30,7 @@ func (a *DeregistrationNotificationCallbackApiService) DeregistrationNotify(ctx 
 	// create path and map variables
 	localVarPath := onDeregistrationNotifyUrl
 	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
+	localVarQueryParams := queryParams
 	localVarFormParams := url.Values{}
 
 	localVarHttpContentTypes := []string{"application/json"}
