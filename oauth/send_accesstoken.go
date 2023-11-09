@@ -1,4 +1,4 @@
-package send_util
+package oauth
 
 import (
 	"context"
@@ -6,19 +6,21 @@ import (
 	"time"
 
 	"github.com/antihax/optional"
+	"golang.org/x/oauth2"
+
 	"github.com/free5gc/openapi"
 	"github.com/free5gc/openapi/Nnrf_AccessToken"
 	"github.com/free5gc/openapi/models"
-	"golang.org/x/oauth2"
 )
 
 var tokenMap sync.Map
 var clientMap sync.Map
 
 func SendAccTokenReq(
-	nfId string, nfType models.NfType, scope, targetNF string, nrfUri string,
+	nfId string,
+	nfType models.NfType,
+	scope, targetNF, nrfUri string,
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
-
 	var client *Nnrf_AccessToken.APIClient
 
 	configuration := Nnrf_AccessToken.NewConfiguration()
@@ -32,7 +34,6 @@ func SendAccTokenReq(
 	}
 
 	var tok models.AccessTokenRsp
-
 	if val, ok := tokenMap.Load(scope); ok {
 		tok = val.(models.AccessTokenRsp)
 		if int32(time.Now().Unix()) < tok.ExpiresIn {
@@ -57,15 +58,16 @@ func SendAccTokenReq(
 			TokenType:   tok.TokenType,
 			Expiry:      time.Unix(int64(tok.ExpiresIn), 0),
 		}
-		return oauth2.StaticTokenSource(token), nil, err
+		return oauth2.StaticTokenSource(token), nil, nil
 	} else if res != nil {
 		if res.Status != err.Error() {
 			return nil, nil, err
 		}
 		accesstoken_err := err.(openapi.GenericOpenAPIError).Model().(models.AccessTokenErr)
-		var pd models.ProblemDetails
-		pd.AccessTokenError = &accesstoken_err
-		return nil, &pd, err
+		pd := &models.ProblemDetails{
+			AccessTokenError: &accesstoken_err,
+		}
+		return nil, pd, err
 	} else {
 		return nil, nil, openapi.ReportError("server no response")
 	}

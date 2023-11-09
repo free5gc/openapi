@@ -1,4 +1,4 @@
-package openapi
+package oauth
 
 import (
 	"bytes"
