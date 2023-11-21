@@ -297,7 +297,7 @@ func GetNFCertFileName(nfType string) string {
 	return strings.ToLower(nfType) + ".pem"
 }
 
-func GetNFCertPath(base, nfType string) string {
+func GetNFCertPath(base, nfType, nfId string) string {
 	// Note: NF's cert should be put in the same base path
-	return filepath.Join(base, GetNFCertFileName(nfType))
+	return filepath.Join(base, nfId+GetNFCertFileName(nfType))
 }
