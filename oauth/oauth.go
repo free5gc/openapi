@@ -293,11 +293,14 @@ func GenerateRSAKeyPair(pubPemPath, privPemPath string) (*rsa.PrivateKey, error)
 	return privKey, nil
 }
 
-func GetNFCertFileName(nfType string) string {
+func GetNFCertFileName(nfType, nfId string) string {
+	if nfId != "" {
+		return strings.ToLower(nfType) + "_" + nfId + ".pem"
+	}
 	return strings.ToLower(nfType) + ".pem"
 }
 
 func GetNFCertPath(base, nfType, nfId string) string {
 	// Note: NF's cert should be put in the same base path
-	return filepath.Join(base, nfId+GetNFCertFileName(nfType))
+	return filepath.Join(base, GetNFCertFileName(nfType, nfId))
 }
