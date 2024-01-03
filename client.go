@@ -56,10 +56,10 @@ var (
 )
 
 func GetHttpsClient() *http.Client {
-	return innerHTTP2CleartextClient
+	return innerHTTP2Client
 }
 func GetHttpClient() *http.Client {
-	return innerHTTP2Client
+	return innerHTTP2CleartextClient
 }
 
 type Configuration interface {
