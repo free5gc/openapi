@@ -55,6 +55,13 @@ var (
 	}
 )
 
+func GetHttpsClient() *http.Client {
+	return innerHTTP2CleartextClient
+}
+func GetHttpClient() *http.Client {
+	return innerHTTP2Client
+}
+
 type Configuration interface {
 	BasePath() string
 	Host() string
