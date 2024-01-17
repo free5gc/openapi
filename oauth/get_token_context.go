@@ -17,10 +17,10 @@ var tokenMap sync.Map
 var clientMap sync.Map
 
 func GetTokenCtx(
-	nfType models.NfType,
-	nfId, nrfUri, scope, targetNF string,
+	nfType, targetNF models.NfType,
+	nfId, nrfUri, scope string,
 ) (context.Context, *models.ProblemDetails, error) {
-	tok, pd, err := sendAccTokenReq(nfType, nfId, nrfUri, scope, targetNF)
+	tok, pd, err := sendAccTokenReq(nfType, targetNF, nfId, nrfUri, scope)
 	if err != nil {
 		return nil, pd, err
 	}
@@ -29,8 +29,8 @@ func GetTokenCtx(
 }
 
 func sendAccTokenReq(
-	nfType models.NfType,
-	nfId, nrfUri, scope, targetNF string,
+	nfType, targetNF models.NfType,
+	nfId, nrfUri, scope string,
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
 	var client *Nnrf_AccessToken.APIClient
 
