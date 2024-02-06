@@ -24,6 +24,7 @@ const (
 	ServiceName_NAMF_EVTS                 ServiceName = "namf-evts"
 	ServiceName_NAMF_MT                   ServiceName = "namf-mt"
 	ServiceName_NAMF_LOC                  ServiceName = "namf-loc"
+	ServiceName_NAMF_OAM                  ServiceName = "namf-oam"
 	ServiceName_NSMF_PDUSESSION           ServiceName = "nsmf-pdusession"
 	ServiceName_NSMF_EVENT_EXPOSURE       ServiceName = "nsmf-event-exposure"
 	ServiceName_NAUSF_AUTH                ServiceName = "nausf-auth"
