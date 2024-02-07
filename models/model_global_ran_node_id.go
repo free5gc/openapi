@@ -16,6 +16,7 @@ type GlobalRanNodeId struct {
 	NgeNbId string  `json:"ngeNbId,omitempty" yaml:"ngeNbId" bson:"ngeNbId" mapstructure:"NgeNbId"`
 	WagfId  string  `json:"wagfId,omitempty" yaml:"wagfId" bson:"wagfId" mapstructure:"WagfId"`
 	TngfId  string  `json:"tngfId,omitempty" yaml:"tngfId" bson:"tngfId" mapstructure:"TngfId"`
+	TwifId  string  `json:"twifId,omitempty" yaml:"twifId" bson:"twifId" mapstructure:"TwifId"`
 	Nid     string  `json:"nid,omitempty" yaml:"nid" bson:"nid" mapstructure:"Nid"`
 	ENbId   string  `json:"eNbId,omitempty" yaml:"eNbId" bson:"eNbId" mapstructure:"ENbId"`
 }
