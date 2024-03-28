@@ -9,16 +9,21 @@
 
 package openapi
 
+import (
+	"fmt"
+	"net/http"
+)
+
 // GenericOpenAPIError Provides access to the body, error and model on returned errors.
 type GenericOpenAPIError struct {
 	RawBody     []byte
-	ErrorStatus string
+	ErrorStatus int
 	ErrorModel  interface{}
 }
 
 // Error returns non-empty string if there was an error.
 func (e GenericOpenAPIError) Error() string {
-	return e.ErrorStatus
+	return fmt.Sprintf("%d, %s", e.ErrorStatus, http.StatusText(e.ErrorStatus))
 }
 
 // Body returns the raw bytes of the response
