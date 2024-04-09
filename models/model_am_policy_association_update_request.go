@@ -21,12 +21,12 @@ type AmPolicyAssociationUpdateRequest struct {
 	// Alternate or backup FQDN(s) where to send Notifications.
 	AltNotifFqdns []string `json:"altNotifFqdns,omitempty" yaml:"altNotifFqdns" bson:"altNotifFqdns,omitempty"`
 	// Request Triggers that the NF service consumer observes.
-	Triggers      []AmPolicyRequestTrigger        `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
-	ServAreaRes   *ServiceAreaRestriction         `json:"servAreaRes,omitempty" yaml:"servAreaRes" bson:"servAreaRes,omitempty"`
-	WlServAreaRes *WirelineServiceAreaRestriction `json:"wlServAreaRes,omitempty" yaml:"wlServAreaRes" bson:"wlServAreaRes,omitempty"`
-	Rfsp          int32                           `json:"rfsp,omitempty" yaml:"rfsp" bson:"rfsp,omitempty"`
-	SmfSelInfo    *SmfSelectionData               `json:"smfSelInfo,omitempty" yaml:"smfSelInfo" bson:"smfSelInfo,omitempty"`
-	UeAmbr        *Ambr                           `json:"ueAmbr,omitempty" yaml:"ueAmbr" bson:"ueAmbr,omitempty"`
+	Triggers      []PcfAmPolicyControlRequestTrigger `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
+	ServAreaRes   *ServiceAreaRestriction            `json:"servAreaRes,omitempty" yaml:"servAreaRes" bson:"servAreaRes,omitempty"`
+	WlServAreaRes *WirelineServiceAreaRestriction    `json:"wlServAreaRes,omitempty" yaml:"wlServAreaRes" bson:"wlServAreaRes,omitempty"`
+	Rfsp          int32                              `json:"rfsp,omitempty" yaml:"rfsp" bson:"rfsp,omitempty"`
+	SmfSelInfo    *SmfSelectionData                  `json:"smfSelInfo,omitempty" yaml:"smfSelInfo" bson:"smfSelInfo,omitempty"`
+	UeAmbr        *Ambr                              `json:"ueAmbr,omitempty" yaml:"ueAmbr" bson:"ueAmbr,omitempty"`
 	// Map of PRA status information.
 	PraStatuses map[string]PresenceInfo `json:"praStatuses,omitempty" yaml:"praStatuses" bson:"praStatuses,omitempty"`
 	UserLoc     *UserLocation           `json:"userLoc,omitempty" yaml:"userLoc" bson:"userLoc,omitempty"`
