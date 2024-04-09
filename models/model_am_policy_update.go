@@ -15,12 +15,12 @@ package models
 type AmPolicyUpdate struct {
 	ResourceUri string `json:"resourceUri" yaml:"resourceUri" bson:"resourceUri,omitempty"`
 	// Request Triggers that the PCF subscribes.
-	Triggers      []AmPolicyRequestTrigger        `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
-	ServAreaRes   *ServiceAreaRestriction         `json:"servAreaRes,omitempty" yaml:"servAreaRes" bson:"servAreaRes,omitempty"`
-	WlServAreaRes *WirelineServiceAreaRestriction `json:"wlServAreaRes,omitempty" yaml:"wlServAreaRes" bson:"wlServAreaRes,omitempty"`
-	Rfsp          int32                           `json:"rfsp,omitempty" yaml:"rfsp" bson:"rfsp,omitempty"`
-	SmfSelInfo    *SmfSelectionData               `json:"smfSelInfo,omitempty" yaml:"smfSelInfo" bson:"smfSelInfo,omitempty"`
-	UeAmbr        *Ambr                           `json:"ueAmbr,omitempty" yaml:"ueAmbr" bson:"ueAmbr,omitempty"`
+	Triggers      []PcfAmPolicyControlRequestTrigger `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
+	ServAreaRes   *ServiceAreaRestriction            `json:"servAreaRes,omitempty" yaml:"servAreaRes" bson:"servAreaRes,omitempty"`
+	WlServAreaRes *WirelineServiceAreaRestriction    `json:"wlServAreaRes,omitempty" yaml:"wlServAreaRes" bson:"wlServAreaRes,omitempty"`
+	Rfsp          int32                              `json:"rfsp,omitempty" yaml:"rfsp" bson:"rfsp,omitempty"`
+	SmfSelInfo    *SmfSelectionData                  `json:"smfSelInfo,omitempty" yaml:"smfSelInfo" bson:"smfSelInfo,omitempty"`
+	UeAmbr        *Ambr                              `json:"ueAmbr,omitempty" yaml:"ueAmbr" bson:"ueAmbr,omitempty"`
 	// Map of PRA information.
 	Pras map[string]*PresenceInfoRm `json:"pras,omitempty" yaml:"pras" bson:"pras,omitempty"`
 }
