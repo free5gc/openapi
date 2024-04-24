@@ -236,6 +236,12 @@ type PostChargingNotificationRequest struct {
 	ChargingNotifyRequest *models.ChargingNotifyRequest
 }
 
+func NewPostChargingNotificationRequest() *PostChargingNotificationRequest {
+	req := &PostChargingNotificationRequest{}
+
+	return req
+}
+
 func (r *PostChargingNotificationRequest) SetChargingNotifyRequest(ChargingNotifyRequest models.ChargingNotifyRequest) {
 	r.ChargingNotifyRequest = &ChargingNotifyRequest
 }
