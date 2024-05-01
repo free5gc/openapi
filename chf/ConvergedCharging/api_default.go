@@ -257,14 +257,13 @@ type PostChargingNotificationError struct {
 	RedirectResponse                    models.RedirectResponse
 }
 
-func (a *DefaultApiService) PostChargingNotification(ctx context.Context, uri string, request *PostChargingNotificationRequest) (*PostChargingNotificationResponse, error) {
+func (a *DefaultApiService) PostChargingNotification(ctx context.Context, uri string, request *PostChargingNotificationRequest) error {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("POST")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  PostChargingNotificationResponse
 	)
 
 	// create path and map variables
@@ -292,21 +291,21 @@ func (a *DefaultApiService) PostChargingNotification(ctx context.Context, uri st
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
 	if err != nil || localVarHTTPResponse == nil {
-		return nil, err
+		return err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
-		return nil, err
+		return err
 	}
 	err = localVarHTTPResponse.Body.Close()
 	if err != nil {
-		return nil, err
+		return err
 	}
 
 	apiError := openapi.GenericOpenAPIError{
@@ -316,45 +315,140 @@ func (a *DefaultApiService) PostChargingNotification(ctx context.Context, uri st
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.ChargingNotifyResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-		if err != nil {
-			return nil, err
-		}
-		return &localVarReturnValue, nil
+		return nil
 	case 204:
-		return &localVarReturnValue, nil
+		return nil
 	case 307:
 		var v PostChargingNotificationError
 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
-			return nil, err
+			return err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
 		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
 		apiError.ErrorModel = v
-		return nil, apiError
+		return apiError
 	case 308:
 		var v PostChargingNotificationError
 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
-			return nil, err
+			return err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
 		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
 		apiError.ErrorModel = v
-		return nil, apiError
+		return apiError
 	case 400:
 		var v PostChargingNotificationError
 		err = openapi.Deserialize(&v.PostChargingNotificationResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
-			return nil, err
+			return err
 		}
 		apiError.ErrorModel = v
-		return nil, apiError
+		return apiError
 	default:
-		return &localVarReturnValue, nil
+		return nil
 	}
 }
+
+// func (a *DefaultApiService) PostChargingNotification(ctx context.Context, uri string, request *PostChargingNotificationRequest) (*PostChargingNotificationResponse, error) {
+// 	var (
+// 		localVarHTTPMethod   = strings.ToUpper("POST")
+// 		localVarPostBody     interface{}
+// 		localVarFormFileName string
+// 		localVarFileName     string
+// 		localVarFileBytes    []byte
+// 		localVarReturnValue  PostChargingNotificationResponse
+// 	)
+
+// 	// create path and map variables
+// 	localVarPath := uri
+
+// 	localVarHeaderParams := make(map[string]string)
+// 	localVarQueryParams := url.Values{}
+// 	localVarFormParams := url.Values{}
+
+// 	localVarHTTPContentTypes := []string{"application/json"}
+
+// 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+
+// 	// to determine the Accept header
+// 	localVarHTTPHeaderAccepts := []string{"application/ json", "application/json", "application/problem+json"}
+
+// 	// set Accept header
+// 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
+// 	if localVarHTTPHeaderAccept != "" {
+// 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+// 	}
+
+// 	// body params
+// 	localVarPostBody = request.ChargingNotifyRequest
+
+// 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	localVarHTTPResponse, err := openapi.CallAPI(a.client.cfg, r)
+// 	if err != nil || localVarHTTPResponse == nil {
+// 		return nil, err
+// 	}
+
+// 	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+// 	if err != nil {
+// 		return nil, err
+// 	}
+// 	err = localVarHTTPResponse.Body.Close()
+// 	if err != nil {
+// 		return nil, err
+// 	}
+
+// 	apiError := openapi.GenericOpenAPIError{
+// 		RawBody:     localVarBody,
+// 		ErrorStatus: localVarHTTPResponse.StatusCode,
+// 	}
+
+// 	switch localVarHTTPResponse.StatusCode {
+// 	case 200:
+// 		err = openapi.Deserialize(&localVarReturnValue.ChargingNotifyResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 		return &localVarReturnValue, nil
+// 	case 204:
+// 		return &localVarReturnValue, nil
+// 	case 307:
+// 		var v PostChargingNotificationError
+// 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 		v.Location = localVarHTTPResponse.Header.Get("Location")
+// 		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+// 		apiError.ErrorModel = v
+// 		return nil, apiError
+// 	case 308:
+// 		var v PostChargingNotificationError
+// 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 		v.Location = localVarHTTPResponse.Header.Get("Location")
+// 		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+// 		apiError.ErrorModel = v
+// 		return nil, apiError
+// 	case 400:
+// 		var v PostChargingNotificationError
+// 		err = openapi.Deserialize(&v.PostChargingNotificationResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+// 		if err != nil {
+// 			return nil, err
+// 		}
+// 		apiError.ErrorModel = v
+// 		return nil, apiError
+// 	default:
+// 		return &localVarReturnValue, nil
+// 	}
+// }
 
 /*
 DefaultApiService
