@@ -62,8 +62,8 @@ type Configuration struct {
 
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
-		basePath:      "https://example.com/",
-		url:           "{apiRoot}",
+		basePath:      "https://example.com/npcf-ue-policy-control/v1",
+		url:           "{apiRoot}/npcf-ue-policy-control/v1",
 		defaultHeader: make(map[string]string),
 		userAgent:     "OpenAPI-Generator/1.0.0/go",
 	}

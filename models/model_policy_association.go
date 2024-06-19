@@ -17,4 +17,6 @@ type PolicyAssociation struct {
 	Rfsp        int32                   `json:"rfsp,omitempty" yaml:"rfsp" bson:"rfsp" mapstructure:"Rfsp"`
 	Pras        map[string]PresenceInfo `json:"pras,omitempty" yaml:"pras" bson:"pras" mapstructure:"Pras"`
 	SuppFeat    string                  `json:"suppFeat" yaml:"suppFeat" bson:"suppFeat" mapstructure:"SuppFeat"`
+	//a kind of Ue Policy, User Route Select Protocal
+	UePolicyURSP UePolicyURSP `json:"uePolicyURSP,omitempty" yaml:"uePolicyURSP,omitempty" bson:"uePolicyURSP,omitempty"`
 }
