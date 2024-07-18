@@ -29,7 +29,7 @@ type Configuration struct {
 func NewConfiguration() *Configuration {
 	cfg := &Configuration{
 		basePath:      "https://example.com",
-		url:           "{apiRoot}/",
+		url:           "{apiRoot}",
 		defaultHeader: make(map[string]string),
 		userAgent:     "OpenAPI-Generator/1.0.0/go",
 	}
