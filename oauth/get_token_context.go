@@ -61,6 +61,7 @@ func sendAccTokenReq(
 	req.SetNfInstanceId(nfId)
 	req.SetNfType(nfType)
 	req.SetTargetNfType(targetNF)
+	req.SetScope(scope)
 
 	res, err := client.AccessTokenRequestApi.AccessTokenRequest(
 		context.Background(), req)
@@ -68,9 +69,9 @@ func sendAccTokenReq(
 	if err == nil {
 		tokenMap.Store(scope, res.NrfAccessTokenAccessTokenRsp)
 		token := &oauth2.Token{
-			AccessToken: tok.AccessToken,
-			TokenType:   tok.TokenType,
-			Expiry:      time.Unix(int64(tok.ExpiresIn), 0),
+			AccessToken: res.NrfAccessTokenAccessTokenRsp.AccessToken,
+			TokenType:   res.NrfAccessTokenAccessTokenRsp.TokenType,
+			Expiry:      time.Unix(int64(res.NrfAccessTokenAccessTokenRsp.ExpiresIn), 0),
 		}
 		return oauth2.StaticTokenSource(token), nil, nil
 	} else {
