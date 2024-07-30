@@ -14,7 +14,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/golang-jwt/jwt"
+	"github.com/golang-jwt/jwt/v5"
 	"github.com/pkg/errors"
 
 	"github.com/free5gc/openapi/models"
@@ -23,7 +23,7 @@ import (
 type CCAClaims struct {
 	Iat int32
 	Exp int32
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
 
 func GenerateClientCredentialAssertion(
@@ -35,9 +35,9 @@ func GenerateClientCredentialAssertion(
 	accessTokenClaims := CCAClaims{
 		Iat: now,
 		Exp: now + expiration, // access_token is authorized for use
-		StandardClaims: jwt.StandardClaims{
+		RegisteredClaims: jwt.RegisteredClaims{
 			Subject:  sub,
-			Audience: aud,
+			Audience: jwt.ClaimStrings{aud},
 		},
 	}
 
