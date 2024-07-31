@@ -12,7 +12,7 @@
 
 package models
 
-import "github.com/golang-jwt/jwt"
+import "github.com/golang-jwt/jwt/v5"
 
 // The claims data structure for the access token
 type AccessTokenClaims struct {
@@ -26,5 +26,5 @@ type AccessTokenClaims struct {
 	ProducerSnssaiList []Snssai    `json:"producerSnssaiList,omitempty" yaml:"producerSnssaiList" bson:"producerSnssaiList,omitempty"`
 	ProducerNsiList    []string    `json:"producerNsiList,omitempty" yaml:"producerNsiList" bson:"producerNsiList,omitempty"`
 	ProducerNfSetId    string      `json:"producerNfSetId,omitempty" yaml:"producerNfSetId" bson:"producerNfSetId,omitempty"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }

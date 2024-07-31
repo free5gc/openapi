@@ -3,7 +3,7 @@ module github.com/free5gc/openapi
 go 1.21
 
 require (
-	github.com/golang-jwt/jwt v3.2.1+incompatible
+	github.com/golang-jwt/jwt/v5 v5.2.1
 	github.com/mitchellh/mapstructure v1.4.2
 	github.com/pkg/errors v0.9.1
 	github.com/sirupsen/logrus v1.9.3
