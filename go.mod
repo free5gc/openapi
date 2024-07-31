@@ -1,6 +1,6 @@
 module github.com/free5gc/openapi
 
-go 1.19
+go 1.21
 
 require (
 	github.com/golang-jwt/jwt v3.2.1+incompatible
