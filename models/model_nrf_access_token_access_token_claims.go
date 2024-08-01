@@ -12,7 +12,7 @@
 
 package models
 
-import "github.com/golang-jwt/jwt"
+import "github.com/golang-jwt/jwt/v5"
 
 // The claims data structure for the access token
 type NrfAccessTokenAccessTokenClaims struct {
@@ -35,5 +35,5 @@ type NrfAccessTokenAccessTokenClaims struct {
 	ProducerNfServiceSetId string `json:"producerNfServiceSetId,omitempty" yaml:"producerNfServiceSetId" bson:"producerNfServiceSetId,omitempty"`
 	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a  Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
 	SourceNfInstanceId string `json:"sourceNfInstanceId,omitempty" yaml:"sourceNfInstanceId" bson:"sourceNfInstanceId,omitempty"`
-	jwt.StandardClaims
+	jwt.RegisteredClaims
 }
