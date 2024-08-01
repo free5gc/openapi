@@ -30,12 +30,12 @@ import (
 	"strings"
 	"time"
 
+	"github.com/h2non/gock"
 	"github.com/pkg/errors"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"golang.org/x/net/http2"
 	"golang.org/x/oauth2"
-	"gopkg.in/h2non/gock.v1"
 )
 
 const (
@@ -69,14 +69,6 @@ var (
 		Timeout: TimeoutPeriod,
 	}
 )
-
-func GetHttpsClient() *http.Client {
-	return innerHTTP2Client
-}
-
-func GetHttpClient() *http.Client {
-	return innerHTTP2CleartextClient
-}
 
 type Configuration interface {
 	BasePath() string
