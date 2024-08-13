@@ -13,4 +13,6 @@
 package models
 
 type ModifySubscriptionRequest struct {
+	SubscriptionItem []AmfUpdateEventSubscriptionItem
+	OptionItem       []AmfUpdateEventOptionItem
 }
