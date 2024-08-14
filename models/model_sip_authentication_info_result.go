@@ -12,12 +12,10 @@
 
 package models
 
-
-
 type SipAuthenticationInfoResult struct {
-	Impi string `json:"impi" yaml:"impi" bson:"impi"`
-	Var3gAkaAvs []*Model3GAkaAv `json:"3gAkaAvs,omitempty" yaml:"3gAkaAvs" bson:"3gAkaAvs"`
-	DigestAuth *DigestAuthentication `json:"digestAuth,omitempty" yaml:"digestAuth" bson:"digestAuth"`
-	LineIdentifierList []string `json:"lineIdentifierList,omitempty" yaml:"lineIdentifierList" bson:"lineIdentifierList"`
-	IpAddress *IpAddress `json:"ipAddress,omitempty" yaml:"ipAddress" bson:"ipAddress"`
+	Impi               string                `json:"impi" yaml:"impi" bson:"impi"`
+	Var3gAkaAvs        []*Model3GAkaAv       `json:"3gAkaAvs,omitempty" yaml:"3gAkaAvs" bson:"3gAkaAvs"`
+	DigestAuth         *DigestAuthentication `json:"digestAuth,omitempty" yaml:"digestAuth" bson:"digestAuth"`
+	LineIdentifierList []string              `json:"lineIdentifierList,omitempty" yaml:"lineIdentifierList" bson:"lineIdentifierList"`
+	IpAddress          *IpAddr               `json:"ipAddress,omitempty" yaml:"ipAddress" bson:"ipAddress"`
 }
