@@ -54,7 +54,7 @@ type PostSmContextsResponse struct {
 type PostSmContextsError struct {
 	Location                       string
 	Var3gppSbiTargetNfId           string
-	PostSmContextsResponse400      models.PostSmContextsResponse400
+	PostSmContextsError            models.PostSmContextsError
 	ProblemDetails                 models.ProblemDetails
 	RedirectResponse               models.RedirectResponse
 	SmfPduSessionExtProblemDetails models.SmfPduSessionExtProblemDetails
@@ -147,7 +147,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, req
 		return nil, apiError
 	case 400:
 		var v PostSmContextsError
-		err = openapi.Deserialize(&v.PostSmContextsResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = openapi.Deserialize(&v.PostSmContextsError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
@@ -155,7 +155,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, req
 		return nil, apiError
 	case 403:
 		var v PostSmContextsError
-		err = openapi.Deserialize(&v.PostSmContextsResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = openapi.Deserialize(&v.PostSmContextsError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
@@ -163,7 +163,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, req
 		return nil, apiError
 	case 404:
 		var v PostSmContextsError
-		err = openapi.Deserialize(&v.PostSmContextsResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = openapi.Deserialize(&v.PostSmContextsError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
@@ -203,7 +203,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, req
 		return nil, apiError
 	case 500:
 		var v PostSmContextsError
-		err = openapi.Deserialize(&v.PostSmContextsResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = openapi.Deserialize(&v.PostSmContextsError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
@@ -211,7 +211,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, req
 		return nil, apiError
 	case 503:
 		var v PostSmContextsError
-		err = openapi.Deserialize(&v.PostSmContextsResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = openapi.Deserialize(&v.PostSmContextsError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
@@ -219,7 +219,7 @@ func (a *SMContextsCollectionApiService) PostSmContexts(ctx context.Context, req
 		return nil, apiError
 	case 504:
 		var v PostSmContextsError
-		err = openapi.Deserialize(&v.PostSmContextsResponse400, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		err = openapi.Deserialize(&v.PostSmContextsError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
