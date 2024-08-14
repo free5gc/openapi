@@ -12,8 +12,8 @@
 
 package models
 
-type PostSmContextsResponse400 struct {
-	JsonData              *SmContextCreateError `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1SmMessage []byte                `json:"binaryDataN1SmMessage,omitempty" yaml:"binaryDataN1SmMessage" bson:"binaryDataN1SmMessage,omitempty"`
-	BinaryDataN2SmMessage []byte                `json:"binaryDataN2SmMessage,omitempty" yaml:"binaryDataN2SmMessage" bson:"binaryDataN2SmMessage,omitempty"`
+type PostSmContextsError struct {
+	JsonData              *SmContextCreateError `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1SmMessage []byte                `json:"binaryDataN1SmMessage,omitempty" yaml:"binaryDataN1SmMessage" bson:"binaryDataN1SmMessage,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N1SmMsg.ContentId,omitempty"`
+	BinaryDataN2SmMessage []byte                `json:"binaryDataN2SmMessage,omitempty" yaml:"binaryDataN2SmMessage" bson:"binaryDataN2SmMessage,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2SmInfo.ContentId,omitempty"`
 }
