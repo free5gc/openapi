@@ -21,7 +21,7 @@ type AccessAndMobilitySubscriptionData struct {
 	InternalGroupIds []string `json:"internalGroupIds,omitempty" yaml:"internalGroupIds" bson:"internalGroupIds,omitempty"`
 	// A map(list of key-value pairs) where GroupId serves as key of SharedDataId
 	SharedVnGroupDataIds        map[string]string       `json:"sharedVnGroupDataIds,omitempty" yaml:"sharedVnGroupDataIds" bson:"sharedVnGroupDataIds,omitempty"`
-	SubscribedUeAmbr            *Ambr                   `json:"subscribedUeAmbr,omitempty" yaml:"subscribedUeAmbr" bson:"subscribedUeAmbr,omitempty"`
+	SubscribedUeAmbr            *AmbrRm                 `json:"subscribedUeAmbr,omitempty" yaml:"subscribedUeAmbr" bson:"subscribedUeAmbr,omitempty"`
 	Nssai                       *Nssai                  `json:"nssai,omitempty" yaml:"nssai" bson:"nssai,omitempty"`
 	RatRestrictions             []RatType               `json:"ratRestrictions,omitempty" yaml:"ratRestrictions" bson:"ratRestrictions,omitempty"`
 	ForbiddenAreas              []Area                  `json:"forbiddenAreas,omitempty" yaml:"forbiddenAreas" bson:"forbiddenAreas,omitempty"`
