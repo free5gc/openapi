@@ -80,7 +80,7 @@ type GetSmDataResponse struct {
 	CacheControl string
 	ETag         string
 	LastModified string
-	SmSubsData   models.SmSubsData
+	SmSubsData   []models.SessionManagementSubscriptionData
 }
 
 type GetSmDataError struct {
