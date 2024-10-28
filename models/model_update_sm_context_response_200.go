@@ -13,7 +13,7 @@
 package models
 
 type UpdateSmContextResponse200 struct {
-	JsonData                  *SmContextUpdatedData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1SmMessage     []byte                `json:"binaryDataN1SmMessage,omitempty" yaml:"binaryDataN1SmMessage" bson:"binaryDataN1SmMessage,omitempty"`
-	BinaryDataN2SmInformation []byte                `json:"binaryDataN2SmInformation,omitempty" yaml:"binaryDataN2SmInformation" bson:"binaryDataN2SmInformation,omitempty"`
+	JsonData                  *SmContextUpdatedData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1SmMessage     []byte                `json:"binaryDataN1SmMessage,omitempty" yaml:"binaryDataN1SmMessage" bson:"binaryDataN1SmMessage,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N1SmMsg.ContentId,omitempty"`
+	BinaryDataN2SmInformation []byte                `json:"binaryDataN2SmInformation,omitempty" yaml:"binaryDataN2SmInformation" bson:"binaryDataN2SmInformation,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N2SmInfo.ContentId,omitempty"`
 }
