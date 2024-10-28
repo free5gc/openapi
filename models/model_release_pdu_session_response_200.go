@@ -13,8 +13,8 @@
 package models
 
 type ReleasePduSessionResponse200 struct {
-	JsonData                    *ReleasedData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN4Information     []byte        `json:"binaryDataN4Information,omitempty" yaml:"binaryDataN4Information" bson:"binaryDataN4Information,omitempty"`
-	BinaryDataN4InformationExt1 []byte        `json:"binaryDataN4InformationExt1,omitempty" yaml:"binaryDataN4InformationExt1" bson:"binaryDataN4InformationExt1,omitempty"`
-	BinaryDataN4InformationExt2 []byte        `json:"binaryDataN4InformationExt2,omitempty" yaml:"binaryDataN4InformationExt2" bson:"binaryDataN4InformationExt2,omitempty"`
+	JsonData                    *ReleasedData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN4Information     []byte        `json:"binaryDataN4Information,omitempty" yaml:"binaryDataN4Information" bson:"binaryDataN4Information,omitempty" multipart:"contentType:application/vnd.3gpp.pfcp,ref:JsonData.N4Info.N4MessagePayload.ContentId,omitempty"`
+	BinaryDataN4InformationExt1 []byte        `json:"binaryDataN4InformationExt1,omitempty" yaml:"binaryDataN4InformationExt1" bson:"binaryDataN4InformationExt1,omitempty" multipart:"contentType:application/vnd.3gpp.pfcp,ref:JsonData.N4InfoExt1.N4MessagePayload.ContentId,omitempty"`
+	BinaryDataN4InformationExt2 []byte        `json:"binaryDataN4InformationExt2,omitempty" yaml:"binaryDataN4InformationExt2" bson:"binaryDataN4InformationExt2,omitempty" multipart:"contentType:application/vnd.3gpp.pfcp,ref:JsonData.N4InfoExt2.N4MessagePayload.ContentId,omitempty"`
 }
