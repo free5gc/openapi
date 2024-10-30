@@ -13,15 +13,15 @@
 package models
 
 type NullRequest struct {
-	JsonData                  *ContextStatusNotification `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN2Information1  []byte                     `json:"binaryDataN2Information1,omitempty" yaml:"binaryDataN2Information1" bson:"binaryDataN2Information1,omitempty"`
-	BinaryDataN2Information2  []byte                     `json:"binaryDataN2Information2,omitempty" yaml:"binaryDataN2Information2" bson:"binaryDataN2Information2,omitempty"`
-	BinaryDataN2Information3  []byte                     `json:"binaryDataN2Information3,omitempty" yaml:"binaryDataN2Information3" bson:"binaryDataN2Information3,omitempty"`
-	BinaryDataN2Information4  []byte                     `json:"binaryDataN2Information4,omitempty" yaml:"binaryDataN2Information4" bson:"binaryDataN2Information4,omitempty"`
-	BinaryDataN2Information5  []byte                     `json:"binaryDataN2Information5,omitempty" yaml:"binaryDataN2Information5" bson:"binaryDataN2Information5,omitempty"`
-	BinaryDataN2Information6  []byte                     `json:"binaryDataN2Information6,omitempty" yaml:"binaryDataN2Information6" bson:"binaryDataN2Information6,omitempty"`
-	BinaryDataN2Information7  []byte                     `json:"binaryDataN2Information7,omitempty" yaml:"binaryDataN2Information7" bson:"binaryDataN2Information7,omitempty"`
-	BinaryDataN2Information8  []byte                     `json:"binaryDataN2Information8,omitempty" yaml:"binaryDataN2Information8" bson:"binaryDataN2Information8,omitempty"`
-	BinaryDataN2Information9  []byte                     `json:"binaryDataN2Information9,omitempty" yaml:"binaryDataN2Information9" bson:"binaryDataN2Information9,omitempty"`
-	BinaryDataN2Information10 []byte                     `json:"binaryDataN2Information10,omitempty" yaml:"binaryDataN2Information10" bson:"binaryDataN2Information10,omitempty"`
+	JsonData                  *ContextStatusNotification `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN2Information1  []byte                     `json:"binaryDataN2Information1,omitempty" yaml:"binaryDataN2Information1" bson:"binaryDataN2Information1,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information2  []byte                     `json:"binaryDataN2Information2,omitempty" yaml:"binaryDataN2Information2" bson:"binaryDataN2Information2,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information3  []byte                     `json:"binaryDataN2Information3,omitempty" yaml:"binaryDataN2Information3" bson:"binaryDataN2Information3,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information4  []byte                     `json:"binaryDataN2Information4,omitempty" yaml:"binaryDataN2Information4" bson:"binaryDataN2Information4,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information5  []byte                     `json:"binaryDataN2Information5,omitempty" yaml:"binaryDataN2Information5" bson:"binaryDataN2Information5,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information6  []byte                     `json:"binaryDataN2Information6,omitempty" yaml:"binaryDataN2Information6" bson:"binaryDataN2Information6,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information7  []byte                     `json:"binaryDataN2Information7,omitempty" yaml:"binaryDataN2Information7" bson:"binaryDataN2Information7,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information8  []byte                     `json:"binaryDataN2Information8,omitempty" yaml:"binaryDataN2Information8" bson:"binaryDataN2Information8,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information9  []byte                     `json:"binaryDataN2Information9,omitempty" yaml:"binaryDataN2Information9" bson:"binaryDataN2Information9,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
+	BinaryDataN2Information10 []byte                     `json:"binaryDataN2Information10,omitempty" yaml:"binaryDataN2Information10" bson:"binaryDataN2Information10,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2MbsSmInfoList.NgapData.ContentId,omitempty"`
 }
