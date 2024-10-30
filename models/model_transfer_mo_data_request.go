@@ -13,6 +13,6 @@
 package models
 
 type TransferMoDataRequest struct {
-	JsonData     *TransferMoDataReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryMoData []byte                 `json:"binaryMoData,omitempty" yaml:"binaryMoData" bson:"binaryMoData,omitempty"`
+	JsonData     *TransferMoDataReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryMoData []byte                 `json:"binaryMoData,omitempty" yaml:"binaryMoData" bson:"binaryMoData,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.MoData.ContentId,omitempty"`
 }
