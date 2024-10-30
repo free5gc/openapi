@@ -13,7 +13,7 @@
 package models
 
 type PostPduSessionsRequest struct {
-	JsonData                  *PduSessionCreateData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1SmInfoFromUe  []byte                `json:"binaryDataN1SmInfoFromUe,omitempty" yaml:"binaryDataN1SmInfoFromUe" bson:"binaryDataN1SmInfoFromUe,omitempty"`
-	BinaryDataUnknownN1SmInfo []byte                `json:"binaryDataUnknownN1SmInfo,omitempty" yaml:"binaryDataUnknownN1SmInfo" bson:"binaryDataUnknownN1SmInfo,omitempty"`
+	JsonData                  *PduSessionCreateData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1SmInfoFromUe  []byte                `json:"binaryDataN1SmInfoFromUe,omitempty" yaml:"binaryDataN1SmInfoFromUe" bson:"binaryDataN1SmInfoFromUe,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N1SmInfoFromUe.ContentId,omitempty"`
+	BinaryDataUnknownN1SmInfo []byte                `json:"binaryDataUnknownN1SmInfo,omitempty" yaml:"binaryDataUnknownN1SmInfo" bson:"binaryDataUnknownN1SmInfo,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.UnknownN1SmInfo.ContentId,omitempty"`
 }
