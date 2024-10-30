@@ -13,6 +13,6 @@
 package models
 
 type CancelRelocateUeContextRequest struct {
-	JsonData              *UeContextCancelRelocateData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataGtpcMessage []byte                       `json:"binaryDataGtpcMessage,omitempty" yaml:"binaryDataGtpcMessage" bson:"binaryDataGtpcMessage,omitempty"`
+	JsonData              *UeContextCancelRelocateData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataGtpcMessage []byte                       `json:"binaryDataGtpcMessage,omitempty" yaml:"binaryDataGtpcMessage" bson:"binaryDataGtpcMessage,omitempty" multipart:"contentType:application/vnd.3gpp.gtpc,ref:JsonData.RelocationCancelRequest.ContentId,omitempty"`
 }

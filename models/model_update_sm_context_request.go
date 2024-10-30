@@ -13,8 +13,8 @@
 package models
 
 type UpdateSmContextRequest struct {
-	JsonData                      *SmfPduSessionSmContextUpdateData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1SmMessage         []byte                            `json:"binaryDataN1SmMessage,omitempty" yaml:"binaryDataN1SmMessage" bson:"binaryDataN1SmMessage,omitempty"`
-	BinaryDataN2SmInformation     []byte                            `json:"binaryDataN2SmInformation,omitempty" yaml:"binaryDataN2SmInformation" bson:"binaryDataN2SmInformation,omitempty"`
-	BinaryDataN2SmInformationExt1 []byte                            `json:"binaryDataN2SmInformationExt1,omitempty" yaml:"binaryDataN2SmInformationExt1" bson:"binaryDataN2SmInformationExt1,omitempty"`
+	JsonData                      *SmfPduSessionSmContextUpdateData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1SmMessage         []byte                            `json:"binaryDataN1SmMessage,omitempty" yaml:"binaryDataN1SmMessage" bson:"binaryDataN1SmMessage,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N1SmMsg.ContentId,omitempty"`
+	BinaryDataN2SmInformation     []byte                            `json:"binaryDataN2SmInformation,omitempty" yaml:"binaryDataN2SmInformation" bson:"binaryDataN2SmInformation,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2SmInfo.ContentId,omitempty"`
+	BinaryDataN2SmInformationExt1 []byte                            `json:"binaryDataN2SmInformationExt1,omitempty" yaml:"binaryDataN2SmInformationExt1" bson:"binaryDataN2SmInformationExt1,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2SmInfoExt1.ContentId,omitempty"`
 }

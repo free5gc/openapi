@@ -13,6 +13,6 @@
 package models
 
 type UpdatePduSessionResponse400 struct {
-	JsonData               *HsmfUpdateError `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1SmInfoToUe []byte           `json:"binaryDataN1SmInfoToUe,omitempty" yaml:"binaryDataN1SmInfoToUe" bson:"binaryDataN1SmInfoToUe,omitempty"`
+	JsonData               *HsmfUpdateError `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1SmInfoToUe []byte           `json:"binaryDataN1SmInfoToUe,omitempty" yaml:"binaryDataN1SmInfoToUe" bson:"binaryDataN1SmInfoToUe,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N1SmInfoToUe.ContentId,omitempty"`
 }

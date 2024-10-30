@@ -13,6 +13,6 @@
 package models
 
 type DeliverRequest struct {
-	JsonData     *SmfNiddDeliverReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryMtData []byte                 `json:"binaryMtData,omitempty" yaml:"binaryMtData" bson:"binaryMtData,omitempty"`
+	JsonData     *SmfNiddDeliverReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryMtData []byte                 `json:"binaryMtData,omitempty" yaml:"binaryMtData" bson:"binaryMtData,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.MtData.ContentId,omitempty"`
 }

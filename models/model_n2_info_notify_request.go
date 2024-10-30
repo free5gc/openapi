@@ -13,7 +13,7 @@
 package models
 
 type N2InfoNotifyRequest struct {
-	JsonData                *N2InformationNotification `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1Message     []byte                     `json:"binaryDataN1Message,omitempty" yaml:"binaryDataN1Message" bson:"binaryDataN1Message,omitempty"`
-	BinaryDataN2Information []byte                     `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty"`
+	JsonData                *N2InformationNotification `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1Message     []byte                     `json:"binaryDataN1Message,omitempty" yaml:"binaryDataN1Message" bson:"binaryDataN1Message,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:{N1Message},omitempty"`
+	BinaryDataN2Information []byte                     `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,class:JsonData.N2InfoContainer.N2InformationClass,ref:(N2InfoContent).NgapData.ContentId,omitempty"`
 }
