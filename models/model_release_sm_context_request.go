@@ -13,6 +13,6 @@
 package models
 
 type ReleaseSmContextRequest struct {
-	JsonData                  *SmfPduSessionSmContextReleaseData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN2SmInformation []byte                             `json:"binaryDataN2SmInformation,omitempty" yaml:"binaryDataN2SmInformation" bson:"binaryDataN2SmInformation,omitempty"`
+	JsonData                  *SmfPduSessionSmContextReleaseData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN2SmInformation []byte                             `json:"binaryDataN2SmInformation,omitempty" yaml:"binaryDataN2SmInformation" bson:"binaryDataN2SmInformation,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.N2SmInfo.ContentId,omitempty"`
 }
