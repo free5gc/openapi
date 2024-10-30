@@ -13,6 +13,6 @@
 package models
 
 type NonUeN2MessageTransferRequest struct {
-	JsonData                *N2InformationTransferReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN2Information []byte                        `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty"`
+	JsonData                *N2InformationTransferReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN2Information []byte                        `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,class:JsonData.N2InfoContainer.N2InformationClass,ref:(N2InfoContent).NgapData.ContentId"`
 }
