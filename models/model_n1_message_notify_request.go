@@ -13,6 +13,6 @@
 package models
 
 type N1MessageNotifyRequest struct {
-	JsonData            *N1MessageNotification `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN1Message []byte                 `json:"binaryDataN1Message,omitempty" yaml:"binaryDataN1Message" bson:"binaryDataN1Message,omitempty"`
+	JsonData            *N1MessageNotification `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN1Message []byte                 `json:"binaryDataN1Message,omitempty" yaml:"binaryDataN1Message" bson:"binaryDataN1Message,omitempty" multipart:"contentType:application/vnd.3gpp.5gnas,ref:JsonData.N1MessageContainer.N1MessageContent.ContentId,omitempty"`
 }
