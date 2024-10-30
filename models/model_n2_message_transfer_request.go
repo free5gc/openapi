@@ -13,6 +13,6 @@
 package models
 
 type N2MessageTransferRequest struct {
-	JsonData                *MbsN2MessageTransferReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN2Information []byte                       `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty"`
+	JsonData                *MbsN2MessageTransferReqData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN2Information []byte                       `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:jsonData.N2MbsSmInfo.NgapData.ContentId,omitempty"`
 }
