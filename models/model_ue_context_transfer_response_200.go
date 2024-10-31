@@ -13,8 +13,8 @@
 package models
 
 type UeContextTransferResponse200 struct {
-	JsonData                    *UeContextTransferRspData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty"`
-	BinaryDataN2Information     []byte                    `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty"`
-	BinaryDataN2InformationExt1 []byte                    `json:"binaryDataN2InformationExt1,omitempty" yaml:"binaryDataN2InformationExt1" bson:"binaryDataN2InformationExt1,omitempty"`
-	BinaryDataN2InformationExt2 []byte                    `json:"binaryDataN2InformationExt2,omitempty" yaml:"binaryDataN2InformationExt2" bson:"binaryDataN2InformationExt2,omitempty"`
+	JsonData                    *UeContextTransferRspData `json:"jsonData,omitempty" yaml:"jsonData" bson:"jsonData,omitempty" multipart:"contentType:application/json,omitempty"`
+	BinaryDataN2Information     []byte                    `json:"binaryDataN2Information,omitempty" yaml:"binaryDataN2Information" bson:"binaryDataN2Information,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.UeRadioCapability.NgapData.ContentId"`
+	BinaryDataN2InformationExt1 []byte                    `json:"binaryDataN2InformationExt1,omitempty" yaml:"binaryDataN2InformationExt1" bson:"binaryDataN2InformationExt1,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.UeRadioCapabilityForPaging.NgapData.ContentId"`
+	BinaryDataN2InformationExt2 []byte                    `json:"binaryDataN2InformationExt2,omitempty" yaml:"binaryDataN2InformationExt2" bson:"binaryDataN2InformationExt2,omitempty" multipart:"contentType:application/vnd.3gpp.ngap,ref:JsonData.UeNbiotRadioCapability.NgapData.ContentId"`
 }
