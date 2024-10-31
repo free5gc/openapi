@@ -39,37 +39,37 @@ IndividualSubscriptionDocumentApiService Namf_Communication AMF Status Change Su
 */
 
 // AMFStatusChangeSubscribeModfyRequest
-type AMFStatusChangeSubscribeModfyRequest struct {
+type AMFStatusChangeSubscribeModifyRequest struct {
 	SubscriptionId                   *string
 	AmfCommunicationSubscriptionData *models.AmfCommunicationSubscriptionData
 }
 
-func (r *AMFStatusChangeSubscribeModfyRequest) SetSubscriptionId(SubscriptionId string) {
+func (r *AMFStatusChangeSubscribeModifyRequest) SetSubscriptionId(SubscriptionId string) {
 	r.SubscriptionId = &SubscriptionId
 }
-func (r *AMFStatusChangeSubscribeModfyRequest) SetAmfCommunicationSubscriptionData(AmfCommunicationSubscriptionData models.AmfCommunicationSubscriptionData) {
+func (r *AMFStatusChangeSubscribeModifyRequest) SetAmfCommunicationSubscriptionData(AmfCommunicationSubscriptionData models.AmfCommunicationSubscriptionData) {
 	r.AmfCommunicationSubscriptionData = &AmfCommunicationSubscriptionData
 }
 
-type AMFStatusChangeSubscribeModfyResponse struct {
+type AMFStatusChangeSubscribeModifyResponse struct {
 	AmfCommunicationSubscriptionData models.AmfCommunicationSubscriptionData
 }
 
-type AMFStatusChangeSubscribeModfyError struct {
+type AMFStatusChangeSubscribeModifyError struct {
 	Location             string
 	Var3gppSbiTargetNfId string
 	ProblemDetails       models.ProblemDetails
 	RedirectResponse     models.RedirectResponse
 }
 
-func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy(ctx context.Context, request *AMFStatusChangeSubscribeModfyRequest) (*AMFStatusChangeSubscribeModfyResponse, error) {
+func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModify(ctx context.Context, request *AMFStatusChangeSubscribeModifyRequest) (*AMFStatusChangeSubscribeModifyResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AMFStatusChangeSubscribeModfyResponse
+		localVarReturnValue  AMFStatusChangeSubscribeModifyResponse
 	)
 
 	// create path and map variables
@@ -130,7 +130,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 	case 204:
 		return &localVarReturnValue, nil
 	case 307:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -140,7 +140,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -150,7 +150,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -158,7 +158,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 403:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -166,7 +166,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 411:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -174,7 +174,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 413:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -182,7 +182,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 415:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -190,7 +190,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 429:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -198,7 +198,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 500:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -206,7 +206,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 503:
-		var v AMFStatusChangeSubscribeModfyError
+		var v AMFStatusChangeSubscribeModifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -219,32 +219,32 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModfy
 }
 
 // AmfStatusChangeNOtifyRequest
-type AmfStatusChangeNOtifyRequest struct {
+type AmfStatusChangeNotifyRequest struct {
 	AmfStatusChangeNotification *models.AmfStatusChangeNotification
 }
 
-func (r *AmfStatusChangeNOtifyRequest) SetAmfStatusChangeNotification(AmfStatusChangeNotification models.AmfStatusChangeNotification) {
+func (r *AmfStatusChangeNotifyRequest) SetAmfStatusChangeNotification(AmfStatusChangeNotification models.AmfStatusChangeNotification) {
 	r.AmfStatusChangeNotification = &AmfStatusChangeNotification
 }
 
-type AmfStatusChangeNOtifyResponse struct {
+type AmfStatusChangeNotifyResponse struct {
 }
 
-type AmfStatusChangeNOtifyError struct {
+type AmfStatusChangeNotifyError struct {
 	Location             string
 	Var3gppSbiTargetNfId string
 	ProblemDetails       models.ProblemDetails
 	RedirectResponse     models.RedirectResponse
 }
 
-func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx context.Context, uri string, request *AmfStatusChangeNOtifyRequest) (*AmfStatusChangeNOtifyResponse, error) {
+func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNotify(ctx context.Context, uri string, request *AmfStatusChangeNotifyRequest) (*AmfStatusChangeNotifyResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("POST")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  AmfStatusChangeNOtifyResponse
+		localVarReturnValue  AmfStatusChangeNotifyResponse
 	)
 
 	// create path and map variables
@@ -301,7 +301,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 	case 204:
 		return &localVarReturnValue, nil
 	case 307:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -311,7 +311,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -321,15 +321,15 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
-	case 403:
-		var v AmfStatusChangeNOtifyError
+	case 404:
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -337,7 +337,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 411:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -345,7 +345,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 413:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -353,7 +353,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 415:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -361,7 +361,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 429:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -369,7 +369,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 500:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
@@ -377,7 +377,7 @@ func (a *IndividualSubscriptionDocumentApiService) AmfStatusChangeNOtify(ctx con
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 503:
-		var v AmfStatusChangeNOtifyError
+		var v AmfStatusChangeNotifyError
 		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 		if err != nil {
 			return nil, err
