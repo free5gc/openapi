@@ -35,10 +35,10 @@ IndividualSubscriptionDocumentApiService Namf_Communication AMF Status Change Su
  * @param SubscriptionId - AMF Status Change Subscription Identifier
  * @param AmfCommunicationSubscriptionData -
 
-@return AMFStatusChangeSubscribeModfyResponse
+@return AMFStatusChangeSubscribeModifyResponse
 */
 
-// AMFStatusChangeSubscribeModfyRequest
+// AMFStatusChangeSubscribeModifyRequest
 type AMFStatusChangeSubscribeModifyRequest struct {
 	SubscriptionId                   *string
 	AmfCommunicationSubscriptionData *models.AmfCommunicationSubscriptionData
@@ -218,7 +218,7 @@ func (a *IndividualSubscriptionDocumentApiService) AMFStatusChangeSubscribeModif
 	}
 }
 
-// AmfStatusChangeNOtifyRequest
+// AmfStatusChangeNotifyRequest
 type AmfStatusChangeNotifyRequest struct {
 	AmfStatusChangeNotification *models.AmfStatusChangeNotification
 }
