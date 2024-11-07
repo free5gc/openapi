@@ -1419,9 +1419,16 @@ func (a *IndividualUeContextDocumentApiService) UEContextTransfer(ctx context.Co
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	localVarHTTPContentTypes := []string{"application/json", "multipart/related"}
+	// localVarHTTPContentTypes := []string{"application/json", "multipart/related"}
 
-	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
+	// To determine is multipart request, and assign body params
+	if request.UeContextTransferRequest.BinaryDataN1Message != nil {
+		localVarHeaderParams["Content-Type"] = "multipart/related"
+		localVarPostBody = request.UeContextTransferRequest
+	} else {
+		localVarHeaderParams["Content-Type"] = "application/json"
+		localVarPostBody = request.UeContextTransferRequest.JsonData
+	}
 
 	// to determine the Accept header
 	localVarHTTPHeaderAccepts := []string{"application/json", "multipart/related", "application/problem+json"}
@@ -1431,9 +1438,6 @@ func (a *IndividualUeContextDocumentApiService) UEContextTransfer(ctx context.Co
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-
-	// body params
-	localVarPostBody = request.UeContextTransferRequest
 
 	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
 	if err != nil {
