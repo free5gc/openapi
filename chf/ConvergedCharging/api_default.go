@@ -47,6 +47,7 @@ func (r *PostChargingDataRequest) SetChfConvergedChargingChargingDataRequest(Chf
 }
 
 type PostChargingDataResponse struct {
+	Location                                 string
 	ChfConvergedChargingChargingDataResponse models.ChfConvergedChargingChargingDataResponse
 }
 
@@ -123,6 +124,7 @@ func (a *DefaultApiService) PostChargingData(ctx context.Context, request *PostC
 		if err != nil {
 			return nil, err
 		}
+		localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
 		return &localVarReturnValue, nil
 	case 400:
 		var v PostChargingDataError
