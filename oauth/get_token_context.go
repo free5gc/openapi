@@ -5,19 +5,18 @@ import (
 	"sync"
 	"time"
 
-	"github.com/antihax/optional"
 	"golang.org/x/oauth2"
 
 	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/Nnrf_AccessToken"
 	"github.com/free5gc/openapi/models"
+	"github.com/free5gc/openapi/nrf/AccessToken"
 )
 
 var tokenMap sync.Map
 var clientMap sync.Map
 
 func GetTokenCtx(
-	nfType, targetNF models.NfType,
+	nfType, targetNF models.NrfNfManagementNfType,
 	nfId, nrfUri, scope string,
 ) (context.Context, *models.ProblemDetails, error) {
 	tok, pd, err := sendAccTokenReq(nfType, targetNF, nfId, nrfUri, scope)
@@ -29,24 +28,24 @@ func GetTokenCtx(
 }
 
 func sendAccTokenReq(
-	nfType, targetNF models.NfType,
+	nfType, targetNF models.NrfNfManagementNfType,
 	nfId, nrfUri, scope string,
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
-	var client *Nnrf_AccessToken.APIClient
+	var client *AccessToken.APIClient
 
-	configuration := Nnrf_AccessToken.NewConfiguration()
+	configuration := AccessToken.NewConfiguration()
 	configuration.SetBasePath(nrfUri)
 
 	if val, ok := clientMap.Load(configuration); ok {
-		client = val.(*Nnrf_AccessToken.APIClient)
+		client = val.(*AccessToken.APIClient)
 	} else {
-		client = Nnrf_AccessToken.NewAPIClient(configuration)
+		client = AccessToken.NewAPIClient(configuration)
 		clientMap.Store(configuration, client)
 	}
 
-	var tok models.AccessTokenRsp
+	var tok models.NrfAccessTokenAccessTokenRsp
 	if val, ok := tokenMap.Load(scope); ok {
-		tok = val.(models.AccessTokenRsp)
+		tok = val.(models.NrfAccessTokenAccessTokenRsp)
 		if int32(time.Now().Unix()) < tok.ExpiresIn {
 			token := &oauth2.Token{
 				AccessToken: tok.AccessToken,
@@ -56,30 +55,25 @@ func sendAccTokenReq(
 			return oauth2.StaticTokenSource(token), nil, nil
 		}
 	}
-	tok, res, err := client.AccessTokenRequestApi.AccessTokenRequest(
-		context.Background(), "client_credentials",
-		nfId, scope, &Nnrf_AccessToken.AccessTokenRequestParamOpts{
-			NfType:       optional.NewInterface(nfType),
-			TargetNfType: optional.NewInterface(targetNF),
-		})
+
+	req := &AccessToken.AccessTokenRequestRequest{}
+	req.SetGrantType("client_credentials")
+	req.SetNfInstanceId(nfId)
+	req.SetNfType(nfType)
+	req.SetTargetNfType(targetNF)
+	req.SetScope(scope)
+
+	res, err := client.AccessTokenRequestApi.AccessTokenRequest(
+		context.Background(), req)
 
 	if err == nil {
-		tokenMap.Store(scope, tok)
+		tokenMap.Store(scope, res.NrfAccessTokenAccessTokenRsp)
 		token := &oauth2.Token{
-			AccessToken: tok.AccessToken,
-			TokenType:   tok.TokenType,
-			Expiry:      time.Unix(int64(tok.ExpiresIn), 0),
+			AccessToken: res.NrfAccessTokenAccessTokenRsp.AccessToken,
+			TokenType:   res.NrfAccessTokenAccessTokenRsp.TokenType,
+			Expiry:      time.Unix(int64(res.NrfAccessTokenAccessTokenRsp.ExpiresIn), 0),
 		}
 		return oauth2.StaticTokenSource(token), nil, nil
-	} else if res != nil {
-		if res.Status != err.Error() {
-			return nil, nil, err
-		}
-		accesstoken_err := err.(openapi.GenericOpenAPIError).Model().(models.AccessTokenErr)
-		pd := &models.ProblemDetails{
-			AccessTokenError: &accesstoken_err,
-		}
-		return nil, pd, err
 	} else {
 		return nil, nil, openapi.ReportError("server no response")
 	}

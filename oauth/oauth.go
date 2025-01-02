@@ -70,7 +70,7 @@ func VerifyOAuth(
 	access_token := auth_fields[1]
 	token, err := jwt.ParseWithClaims(
 		access_token,
-		&models.AccessTokenClaims{},
+		&models.NrfAccessTokenAccessTokenClaims{},
 		func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 				return nil, errors.Wrapf(err, "Unexpected signing method")
@@ -84,7 +84,7 @@ func VerifyOAuth(
 		return errors.Wrapf(err, "verify OAuth parse")
 	}
 
-	if !verifyScope(token.Claims.(*models.AccessTokenClaims).Scope, serviceName) {
+	if !verifyScope(token.Claims.(*models.NrfAccessTokenAccessTokenClaims).Scope, serviceName) {
 		return errors.Wrapf(err, "verify OAuth scope")
 	}
 	return nil
