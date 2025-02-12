@@ -40,6 +40,7 @@ type APIClient struct {
 	PduSessionManagementDataApi                    *PduSessionManagementDataApiService
 	ProvisionedDataDocumentApi                     *ProvisionedDataDocumentApiService
 	ProvisionedParameterDataDocumentApi            *ProvisionedParameterDataDocumentApiService
+	ParameterProvisionEntryDocumentApi             *ParameterProvisionEntryDocumentApiService
 	QueryAMFSubscriptionInfoDocumentApi            *QueryAMFSubscriptionInfoDocumentApiService
 	QueryIdentityDataBySUPIOrGPSIDocumentApi       *QueryIdentityDataBySUPIOrGPSIDocumentApiService
 	QueryODBDataBySUPIOrGPSIDocumentApi            *QueryODBDataBySUPIOrGPSIDocumentApiService
@@ -64,6 +65,11 @@ type APIClient struct {
 	IndividualInfluenceDataDocumentApi             *IndividualInfluenceDataDocumentApiService
 	InfluenceDataSubscriptionsCollectionApi        *InfluenceDataSubscriptionsCollectionApiService
 	IndividualInfluenceDataSubscriptionDocumentApi *IndividualInfluenceDataSubscriptionDocumentApiService
+	GroupIdentifiersDocumentApi                    *GroupIdentifiersDocumentApiService
+	Retrive5GvnGroupListApi                        *Retrive5GvnGroupListApiService
+	Individual5GvnGroup5GLanDocumentApi            *Individual5GvnGroup5GLanDocumentApiService
+	Vn5gGroupsInternalDocumentApi                  *Vn5gGroupsInternalDocumentApiService
+	Pp5gVnGroupProfileDataDocumentApi              *Pp5gVnGroupProfileDataDocumentApiService
 }
 
 type service struct {
@@ -123,5 +129,11 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.IndividualInfluenceDataDocumentApi = (*IndividualInfluenceDataDocumentApiService)(&c.common)
 	c.InfluenceDataSubscriptionsCollectionApi = (*InfluenceDataSubscriptionsCollectionApiService)(&c.common)
 	c.IndividualInfluenceDataSubscriptionDocumentApi = (*IndividualInfluenceDataSubscriptionDocumentApiService)(&c.common)
+	c.Individual5GvnGroup5GLanDocumentApi = (*Individual5GvnGroup5GLanDocumentApiService)(&c.common)
+	c.Vn5gGroupsInternalDocumentApi = (*Vn5gGroupsInternalDocumentApiService)(&c.common)
+	c.GroupIdentifiersDocumentApi = (*GroupIdentifiersDocumentApiService)(&c.common)
+	c.Retrive5GvnGroupListApi = (*Retrive5GvnGroupListApiService)(&c.common)
+	c.Pp5gVnGroupProfileDataDocumentApi = (*Pp5gVnGroupProfileDataDocumentApiService)(&c.common)
+	c.ParameterProvisionEntryDocumentApi = (*ParameterProvisionEntryDocumentApiService)(&c.common)
 	return c
 }
