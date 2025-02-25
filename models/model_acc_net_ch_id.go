@@ -17,7 +17,7 @@ type AccNetChId struct {
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
 	AccNetChaIdValue int32 `json:"accNetChaIdValue,omitempty" yaml:"accNetChaIdValue" bson:"accNetChaIdValue,omitempty"`
 	// A character string containing the access network charging id.
-	AccNetChargId string `json:"accNetChargId,omitempty" yaml:"accNetChargId" bson:"accNetChargId,omitempty"`
+	AccNetChargId string `json:"accNetChargIdString,omitempty" yaml:"accNetChargId" bson:"accNetChargId,omitempty"`
 	// Contains the identifier of the PCC rule(s) associated to the provided Access Network Charging Identifier.
 	RefPccRuleIds []string `json:"refPccRuleIds,omitempty" yaml:"refPccRuleIds" bson:"refPccRuleIds,omitempty"`
 	// When it is included and set to true, indicates the Access Network Charging Identifier applies to the whole PDU Session
