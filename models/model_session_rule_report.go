@@ -18,6 +18,4 @@ type SessionRuleReport struct {
 	RuleIds             []string               `json:"ruleIds" yaml:"ruleIds" bson:"ruleIds,omitempty"`
 	RuleStatus          RuleStatus             `json:"ruleStatus" yaml:"ruleStatus" bson:"ruleStatus,omitempty"`
 	SessRuleFailureCode SessionRuleFailureCode `json:"sessRuleFailureCode,omitempty" yaml:"sessRuleFailureCode" bson:"sessRuleFailureCode,omitempty"`
-	// Contains the type(s) of failed policy decision and/or condition data.
-	PolicyDecFailureReports []PolicyDecisionFailureCode `json:"policyDecFailureReports,omitempty" yaml:"policyDecFailureReports" bson:"policyDecFailureReports,omitempty"`
 }
