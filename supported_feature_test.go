@@ -25,7 +25,8 @@ func TestNewSupportedFeature(t *testing.T) {
 	assert.Equal(t, SupportedFeature{}, suppFeat)
 }
 func TestGetFeatureOfSupportedFeature(t *testing.T) {
-	suppFeat, _ := NewSupportedFeature("1324")
+	suppFeat, err := NewSupportedFeature("1324")
+	assert.Nil(t, err)
 
 	assert.False(t, suppFeat.GetFeature(1))
 	assert.False(t, suppFeat.GetFeature(2))
@@ -49,41 +50,54 @@ func TestGetFeatureOfSupportedFeature(t *testing.T) {
 }
 
 func TestStringOfSupportedFeature(t *testing.T) {
-	suppFeat, _ := NewSupportedFeature("1324")
+	suppFeat, err := NewSupportedFeature("1324")
+	assert.Nil(t, err)
 	assert.Equal(t, "1324", suppFeat.String())
 
 	// testing padding
-	suppFeat, _ = NewSupportedFeature("1")
+	suppFeat, err = NewSupportedFeature("1")
+	assert.Nil(t, err)
 	assert.Equal(t, "01", suppFeat.String())
 
-	suppFeat, _ = NewSupportedFeature("ABCDE")
+	suppFeat, err = NewSupportedFeature("ABCDE")
+	assert.Nil(t, err)
 	assert.Equal(t, "0abcde", suppFeat.String())
 }
 
 func TestNegotiateWithOfSupportedFeature(t *testing.T) {
 	var suppFeatA, suppFeatB, negotiatedFeat SupportedFeature
-	suppFeatA, _ = NewSupportedFeature("0FFF")
-	suppFeatB, _ = NewSupportedFeature("1324")
+	suppFeatA, err := NewSupportedFeature("0FFF")
+	assert.Nil(t, err)
+	suppFeatB, err = NewSupportedFeature("1324")
+	assert.Nil(t, err)
 	negotiatedFeat = suppFeatA.NegotiateWith(suppFeatB)
 	assert.Equal(t, SupportedFeature{0x03, 0x24}, negotiatedFeat)
 
-	suppFeatA, _ = NewSupportedFeature("0234")
-	suppFeatB, _ = NewSupportedFeature("0001")
+	suppFeatA, err = NewSupportedFeature("0234")
+	assert.Nil(t, err)
+	suppFeatB, err = NewSupportedFeature("0001")
+	assert.Nil(t, err)
 	negotiatedFeat = suppFeatA.NegotiateWith(suppFeatB)
 	assert.Equal(t, SupportedFeature{0x00, 0x00}, negotiatedFeat)
 
-	suppFeatA, _ = NewSupportedFeature("FFFF")
-	suppFeatB, _ = NewSupportedFeature("F")
+	suppFeatA, err = NewSupportedFeature("FFFF")
+	assert.Nil(t, err)
+	suppFeatB, err = NewSupportedFeature("F")
+	assert.Nil(t, err)
 	negotiatedFeat = suppFeatA.NegotiateWith(suppFeatB)
 	assert.Equal(t, SupportedFeature{0x00, 0x0F}, negotiatedFeat)
 
-	suppFeatA, _ = NewSupportedFeature("3000")
-	suppFeatB, _ = NewSupportedFeature("3")
+	suppFeatA, err = NewSupportedFeature("3000")
+	assert.Nil(t, err)
+	suppFeatB, err = NewSupportedFeature("3")
+	assert.Nil(t, err)
 	negotiatedFeat = suppFeatA.NegotiateWith(suppFeatB)
 	assert.Equal(t, SupportedFeature{0x00, 0x00}, negotiatedFeat)
 
-	suppFeatA, _ = NewSupportedFeature("23E3")
-	suppFeatB, _ = NewSupportedFeature("1")
+	suppFeatA, err = NewSupportedFeature("23E3")
+	assert.Nil(t, err)
+	suppFeatB, err = NewSupportedFeature("1")
+	assert.Nil(t, err)
 	negotiatedFeat = suppFeatA.NegotiateWith(suppFeatB)
 	assert.Equal(t, SupportedFeature{0x00, 0x01}, negotiatedFeat)
 }

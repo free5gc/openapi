@@ -15,12 +15,12 @@ import (
 	"crypto/tls"
 	"encoding/json"
 	"encoding/xml"
-	"errors"
 	"fmt"
 	"io"
 	"mime/multipart"
 	"net"
 	"net/http"
+	"net/http/httptrace"
 	"net/textproto"
 	"net/url"
 	"os"
@@ -29,38 +29,46 @@ import (
 	"strconv"
 	"strings"
 	"time"
-	"unicode/utf8"
 
+	"github.com/h2non/gock"
+	"github.com/pkg/errors"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace"
+	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
 	"golang.org/x/net/http2"
 	"golang.org/x/oauth2"
-	"gopkg.in/h2non/gock.v1"
+)
+
+const (
+	TimeoutPeriod         = 10 * time.Second
+	ReadIdleTimeoutPeriod = 1 * time.Second
+	PingTimeoutPeriod     = 1 * time.Second
 )
 
 var (
 	innerHTTP2Client = &http.Client{
-		Transport: &http2.Transport{
+		Transport: otelhttp.NewTransport(&http2.Transport{
 			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true,
+				InsecureSkipVerify: true, // nolint:gosec
 			},
-		},
+			ReadIdleTimeout: ReadIdleTimeoutPeriod,
+			PingTimeout:     PingTimeoutPeriod,
+		}),
+		Timeout: TimeoutPeriod,
 	}
 
 	innerHTTP2CleartextClient = &http.Client{
-		Transport: &http2.Transport{
+		Transport: otelhttp.NewTransport(&http2.Transport{
 			AllowHTTP: true,
-			DialTLS: func(network, addr string, cfg *tls.Config) (net.Conn, error) {
-				return net.Dial(network, addr)
+			DialTLSContext: func(ctx context.Context, network, addr string, cfg *tls.Config) (net.Conn, error) {
+				dialer := &net.Dialer{}
+				return dialer.DialContext(ctx, network, addr)
 			},
-		},
+			ReadIdleTimeout: ReadIdleTimeoutPeriod,
+			PingTimeout:     PingTimeoutPeriod,
+		}),
+		Timeout: TimeoutPeriod,
 	}
 )
-
-func GetHttpsClient() *http.Client {
-	return innerHTTP2Client
-}
-func GetHttpClient() *http.Client {
-	return innerHTTP2CleartextClient
-}
 
 type Configuration interface {
 	BasePath() string
@@ -102,16 +110,21 @@ func TypeCheckParameter(obj interface{}, expected string, name string) error {
 
 	// Check the type is as expected.
 	if reflect.TypeOf(obj).String() != expected {
-		return fmt.Errorf("Expected %s to be of type %s but received %s.", name, expected, reflect.TypeOf(obj).String())
+		return fmt.Errorf(
+			"Expected %s to be of type %s but received %s.",
+			name,
+			expected,
+			reflect.TypeOf(obj).String(),
+		)
 	}
 	return nil
 }
 
 // ParameterToString convert interface{} parameters to string, using a delimiter if format is provided.
-func ParameterToString(obj interface{}, collectionFormat string) string {
+func ParameterToString(obj interface{}, format string) string {
 	var delimiter string
 
-	switch collectionFormat {
+	switch format {
 	case "pipes":
 		delimiter = "|"
 	case "ssv":
@@ -120,6 +133,18 @@ func ParameterToString(obj interface{}, collectionFormat string) string {
 		delimiter = "\t"
 	case "csv":
 		delimiter = ","
+	}
+
+	if value := reflect.ValueOf(obj); value.Kind() == reflect.Ptr {
+		obj = value.Elem().Interface()
+	}
+
+	if jsonRegex.MatchString(format) {
+		b, err := json.Marshal(obj)
+		if err != nil {
+			return ""
+		}
+		return string(b)
 	}
 
 	if reflect.TypeOf(obj).Kind() == reflect.Slice {
@@ -168,7 +193,7 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 	recursiveVal := v
 	if ref[0] == '{' {
 		contentID = ref[1 : len(ref)-1]
-		return
+		return contentID, err
 	}
 	if class != "" {
 		var lastVal reflect.Value
@@ -176,7 +201,11 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 			lastVal = recursiveVal
 			recursiveVal = recursiveVal.FieldByName(part)
 			if !recursiveVal.IsValid() {
-				return "", fmt.Errorf("Do not have reference field %s in %s for multipart", part, lastVal.Type().String())
+				return "", fmt.Errorf(
+					"Do not have reference field %s in %s for multipart",
+					part,
+					lastVal.Type().String(),
+				)
 			}
 			if recursiveVal.Kind() == reflect.Ptr {
 				if recursiveVal.IsNil() {
@@ -245,7 +274,7 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 		}
 	}
 	contentID = recursiveVal.String()
-	return
+	return contentID, err
 }
 
 func MultipartEncode(v interface{}, body io.Writer) (string, error) {
@@ -259,6 +288,9 @@ func MultipartEncode(v interface{}, body io.Writer) (string, error) {
 			continue
 		}
 		contentType, ref, class := parseMultipartFieldParameters(structType.Field(i).Tag.Get("multipart"))
+		if contentType == "" && ref == "" && class == "" {
+			return "", errors.Errorf("type: %s no contains multipart tags", reflect.TypeOf(v).Name())
+		}
 		h := make(textproto.MIMEHeader)
 
 		if ref != "" {
@@ -291,6 +323,10 @@ func MultipartEncode(v interface{}, body io.Writer) (string, error) {
 	contentType := "multipart/related; boundary=\"" + w.Boundary() + "\""
 
 	return contentType, nil
+}
+
+func StringOfValue(v interface{}) string {
+	return fmt.Sprintf("%v", v)
 }
 
 func MultipartSerialize(v interface{}) ([]byte, string, error) {
@@ -354,9 +390,10 @@ func PrepareRequest(
 ) (localVarRequest *http.Request, err error) {
 	var body *bytes.Buffer
 
+	ctx = httptrace.WithClientTrace(ctx, otelhttptrace.NewClientTrace(ctx))
+
 	// Detect postBody type and post.
 	if postBody != nil {
-
 		contentType := headerParams["Content-Type"]
 		if contentType == "" {
 			contentType = detectContentType(postBody)
@@ -364,14 +401,12 @@ func PrepareRequest(
 		}
 
 		if strings.HasPrefix(headerParams["Content-Type"], "multipart/related") {
-
 			body = &bytes.Buffer{}
 			contentType, err = MultipartEncode(postBody, body)
 			if err != nil {
 				return nil, err
 			}
 			headerParams["Content-Type"] = contentType
-
 		} else {
 			body, err = setBody(postBody, contentType)
 			if err != nil {
@@ -381,7 +416,8 @@ func PrepareRequest(
 	}
 
 	// add form parameters and file if available.
-	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 || (len(fileBytes) > 0 && fileName != "") {
+	if strings.HasPrefix(headerParams["Content-Type"], "multipart/form-data") && len(formParams) > 0 ||
+		(len(fileBytes) > 0 && fileName != "") {
 		if body != nil {
 			return nil, errors.New("Cannot specify postBody and multipart form at the same time.")
 		}
@@ -396,14 +432,18 @@ func PrepareRequest(
 						return nil, err
 					}
 				} else { // form value
-					w.WriteField(k, iv)
+					err = w.WriteField(k, iv)
+					if err != nil {
+						return nil, err
+					}
 				}
 			}
 		}
 		if len(fileBytes) > 0 && fileName != "" {
 			w.Boundary()
 			//_, fileNm := filepath.Split(fileName)
-			part, err := w.CreateFormFile(formFileName, filepath.Base(fileName))
+			var part io.Writer
+			part, err = w.CreateFormFile(formFileName, filepath.Base(fileName))
 			if err != nil {
 				return nil, err
 			}
@@ -417,7 +457,10 @@ func PrepareRequest(
 
 		// Set Content-Length
 		headerParams["Content-Length"] = fmt.Sprintf("%d", body.Len())
-		w.Close()
+		err = w.Close()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	if strings.HasPrefix(headerParams["Content-Type"], "application/x-www-form-urlencoded") && len(formParams) > 0 {
@@ -517,11 +560,11 @@ func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) 
 	contentIDIndex := make(map[string]int)
 
 	for {
-		var part *multipart.Part
-		multipartBody := make([]byte, 1000)
+		var part, nextPart *multipart.Part
+		multipartBody := make([]byte, 1400)
 
 		// if no remian part, break this loop
-		if nextPart, err := r.NextPart(); err == io.EOF {
+		if nextPart, err = r.NextPart(); err == io.EOF {
 			break
 		} else {
 			part = nextPart
@@ -531,7 +574,7 @@ func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) 
 		var n int
 		n, err = part.Read(multipartBody)
 		if err == nil {
-			return
+			return err
 		}
 		multipartBody = multipartBody[:n]
 
@@ -612,17 +655,24 @@ func Deserialize(v interface{}, b []byte, contentType string) (err error) {
 
 // add a file to the multipart request
 func addFile(w *multipart.Writer, fieldName, path string) error {
-	file, err := os.Open(path)
+	file, err := os.Open(filepath.Clean(path))
 	if err != nil {
 		return err
 	}
-	defer file.Close()
 
 	part, err := w.CreateFormFile(fieldName, filepath.Base(path))
 	if err != nil {
 		return err
 	}
 	_, err = io.Copy(part, file)
+	if err != nil {
+		return err
+	}
+
+	err = file.Close()
+	if err != nil {
+		return err
+	}
 
 	return err
 }
@@ -718,7 +768,8 @@ func CacheExpires(r *http.Response) time.Time {
 	respCacheControl := parseCacheControl(r.Header)
 
 	if maxAge, ok := respCacheControl["max-age"]; ok {
-		lifetime, err := time.ParseDuration(maxAge + "s")
+		var lifetime time.Duration
+		lifetime, err = time.ParseDuration(maxAge + "s")
 		if err != nil {
 			expires = now
 		} else {
@@ -734,10 +785,6 @@ func CacheExpires(r *http.Response) time.Time {
 		}
 	}
 	return expires
-}
-
-func strlen(s string) int {
-	return utf8.RuneCountInString(s)
 }
 
 func InterceptH2CClient() {
