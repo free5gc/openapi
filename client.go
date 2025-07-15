@@ -76,6 +76,7 @@ type Configuration interface {
 	UserAgent() string
 	DefaultHeader() map[string]string
 	HTTPClient() *http.Client
+	Metrics() RequestMetricsHook
 }
 
 // SelectHeaderAccept join all accept types and return
@@ -158,16 +159,50 @@ func ParameterToString(obj interface{}, format string) string {
 
 // callAPI do the request.
 func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
+	start := time.Now()
+	metricHook := cfg.Metrics()
+
 	if cfg.HTTPClient() != nil {
-		return cfg.HTTPClient().Do(request)
+		resp, err := cfg.HTTPClient().Do(request)
+		if metricHook != nil {
+			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
+				time.Since(start).Seconds())
+		}
+		return resp, err
 	}
+
 	if request.URL.Scheme == "https" {
-		return innerHTTP2Client.Do(request)
+		resp, err := innerHTTP2Client.Do(request)
+		if metricHook != nil {
+			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
+				time.Since(start).Seconds())
+		}
+		return resp, err
 	} else if request.URL.Scheme == "http" {
-		return innerHTTP2CleartextClient.Do(request)
+		resp, err := innerHTTP2CleartextClient.Do(request)
+		if metricHook != nil {
+			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
+				time.Since(start).Seconds())
+		}
+		return resp, err
 	}
 
 	return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
+}
+
+func getServiceNameFromUrl(path string) string {
+	pathElements := strings.Split(path, "/")
+
+	// Avoid a panic by checking if the returned slice is non-empty, should not happen
+	if len(pathElements) == 0 {
+		return ""
+	}
+	serviceName := pathElements[0]
+	if len(pathElements) > 1 {
+		serviceName = pathElements[1]
+	}
+
+	return serviceName
 }
 
 // // Change base path to allow switching to mocks
