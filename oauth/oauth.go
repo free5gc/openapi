@@ -85,7 +85,7 @@ func VerifyOAuth(
 	}
 
 	if !verifyScope(token.Claims.(*models.NrfAccessTokenAccessTokenClaims).Scope, serviceName) {
-		return errors.Wrapf(err, "verify OAuth scope")
+		return errors.New("OAuth scope verification failed: insufficient permissions")
 	}
 	return nil
 }
