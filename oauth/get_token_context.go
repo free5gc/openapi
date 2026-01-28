@@ -12,6 +12,12 @@ import (
 	"github.com/free5gc/openapi/nrf/AccessToken"
 )
 
+// cachedToken stores OAuth token with absolute expiry timestamp
+type cachedToken struct {
+	Response   models.NrfAccessTokenAccessTokenRsp
+	ExpiryTime int64 // absolute Unix timestamp when token expires
+}
+
 var tokenMap sync.Map
 var clientMap sync.Map
 
@@ -43,14 +49,15 @@ func sendAccTokenReq(
 		clientMap.Store(configuration, client)
 	}
 
-	var tok models.NrfAccessTokenAccessTokenRsp
+	// Check if we have a valid cached token
 	if val, ok := tokenMap.Load(scope); ok {
-		tok = val.(models.NrfAccessTokenAccessTokenRsp)
-		if int32(time.Now().Unix()) < tok.ExpiresIn {
+		cached := val.(cachedToken)
+		// Compare current time with absolute expiry timestamp
+		if time.Now().Unix() < cached.ExpiryTime {
 			token := &oauth2.Token{
-				AccessToken: tok.AccessToken,
-				TokenType:   tok.TokenType,
-				Expiry:      time.Unix(int64(tok.ExpiresIn), 0),
+				AccessToken: cached.Response.AccessToken,
+				TokenType:   cached.Response.TokenType,
+				Expiry:      time.Unix(cached.ExpiryTime, 0),
 			}
 			return oauth2.StaticTokenSource(token), nil, nil
 		}
@@ -67,11 +74,18 @@ func sendAccTokenReq(
 		context.Background(), req)
 
 	if err == nil {
-		tokenMap.Store(scope, res.NrfAccessTokenAccessTokenRsp)
+		// Calculate absolute expiry time: current time + expires_in seconds
+		expiryTime := time.Now().Unix() + int64(res.NrfAccessTokenAccessTokenRsp.ExpiresIn)
+		cached := cachedToken{
+			Response:   res.NrfAccessTokenAccessTokenRsp,
+			ExpiryTime: expiryTime,
+		}
+		tokenMap.Store(scope, cached)
+
 		token := &oauth2.Token{
 			AccessToken: res.NrfAccessTokenAccessTokenRsp.AccessToken,
 			TokenType:   res.NrfAccessTokenAccessTokenRsp.TokenType,
-			Expiry:      time.Unix(int64(res.NrfAccessTokenAccessTokenRsp.ExpiresIn), 0),
+			Expiry:      time.Unix(expiryTime, 0),
 		}
 		return oauth2.StaticTokenSource(token), nil, nil
 	} else {
