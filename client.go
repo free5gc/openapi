@@ -598,21 +598,35 @@ func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) 
 	contentIDIndex := make(map[string]int)
 
 	for {
-		var part, nextPart *multipart.Part
+		var part *multipart.Part
 		multipartBody := make([]byte, 1400)
 
-		// if no remian part, break this loop
-		if nextPart, err = r.NextPart(); err == io.EOF {
+		// if no remaining part, break this loop
+		part, err = r.NextPart()
+		if err == io.EOF {
 			break
-		} else {
-			part = nextPart
+		}
+		// A non-EOF error means the multipart body is malformed (truncated
+		// part, mismatched boundary, or a body that is not multipart at all).
+		// NextPart can return a nil part in that case; propagate the error so
+		// the caller can respond with 400 instead of panicking on part.Header.
+		if err != nil {
+			return fmt.Errorf("MultipartDeserialize: read next part: %w", err)
+		}
+		if part == nil {
+			return fmt.Errorf("MultipartDeserialize: nil part with nil error")
 		}
 
 		contentType := part.Header.Get("Content-Type")
 		var n int
 		n, err = part.Read(multipartBody)
-		if err == nil {
-			return err
+		// Read returns err == io.EOF when the part is fully consumed; any
+		// other error (e.g. unexpected EOF on a truncated part) is a real
+		// failure. Previously this branch was inverted and returned the nil
+		// error from a successful read, leaving n as the valid byte count
+		// but silently aborting the loop.
+		if err != nil && err != io.EOF {
+			return fmt.Errorf("MultipartDeserialize: read part body: %w", err)
 		}
 		multipartBody = multipartBody[:n]
 
