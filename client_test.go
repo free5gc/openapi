@@ -64,9 +64,9 @@ func TestParameterToString(t *testing.T) {
 // TestMultipartDeserialize_MalformedBody pins the fix for free5gc/free5gc#1026.
 // Before the fix, a body whose Content-Type declared multipart/related but
 // whose payload was not a valid MIME multipart stream would panic on
-// part.Header.Get at client.go:608 because mime/multipart.NextPart can return
-// a nil *Part alongside a non-EOF error. The SMF then surfaced HTTP 500 on
-// every malformed POST /nsmf-pdusession/v1/sm-contexts.
+// part.Header.Get in MultipartDeserialize because mime/multipart.NextPart can
+// return a nil *Part alongside a non-EOF error. The SMF then surfaced HTTP
+// 500 on every malformed POST /nsmf-pdusession/v1/sm-contexts.
 func TestMultipartDeserialize_MalformedBody(t *testing.T) {
 	type dummy struct{}
 
