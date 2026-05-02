@@ -253,6 +253,14 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 		if i := strings.IndexRune(fieldName, '-'); i != -1 {
 			fieldName = fieldName[:i]
 		}
+		// `fieldName` is client-controllable through a multipart class
+		// discriminator (e.g. n2InformationClass). An empty string ("") or a
+		// value starting with '-' would leave us slicing a zero-length string
+		// at fieldName[:1] / fieldName[1:] and panicked the multipart parse
+		// path on every SBI request that uses such a tag (#1039).
+		if len(fieldName) == 0 {
+			return "", fmt.Errorf("getContentID: empty class discriminator value")
+		}
 		fieldName = fieldName[:1] + strings.ToLower(fieldName[1:]) + "Info"
 		recursiveVal = lastVal.FieldByName(fieldName)
 		if recursiveVal.Kind() == reflect.Ptr {
