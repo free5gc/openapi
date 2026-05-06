@@ -601,8 +601,7 @@ func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) 
 		var part, nextPart *multipart.Part
 		multipartBody := make([]byte, 1400)
 
-		// if no remain part, break this loop; propagate any other error (e.g. malformed
-		// boundary) rather than continuing with a nil *Part and panicking below.
+		// if no remain part, break this loop
 		nextPart, err = r.NextPart()
 		if err == io.EOF {
 			break
