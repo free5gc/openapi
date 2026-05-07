@@ -253,6 +253,9 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 		if i := strings.IndexRune(fieldName, '-'); i != -1 {
 			fieldName = fieldName[:i]
 		}
+		if len(fieldName) == 0 {
+			return "", fmt.Errorf("getContentID: empty class discriminator value")
+		}
 		fieldName = fieldName[:1] + strings.ToLower(fieldName[1:]) + "Info"
 		recursiveVal = lastVal.FieldByName(fieldName)
 		if recursiveVal.Kind() == reflect.Ptr {
