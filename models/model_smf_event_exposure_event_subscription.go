@@ -23,6 +23,10 @@ type SmfEventExposureEventSubscription struct {
 	// Indicates the subscription for UE transaction dispersion collectionon, if it is included and set to \"true\". Default value is \"false\".
 	TransacDispInd bool `json:"transacDispInd,omitempty" yaml:"transacDispInd" bson:"transacDispInd,omitempty"`
 	// Indicates Session Management Transaction metrics.
-	TransacMetrics []TransactionMetric `json:"transacMetrics,omitempty" yaml:"transacMetrics" bson:"transacMetrics,omitempty"`
-	UeIpAddr       *IpAddr             `json:"ueIpAddr,omitempty" yaml:"ueIpAddr" bson:"ueIpAddr,omitempty"`
+	TransacMetrics        []TransactionMetric `json:"transacMetrics,omitempty" yaml:"transacMetrics" bson:"transacMetrics,omitempty"`
+	UeIpAddr              *IpAddr             `json:"ueIpAddr,omitempty" yaml:"ueIpAddr" bson:"ueIpAddr,omitempty"`
+	UpfEvents             []UpfEvent          `json:"upfEvents,omitempty" yaml:"upfEvents" bson:"upfEvents,omitempty"`
+	BundlingAllowed       bool                `json:"bundlingAllowed,omitempty" yaml:"bundlingAllowed" bson:"bundlingAllowed,omitempty"`
+	BundleId              *uint32             `json:"bundleId,omitempty" yaml:"bundleId" bson:"bundleId,omitempty"`
+	BundledEventNotifyUri string              `json:"bundledEventNotifyUri,omitempty" yaml:"bundledEventNotifyUri" bson:"bundledEventNotifyUri,omitempty"`
 }
