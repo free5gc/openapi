@@ -63,7 +63,11 @@ func TestDeleteSubscriptionStatusHandling(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("status_%d", test.status), func(t *testing.T) {
-			client, captured := newTestAPIClient(test.status, test.body, test.headers)
+			var policy openapi.RedirectPolicy
+			if test.kind == redirectResponse {
+				policy = openapi.RejectRedirects
+			}
+			client, captured := newTestAPIClient(test.status, test.body, test.headers, policy)
 			request := &DeleteSubscriptionRequest{}
 			request.SetSubscriptionId("sub-1")
 
@@ -96,6 +100,10 @@ func TestDeleteSubscriptionStatusHandling(t *testing.T) {
 				require.Equal(t, "TEMPORARY_REDIRECTION", model.RedirectResponse.Cause)
 				require.Equal(t, "https://redirect.example.com/nupf-ee/v1/ee-subscriptions/sub-1", model.Location)
 				require.Equal(t, "target-nf-id", model.Var3gppSbiTargetNfId)
+				require.Equal(t, 1, captured.requestCount)
+				require.Equal(t, 1, captured.originCount)
+				require.Zero(t, captured.redirectCount)
+				require.Zero(t, captured.requestBodyCount)
 			case defaultResponse:
 				require.Nil(t, apiError.Model())
 			}

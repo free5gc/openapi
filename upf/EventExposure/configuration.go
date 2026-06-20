@@ -19,13 +19,14 @@ import (
 )
 
 type Configuration struct {
-	url           string
-	basePath      string
-	host          string
-	defaultHeader map[string]string
-	userAgent     string
-	httpClient    *http.Client
-	MetricsHook   openapi.RequestMetricsHook
+	url            string
+	basePath       string
+	host           string
+	defaultHeader  map[string]string
+	userAgent      string
+	httpClient     *http.Client
+	MetricsHook    openapi.RequestMetricsHook
+	redirectPolicy openapi.RedirectPolicy
 }
 
 func NewConfiguration() *Configuration {
@@ -84,4 +85,12 @@ func (c *Configuration) Metrics() openapi.RequestMetricsHook {
 
 func (c *Configuration) SetMetrics(h openapi.RequestMetricsHook) {
 	c.MetricsHook = h
+}
+
+func (c *Configuration) RedirectPolicy() openapi.RedirectPolicy {
+	return c.redirectPolicy
+}
+
+func (c *Configuration) SetRedirectPolicy(policy openapi.RedirectPolicy) {
+	c.redirectPolicy = policy
 }

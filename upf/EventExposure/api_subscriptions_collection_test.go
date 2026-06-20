@@ -20,18 +20,30 @@ func (f testRoundTripper) RoundTrip(request *http.Request) (*http.Response, erro
 }
 
 type capturedRequest struct {
-	method string
-	path   string
-	body   []byte
+	method           string
+	path             string
+	body             []byte
+	requestCount     int
+	originCount      int
+	redirectCount    int
+	requestBodyCount int
 }
 
-func newTestAPIClient(status int, body string, headers http.Header) (*APIClient, *capturedRequest) {
+func newTestAPIClient(status int, body string, headers http.Header, policy openapi.RedirectPolicy) (*APIClient, *capturedRequest) {
 	captured := &capturedRequest{}
 	httpClient := &http.Client{
 		Transport: testRoundTripper(func(request *http.Request) (*http.Response, error) {
+			captured.requestCount++
+			switch request.URL.Host {
+			case "upf.example.com":
+				captured.originCount++
+			case "redirect.example.com":
+				captured.redirectCount++
+			}
 			captured.method = request.Method
 			captured.path = request.URL.Path
 			if request.Body != nil {
+				captured.requestBodyCount++
 				requestBody, err := io.ReadAll(request.Body)
 				if err != nil {
 					return nil, err
@@ -50,14 +62,12 @@ func newTestAPIClient(status int, body string, headers http.Header) (*APIClient,
 				Request:    request,
 			}, nil
 		}),
-		CheckRedirect: func(_ *http.Request, _ []*http.Request) error {
-			return http.ErrUseLastResponse
-		},
 	}
 
 	configuration := NewConfiguration()
 	configuration.SetBasePath("https://upf.example.com")
 	configuration.SetHTTPClient(httpClient)
+	configuration.SetRedirectPolicy(policy)
 	return NewAPIClient(configuration), captured
 }
 
@@ -134,7 +144,11 @@ func TestCreateSubscriptionStatusHandling(t *testing.T) {
 
 	for _, test := range tests {
 		t.Run(fmt.Sprintf("status_%d", test.status), func(t *testing.T) {
-			client, captured := newTestAPIClient(test.status, test.body, test.headers)
+			var policy openapi.RedirectPolicy
+			if test.kind == redirectResponse {
+				policy = openapi.RejectRedirects
+			}
+			client, captured := newTestAPIClient(test.status, test.body, test.headers, policy)
 			request := &CreateSubscriptionRequest{}
 			request.SetUpfCreateEventSubscription(testCreateEventSubscription())
 
@@ -194,6 +208,10 @@ func TestCreateSubscriptionStatusHandling(t *testing.T) {
 				require.Equal(t, "TEMPORARY_REDIRECTION", model.RedirectResponse.Cause)
 				require.Equal(t, "https://redirect.example.com/nupf-ee/v1/ee-subscriptions", model.Location)
 				require.Equal(t, "target-nf-id", model.Var3gppSbiTargetNfId)
+				require.Equal(t, 1, captured.requestCount)
+				require.Equal(t, 1, captured.originCount)
+				require.Zero(t, captured.redirectCount)
+				require.Equal(t, 1, captured.requestBodyCount)
 			case defaultResponse:
 				require.Nil(t, apiError.Model())
 			}
