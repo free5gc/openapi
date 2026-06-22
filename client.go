@@ -267,6 +267,13 @@ func getContentID(v reflect.Value, ref string, class string) (contentID string, 
 	}
 
 	for _, part := range strings.Split(ref, ".") {
+		// Guard against non-struct kinds; fixes free5gc/free5gc#1040 and #1041.
+		if !recursiveVal.IsValid() || recursiveVal.Kind() != reflect.Struct {
+			return "", fmt.Errorf(
+				"getContentID: ref %q: expected struct at component %q, got kind %v",
+				ref, part, recursiveVal.Kind(),
+			)
+		}
 		lastValType := recursiveVal.Type()
 		listIndex := -1
 
