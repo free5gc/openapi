@@ -160,6 +160,7 @@ const (
 	ServiceName_NMBSTF_DISTSESSION               ServiceName = "nmbstf-distsession"
 	ServiceName_NPANF_PROSEKEY                   ServiceName = "npanf-prosekey"
 	ServiceName_NPANF_USERID                     ServiceName = "npanf-userid"
+	ServiceName_NUPF_EE                          ServiceName = "nupf-ee"
 	ServiceName_NUPF_OAM                         ServiceName = "nupf-oam"
 	ServiceName_NUPF_CMI                         ServiceName = "nupf-cmi"
 )
