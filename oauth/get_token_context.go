@@ -33,14 +33,18 @@ func sendAccTokenReq(
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
 	var client *AccessToken.APIClient
 
-	configuration := AccessToken.NewConfiguration()
-	configuration.SetBasePath(nrfUri)
-
-	if val, ok := clientMap.Load(configuration); ok {
+	// Cache the API client by the stable nrfUri. Previously the cache was keyed
+	// by the freshly-allocated *Configuration returned by NewConfiguration(),
+	// whose pointer differs on every call, so the lookup never hit and a new
+	// entry (each holding an *APIClient with its own http.Client) was stored on
+	// every token request, leaking unboundedly under SBI load.
+	if val, ok := clientMap.Load(nrfUri); ok {
 		client = val.(*AccessToken.APIClient)
 	} else {
+		configuration := AccessToken.NewConfiguration()
+		configuration.SetBasePath(nrfUri)
 		client = AccessToken.NewAPIClient(configuration)
-		clientMap.Store(configuration, client)
+		clientMap.Store(nrfUri, client)
 	}
 
 	var tok models.NrfAccessTokenAccessTokenRsp
