@@ -18,7 +18,7 @@ type RegistrationContextContainer struct {
 	// String with format \"time-numoffset\" optionally appended by \"daylightSavingTime\", where  - \"time-numoffset\" shall represent the time zone adjusted for daylight saving time and be    encoded as time-numoffset as defined in clause 5.6 of IETF RFC 3339;  - \"daylightSavingTime\" shall represent the adjustment that has been made and shall be    encoded as \"+1\" or \"+2\" for a +1 or +2 hours adjustment.   The example is for 8 hours behind UTC, +1 hour adjustment for Daylight Saving Time.
 	LocalTimeZone string           `json:"localTimeZone,omitempty" yaml:"localTimeZone" bson:"localTimeZone,omitempty"`
 	AnType        AccessType       `json:"anType" yaml:"anType" bson:"anType,omitempty"`
-	AnN2ApId      int32            `json:"anN2ApId" yaml:"anN2ApId" bson:"anN2ApId,omitempty"`
+	AnN2ApId      *int32           `json:"anN2ApId" yaml:"anN2ApId" bson:"anN2ApId,omitempty"`
 	RanNodeId     *GlobalRanNodeId `json:"ranNodeId" yaml:"ranNodeId" bson:"ranNodeId,omitempty"`
 	// Fully Qualified Domain Name
 	InitialAmfName   string        `json:"initialAmfName" yaml:"initialAmfName" bson:"initialAmfName,omitempty"`
