@@ -79,6 +79,19 @@ type Configuration interface {
 	Metrics() RequestMetricsHook
 }
 
+// RedirectPolicy controls how an HTTP client handles a redirect response.
+type RedirectPolicy func(req *http.Request, via []*http.Request) error
+
+// RedirectPolicyProvider optionally supplies a redirect policy for one configuration.
+type RedirectPolicyProvider interface {
+	RedirectPolicy() RedirectPolicy
+}
+
+// RejectRedirects returns the original redirect response without following it.
+func RejectRedirects(_ *http.Request, _ []*http.Request) error {
+	return http.ErrUseLastResponse
+}
+
 // SelectHeaderAccept join all accept types and return
 func SelectHeaderAccept(accepts []string) string {
 	if len(accepts) == 0 {
@@ -162,32 +175,44 @@ func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 	start := time.Now()
 	metricHook := cfg.Metrics()
 
-	if cfg.HTTPClient() != nil {
-		resp, err := cfg.HTTPClient().Do(request)
-		if metricHook != nil {
-			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
-				time.Since(start).Seconds())
-		}
-		return resp, err
+	client, err := selectHTTPClient(cfg, request)
+	if err != nil {
+		return nil, err
 	}
 
-	if request.URL.Scheme == "https" {
-		resp, err := innerHTTP2Client.Do(request)
-		if metricHook != nil {
-			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
-				time.Since(start).Seconds())
+	resp, err := client.Do(request)
+	if metricHook != nil {
+		metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
+			time.Since(start).Seconds())
+	}
+	return resp, err
+}
+
+func selectHTTPClient(cfg Configuration, request *http.Request) (*http.Client, error) {
+	client := cfg.HTTPClient()
+	if client == nil {
+		switch request.URL.Scheme {
+		case "https":
+			client = innerHTTP2Client
+		case "http":
+			client = innerHTTP2CleartextClient
+		default:
+			return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
 		}
-		return resp, err
-	} else if request.URL.Scheme == "http" {
-		resp, err := innerHTTP2CleartextClient.Do(request)
-		if metricHook != nil {
-			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
-				time.Since(start).Seconds())
-		}
-		return resp, err
 	}
 
-	return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
+	provider, ok := cfg.(RedirectPolicyProvider)
+	if !ok {
+		return client, nil
+	}
+	policy := provider.RedirectPolicy()
+	if policy == nil {
+		return client, nil
+	}
+
+	requestClient := *client
+	requestClient.CheckRedirect = policy
+	return &requestClient, nil
 }
 
 func getServiceNameFromUrl(path string) string {

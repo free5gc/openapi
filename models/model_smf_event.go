@@ -33,4 +33,5 @@ const (
 	SmfEvent_WLAN_INFO      SmfEvent = "WLAN_INFO"
 	SmfEvent_UPF_INFO       SmfEvent = "UPF_INFO"
 	SmfEvent_UP_STATUS_INFO SmfEvent = "UP_STATUS_INFO"
+	SmfEvent_UPF_EVENT      SmfEvent = "UPF_EVENT"
 )
