@@ -39,14 +39,13 @@ func sendAccTokenReq(
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
 	var client *AccessToken.APIClient
 
-	configuration := AccessToken.NewConfiguration()
-	configuration.SetBasePath(nrfUri)
-
-	if val, ok := clientMap.Load(configuration); ok {
+	if val, ok := clientMap.Load(nrfUri); ok {
 		client = val.(*AccessToken.APIClient)
 	} else {
+		configuration := AccessToken.NewConfiguration()
+		configuration.SetBasePath(nrfUri)
 		client = AccessToken.NewAPIClient(configuration)
-		clientMap.Store(configuration, client)
+		clientMap.Store(nrfUri, client)
 	}
 
 	// Check if we have a valid cached token
