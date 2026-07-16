@@ -13,13 +13,14 @@
 package MT
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -33,37 +34,43 @@ type UeReachIndDocumentApiService service
 UeReachIndDocumentApiService Namf_MT EnableUEReachability service Operation
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param UeContextId - UE Context Identifier
- * @param EnableUeReachabilityReqData -
+ * @param RequestBody -
 
 @return EnableUeReachabilityResponse
 */
 
 // EnableUeReachabilityRequest
 type EnableUeReachabilityRequest struct {
-	UeContextId                 *string
-	EnableUeReachabilityReqData *models.EnableUeReachabilityReqData
+	UeContextId *string
+	RequestBody *models.Amf_MT_EnableUeReachabilityReqData
 }
 
 func (r *EnableUeReachabilityRequest) SetUeContextId(UeContextId string) {
 	r.UeContextId = &UeContextId
 }
-func (r *EnableUeReachabilityRequest) SetEnableUeReachabilityReqData(EnableUeReachabilityReqData models.EnableUeReachabilityReqData) {
-	r.EnableUeReachabilityReqData = &EnableUeReachabilityReqData
+
+func (r *EnableUeReachabilityRequest) SetRequestBody(
+	RequestBody models.Amf_MT_EnableUeReachabilityReqData,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type EnableUeReachabilityResponse struct {
-	EnableUeReachabilityRspData models.EnableUeReachabilityRspData
+	Amf_MT_EnableUeReachabilityRspData *models.Amf_MT_EnableUeReachabilityRspData
 }
 
 type EnableUeReachabilityError struct {
-	Location                           string
-	Var3gppSbiTargetNfId               string
-	ProblemDetails                     models.ProblemDetails
-	ProblemDetailsEnableUeReachability models.ProblemDetailsEnableUeReachability
-	RedirectResponse                   models.RedirectResponse
+	Location                                  string
+	Var3gpp_Sbi_Target_Nf_Id                  string
+	Amf_MT_ProblemDetailsEnableUeReachability *models.Amf_MT_ProblemDetailsEnableUeReachability
+	ProblemDetails                            *models.ProblemDetails
+	RedirectResponse                          *models.RedirectResponse
 }
 
-func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context, request *EnableUeReachabilityRequest) (*EnableUeReachabilityResponse, error) {
+func (a *UeReachIndDocumentApiService) EnableUeReachability(
+	ctx context.Context,
+	request *EnableUeReachabilityRequest,
+) (*EnableUeReachabilityResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Put")
 		localVarPostBody     interface{}
@@ -72,10 +79,15 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		localVarFileBytes    []byte
 		localVarReturnValue  EnableUeReachabilityResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/ue-contexts/{ueContextId}/ue-reachind"
-	localVarPath = strings.Replace(localVarPath, "{"+"ueContextId"+"}", openapi.StringOfValue(*request.UeContextId), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"ueContextId"+"}",
+		openapi.StringOfValue(*request.UeContextId),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -86,7 +98,10 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -95,9 +110,21 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 	}
 
 	// body params
-	localVarPostBody = request.EnableUeReachabilityReqData
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -107,7 +134,7 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -120,37 +147,64 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.EnableUeReachabilityRspData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Amf_MT_EnableUeReachabilityRspData = new(
+			models.Amf_MT_EnableUeReachabilityRspData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Amf_MT_EnableUeReachabilityRspData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 307:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -158,7 +212,14 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 403:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetailsEnableUeReachability, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.Amf_MT_ProblemDetailsEnableUeReachability = new(
+			models.Amf_MT_ProblemDetailsEnableUeReachability,
+		)
+		err = openapi.Deserialize(
+			v.Amf_MT_ProblemDetailsEnableUeReachability,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -166,7 +227,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 404:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -174,7 +240,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 409:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -182,7 +253,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 411:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -190,7 +266,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 413:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -198,7 +279,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 415:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -206,7 +292,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 429:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -214,7 +305,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 500:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -222,7 +318,12 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 503:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -230,7 +331,14 @@ func (a *UeReachIndDocumentApiService) EnableUeReachability(ctx context.Context,
 		return nil, apiError
 	case 504:
 		var v EnableUeReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetailsEnableUeReachability, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.Amf_MT_ProblemDetailsEnableUeReachability = new(
+			models.Amf_MT_ProblemDetailsEnableUeReachability,
+		)
+		err = openapi.Deserialize(
+			v.Amf_MT_ProblemDetailsEnableUeReachability,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

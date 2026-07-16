@@ -16,6 +16,6 @@ type PositioningMethodMdt string
 
 // List of PositioningMethodMdt
 const (
-	PositioningMethodMdt_GNSS      PositioningMethodMdt = "GNSS"
-	PositioningMethodMdt_E_CELL_ID PositioningMethodMdt = "E_CELL_ID"
+	PositioningMethodMdt_GNSS      PositioningMethodMdt = "GNSS"      // #nosec G101
+	PositioningMethodMdt_E_CELL_ID PositioningMethodMdt = "E_CELL_ID" // #nosec G101
 )

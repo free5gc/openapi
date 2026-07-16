@@ -14,6 +14,7 @@ package models
 
 // Contains LTE V2X services authorized information.
 type LteV2xAuth struct {
-	VehicleUeAuth    UeAuth `json:"vehicleUeAuth,omitempty" yaml:"vehicleUeAuth" bson:"vehicleUeAuth,omitempty"`
-	PedestrianUeAuth UeAuth `json:"pedestrianUeAuth,omitempty" yaml:"pedestrianUeAuth" bson:"pedestrianUeAuth,omitempty"`
+	VehicleUeAuth UeAuth `json:"vehicleUeAuth,omitempty" yaml:"vehicleUeAuth,omitempty" bson:"vehicleUeAuth,omitempty"`
+
+	PedestrianUeAuth UeAuth `json:"pedestrianUeAuth,omitempty" yaml:"pedestrianUeAuth,omitempty" bson:"pedestrianUeAuth,omitempty"`
 }

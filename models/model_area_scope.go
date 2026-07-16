@@ -14,9 +14,12 @@ package models
 
 // Contain the area based on Cells or Tracking Areas.
 type AreaScope struct {
-	EutraCellIdList []string `json:"eutraCellIdList,omitempty" yaml:"eutraCellIdList" bson:"eutraCellIdList,omitempty"`
-	NrCellIdList    []string `json:"nrCellIdList,omitempty" yaml:"nrCellIdList" bson:"nrCellIdList,omitempty"`
-	TacList         []string `json:"tacList,omitempty" yaml:"tacList" bson:"tacList,omitempty"`
+	EutraCellIdList []string `json:"eutraCellIdList,omitempty" yaml:"eutraCellIdList,omitempty" bson:"eutraCellIdList,omitempty"`
+
+	NrCellIdList []string `json:"nrCellIdList,omitempty" yaml:"nrCellIdList,omitempty" bson:"nrCellIdList,omitempty"`
+
+	TacList []string `json:"tacList,omitempty" yaml:"tacList,omitempty" bson:"tacList,omitempty"`
+
 	// A map (list of key-value pairs) where PlmnId converted to a string serves as key
-	TacInfoPerPlmn map[string]TacInfo `json:"tacInfoPerPlmn,omitempty" yaml:"tacInfoPerPlmn" bson:"tacInfoPerPlmn,omitempty"`
+	TacInfoPerPlmn map[string]TacInfo `json:"tacInfoPerPlmn,omitempty" yaml:"tacInfoPerPlmn,omitempty" bson:"tacInfoPerPlmn,omitempty"`
 }

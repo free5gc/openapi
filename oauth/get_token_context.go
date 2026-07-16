@@ -9,12 +9,12 @@ import (
 
 	"github.com/free5gc/openapi"
 	"github.com/free5gc/openapi/models"
-	"github.com/free5gc/openapi/nrf/AccessToken"
+	"github.com/free5gc/openapi/nrf/AccTok"
 )
 
 // cachedToken stores OAuth token with absolute expiry timestamp
 type cachedToken struct {
-	Response   models.NrfAccessTokenAccessTokenRsp
+	Response   models.Nrf_AccTok_AccessTokenRsp
 	ExpiryTime int64 // absolute Unix timestamp when token expires
 }
 
@@ -22,7 +22,7 @@ var tokenMap sync.Map
 var clientMap sync.Map
 
 func GetTokenCtx(
-	nfType, targetNF models.NrfNfManagementNfType,
+	nfType, targetNF models.Nrf_NFMgmt_NFType,
 	nfId, nrfUri, scope string,
 ) (context.Context, *models.ProblemDetails, error) {
 	tok, pd, err := sendAccTokenReq(nfType, targetNF, nfId, nrfUri, scope)
@@ -34,17 +34,17 @@ func GetTokenCtx(
 }
 
 func sendAccTokenReq(
-	nfType, targetNF models.NrfNfManagementNfType,
+	nfType, targetNF models.Nrf_NFMgmt_NFType,
 	nfId, nrfUri, scope string,
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
-	var client *AccessToken.APIClient
+	var client *AccTok.APIClient
 
 	if val, ok := clientMap.Load(nrfUri); ok {
-		client = val.(*AccessToken.APIClient)
+		client = val.(*AccTok.APIClient)
 	} else {
-		configuration := AccessToken.NewConfiguration()
+		configuration := AccTok.NewConfiguration()
 		configuration.SetBasePath(nrfUri)
-		client = AccessToken.NewAPIClient(configuration)
+		client = AccTok.NewAPIClient(configuration)
 		clientMap.Store(nrfUri, client)
 	}
 
@@ -54,15 +54,15 @@ func sendAccTokenReq(
 		// Compare current time with absolute expiry timestamp
 		if time.Now().Unix() < cached.ExpiryTime {
 			token := &oauth2.Token{
-				AccessToken: cached.Response.AccessToken,
-				TokenType:   cached.Response.TokenType,
+				AccessToken: cached.Response.Access_token,
+				TokenType:   cached.Response.Token_type,
 				Expiry:      time.Unix(cached.ExpiryTime, 0),
 			}
 			return oauth2.StaticTokenSource(token), nil, nil
 		}
 	}
 
-	req := &AccessToken.AccessTokenRequestRequest{}
+	req := &AccTok.AccessTokenRequestRequest{}
 	req.SetGrantType("client_credentials")
 	req.SetNfInstanceId(nfId)
 	req.SetNfType(nfType)
@@ -74,16 +74,16 @@ func sendAccTokenReq(
 
 	if err == nil {
 		// Calculate absolute expiry time: current time + expires_in seconds
-		expiryTime := time.Now().Unix() + int64(res.NrfAccessTokenAccessTokenRsp.ExpiresIn)
+		expiryTime := time.Now().Unix() + int64(res.Nrf_AccTok_AccessTokenRsp.Expires_in)
 		cached := cachedToken{
-			Response:   res.NrfAccessTokenAccessTokenRsp,
+			Response:   *res.Nrf_AccTok_AccessTokenRsp,
 			ExpiryTime: expiryTime,
 		}
 		tokenMap.Store(scope, cached)
 
 		token := &oauth2.Token{
-			AccessToken: res.NrfAccessTokenAccessTokenRsp.AccessToken,
-			TokenType:   res.NrfAccessTokenAccessTokenRsp.TokenType,
+			AccessToken: res.Nrf_AccTok_AccessTokenRsp.Access_token,
+			TokenType:   res.Nrf_AccTok_AccessTokenRsp.Token_type,
 			Expiry:      time.Unix(expiryTime, 0),
 		}
 		return oauth2.StaticTokenSource(token), nil, nil

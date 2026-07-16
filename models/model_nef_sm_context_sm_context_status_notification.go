@@ -13,11 +13,15 @@
 package models
 
 // Representation of the SM Context status notification.
-type NefSmContextSmContextStatusNotification struct {
-	Status SmContextStatus `json:"status" yaml:"status" bson:"status,omitempty"`
+type Nef_SMContext_SmContextStatusNotification struct {
+	Status Nef_SMContext_SmContextStatus `json:"status,omitempty" yaml:"status,omitempty" bson:"status,omitempty"`
+
 	// String providing an URI formatted according to RFC 3986.
-	SmContextId         string                   `json:"smContextId" yaml:"smContextId" bson:"smContextId,omitempty"`
-	Cause               NefSmContextReleaseCause `json:"cause,omitempty" yaml:"cause" bson:"cause,omitempty"`
-	SmallDataRateStatus *SmallDataRateStatus     `json:"smallDataRateStatus,omitempty" yaml:"smallDataRateStatus" bson:"smallDataRateStatus,omitempty"`
-	ApnRateStatus       *ApnRateStatus           `json:"apnRateStatus,omitempty" yaml:"apnRateStatus" bson:"apnRateStatus,omitempty"`
+	SmContextId string `json:"smContextId,omitempty" yaml:"smContextId,omitempty" bson:"smContextId,omitempty"`
+
+	Cause Nef_SMContext_ReleaseCause `json:"cause,omitempty" yaml:"cause,omitempty" bson:"cause,omitempty"`
+
+	SmallDataRateStatus *SmallDataRateStatus `json:"smallDataRateStatus,omitempty" yaml:"smallDataRateStatus,omitempty" bson:"smallDataRateStatus,omitempty"`
+
+	ApnRateStatus *ApnRateStatus `json:"apnRateStatus,omitempty" yaml:"apnRateStatus,omitempty" bson:"apnRateStatus,omitempty"`
 }

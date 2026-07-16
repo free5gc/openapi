@@ -12,5 +12,18 @@
 
 package models
 
+// This data type is defined in the same way as the MbsMediaComp data type, but with the OpenAPI
+// nullable property set to true.
 type MbsMediaCompRm struct {
+	MbsMedCompNum int32 `json:"mbsMedCompNum,omitempty" yaml:"mbsMedCompNum,omitempty" bson:"mbsMedCompNum,omitempty"`
+
+	MbsFlowDescs []string `json:"mbsFlowDescs,omitempty" yaml:"mbsFlowDescs,omitempty" bson:"mbsFlowDescs,omitempty"`
+
+	MbsSdfResPrio Pcf_PolAuth_ReservPriority `json:"mbsSdfResPrio,omitempty" yaml:"mbsSdfResPrio,omitempty" bson:"mbsSdfResPrio,omitempty"`
+
+	MbsMediaInfo *MbsMediaInfo `json:"mbsMediaInfo,omitempty" yaml:"mbsMediaInfo,omitempty" bson:"mbsMediaInfo,omitempty"`
+
+	QosRef string `json:"qosRef,omitempty" yaml:"qosRef,omitempty" bson:"qosRef,omitempty"`
+
+	MbsQoSReq *MbsQoSReq `json:"mbsQoSReq,omitempty" yaml:"mbsQoSReq,omitempty" bson:"mbsQoSReq,omitempty"`
 }

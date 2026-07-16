@@ -16,6 +16,6 @@ type UriScheme string
 
 // List of UriScheme
 const (
-	UriScheme_HTTP  UriScheme = "http"
-	UriScheme_HTTPS UriScheme = "https"
+	UriScheme_HTTP  UriScheme = "http"  // #nosec G101
+	UriScheme_HTTPS UriScheme = "https" // #nosec G101
 )

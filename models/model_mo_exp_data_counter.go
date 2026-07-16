@@ -18,8 +18,10 @@ import (
 
 // Contain the MO Exception Data Counter.
 type MoExpDataCounter struct {
-	// Unsigned integer identifying the MO Exception Data Counter, as specified in clause 5.31.14.3 of 3GPP TS 23.501.
-	Counter int32 `json:"counter" yaml:"counter" bson:"counter,omitempty"`
+	// Unsigned integer identifying the MO Exception Data Counter, as specified in clause 5.31.14.3
+	// of 3GPP TS 23.501.
+	Counter int32 `json:"counter,omitempty" yaml:"counter,omitempty" bson:"counter,omitempty"`
+
 	// string with format 'date-time' as defined in OpenAPI.
-	TimeStamp *time.Time `json:"timeStamp,omitempty" yaml:"timeStamp" bson:"timeStamp,omitempty"`
+	TimeStamp *time.Time `json:"timeStamp,omitempty" yaml:"timeStamp,omitempty" bson:"timeStamp,omitempty"`
 }

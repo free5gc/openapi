@@ -12,10 +12,14 @@
 
 package models
 
-// Represents threshold(s) to control the triggering of network slice reporting notifications or the information contained in the network slice reporting notification.
-type SacInfo struct {
-	NumericValNumUes     int32 `json:"numericValNumUes,omitempty" yaml:"numericValNumUes" bson:"numericValNumUes,omitempty"`
-	NumericValNumPduSess int32 `json:"numericValNumPduSess,omitempty" yaml:"numericValNumPduSess" bson:"numericValNumPduSess,omitempty"`
-	PercValueNumUes      int32 `json:"percValueNumUes,omitempty" yaml:"percValueNumUes" bson:"percValueNumUes,omitempty"`
-	PercValueNumPduSess  int32 `json:"percValueNumPduSess,omitempty" yaml:"percValueNumPduSess" bson:"percValueNumPduSess,omitempty"`
+// Represents threshold(s) to control the triggering of network slice reporting notifications or the
+// information contained in the network slice reporting notification.
+type SACInfo struct {
+	NumericValNumUes int32 `json:"numericValNumUes,omitempty" yaml:"numericValNumUes,omitempty" bson:"numericValNumUes,omitempty"`
+
+	NumericValNumPduSess int32 `json:"numericValNumPduSess,omitempty" yaml:"numericValNumPduSess,omitempty" bson:"numericValNumPduSess,omitempty"`
+
+	PercValueNumUes int32 `json:"percValueNumUes,omitempty" yaml:"percValueNumUes,omitempty" bson:"percValueNumUes,omitempty"`
+
+	PercValueNumPduSess int32 `json:"percValueNumPduSess,omitempty" yaml:"percValueNumPduSess,omitempty" bson:"percValueNumPduSess,omitempty"`
 }

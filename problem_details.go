@@ -47,3 +47,19 @@ func ProblemDetailsForbidden(detail, cause string) *models.ProblemDetails {
 		Cause:  cause,
 	}
 }
+
+func ProblemDetailsConflict(detail string) *models.ProblemDetails {
+	return &models.ProblemDetails{
+		Title:  "Conflict",
+		Status: http.StatusConflict,
+		Detail: detail,
+	}
+}
+
+func ProblemDetailsNotAcceptable(detail string) *models.ProblemDetails {
+	return &models.ProblemDetails{
+		Title:  "Not Acceptable",
+		Status: http.StatusNotAcceptable,
+		Detail: detail,
+	}
+}

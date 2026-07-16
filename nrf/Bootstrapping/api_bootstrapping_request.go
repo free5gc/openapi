@@ -13,13 +13,14 @@
 package Bootstrapping
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -47,18 +48,21 @@ func (r *BootstrappingInfoRequestRequest) SetIfNoneMatch(IfNoneMatch string) {
 }
 
 type BootstrappingInfoRequestResponse struct {
-	CacheControl      string
-	ETag              string
-	BootstrappingInfo models.BootstrappingInfo
+	Cache_Control                       string
+	ETag                                string
+	Nrf_Bootstrapping_BootstrappingInfo *models.Nrf_Bootstrapping_BootstrappingInfo
 }
 
 type BootstrappingInfoRequestError struct {
 	Location         string
-	ProblemDetails   models.ProblemDetails
-	RedirectResponse models.RedirectResponse
+	ProblemDetails   *models.ProblemDetails
+	RedirectResponse *models.RedirectResponse
 }
 
-func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Context, request *BootstrappingInfoRequestRequest) (*BootstrappingInfoRequestResponse, error) {
+func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(
+	ctx context.Context,
+	request *BootstrappingInfoRequestRequest,
+) (*BootstrappingInfoRequestResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -67,6 +71,7 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 		localVarFileBytes    []byte
 		localVarReturnValue  BootstrappingInfoRequestResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/bootstrapping"
@@ -80,7 +85,11 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/3gppHal+json", "application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/3gppHal+json",
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -89,10 +98,25 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 	}
 
 	if request.IfNoneMatch != nil {
-		localVarHeaderParams["If-None-Match"] = openapi.ParameterToString(request.IfNoneMatch, "csv")
+		localVarHeaderParams["If-None-Match"] = openapi.ParameterToString(
+			request.IfNoneMatch,
+			"csv",
+		)
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +126,7 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -115,19 +139,34 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.BootstrappingInfo, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Nrf_Bootstrapping_BootstrappingInfo = new(
+			models.Nrf_Bootstrapping_BootstrappingInfo,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Nrf_Bootstrapping_BootstrappingInfo,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
-		localVarReturnValue.CacheControl = localVarHTTPResponse.Header.Get("Cache-Control")
+		localVarReturnValue.Cache_Control = localVarHTTPResponse.Header.Get(
+			"Cache-Control",
+		)
 		localVarReturnValue.ETag = localVarHTTPResponse.Header.Get("ETag")
 		return &localVarReturnValue, nil
 	case 307:
 		var v BootstrappingInfoRequestError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -136,7 +175,12 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 		return nil, apiError
 	case 308:
 		var v BootstrappingInfoRequestError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -145,7 +189,12 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 		return nil, apiError
 	case 400:
 		var v BootstrappingInfoRequestError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -153,7 +202,12 @@ func (a *BootstrappingRequestApiService) BootstrappingInfoRequest(ctx context.Co
 		return nil, apiError
 	case 500:
 		var v BootstrappingInfoRequestError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

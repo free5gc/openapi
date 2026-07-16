@@ -13,13 +13,15 @@
 package Broadcast
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
+	"regexp"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -32,32 +34,37 @@ type RequestCipheringKeyDataApiService service
 /*
 RequestCipheringKeyDataApiService Request ciphering key data
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param CipherRequestData -
+ * @param RequestBody -
 
 @return CipheringKeyDataResponse
 */
 
 // CipheringKeyDataRequest
 type CipheringKeyDataRequest struct {
-	CipherRequestData *models.CipherRequestData
+	RequestBody *models.Lmf_Broadcast_CipherRequestData
 }
 
-func (r *CipheringKeyDataRequest) SetCipherRequestData(CipherRequestData models.CipherRequestData) {
-	r.CipherRequestData = &CipherRequestData
+func (r *CipheringKeyDataRequest) SetRequestBody(
+	RequestBody models.Lmf_Broadcast_CipherRequestData,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type CipheringKeyDataResponse struct {
-	CipherResponseData models.CipherResponseData
+	Lmf_Broadcast_CipherResponseData *models.Lmf_Broadcast_CipherResponseData
 }
 
 type CipheringKeyDataError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context, request *CipheringKeyDataRequest) (*CipheringKeyDataResponse, error) {
+func (a *RequestCipheringKeyDataApiService) CipheringKeyData(
+	ctx context.Context,
+	request *CipheringKeyDataRequest,
+) (*CipheringKeyDataResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -66,6 +73,7 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		localVarFileBytes    []byte
 		localVarReturnValue  CipheringKeyDataResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/cipher-key-data"
@@ -79,7 +87,10 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -88,9 +99,21 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 	}
 
 	// body params
-	localVarPostBody = request.CipherRequestData
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +123,7 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -113,37 +136,64 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.CipherResponseData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Lmf_Broadcast_CipherResponseData = new(
+			models.Lmf_Broadcast_CipherResponseData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Lmf_Broadcast_CipherResponseData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 307:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -151,7 +201,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 401:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -159,7 +214,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 403:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -167,7 +227,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 404:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -175,7 +240,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 411:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -183,7 +253,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 413:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -191,7 +266,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 415:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -199,7 +279,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 429:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -207,7 +292,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 500:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -215,7 +305,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 503:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -223,7 +318,12 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 		return nil, apiError
 	case 504:
 		var v CipheringKeyDataError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -234,38 +334,49 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyData(ctx context.Context
 	}
 }
 
-// CipheringKeyDataCipheringKeyDataPostRequest
-type CipheringKeyDataCipheringKeyDataPostRequest struct {
-	CipheringKeyInfo *models.CipheringKeyInfo
+// CipheringKeyDataCipheringKeyDataRequest
+type CipheringKeyDataCipheringKeyDataRequest struct {
+	RequestBody *models.Lmf_Broadcast_CipheringKeyInfo
 }
 
-func (r *CipheringKeyDataCipheringKeyDataPostRequest) SetCipheringKeyInfo(CipheringKeyInfo models.CipheringKeyInfo) {
-	r.CipheringKeyInfo = &CipheringKeyInfo
+func (r *CipheringKeyDataCipheringKeyDataRequest) SetRequestBody(
+	RequestBody models.Lmf_Broadcast_CipheringKeyInfo,
+) {
+	r.RequestBody = &RequestBody
 }
 
-type CipheringKeyDataCipheringKeyDataPostResponse struct {
-	CipheringKeyResponse models.CipheringKeyResponse
+type CipheringKeyDataCipheringKeyDataResponse struct {
+	Lmf_Broadcast_CipheringKeyResponse *models.Lmf_Broadcast_CipheringKeyResponse
 }
 
-type CipheringKeyDataCipheringKeyDataPostError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+type CipheringKeyDataCipheringKeyDataError struct {
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-func (a *RequestCipheringKeyDataApiService) CipheringKeyDataCipheringKeyDataPost(ctx context.Context, uri string, request *CipheringKeyDataCipheringKeyDataPostRequest) (*CipheringKeyDataCipheringKeyDataPostResponse, error) {
+func (a *RequestCipheringKeyDataApiService) CipheringKeyDataCipheringKeyData(
+	ctx context.Context,
+	uri string,
+	request *CipheringKeyDataCipheringKeyDataRequest,
+) (*CipheringKeyDataCipheringKeyDataResponse, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("POST")
+		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  CipheringKeyDataCipheringKeyDataPostResponse
+		localVarReturnValue  CipheringKeyDataCipheringKeyDataResponse
 	)
 
 	// create path and map variables
-	localVarPath := uri
+	expression := "{$request.body#/amfCallBackURI}"
+	re := regexp.MustCompile(`\{.*\}`)
+	localVarPath := re.ReplaceAllString(
+		expression,
+		uri,
+	) // replace bracket {} in the path with the uri
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -276,7 +387,10 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyDataCipheringKeyDataPost
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -286,11 +400,23 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyDataCipheringKeyDataPost
 
 	// body params
 
-	if request.CipheringKeyInfo != nil {
-		localVarPostBody = request.CipheringKeyInfo
+	if request.RequestBody != nil {
+		localVarPostBody = request.RequestBody
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -300,7 +426,7 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyDataCipheringKeyDataPost
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -313,123 +439,200 @@ func (a *RequestCipheringKeyDataApiService) CipheringKeyDataCipheringKeyDataPost
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.CipheringKeyResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Lmf_Broadcast_CipheringKeyResponse = new(
+			models.Lmf_Broadcast_CipheringKeyResponse,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Lmf_Broadcast_CipheringKeyResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 307:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 401:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 403:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 404:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 411:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 413:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 415:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 429:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 500:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 503:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 504:
-		var v CipheringKeyDataCipheringKeyDataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CipheringKeyDataCipheringKeyDataError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	default:
-		return &localVarReturnValue, nil
+		return nil, apiError
 	}
 }

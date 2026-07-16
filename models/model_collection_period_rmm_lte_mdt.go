@@ -16,11 +16,11 @@ type CollectionPeriodRmmLteMdt string
 
 // List of CollectionPeriodRmmLteMdt
 const (
-	CollectionPeriodRmmLteMdt__1024  CollectionPeriodRmmLteMdt = "1024"
-	CollectionPeriodRmmLteMdt__1280  CollectionPeriodRmmLteMdt = "1280"
-	CollectionPeriodRmmLteMdt__2048  CollectionPeriodRmmLteMdt = "2048"
-	CollectionPeriodRmmLteMdt__2560  CollectionPeriodRmmLteMdt = "2560"
-	CollectionPeriodRmmLteMdt__5120  CollectionPeriodRmmLteMdt = "5120"
-	CollectionPeriodRmmLteMdt__10240 CollectionPeriodRmmLteMdt = "10240"
-	CollectionPeriodRmmLteMdt__60000 CollectionPeriodRmmLteMdt = "60000"
+	CollectionPeriodRmmLteMdt_1024  CollectionPeriodRmmLteMdt = "1024"  // #nosec G101
+	CollectionPeriodRmmLteMdt_1280  CollectionPeriodRmmLteMdt = "1280"  // #nosec G101
+	CollectionPeriodRmmLteMdt_2048  CollectionPeriodRmmLteMdt = "2048"  // #nosec G101
+	CollectionPeriodRmmLteMdt_2560  CollectionPeriodRmmLteMdt = "2560"  // #nosec G101
+	CollectionPeriodRmmLteMdt_5120  CollectionPeriodRmmLteMdt = "5120"  // #nosec G101
+	CollectionPeriodRmmLteMdt_10240 CollectionPeriodRmmLteMdt = "10240" // #nosec G101
+	CollectionPeriodRmmLteMdt_60000 CollectionPeriodRmmLteMdt = "60000" // #nosec G101
 )

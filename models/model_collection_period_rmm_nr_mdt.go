@@ -16,9 +16,9 @@ type CollectionPeriodRmmNrMdt string
 
 // List of CollectionPeriodRmmNrMdt
 const (
-	CollectionPeriodRmmNrMdt__1024  CollectionPeriodRmmNrMdt = "1024"
-	CollectionPeriodRmmNrMdt__2048  CollectionPeriodRmmNrMdt = "2048"
-	CollectionPeriodRmmNrMdt__5120  CollectionPeriodRmmNrMdt = "5120"
-	CollectionPeriodRmmNrMdt__10240 CollectionPeriodRmmNrMdt = "10240"
-	CollectionPeriodRmmNrMdt__60000 CollectionPeriodRmmNrMdt = "60000"
+	CollectionPeriodRmmNrMdt_1024  CollectionPeriodRmmNrMdt = "1024"  // #nosec G101
+	CollectionPeriodRmmNrMdt_2048  CollectionPeriodRmmNrMdt = "2048"  // #nosec G101
+	CollectionPeriodRmmNrMdt_5120  CollectionPeriodRmmNrMdt = "5120"  // #nosec G101
+	CollectionPeriodRmmNrMdt_10240 CollectionPeriodRmmNrMdt = "10240" // #nosec G101
+	CollectionPeriodRmmNrMdt_60000 CollectionPeriodRmmNrMdt = "60000" // #nosec G101
 )

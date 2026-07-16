@@ -15,6 +15,7 @@ package models
 // MBS Service Area Information for location dependent MBS session
 type MbsServiceAreaInfo struct {
 	// Integer where the allowed values correspond to the value range of an unsigned 16-bit integer.
-	AreaSessionId  int32           `json:"areaSessionId" yaml:"areaSessionId" bson:"areaSessionId,omitempty"`
-	MbsServiceArea *MbsServiceArea `json:"mbsServiceArea" yaml:"mbsServiceArea" bson:"mbsServiceArea,omitempty"`
+	AreaSessionId int32 `json:"areaSessionId,omitempty" yaml:"areaSessionId,omitempty" bson:"areaSessionId,omitempty"`
+
+	MbsServiceArea *MbsServiceArea `json:"mbsServiceArea,omitempty" yaml:"mbsServiceArea,omitempty" bson:"mbsServiceArea,omitempty"`
 }

@@ -14,7 +14,8 @@ package models
 
 // List of NR cell ids, with their pertaining TAIs
 type NcgiTai struct {
-	Tai *Tai `json:"tai" yaml:"tai" bson:"tai,omitempty"`
+	Tai *Tai `json:"tai,omitempty" yaml:"tai,omitempty" bson:"tai,omitempty"`
+
 	// List of List of NR cell ids
-	CellList []Ncgi `json:"cellList" yaml:"cellList" bson:"cellList,omitempty"`
+	CellList []Ncgi `json:"cellList,omitempty" yaml:"cellList,omitempty" bson:"cellList,omitempty"`
 }

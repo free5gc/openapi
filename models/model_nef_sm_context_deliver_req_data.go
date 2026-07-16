@@ -12,7 +12,8 @@
 
 package models
 
-// The data for Deliver service request, including the Mobile Originated data to be delivered via NEF.
-type NefSmContextDeliverReqData struct {
-	Data *RefToBinaryData `json:"data" yaml:"data" bson:"data,omitempty"`
+// The data for Deliver service request, including the Mobile Originated data to be delivered via
+// NEF.
+type Nef_SMContext_DeliverReqData struct {
+	Data *RefToBinaryData `json:"data,omitempty" yaml:"data,omitempty" bson:"data,omitempty"`
 }

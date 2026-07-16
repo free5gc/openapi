@@ -15,7 +15,8 @@ package models
 // MBS Service Area
 type MbsServiceArea struct {
 	// List of NR cell Ids
-	NcgiList []NcgiTai `json:"ncgiList,omitempty" yaml:"ncgiList" bson:"ncgiList,omitempty"`
+	NcgiList []NcgiTai `json:"ncgiList,omitempty" yaml:"ncgiList,omitempty" bson:"ncgiList,omitempty"`
+
 	// List of tracking area Ids
-	TaiList []Tai `json:"taiList,omitempty" yaml:"taiList" bson:"taiList,omitempty"`
+	TaiList []Tai `json:"taiList,omitempty" yaml:"taiList,omitempty" bson:"taiList,omitempty"`
 }

@@ -13,13 +13,14 @@
 package SMService
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -33,33 +34,37 @@ type SendMOSMSMessageAndTheDeliveryReportApiService service
 SendMOSMSMessageAndTheDeliveryReportApiService Send SMS payload for a given UE
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param Supi - Subscription Permanent Identifier (SUPI)
- * @param SendSmsRequest -
+ * @param RequestBody -
 
 @return SendSMSResponse
 */
 
 // SendSMSRequest
 type SendSMSRequest struct {
-	Supi           *string
-	SendSmsRequest *models.SendSmsRequest
+	Supi        *string
+	RequestBody *models.SendSMSRequestBody
 }
 
 func (r *SendSMSRequest) SetSupi(Supi string) {
 	r.Supi = &Supi
 }
-func (r *SendSMSRequest) SetSendSmsRequest(SendSmsRequest models.SendSmsRequest) {
-	r.SendSmsRequest = &SendSmsRequest
+
+func (r *SendSMSRequest) SetRequestBody(RequestBody models.SendSMSRequestBody) {
+	r.RequestBody = &RequestBody
 }
 
 type SendSMSResponse struct {
-	SendSmsResponse200 models.SendSmsResponse200
+	SendSMSResponse200 *models.SendSMSResponse200
 }
 
 type SendSMSError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Context, request *SendSMSRequest) (*SendSMSResponse, error) {
+func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(
+	ctx context.Context,
+	request *SendSMSRequest,
+) (*SendSMSResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -68,10 +73,15 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 		localVarFileBytes    []byte
 		localVarReturnValue  SendSMSResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/sm-contexts/{supi}/sendsms"
-	localVarPath = strings.Replace(localVarPath, "{"+"supi"+"}", openapi.StringOfValue(*request.Supi), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"supi"+"}",
+		openapi.StringOfValue(*request.Supi),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -82,7 +92,10 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"multipart/related", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"multipart/related",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -91,9 +104,21 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 	}
 
 	// body params
-	localVarPostBody = request.SendSmsRequest
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +128,7 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -116,17 +141,28 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.SendSmsResponse200, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.SendSMSResponse200 = new(models.SendSMSResponse200)
+		err = openapi.Deserialize(
+			localVarReturnValue.SendSMSResponse200,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 400:
 		var v SendSMSError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -134,7 +170,12 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 		return nil, apiError
 	case 404:
 		var v SendSMSError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -142,7 +183,12 @@ func (a *SendMOSMSMessageAndTheDeliveryReportApiService) SendSMS(ctx context.Con
 		return nil, apiError
 	case 503:
 		var v SendSMSError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

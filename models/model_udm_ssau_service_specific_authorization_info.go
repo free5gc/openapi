@@ -13,15 +13,23 @@
 package models
 
 // Authorization information for a specific service
-type UdmSsauServiceSpecificAuthorizationInfo struct {
-	Snssai *Snssai `json:"snssai,omitempty" yaml:"snssai" bson:"snssai,omitempty"`
-	// String representing a Data Network as defined in clause 9A of 3GPP TS 23.003;  it shall contain either a DNN Network Identifier, or a full DNN with both the Network  Identifier and Operator Identifier, as specified in 3GPP TS 23.003 clause 9.1.1 and 9.1.2. It shall be coded as string in which the labels are separated by dots  (e.g. \"Label1.Label2.Label3\").
-	Dnn string `json:"dnn,omitempty" yaml:"dnn" bson:"dnn,omitempty"`
+type Udm_SSAU_ServiceSpecificAuthorizationInfo struct {
+	Snssai *Snssai `json:"snssai,omitempty" yaml:"snssai,omitempty" bson:"snssai,omitempty"`
+
+	// String representing a Data Network as defined in clause 9A of 3GPP TS 23.003;  it shall
+	// contain either a DNN Network Identifier, or a full DNN with both the Network  Identifier and
+	// Operator Identifier, as specified in 3GPP TS 23.003 clause 9.1.1 and 9.1.2. It shall be coded
+	// as string in which the labels are separated by dots  (e.g. \"Label1.Label2.Label3\").
+	Dnn string `json:"dnn,omitempty" yaml:"dnn,omitempty" bson:"dnn,omitempty"`
+
 	// String uniquely identifying MTC provider information.
-	MtcProviderInformation string `json:"mtcProviderInformation,omitempty" yaml:"mtcProviderInformation" bson:"mtcProviderInformation,omitempty"`
+	MtcProviderInformation string `json:"mtcProviderInformation,omitempty" yaml:"mtcProviderInformation,omitempty" bson:"mtcProviderInformation,omitempty"`
+
 	// String providing an URI formatted according to RFC 3986.
-	AuthUpdateCallbackUri string `json:"authUpdateCallbackUri,omitempty" yaml:"authUpdateCallbackUri" bson:"authUpdateCallbackUri,omitempty"`
-	AfId                  string `json:"afId,omitempty" yaml:"afId" bson:"afId,omitempty"`
+	AuthUpdateCallbackUri string `json:"authUpdateCallbackUri,omitempty" yaml:"authUpdateCallbackUri,omitempty" bson:"authUpdateCallbackUri,omitempty"`
+
+	AfId string `json:"afId,omitempty" yaml:"afId,omitempty" bson:"afId,omitempty"`
+
 	// Identity of the NEF
-	NefId string `json:"nefId,omitempty" yaml:"nefId" bson:"nefId,omitempty"`
+	NefId string `json:"nefId,omitempty" yaml:"nefId,omitempty" bson:"nefId,omitempty"`
 }

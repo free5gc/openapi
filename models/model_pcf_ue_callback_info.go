@@ -12,9 +12,11 @@
 
 package models
 
-// Contains the PCF for the UE information necessary for the PCF for the PDU session to send  SM Policy Association Establishment and Termination events.
+// Contains the PCF for the UE information necessary for the PCF for the PDU session to send  SM
+// Policy Association Establishment and Termination events.
 type PcfUeCallbackInfo struct {
 	// String providing an URI formatted according to RFC 3986.
-	CallbackUri string `json:"callbackUri" yaml:"callbackUri" bson:"callbackUri,omitempty"`
-	BindingInfo string `json:"bindingInfo,omitempty" yaml:"bindingInfo" bson:"bindingInfo,omitempty"`
+	CallbackUri string `json:"callbackUri,omitempty" yaml:"callbackUri,omitempty" bson:"callbackUri,omitempty"`
+
+	BindingInfo string `json:"bindingInfo,omitempty" yaml:"bindingInfo,omitempty" bson:"bindingInfo,omitempty"`
 }

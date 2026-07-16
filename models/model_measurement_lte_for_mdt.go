@@ -16,17 +16,17 @@ type MeasurementLteForMdt string
 
 // List of MeasurementLteForMdt
 const (
-	MeasurementLteForMdt_M1    MeasurementLteForMdt = "M1"
-	MeasurementLteForMdt_M2    MeasurementLteForMdt = "M2"
-	MeasurementLteForMdt_M3    MeasurementLteForMdt = "M3"
-	MeasurementLteForMdt_M4_DL MeasurementLteForMdt = "M4_DL"
-	MeasurementLteForMdt_M4_UL MeasurementLteForMdt = "M4_UL"
-	MeasurementLteForMdt_M5_DL MeasurementLteForMdt = "M5_DL"
-	MeasurementLteForMdt_M5_UL MeasurementLteForMdt = "M5_UL"
-	MeasurementLteForMdt_M6_DL MeasurementLteForMdt = "M6_DL"
-	MeasurementLteForMdt_M6_UL MeasurementLteForMdt = "M6_UL"
-	MeasurementLteForMdt_M7_DL MeasurementLteForMdt = "M7_DL"
-	MeasurementLteForMdt_M7_UL MeasurementLteForMdt = "M7_UL"
-	MeasurementLteForMdt_M8    MeasurementLteForMdt = "M8"
-	MeasurementLteForMdt_M9    MeasurementLteForMdt = "M9"
+	MeasurementLteForMdt_M1    MeasurementLteForMdt = "M1"    // #nosec G101
+	MeasurementLteForMdt_M2    MeasurementLteForMdt = "M2"    // #nosec G101
+	MeasurementLteForMdt_M3    MeasurementLteForMdt = "M3"    // #nosec G101
+	MeasurementLteForMdt_M4_DL MeasurementLteForMdt = "M4_DL" // #nosec G101
+	MeasurementLteForMdt_M4_UL MeasurementLteForMdt = "M4_UL" // #nosec G101
+	MeasurementLteForMdt_M5_DL MeasurementLteForMdt = "M5_DL" // #nosec G101
+	MeasurementLteForMdt_M5_UL MeasurementLteForMdt = "M5_UL" // #nosec G101
+	MeasurementLteForMdt_M6_DL MeasurementLteForMdt = "M6_DL" // #nosec G101
+	MeasurementLteForMdt_M6_UL MeasurementLteForMdt = "M6_UL" // #nosec G101
+	MeasurementLteForMdt_M7_DL MeasurementLteForMdt = "M7_DL" // #nosec G101
+	MeasurementLteForMdt_M7_UL MeasurementLteForMdt = "M7_UL" // #nosec G101
+	MeasurementLteForMdt_M8    MeasurementLteForMdt = "M8"    // #nosec G101
+	MeasurementLteForMdt_M9    MeasurementLteForMdt = "M9"    // #nosec G101
 )

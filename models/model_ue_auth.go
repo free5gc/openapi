@@ -16,6 +16,6 @@ type UeAuth string
 
 // List of UeAuth
 const (
-	UeAuth_AUTHORIZED     UeAuth = "AUTHORIZED"
-	UeAuth_NOT_AUTHORIZED UeAuth = "NOT_AUTHORIZED"
+	UeAuth_AUTHORIZED     UeAuth = "AUTHORIZED"     // #nosec G101
+	UeAuth_NOT_AUTHORIZED UeAuth = "NOT_AUTHORIZED" // #nosec G101
 )

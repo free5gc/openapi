@@ -17,8 +17,9 @@ import (
 )
 
 // Represents NIDD authorization data.
-type UdmNiddauAuthorizationData struct {
-	AuthorizationData []UserIdentifier `json:"authorizationData" yaml:"authorizationData" bson:"authorizationData,omitempty"`
+type Udm_NIDDAU_AuthorizationData struct {
+	AuthorizationData []Udm_NIDDAU_UserIdentifier `json:"authorizationData,omitempty" yaml:"authorizationData,omitempty" bson:"authorizationData,omitempty"`
+
 	// string with format 'date-time' as defined in OpenAPI.
-	ValidityTime *time.Time `json:"validityTime,omitempty" yaml:"validityTime" bson:"validityTime,omitempty"`
+	ValidityTime *time.Time `json:"validityTime,omitempty" yaml:"validityTime,omitempty" bson:"validityTime,omitempty"`
 }

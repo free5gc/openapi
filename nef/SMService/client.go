@@ -34,7 +34,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.SendMOSMSMessageAndTheDeliveryReportApi = (*SendMOSMSMessageAndTheDeliveryReportApiService)(&c.common)
+	c.SendMOSMSMessageAndTheDeliveryReportApi = (*SendMOSMSMessageAndTheDeliveryReportApiService)(
+		&c.common,
+	)
 
 	return c
 }

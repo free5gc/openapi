@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,5 +12,10 @@
 
 package models
 
-type AccessTypeRm struct {
-}
+type AccessTypeRm string
+
+// List of AccessTypeRm
+const (
+	AccessTypeRm_3_GPP_ACCESS     AccessTypeRm = "3GPP_ACCESS"     // #nosec G101
+	AccessTypeRm_NON_3_GPP_ACCESS AccessTypeRm = "NON_3GPP_ACCESS" // #nosec G101
+)

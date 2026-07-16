@@ -34,7 +34,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.RequestCipheringKeyDataApi = (*RequestCipheringKeyDataApiService)(&c.common)
+	c.RequestCipheringKeyDataApi = (*RequestCipheringKeyDataApiService)(
+		&c.common,
+	)
 
 	return c
 }

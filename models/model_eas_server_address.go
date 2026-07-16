@@ -14,7 +14,8 @@ package models
 
 // Represents the IP address and port of an EAS server.
 type EasServerAddress struct {
-	Ip *IpAddr `json:"ip" yaml:"ip" bson:"ip,omitempty"`
+	Ip *IpAddr `json:"ip,omitempty" yaml:"ip,omitempty" bson:"ip,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	Port int32 `json:"port" yaml:"port" bson:"port,omitempty"`
+	Port int32 `json:"port,omitempty" yaml:"port,omitempty" bson:"port,omitempty"`
 }

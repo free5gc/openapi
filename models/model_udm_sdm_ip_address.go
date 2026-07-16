@@ -12,9 +12,12 @@
 
 package models
 
-type UdmSdmIpAddress struct {
-	// String identifying a IPv4 address formatted in the 'dotted decimal' notation as defined in RFC 1166.
-	Ipv4Addr   string `json:"ipv4Addr,omitempty" yaml:"ipv4Addr" bson:"ipv4Addr,omitempty"`
-	Ipv6Addr   string `json:"ipv6Addr,omitempty" yaml:"ipv6Addr" bson:"ipv6Addr,omitempty"`
-	Ipv6Prefix string `json:"ipv6Prefix,omitempty" yaml:"ipv6Prefix" bson:"ipv6Prefix,omitempty"`
+type Udm_SDM_IpAddress struct {
+	// String identifying a IPv4 address formatted in the 'dotted decimal' notation as defined in
+	// RFC 1166.
+	Ipv4Addr string `json:"ipv4Addr,omitempty" yaml:"ipv4Addr,omitempty" bson:"ipv4Addr,omitempty"`
+
+	Ipv6Addr string `json:"ipv6Addr,omitempty" yaml:"ipv6Addr,omitempty" bson:"ipv6Addr,omitempty"`
+
+	Ipv6Prefix string `json:"ipv6Prefix,omitempty" yaml:"ipv6Prefix,omitempty" bson:"ipv6Prefix,omitempty"`
 }
