@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,11 +12,15 @@
 
 package models
 
-type ChfOfflineOnlyChargingMultipleUnitUsage struct {
+type Chf_OfflineOnlyCharging_MultipleUnitUsage struct {
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	RatingGroup       int32                                     `json:"ratingGroup" yaml:"ratingGroup" bson:"ratingGroup,omitempty"`
-	UsedUnitContainer []ChfOfflineOnlyChargingUsedUnitContainer `json:"usedUnitContainer,omitempty" yaml:"usedUnitContainer" bson:"usedUnitContainer,omitempty"`
-	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a  Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
-	UPFID                string                            `json:"uPFID,omitempty" yaml:"uPFID" bson:"uPFID,omitempty"`
-	MultihomedPDUAddress *ChfOfflineOnlyChargingPduAddress `json:"multihomedPDUAddress,omitempty" yaml:"multihomedPDUAddress" bson:"multihomedPDUAddress,omitempty"`
+	RatingGroup int32 `json:"ratingGroup,omitempty" yaml:"ratingGroup,omitempty" bson:"ratingGroup,omitempty"`
+
+	UsedUnitContainer []Chf_OfflineOnlyCharging_UsedUnitContainer `json:"usedUnitContainer,omitempty" yaml:"usedUnitContainer,omitempty" bson:"usedUnitContainer,omitempty"`
+
+	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a
+	// Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
+	UPFID string `json:"uPFID,omitempty" yaml:"uPFID,omitempty" bson:"uPFID,omitempty"`
+
+	MultihomedPDUAddress *Chf_OfflineOnlyCharging_PDUAddress `json:"multihomedPDUAddress,omitempty" yaml:"multihomedPDUAddress,omitempty" bson:"multihomedPDUAddress,omitempty"`
 }

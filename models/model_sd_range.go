@@ -14,8 +14,11 @@ package models
 
 // A range of SDs (Slice Differentiators)
 type SdRange struct {
-	// First value identifying the start of an SD range. This string shall be formatted as specified for the sd attribute of the Snssai data type in clause 5.4.4.2.
-	Start string `json:"start,omitempty" yaml:"start" bson:"start,omitempty"`
-	// Last value identifying the end of an SD range. This string shall be formatted as specified for the sd attribute of the Snssai data type in clause 5.4.4.2.
-	End string `json:"end,omitempty" yaml:"end" bson:"end,omitempty"`
+	// First value identifying the start of an SD range. This string shall be formatted as specified
+	// for the sd attribute of the Snssai data type in clause 5.4.4.2.
+	Start string `json:"start,omitempty" yaml:"start,omitempty" bson:"start,omitempty"`
+
+	// Last value identifying the end of an SD range. This string shall be formatted as specified
+	// for the sd attribute of the Snssai data type in clause 5.4.4.2.
+	End string `json:"end,omitempty" yaml:"end,omitempty" bson:"end,omitempty"`
 }

@@ -14,6 +14,7 @@ package models
 
 // a matching rule for a FQDN pattern
 type FqdnPatternMatchingRule struct {
-	Regex              string              `json:"regex,omitempty" yaml:"regex" bson:"regex,omitempty"`
-	StringMatchingRule *StringMatchingRule `json:"stringMatchingRule,omitempty" yaml:"stringMatchingRule" bson:"stringMatchingRule,omitempty"`
+	Regex string `json:"regex,omitempty" yaml:"regex,omitempty" bson:"regex,omitempty"`
+
+	StringMatchingRule *StringMatchingRule `json:"stringMatchingRule,omitempty" yaml:"stringMatchingRule,omitempty" bson:"stringMatchingRule,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,38 +12,38 @@
 
 package models
 
-type ChfOfflineOnlyChargingTriggerType string
+type Chf_OfflineOnlyCharging_TriggerType string
 
-// List of ChfOfflineOnlyChargingTriggerType
+// List of Chf_OfflineOnlyCharging_TriggerType
 const (
-	ChfOfflineOnlyChargingTriggerType_FINAL                                            ChfOfflineOnlyChargingTriggerType = "FINAL"
-	ChfOfflineOnlyChargingTriggerType_ABNORMAL_RELEASE                                 ChfOfflineOnlyChargingTriggerType = "ABNORMAL_RELEASE"
-	ChfOfflineOnlyChargingTriggerType_QOS_CHANGE                                       ChfOfflineOnlyChargingTriggerType = "QOS_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_VOLUME_LIMIT                                     ChfOfflineOnlyChargingTriggerType = "VOLUME_LIMIT"
-	ChfOfflineOnlyChargingTriggerType_TIME_LIMIT                                       ChfOfflineOnlyChargingTriggerType = "TIME_LIMIT"
-	ChfOfflineOnlyChargingTriggerType_EVENT_LIMIT                                      ChfOfflineOnlyChargingTriggerType = "EVENT_LIMIT"
-	ChfOfflineOnlyChargingTriggerType_PLMN_CHANGE                                      ChfOfflineOnlyChargingTriggerType = "PLMN_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_USER_LOCATION_CHANGE                             ChfOfflineOnlyChargingTriggerType = "USER_LOCATION_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_RAT_CHANGE                                       ChfOfflineOnlyChargingTriggerType = "RAT_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_SESSION_AMBR_CHANGE                              ChfOfflineOnlyChargingTriggerType = "SESSION_AMBR_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_UE_TIMEZONE_CHANGE                               ChfOfflineOnlyChargingTriggerType = "UE_TIMEZONE_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_TARIFF_TIME_CHANGE                               ChfOfflineOnlyChargingTriggerType = "TARIFF_TIME_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_MAX_NUMBER_OF_CHANGES_IN_CHARGING_CONDITIONS     ChfOfflineOnlyChargingTriggerType = "MAX_NUMBER_OF_CHANGES_IN_CHARGING_CONDITIONS"
-	ChfOfflineOnlyChargingTriggerType_MANAGEMENT_INTERVENTION                          ChfOfflineOnlyChargingTriggerType = "MANAGEMENT_INTERVENTION"
-	ChfOfflineOnlyChargingTriggerType_CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA ChfOfflineOnlyChargingTriggerType = "CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA"
-	ChfOfflineOnlyChargingTriggerType_CHANGE_OF_3_GPP_PS_DATA_OFF_STATUS               ChfOfflineOnlyChargingTriggerType = "CHANGE_OF_3GPP_PS_DATA_OFF_STATUS"
-	ChfOfflineOnlyChargingTriggerType_SERVING_NODE_CHANGE                              ChfOfflineOnlyChargingTriggerType = "SERVING_NODE_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_REMOVAL_OF_UPF                                   ChfOfflineOnlyChargingTriggerType = "REMOVAL_OF_UPF"
-	ChfOfflineOnlyChargingTriggerType_ADDITION_OF_UPF                                  ChfOfflineOnlyChargingTriggerType = "ADDITION_OF_UPF"
-	ChfOfflineOnlyChargingTriggerType_INSERTION_OF_ISMF                                ChfOfflineOnlyChargingTriggerType = "INSERTION_OF_ISMF"
-	ChfOfflineOnlyChargingTriggerType_REMOVAL_OF_ISMF                                  ChfOfflineOnlyChargingTriggerType = "REMOVAL_OF_ISMF"
-	ChfOfflineOnlyChargingTriggerType_CHANGE_OF_ISMF                                   ChfOfflineOnlyChargingTriggerType = "CHANGE_OF_ISMF"
-	ChfOfflineOnlyChargingTriggerType_START_OF_SERVICE_DATA_FLOW                       ChfOfflineOnlyChargingTriggerType = "START_OF_SERVICE_DATA_FLOW"
-	ChfOfflineOnlyChargingTriggerType_GFBR_GUARANTEED_STATUS_CHANGE                    ChfOfflineOnlyChargingTriggerType = "GFBR_GUARANTEED_STATUS_CHANGE"
-	ChfOfflineOnlyChargingTriggerType_HANDOVER_CANCEL                                  ChfOfflineOnlyChargingTriggerType = "HANDOVER_CANCEL"
-	ChfOfflineOnlyChargingTriggerType_HANDOVER_START                                   ChfOfflineOnlyChargingTriggerType = "HANDOVER_START"
-	ChfOfflineOnlyChargingTriggerType_HANDOVER_COMPLETE                                ChfOfflineOnlyChargingTriggerType = "HANDOVER_COMPLETE"
-	ChfOfflineOnlyChargingTriggerType_ADDITION_OF_ACCESS                               ChfOfflineOnlyChargingTriggerType = "ADDITION_OF_ACCESS"
-	ChfOfflineOnlyChargingTriggerType_REMOVAL_OF_ACCESS                                ChfOfflineOnlyChargingTriggerType = "REMOVAL_OF_ACCESS"
-	ChfOfflineOnlyChargingTriggerType_START_OF_SDF_ADDITIONAL_ACCESS                   ChfOfflineOnlyChargingTriggerType = "START_OF_SDF_ADDITIONAL_ACCESS"
+	Chf_OfflineOnlyCharging_TriggerType_FINAL                                            Chf_OfflineOnlyCharging_TriggerType = "FINAL"                                            // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_ABNORMAL_RELEASE                                 Chf_OfflineOnlyCharging_TriggerType = "ABNORMAL_RELEASE"                                 // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_QOS_CHANGE                                       Chf_OfflineOnlyCharging_TriggerType = "QOS_CHANGE"                                       // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_VOLUME_LIMIT                                     Chf_OfflineOnlyCharging_TriggerType = "VOLUME_LIMIT"                                     // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_TIME_LIMIT                                       Chf_OfflineOnlyCharging_TriggerType = "TIME_LIMIT"                                       // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_EVENT_LIMIT                                      Chf_OfflineOnlyCharging_TriggerType = "EVENT_LIMIT"                                      // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_PLMN_CHANGE                                      Chf_OfflineOnlyCharging_TriggerType = "PLMN_CHANGE"                                      // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_USER_LOCATION_CHANGE                             Chf_OfflineOnlyCharging_TriggerType = "USER_LOCATION_CHANGE"                             // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_RAT_CHANGE                                       Chf_OfflineOnlyCharging_TriggerType = "RAT_CHANGE"                                       // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_SESSION_AMBR_CHANGE                              Chf_OfflineOnlyCharging_TriggerType = "SESSION_AMBR_CHANGE"                              // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_UE_TIMEZONE_CHANGE                               Chf_OfflineOnlyCharging_TriggerType = "UE_TIMEZONE_CHANGE"                               // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_TARIFF_TIME_CHANGE                               Chf_OfflineOnlyCharging_TriggerType = "TARIFF_TIME_CHANGE"                               // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_MAX_NUMBER_OF_CHANGES_IN_CHARGING_CONDITIONS     Chf_OfflineOnlyCharging_TriggerType = "MAX_NUMBER_OF_CHANGES_IN_CHARGING_CONDITIONS"     // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_MANAGEMENT_INTERVENTION                          Chf_OfflineOnlyCharging_TriggerType = "MANAGEMENT_INTERVENTION"                          // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA Chf_OfflineOnlyCharging_TriggerType = "CHANGE_OF_UE_PRESENCE_IN_PRESENCE_REPORTING_AREA" // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_CHANGE_OF_3_GPP_PS_DATA_OFF_STATUS               Chf_OfflineOnlyCharging_TriggerType = "CHANGE_OF_3GPP_PS_DATA_OFF_STATUS"                // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_SERVING_NODE_CHANGE                              Chf_OfflineOnlyCharging_TriggerType = "SERVING_NODE_CHANGE"                              // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_REMOVAL_OF_UPF                                   Chf_OfflineOnlyCharging_TriggerType = "REMOVAL_OF_UPF"                                   // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_ADDITION_OF_UPF                                  Chf_OfflineOnlyCharging_TriggerType = "ADDITION_OF_UPF"                                  // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_INSERTION_OF_ISMF                                Chf_OfflineOnlyCharging_TriggerType = "INSERTION_OF_ISMF"                                // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_REMOVAL_OF_ISMF                                  Chf_OfflineOnlyCharging_TriggerType = "REMOVAL_OF_ISMF"                                  // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_CHANGE_OF_ISMF                                   Chf_OfflineOnlyCharging_TriggerType = "CHANGE_OF_ISMF"                                   // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_START_OF_SERVICE_DATA_FLOW                       Chf_OfflineOnlyCharging_TriggerType = "START_OF_SERVICE_DATA_FLOW"                       // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_GFBR_GUARANTEED_STATUS_CHANGE                    Chf_OfflineOnlyCharging_TriggerType = "GFBR_GUARANTEED_STATUS_CHANGE"                    // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_HANDOVER_CANCEL                                  Chf_OfflineOnlyCharging_TriggerType = "HANDOVER_CANCEL"                                  // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_HANDOVER_START                                   Chf_OfflineOnlyCharging_TriggerType = "HANDOVER_START"                                   // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_HANDOVER_COMPLETE                                Chf_OfflineOnlyCharging_TriggerType = "HANDOVER_COMPLETE"                                // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_ADDITION_OF_ACCESS                               Chf_OfflineOnlyCharging_TriggerType = "ADDITION_OF_ACCESS"                               // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_REMOVAL_OF_ACCESS                                Chf_OfflineOnlyCharging_TriggerType = "REMOVAL_OF_ACCESS"                                // #nosec G101
+	Chf_OfflineOnlyCharging_TriggerType_START_OF_SDF_ADDITIONAL_ACCESS                   Chf_OfflineOnlyCharging_TriggerType = "START_OF_SDF_ADDITIONAL_ACCESS"                   // #nosec G101
 )

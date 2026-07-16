@@ -12,9 +12,9 @@
 
 package models
 
-type NefSmContextReleaseCause string
+type Nef_SMContext_ReleaseCause string
 
-// List of NefSMContextReleaseCause
+// List of Nef_SMContext_ReleaseCause
 const (
-	NefSmContextReleaseCause_PDU_SESSION_RELEASED NefSmContextReleaseCause = "PDU_SESSION_RELEASED"
+	Nef_SMContext_ReleaseCause_PDU_SESSION_RELEASED Nef_SMContext_ReleaseCause = "PDU_SESSION_RELEASED" // #nosec G101
 )

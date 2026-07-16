@@ -17,19 +17,22 @@ import (
 	"encoding/xml"
 	"fmt"
 	"io"
-	"mime/multipart"
+	"mime"
+	multiform "mime/multipart"
 	"net"
 	"net/http"
 	"net/http/httptrace"
-	"net/textproto"
 	"net/url"
 	"os"
 	"path/filepath"
 	"reflect"
-	"strconv"
 	"strings"
+	"sync"
+	"testing"
 	"time"
 
+	"github.com/free5gc/openapi/mediatype"
+	"github.com/free5gc/openapi/mediatype/multipart"
 	"github.com/h2non/gock"
 	"github.com/pkg/errors"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/httptrace/otelhttptrace"
@@ -39,35 +42,17 @@ import (
 )
 
 const (
-	TimeoutPeriod         = 10 * time.Second
-	ReadIdleTimeoutPeriod = 1 * time.Second
-	PingTimeoutPeriod     = 1 * time.Second
+	ClientTimeout            = 10 * time.Second
+	NfmClientTimeout         = 1 * time.Second
+	TransportReadIdleTimeout = 1 * time.Second
+	TransportPingTimeout     = 2 * time.Second
 )
 
 var (
-	innerHTTP2Client = &http.Client{
-		Transport: otelhttp.NewTransport(&http2.Transport{
-			TLSClientConfig: &tls.Config{
-				InsecureSkipVerify: true, // nolint:gosec
-			},
-			ReadIdleTimeout: ReadIdleTimeoutPeriod,
-			PingTimeout:     PingTimeoutPeriod,
-		}),
-		Timeout: TimeoutPeriod,
-	}
-
-	innerHTTP2CleartextClient = &http.Client{
-		Transport: otelhttp.NewTransport(&http2.Transport{
-			AllowHTTP: true,
-			DialTLSContext: func(ctx context.Context, network, addr string, cfg *tls.Config) (net.Conn, error) {
-				dialer := &net.Dialer{}
-				return dialer.DialContext(ctx, network, addr)
-			},
-			ReadIdleTimeout: ReadIdleTimeoutPeriod,
-			PingTimeout:     PingTimeoutPeriod,
-		}),
-		Timeout: TimeoutPeriod,
-	}
+	innerHTTP2Client          = NewHttp2Client(true, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	innerHTTP2CleartextClient = NewHttp2Client(false, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	nfmHTTP2Client            = NewHttp2Client(true, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	nfmHTTP2CleartextClient   = NewHttp2Client(false, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 )
 
 type Configuration interface {
@@ -112,7 +97,7 @@ func TypeCheckParameter(obj interface{}, expected string, name string) error {
 	// Check the type is as expected.
 	if reflect.TypeOf(obj).String() != expected {
 		return fmt.Errorf(
-			"Expected %s to be of type %s but received %s.",
+			"expected %s to be of type %s but received %s",
 			name,
 			expected,
 			reflect.TypeOf(obj).String(),
@@ -136,11 +121,12 @@ func ParameterToString(obj interface{}, format string) string {
 		delimiter = ","
 	}
 
-	if value := reflect.ValueOf(obj); value.Kind() == reflect.Ptr {
+	if value := reflect.ValueOf(obj); value.Kind() == reflect.Pointer {
 		obj = value.Elem().Interface()
 	}
 
-	if jsonRegex.MatchString(format) {
+	kind := mediatype.KindOfMediaType(format)
+	if kind == mediatype.MediaKindJSON {
 		b, err := json.Marshal(obj)
 		if err != nil {
 			return ""
@@ -149,7 +135,7 @@ func ParameterToString(obj interface{}, format string) string {
 	}
 
 	if reflect.TypeOf(obj).Kind() == reflect.Slice {
-		return strings.Trim(strings.Replace(fmt.Sprint(obj), " ", delimiter, -1), "[]")
+		return strings.Trim(strings.ReplaceAll(fmt.Sprint(obj), " ", delimiter), "[]")
 	} else if t, ok := obj.(time.Time); ok {
 		return t.Format(time.RFC3339)
 	}
@@ -157,7 +143,53 @@ func ParameterToString(obj interface{}, format string) string {
 	return fmt.Sprintf("%v", obj)
 }
 
+func AddQueryParams(queryParams *url.Values, name string, obj any, format string) error {
+	if value := reflect.ValueOf(obj); value.Kind() == reflect.Pointer {
+		obj = value.Elem().Interface()
+	}
+
+	kind := mediatype.KindOfMediaType(format)
+	if kind == mediatype.MediaKindJSON {
+		b, err := json.Marshal(obj)
+		if err != nil {
+			return fmt.Errorf("failed to marshal object to json: %w", err)
+		}
+		queryParams.Add(name, string(b))
+		return nil
+	}
+
+	if reflect.TypeOf(obj).Kind() == reflect.Slice {
+		switch format {
+		case "multi":
+			for _, v := range obj.([]string) {
+				queryParams.Add(name, fmt.Sprintf("%v", v))
+			}
+		default:
+			var delimiter string
+			switch format {
+			case "pipes":
+				delimiter = "|"
+			case "ssv":
+				delimiter = " "
+			case "tsv":
+				delimiter = "\t"
+			case "csv":
+				delimiter = ","
+			}
+			queryParams.Add(name, strings.Trim(strings.ReplaceAll(fmt.Sprint(obj), " ", delimiter), "[]"))
+		}
+		return nil
+	} else if t, ok := obj.(time.Time); ok {
+		queryParams.Add(name, t.Format(time.RFC3339))
+		return nil
+	}
+
+	queryParams.Add(name, fmt.Sprintf("%v", obj))
+	return nil
+}
+
 // callAPI do the request.
+// nolint:gosec // G704: This is an internal 5GC SBA API client. The request URL is securely constructed from trusted NF profiles/configs, not user input.
 func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 	start := time.Now()
 	metricHook := cfg.Metrics()
@@ -170,15 +202,15 @@ func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 		}
 		return resp, err
 	}
-
-	if request.URL.Scheme == "https" {
+	switch request.URL.Scheme {
+	case "https":
 		resp, err := innerHTTP2Client.Do(request)
 		if metricHook != nil {
 			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
 				time.Since(start).Seconds())
 		}
 		return resp, err
-	} else if request.URL.Scheme == "http" {
+	case "http":
 		resp, err := innerHTTP2CleartextClient.Do(request)
 		if metricHook != nil {
 			metricHook(request.Method, getServiceNameFromUrl(request.URL.Path), getRespStatusCode(resp),
@@ -190,237 +222,14 @@ func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 	return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
 }
 
-func getServiceNameFromUrl(path string) string {
-	pathElements := strings.Split(path, "/")
-
-	// Avoid a panic by checking if the returned slice is non-empty, should not happen
-	if len(pathElements) == 0 {
-		return ""
-	}
-	serviceName := pathElements[0]
-	if len(pathElements) > 1 {
-		serviceName = pathElements[1]
-	}
-
-	return serviceName
-}
-
 // // Change base path to allow switching to mocks
 // func ChangeBasePath(cfg Configuration, path string) {
 // 	cfg.BasePath() = path
 
 // }
-func parseMultipartFieldParameters(str string) (contentType string, ref string, class string) {
-	for _, part := range strings.Split(str, ",") {
-		switch {
-		case strings.HasPrefix(part, "contentType:"):
-			contentType = part[12:]
-		case strings.HasPrefix(part, "ref:"):
-			ref = part[4:]
-		case strings.HasPrefix(part, "class:"):
-			class = part[6:]
-		}
-	}
-	return
-}
-
-func getContentID(v reflect.Value, ref string, class string) (contentID string, err error) {
-	recursiveVal := v
-	if ref[0] == '{' {
-		contentID = ref[1 : len(ref)-1]
-		return contentID, err
-	}
-	if class != "" {
-		var lastVal reflect.Value
-		for _, part := range strings.Split(class, ".") {
-			lastVal = recursiveVal
-			recursiveVal = recursiveVal.FieldByName(part)
-			if !recursiveVal.IsValid() {
-				return "", fmt.Errorf(
-					"Do not have reference field %s in %s for multipart",
-					part,
-					lastVal.Type().String(),
-				)
-			}
-			if recursiveVal.Kind() == reflect.Ptr {
-				if recursiveVal.IsNil() {
-					return "", nil
-				}
-				recursiveVal = recursiveVal.Elem()
-			}
-		}
-		fieldName := recursiveVal.String()
-		if i := strings.IndexRune(fieldName, '-'); i != -1 {
-			fieldName = fieldName[:i]
-		}
-		if len(fieldName) == 0 {
-			return "", fmt.Errorf("getContentID: empty class discriminator value")
-		}
-		fieldName = fieldName[:1] + strings.ToLower(fieldName[1:]) + "Info"
-		recursiveVal = lastVal.FieldByName(fieldName)
-		if recursiveVal.Kind() == reflect.Ptr {
-			if recursiveVal.IsNil() {
-				return "", nil
-			}
-			recursiveVal = recursiveVal.Elem()
-		}
-	}
-
-	for _, part := range strings.Split(ref, ".") {
-		// Guard against non-struct kinds; fixes free5gc/free5gc#1040 and #1041.
-		if !recursiveVal.IsValid() || recursiveVal.Kind() != reflect.Struct {
-			return "", fmt.Errorf(
-				"getContentID: ref %q: expected struct at component %q, got kind %v",
-				ref, part, recursiveVal.Kind(),
-			)
-		}
-		lastValType := recursiveVal.Type()
-		listIndex := -1
-
-		if start := strings.IndexRune(part, '['); start != -1 {
-			end := strings.IndexRune(part, ']')
-			listIndex, err = strconv.Atoi(part[start+1 : end])
-			if err != nil {
-				return "", err
-			}
-			part = part[:start]
-			recursiveVal = recursiveVal.FieldByName(part)
-		} else if start = strings.IndexRune(part, '('); start != -1 {
-			end := strings.IndexRune(part, ')')
-			fieldTypeString := part[start+1 : end]
-			var i int
-			for i = 0; i < lastValType.NumField(); i++ {
-				if fieldType := lastValType.Field(i).Type; strings.HasSuffix(fieldType.String(), fieldTypeString) {
-					recursiveVal = recursiveVal.Field(i)
-					break
-				}
-			}
-			if i == lastValType.NumField() {
-				return "", fmt.Errorf("Do not have reference field Type %s in %s for multipart", fieldTypeString, lastValType.String())
-			}
-		} else {
-			if recursiveVal.Kind() == reflect.Slice || recursiveVal.Kind() == reflect.Array {
-				return "", fmt.Errorf("Implicit index [0] for slice/array is not allowed when accessing field %s in %s for multipart", part, lastValType.String())
-			}
-			recursiveVal = recursiveVal.FieldByName(part)
-		}
-
-		if !recursiveVal.IsValid() {
-			return "", fmt.Errorf("Do not have reference field %s in %s for multipart", part, lastValType.String())
-		}
-		if recursiveVal.Kind() == reflect.Ptr {
-			if recursiveVal.IsNil() {
-				return "", nil
-			}
-			recursiveVal = recursiveVal.Elem()
-		}
-		if listIndex >= 0 {
-			if listIndex >= recursiveVal.Len() {
-				return "", nil
-			}
-			recursiveVal = recursiveVal.Index(listIndex)
-		}
-	}
-	contentID = recursiveVal.String()
-	return contentID, err
-}
-
-func MultipartEncode(v interface{}, body io.Writer) (string, error) {
-	val := reflect.Indirect(reflect.ValueOf(v))
-	w := multipart.NewWriter(body)
-
-	structType := val.Type()
-
-	for i := 0; i < val.NumField(); i++ {
-		if val.Field(i).IsNil() {
-			continue
-		}
-		contentType, ref, class := parseMultipartFieldParameters(structType.Field(i).Tag.Get("multipart"))
-		if contentType == "" && ref == "" && class == "" {
-			return "", errors.Errorf("type: %s no contains multipart tags", reflect.TypeOf(v).Name())
-		}
-		h := make(textproto.MIMEHeader)
-
-		if ref != "" {
-			if contentID, err := getContentID(val, ref, class); err != nil {
-				return "", err
-			} else if contentID != "" {
-				h.Set("Content-ID", contentID)
-			} else {
-				return "", fmt.Errorf("ContentID of multipart binaryData in JsonData is empty")
-			}
-		}
-		h.Set("Content-Type", contentType)
-		fieldData, err := w.CreatePart(h)
-		if err != nil {
-			return "", err
-		}
-		fieldBody, err := setBody(val.Field(i).Interface(), contentType)
-		if err != nil {
-			return "", err
-		}
-		_, err = fieldData.Write(fieldBody.Bytes())
-		if err != nil {
-			return "", err
-		}
-	}
-	err := w.Close()
-	if err != nil {
-		return "", err
-	}
-	contentType := "multipart/related; boundary=\"" + w.Boundary() + "\""
-
-	return contentType, nil
-}
 
 func StringOfValue(v interface{}) string {
 	return fmt.Sprintf("%v", v)
-}
-
-func MultipartSerialize(v interface{}) ([]byte, string, error) {
-	buffer := new(bytes.Buffer)
-	val := reflect.Indirect(reflect.ValueOf(v))
-	w := multipart.NewWriter(buffer)
-
-	structType := val.Type()
-
-	for i := 0; i < val.NumField(); i++ {
-		if val.Field(i).IsNil() {
-			continue
-		}
-		contentType, ref, class := parseMultipartFieldParameters(structType.Field(i).Tag.Get("multipart"))
-		h := make(textproto.MIMEHeader)
-
-		if ref != "" {
-			if contentID, err := getContentID(val, ref, class); err != nil {
-				return nil, "", err
-			} else if contentID != "" {
-				h.Set("Content-ID", contentID)
-			} else {
-				return nil, "", fmt.Errorf("ContentID of multipart binaryData in JsonData is empty")
-			}
-		}
-		h.Set("Content-Type", contentType)
-		fieldData, err := w.CreatePart(h)
-		if err != nil {
-			return nil, "", err
-		}
-		fieldBody, err := setBody(val.Field(i).Interface(), contentType)
-		if err != nil {
-			return nil, "", err
-		}
-		_, err = fieldData.Write(fieldBody.Bytes())
-		if err != nil {
-			return nil, "", err
-		}
-	}
-	err := w.Close()
-	if err != nil {
-		return nil, "", err
-	}
-	contentType := "multipart/related; boundary=\"" + w.Boundary() + "\""
-
-	return buffer.Bytes(), contentType, nil
 }
 
 // prepareRequest build the request
@@ -448,19 +257,11 @@ func PrepareRequest(
 			headerParams["Content-Type"] = contentType
 		}
 
-		if strings.HasPrefix(headerParams["Content-Type"], "multipart/related") {
-			body = &bytes.Buffer{}
-			contentType, err = MultipartEncode(postBody, body)
-			if err != nil {
-				return nil, err
-			}
-			headerParams["Content-Type"] = contentType
-		} else {
-			body, err = setBody(postBody, contentType)
-			if err != nil {
-				return nil, err
-			}
+		contentType, body, err = setBody(postBody, contentType)
+		if err != nil {
+			return nil, err
 		}
+		headerParams["Content-Type"] = contentType
 	}
 
 	// add form parameters and file if available.
@@ -470,7 +271,7 @@ func PrepareRequest(
 			return nil, errors.New("Cannot specify postBody and multipart form at the same time.")
 		}
 		body = &bytes.Buffer{}
-		w := multipart.NewWriter(body)
+		w := multiform.NewWriter(body)
 
 		for k, v := range formParams {
 			for _, iv := range v {
@@ -540,9 +341,9 @@ func PrepareRequest(
 
 	// Generate a new request
 	if body != nil {
-		localVarRequest, err = http.NewRequest(method, url.String(), body)
+		localVarRequest, err = http.NewRequestWithContext(ctx, method, url.String(), body)
 	} else {
-		localVarRequest, err = http.NewRequest(method, url.String(), nil)
+		localVarRequest, err = http.NewRequestWithContext(ctx, method, url.String(), nil)
 	}
 	if err != nil {
 		return nil, err
@@ -600,123 +401,49 @@ func PrepareRequest(
 	return localVarRequest, nil
 }
 
-func MultipartDeserialize(b []byte, v interface{}, boundary string) (err error) {
-	body := bytes.NewReader(b)
-	r := multipart.NewReader(body, boundary)
-	val := reflect.Indirect(reflect.ValueOf(v))
-
-	contentIDIndex := make(map[string]int)
-
-	for {
-		var part *multipart.Part
-		multipartBody := make([]byte, 1400)
-
-		// if no remaining part, break this loop
-		part, err = r.NextPart()
-		if err == io.EOF {
-			break
-		}
-		// A non-EOF error means the multipart body is malformed (truncated
-		// part, mismatched boundary, or a body that is not multipart at all).
-		// NextPart can return a nil part in that case; propagate the error so
-		// the caller can respond with 400 instead of panicking on part.Header.
-		if err != nil {
-			return fmt.Errorf("MultipartDeserialize: read next part: %w", err)
-		}
-		if part == nil {
-			return fmt.Errorf("MultipartDeserialize: nil part with nil error")
-		}
-
-		contentType := part.Header.Get("Content-Type")
-		var n int
-		n, err = part.Read(multipartBody)
-		// Read returns err == io.EOF when the part is fully consumed; any
-		// other error (e.g. unexpected EOF on a truncated part) is a real
-		// failure. Previously this branch was inverted and returned the nil
-		// error from a successful read, leaving n as the valid byte count
-		// but silently aborting the loop.
-		if err != nil && err != io.EOF {
-			return fmt.Errorf("MultipartDeserialize: read part body: %w", err)
-		}
-		multipartBody = multipartBody[:n]
-
-		kind := KindOfMediaType(contentType)
-
-		if kind == MediaKindJSON {
-			value := val.Field(0)
-			if value.Kind() == reflect.Ptr {
-				ptr := reflect.New(value.Type().Elem())
-				value.Set(ptr)
-			}
-			if err = json.Unmarshal(multipartBody, value.Interface()); err != nil {
-				return err
-			}
-			structType := val.Type()
-			for i := 1; i < structType.NumField(); i++ {
-				_, ref, class := parseMultipartFieldParameters(structType.Field(i).Tag.Get("multipart"))
-				if ref != "" {
-					if contentID, err := getContentID(val, ref, class); err != nil {
-						return err
-					} else if contentID != "" {
-						contentIDIndex[contentID] = i
-					}
-				}
-			}
-		} else {
-			contentID := part.Header.Get("Content-ID")
-			if index, ok := contentIDIndex[contentID]; ok {
-				value := val.Field(index)
-				value.SetBytes(multipartBody)
-			} else {
-				return fmt.Errorf("multipart binary data need Content-ID")
-			}
-		}
-	}
-
-	return nil
-}
-
 func Deserialize(v interface{}, b []byte, contentType string) (err error) {
 	if s, ok := v.(*string); ok {
 		*s = string(b)
 		return nil
 	}
 
-	switch KindOfMediaType(contentType) {
-	case MediaKindJSON:
+	switch mediatype.KindOfMediaType(contentType) {
+	case mediatype.MediaKindJSON:
 		if err = json.Unmarshal(b, v); err != nil {
 			return err
 		}
 		return nil
-	case MediaKindXML:
+	case mediatype.MediaKindXML:
 		if err = xml.Unmarshal(b, v); err != nil {
 			return err
 		}
 		return nil
-	case MediaKindMultipartRelated:
-		boundary := ""
-		for _, part := range strings.Split(contentType, ";") {
-			if strings.HasPrefix(part, " boundary=") {
-				boundary = part[10:]
-			}
+	case mediatype.MediaKindMultipartRelated:
+		mediaType, params, err := mime.ParseMediaType(contentType)
+		if err != nil {
+			return fmt.Errorf("parse content type: %s", err)
 		}
+		if mediaType != "multipart/related" {
+			return fmt.Errorf("undefined response type: %s", contentType)
+		}
+
+		boundary := params["boundary"]
 		if boundary == "" {
-			return errors.New("multipart/related need boundary")
+			return fmt.Errorf("boundary is empty")
 		}
-		boundary = strings.Trim(boundary, "\" ")
-		if err = MultipartDeserialize(b, v, boundary); err != nil {
+		if err = multipart.Unmarshal(boundary, b, v); err != nil {
 			return err
 		}
 		return nil
-	case MediaKindUnsupported:
-		return errors.New("undefined response type")
+	case mediatype.MediaKindUnsupported:
+		return fmt.Errorf("undefined response type: %s", contentType)
 	default:
-		return errors.New("undefined response type")
+		return fmt.Errorf("undefined response type: %s", contentType)
 	}
 }
 
 // add a file to the multipart request
-func addFile(w *multipart.Writer, fieldName, path string) error {
+func addFile(w *multiform.Writer, fieldName, path string) error {
 	file, err := os.Open(filepath.Clean(path))
 	if err != nil {
 		return err
@@ -745,10 +472,12 @@ func ReportError(format string, a ...interface{}) error {
 }
 
 // set request body from an interface{}
-func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err error) {
-	if bodyBuf == nil {
-		bodyBuf = &bytes.Buffer{}
-	}
+func setBody(body any, mediaType string) (
+	contentType string,
+	bodyBuf *bytes.Buffer,
+	err error,
+) {
+	bodyBuf = &bytes.Buffer{}
 
 	if reader, ok := body.(io.Reader); ok {
 		_, err = bodyBuf.ReadFrom(reader)
@@ -759,22 +488,23 @@ func setBody(body interface{}, contentType string) (bodyBuf *bytes.Buffer, err e
 	} else if s, ok := body.(*string); ok {
 		_, err = bodyBuf.WriteString(*s)
 	} else {
-		b, err = Serialize(body, contentType)
+		contentType, b, err = Serialize(body, mediaType)
 		if err != nil {
-			return nil, err
+			return "", nil,
+				fmt.Errorf("serialize body for mediatype %s: %w", mediaType, err)
 		}
 		_, err = bodyBuf.Write(b)
 	}
 
 	if err != nil {
-		return nil, err
+		return "", nil, err
 	}
 
 	if bodyBuf.Len() == 0 {
-		err = fmt.Errorf("Invalid body type %s\n", contentType)
-		return nil, err
+		err = fmt.Errorf("invalid body type %s", mediaType)
+		return "", nil, err
 	}
-	return bodyBuf, nil
+	return contentType, bodyBuf, nil
 }
 
 // detectContentType method is used to figure out `Request.Body` content type for request header
@@ -783,7 +513,7 @@ func detectContentType(body interface{}) string {
 	kind := reflect.TypeOf(body).Kind()
 
 	switch kind {
-	case reflect.Struct, reflect.Map, reflect.Ptr:
+	case reflect.Struct, reflect.Map, reflect.Pointer:
 		contentType = "application/json; charset=utf-8"
 	case reflect.String:
 		contentType = "text/plain; charset=utf-8"
@@ -849,10 +579,141 @@ func CacheExpires(r *http.Response) time.Time {
 	return expires
 }
 
-func InterceptH2CClient() {
-	gock.InterceptClient(innerHTTP2CleartextClient)
+// This function is only used in test cases.
+func InterceptInnerHttp2Client(t *testing.T, https bool) {
+	c := innerHTTP2CleartextClient
+	if https {
+		c = innerHTTP2Client
+	}
+	observer := func(request *http.Request, mock gock.Mock) {
+		if mock == nil {
+			var body []byte
+			var err error
+			if request != nil && request.Body != nil {
+				body, err = io.ReadAll(request.Body)
+				if err != nil {
+					fmt.Printf("err=%s\n", err)
+				}
+			}
+			fmt.Printf("\033[31mNo matching stub for: method:%s, url:%s, body:%s\033[0m\n",
+				request.Method,
+				request.URL.String(),
+				body)
+		}
+	}
+	gock.Observe(observer)
+	t.Cleanup(func() {
+		gock.RestoreClient(c)
+		gock.Observe(nil)
+	})
+	gock.InterceptClient(c)
 }
 
-func RestoreH2CClient() {
-	gock.RestoreClient(innerHTTP2CleartextClient)
+type HTTP2CleartextClient struct {
+	client *http.Client
+}
+
+var (
+	innerHTTP2CleartextClientInstance *HTTP2CleartextClient
+	nfmHTTP2CleartextClientInstance   *HTTP2CleartextClient
+	onceInnerHTTP2CleartextClient     sync.Once
+	onceNfmHTTP2CleartextClient       sync.Once
+)
+
+func GetInnerHTTP2CleartextClient() *HTTP2CleartextClient {
+	onceInnerHTTP2CleartextClient.Do(func() {
+		innerHTTP2CleartextClientInstance = &HTTP2CleartextClient{
+			client: innerHTTP2CleartextClient,
+		}
+	})
+
+	return innerHTTP2CleartextClientInstance
+}
+
+func GetNfmHTTP2CleartextClient() *HTTP2CleartextClient {
+	onceNfmHTTP2CleartextClient.Do(func() {
+		nfmHTTP2CleartextClientInstance = &HTTP2CleartextClient{
+			client: nfmHTTP2CleartextClient,
+		}
+	})
+
+	return nfmHTTP2CleartextClientInstance
+}
+
+func (h2c *HTTP2CleartextClient) SetHttpTimeout(t time.Duration) {
+	h2c.client.Timeout = t
+}
+
+func (h2c *HTTP2CleartextClient) SetTransport(
+	readIdleTimeout time.Duration,
+	pingTimeout time.Duration,
+	dialFunc func(ctx context.Context, network string, addr string, cfg *tls.Config) (net.Conn, error),
+) {
+	transport := &http2.Transport{
+		AllowHTTP:       true,
+		ReadIdleTimeout: readIdleTimeout,
+		PingTimeout:     pingTimeout,
+	}
+
+	if dialFunc != nil {
+		transport.DialTLSContext = dialFunc
+	} else {
+		transport.DialTLSContext = func(ctx context.Context, network, addr string, cfg *tls.Config) (net.Conn, error) {
+			dialer := &net.Dialer{}
+			return dialer.DialContext(ctx, network, addr)
+		}
+	}
+	h2c.client.Transport = otelhttp.NewTransport(transport)
+}
+
+func NewHttp2Client(
+	https bool,
+	clientTimeout, transportReadIdleTimeout, transportPingTimeout time.Duration,
+) *http.Client {
+	var tlsCfg *tls.Config
+	var allowHTTP bool
+	var dialFunc func(ctx context.Context, network string, addr string, cfg *tls.Config) (net.Conn, error)
+
+	if https {
+		tlsCfg = &tls.Config{
+			InsecureSkipVerify: true, // #nosec G402
+		}
+	} else {
+		allowHTTP = true
+		dialFunc = func(ctx context.Context, network string, addr string, cfg *tls.Config) (net.Conn, error) {
+			dialer := &net.Dialer{}
+			return dialer.DialContext(ctx, network, addr)
+		}
+	}
+
+	return &http.Client{
+		Transport: otelhttp.NewTransport(&http2.Transport{
+			TLSClientConfig: tlsCfg,
+			AllowHTTP:       allowHTTP,
+			DialTLSContext:  dialFunc,
+			ReadIdleTimeout: transportReadIdleTimeout,
+			PingTimeout:     transportPingTimeout,
+		}),
+		Timeout: clientTimeout,
+	}
+}
+
+// This function is only used in test cases.
+func InterceptNfmHttp2Client(t *testing.T, https bool) {
+	c := nfmHTTP2CleartextClient
+	if https {
+		c = nfmHTTP2Client
+	}
+	t.Cleanup(func() {
+		gock.RestoreClient(c)
+	})
+	gock.InterceptClient(c)
+}
+
+func NewNfmHttp2Client(https bool) *http.Client {
+	if https {
+		return nfmHTTP2Client
+	} else {
+		return nfmHTTP2CleartextClient
+	}
 }

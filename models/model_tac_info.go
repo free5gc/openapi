@@ -14,5 +14,5 @@ package models
 
 // contains tracking area information (tracking area codes).
 type TacInfo struct {
-	TacList []string `json:"tacList" yaml:"tacList" bson:"tacList,omitempty"`
+	TacList []string `json:"tacList,omitempty" yaml:"tacList,omitempty" bson:"tacList,omitempty"`
 }

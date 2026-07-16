@@ -27,7 +27,7 @@ func (suppoertedFeature SupportedFeature) String() string {
 // GetFeature - get nth feature is supported
 func (suppoertedFeature SupportedFeature) GetFeature(n int) bool {
 	byteIndex := len(suppoertedFeature) - ((n - 1) / 8) - 1
-	bitShift := uint8((n - 1) % 8)
+	bitShift := uint8((n - 1) % 8) // #nosec G115
 
 	if byteIndex < 0 {
 		return false

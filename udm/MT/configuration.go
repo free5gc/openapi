@@ -13,9 +13,10 @@
 package MT
 
 import (
-	"github.com/free5gc/openapi"
 	"net/http"
 	"strings"
+
+	"github.com/free5gc/openapi"
 )
 
 type Configuration struct {
@@ -34,7 +35,6 @@ func NewConfiguration() *Configuration {
 		url:           "{apiRoot}/nudm-mt/v1",
 		defaultHeader: make(map[string]string),
 		userAgent:     "OpenAPI-Generator/1.0.0/go",
-		MetricsHook:   nil, // no-op unless the caller sets it
 	}
 	return cfg
 }
@@ -43,7 +43,7 @@ func (c *Configuration) SetBasePath(apiRoot string) {
 	url := c.url
 
 	// Replace apiRoot
-	url = strings.Replace(url, "{"+"apiRoot"+"}", apiRoot, -1)
+	url = strings.ReplaceAll(url, "{"+"apiRoot"+"}", apiRoot)
 
 	c.basePath = url
 }

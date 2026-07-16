@@ -13,6 +13,6 @@
 package models
 
 // Representation of the payload of a Deliver Request.
-type SmfNiddDeliverReqData struct {
-	MtData *RefToBinaryData `json:"mtData" yaml:"mtData" bson:"mtData,omitempty"`
+type Smf_NIDD_DeliverReqData struct {
+	MtData *RefToBinaryData `json:"mtData,omitempty" yaml:"mtData,omitempty" bson:"mtData,omitempty"`
 }

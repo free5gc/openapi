@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,10 +12,10 @@
 
 package models
 
-type ChfOfflineOnlyChargingResultCode string
+type Chf_OfflineOnlyCharging_ResultCode string
 
-// List of ChfOfflineOnlyChargingResultCode
+// List of Chf_OfflineOnlyCharging_ResultCode
 const (
-	ChfOfflineOnlyChargingResultCode_SUCCESS                 ChfOfflineOnlyChargingResultCode = "SUCCESS"
-	ChfOfflineOnlyChargingResultCode_END_USER_SERVICE_DENIED ChfOfflineOnlyChargingResultCode = "END_USER_SERVICE_DENIED"
+	Chf_OfflineOnlyCharging_ResultCode_SUCCESS                 Chf_OfflineOnlyCharging_ResultCode = "SUCCESS"                 // #nosec G101
+	Chf_OfflineOnlyCharging_ResultCode_END_USER_SERVICE_DENIED Chf_OfflineOnlyCharging_ResultCode = "END_USER_SERVICE_DENIED" // #nosec G101
 )

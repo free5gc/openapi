@@ -13,13 +13,14 @@
 package GroupIDmap
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -40,26 +41,30 @@ NFGroupIDsDocumentApiService Retrieves NF-Group IDs for provided Subscriber and 
 
 // GetNfGroupIDsRequest
 type GetNfGroupIDsRequest struct {
-	NfType       []models.NrfNfManagementNfType
+	NfType       []models.Nrf_NFMgmt_NFType
 	SubscriberId *string
 }
 
-func (r *GetNfGroupIDsRequest) SetNfType(NfType []models.NrfNfManagementNfType) {
+func (r *GetNfGroupIDsRequest) SetNfType(NfType []models.Nrf_NFMgmt_NFType) {
 	r.NfType = NfType
 }
+
 func (r *GetNfGroupIDsRequest) SetSubscriberId(SubscriberId string) {
 	r.SubscriberId = &SubscriberId
 }
 
 type GetNfGroupIDsResponse struct {
-	GetNfGroupIDsResponse200 map[string]string
+	String map[string]string
 }
 
 type GetNfGroupIDsError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, request *GetNfGroupIDsRequest) (*GetNfGroupIDsResponse, error) {
+func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(
+	ctx context.Context,
+	request *GetNfGroupIDsRequest,
+) (*GetNfGroupIDsResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -68,6 +73,7 @@ func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, reques
 		localVarFileBytes    []byte
 		localVarReturnValue  GetNfGroupIDsResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/nf-group-ids"
@@ -82,12 +88,18 @@ func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, reques
 		if len(request.NfType) < 1 {
 			return &localVarReturnValue, openapi.ReportError("NfType must have at least 1 elements")
 		}
-		localVarQueryParams.Add("nf-type", openapi.ParameterToString(request.NfType, "csv"))
+		err := openapi.AddQueryParams(&localVarQueryParams, "nf-type", request.NfType, "csv")
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.SubscriberId == nil {
 		return nil, openapi.ReportError("SubscriberId must be non nil")
 	} else {
-		localVarQueryParams.Add("subscriberId", openapi.ParameterToString(request.SubscriberId, "multi"))
+		err := openapi.AddQueryParams(&localVarQueryParams, "subscriberId", request.SubscriberId, "multi")
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -95,7 +107,10 @@ func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, reques
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -103,7 +118,19 @@ func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, reques
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -113,7 +140,7 @@ func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, reques
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -126,17 +153,28 @@ func (a *NFGroupIDsDocumentApiService) GetNfGroupIDs(ctx context.Context, reques
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.GetNfGroupIDsResponse200, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+
+		err = openapi.Deserialize(
+			&localVarReturnValue.String,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 404:
 		var v GetNfGroupIDsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

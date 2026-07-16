@@ -16,11 +16,11 @@ type JobType string
 
 // List of JobType
 const (
-	JobType_IMMEDIATE_MDT_ONLY      JobType = "IMMEDIATE_MDT_ONLY"
-	JobType_LOGGED_MDT_ONLY         JobType = "LOGGED_MDT_ONLY"
-	JobType_TRACE_ONLY              JobType = "TRACE_ONLY"
-	JobType_IMMEDIATE_MDT_AND_TRACE JobType = "IMMEDIATE_MDT_AND_TRACE"
-	JobType_RLF_REPORTS_ONLY        JobType = "RLF_REPORTS_ONLY"
-	JobType_RCEF_REPORTS_ONLY       JobType = "RCEF_REPORTS_ONLY"
-	JobType_LOGGED_MBSFN_MDT        JobType = "LOGGED_MBSFN_MDT"
+	JobType_IMMEDIATE_MDT_ONLY      JobType = "IMMEDIATE_MDT_ONLY"      // #nosec G101
+	JobType_LOGGED_MDT_ONLY         JobType = "LOGGED_MDT_ONLY"         // #nosec G101
+	JobType_TRACE_ONLY              JobType = "TRACE_ONLY"              // #nosec G101
+	JobType_IMMEDIATE_MDT_AND_TRACE JobType = "IMMEDIATE_MDT_AND_TRACE" // #nosec G101
+	JobType_RLF_REPORTS_ONLY        JobType = "RLF_REPORTS_ONLY"        // #nosec G101
+	JobType_RCEF_REPORTS_ONLY       JobType = "RCEF_REPORTS_ONLY"       // #nosec G101
+	JobType_LOGGED_MBSFN_MDT        JobType = "LOGGED_MBSFN_MDT"        // #nosec G101
 )

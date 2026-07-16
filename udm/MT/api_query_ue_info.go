@@ -13,13 +13,14 @@
 package MT
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -49,22 +50,27 @@ type QueryUeInfoRequest struct {
 func (r *QueryUeInfoRequest) SetSupi(Supi string) {
 	r.Supi = &Supi
 }
+
 func (r *QueryUeInfoRequest) SetFields(Fields []string) {
 	r.Fields = Fields
 }
+
 func (r *QueryUeInfoRequest) SetSupportedFeatures(SupportedFeatures string) {
 	r.SupportedFeatures = &SupportedFeatures
 }
 
 type QueryUeInfoResponse struct {
-	UdmMtUeInfo models.UdmMtUeInfo
+	Udm_MT_UeInfo *models.Udm_MT_UeInfo
 }
 
 type QueryUeInfoError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryUeInfoRequest) (*QueryUeInfoResponse, error) {
+func (a *QueryUEInfoApiService) QueryUeInfo(
+	ctx context.Context,
+	request *QueryUeInfoRequest,
+) (*QueryUeInfoResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -73,10 +79,15 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		localVarFileBytes    []byte
 		localVarReturnValue  QueryUeInfoResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/{supi}"
-	localVarPath = strings.Replace(localVarPath, "{"+"supi"+"}", openapi.StringOfValue(*request.Supi), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"supi"+"}",
+		openapi.StringOfValue(*request.Supi),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -88,10 +99,21 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		if len(request.Fields) < 1 {
 			return &localVarReturnValue, openapi.ReportError("Fields must have at least 1 elements")
 		}
-		localVarQueryParams.Add("fields", openapi.ParameterToString(request.Fields, "csv"))
+		err := openapi.AddQueryParams(&localVarQueryParams, "fields", request.Fields, "csv")
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.SupportedFeatures != nil {
-		localVarQueryParams.Add("supported-features", openapi.ParameterToString(request.SupportedFeatures, "multi"))
+		err := openapi.AddQueryParams(
+			&localVarQueryParams,
+			"supported-features",
+			request.SupportedFeatures,
+			"multi",
+		)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -99,7 +121,10 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -107,7 +132,19 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +154,7 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -130,17 +167,28 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.UdmMtUeInfo, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Udm_MT_UeInfo = new(models.Udm_MT_UeInfo)
+		err = openapi.Deserialize(
+			localVarReturnValue.Udm_MT_UeInfo,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 400:
 		var v QueryUeInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -148,7 +196,12 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		return nil, apiError
 	case 404:
 		var v QueryUeInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -156,7 +209,12 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		return nil, apiError
 	case 500:
 		var v QueryUeInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -164,7 +222,12 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		return nil, apiError
 	case 501:
 		var v QueryUeInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -172,7 +235,12 @@ func (a *QueryUEInfoApiService) QueryUeInfo(ctx context.Context, request *QueryU
 		return nil, apiError
 	case 503:
 		var v QueryUeInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

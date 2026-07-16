@@ -16,7 +16,7 @@ type DlDataDeliveryStatus string
 
 // List of DlDataDeliveryStatus
 const (
-	DlDataDeliveryStatus_BUFFERED    DlDataDeliveryStatus = "BUFFERED"
-	DlDataDeliveryStatus_TRANSMITTED DlDataDeliveryStatus = "TRANSMITTED"
-	DlDataDeliveryStatus_DISCARDED   DlDataDeliveryStatus = "DISCARDED"
+	DlDataDeliveryStatus_BUFFERED    DlDataDeliveryStatus = "BUFFERED"    // #nosec G101
+	DlDataDeliveryStatus_TRANSMITTED DlDataDeliveryStatus = "TRANSMITTED" // #nosec G101
+	DlDataDeliveryStatus_DISCARDED   DlDataDeliveryStatus = "DISCARDED"   // #nosec G101
 )

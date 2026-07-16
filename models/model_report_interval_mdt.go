@@ -16,17 +16,17 @@ type ReportIntervalMdt string
 
 // List of ReportIntervalMdt
 const (
-	ReportIntervalMdt__120     ReportIntervalMdt = "120"
-	ReportIntervalMdt__240     ReportIntervalMdt = "240"
-	ReportIntervalMdt__480     ReportIntervalMdt = "480"
-	ReportIntervalMdt__640     ReportIntervalMdt = "640"
-	ReportIntervalMdt__1024    ReportIntervalMdt = "1024"
-	ReportIntervalMdt__2048    ReportIntervalMdt = "2048"
-	ReportIntervalMdt__5120    ReportIntervalMdt = "5120"
-	ReportIntervalMdt__10240   ReportIntervalMdt = "10240"
-	ReportIntervalMdt__60000   ReportIntervalMdt = "60000"
-	ReportIntervalMdt__360000  ReportIntervalMdt = "360000"
-	ReportIntervalMdt__720000  ReportIntervalMdt = "720000"
-	ReportIntervalMdt__1800000 ReportIntervalMdt = "1800000"
-	ReportIntervalMdt__3600000 ReportIntervalMdt = "3600000"
+	ReportIntervalMdt_120     ReportIntervalMdt = "120"     // #nosec G101
+	ReportIntervalMdt_240     ReportIntervalMdt = "240"     // #nosec G101
+	ReportIntervalMdt_480     ReportIntervalMdt = "480"     // #nosec G101
+	ReportIntervalMdt_640     ReportIntervalMdt = "640"     // #nosec G101
+	ReportIntervalMdt_1024    ReportIntervalMdt = "1024"    // #nosec G101
+	ReportIntervalMdt_2048    ReportIntervalMdt = "2048"    // #nosec G101
+	ReportIntervalMdt_5120    ReportIntervalMdt = "5120"    // #nosec G101
+	ReportIntervalMdt_10240   ReportIntervalMdt = "10240"   // #nosec G101
+	ReportIntervalMdt_60000   ReportIntervalMdt = "60000"   // #nosec G101
+	ReportIntervalMdt_360000  ReportIntervalMdt = "360000"  // #nosec G101
+	ReportIntervalMdt_720000  ReportIntervalMdt = "720000"  // #nosec G101
+	ReportIntervalMdt_1800000 ReportIntervalMdt = "1800000" // #nosec G101
+	ReportIntervalMdt_3600000 ReportIntervalMdt = "3600000" // #nosec G101
 )

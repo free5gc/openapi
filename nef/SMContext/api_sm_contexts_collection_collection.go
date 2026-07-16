@@ -13,13 +13,15 @@
 package SMContext
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
+	"regexp"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -32,33 +34,38 @@ type SMContextsCollectionCollectionApiService service
 /*
 SMContextsCollectionCollectionApiService Create SM Context
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param NefSmContextSmContextCreateData -
+ * @param RequestBody -
 
 @return CreateResponse
 */
 
 // CreateRequest
 type CreateRequest struct {
-	NefSmContextSmContextCreateData *models.NefSmContextSmContextCreateData
+	RequestBody *models.Nef_SMContext_SmContextCreateData
 }
 
-func (r *CreateRequest) SetNefSmContextSmContextCreateData(NefSmContextSmContextCreateData models.NefSmContextSmContextCreateData) {
-	r.NefSmContextSmContextCreateData = &NefSmContextSmContextCreateData
+func (r *CreateRequest) SetRequestBody(
+	RequestBody models.Nef_SMContext_SmContextCreateData,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type CreateResponse struct {
-	Location                         string
-	NefSmContextSmContextCreatedData models.NefSmContextSmContextCreatedData
+	Location                           string
+	Nef_SMContext_SmContextCreatedData *models.Nef_SMContext_SmContextCreatedData
 }
 
 type CreateError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, request *CreateRequest) (*CreateResponse, error) {
+func (a *SMContextsCollectionCollectionApiService) Create(
+	ctx context.Context,
+	request *CreateRequest,
+) (*CreateResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -67,6 +74,7 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		localVarFileBytes    []byte
 		localVarReturnValue  CreateResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/sm-contexts"
@@ -80,7 +88,10 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -89,9 +100,21 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 	}
 
 	// body params
-	localVarPostBody = request.NefSmContextSmContextCreateData
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +124,7 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -114,38 +137,67 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 201:
-		err = openapi.Deserialize(&localVarReturnValue.NefSmContextSmContextCreatedData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Nef_SMContext_SmContextCreatedData = new(
+			models.Nef_SMContext_SmContextCreatedData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Nef_SMContext_SmContextCreatedData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
-		localVarReturnValue.Location = localVarHTTPResponse.Header.Get("Location")
+		localVarReturnValue.Location = localVarHTTPResponse.Header.Get(
+			"Location",
+		)
 		return &localVarReturnValue, nil
 	case 307:
 		var v CreateError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v CreateError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -153,7 +205,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 403:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -161,7 +218,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 411:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -169,7 +231,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 413:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -177,7 +244,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 415:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -185,7 +257,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 429:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -193,7 +270,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 500:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -201,7 +283,12 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 		return nil, apiError
 	case 503:
 		var v CreateError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -212,37 +299,47 @@ func (a *SMContextsCollectionCollectionApiService) Create(ctx context.Context, r
 	}
 }
 
-// CreateStatusNotifyPostRequest
-type CreateStatusNotifyPostRequest struct {
-	NefSmContextSmContextStatusNotification *models.NefSmContextSmContextStatusNotification
+// CreateStatusNotifyRequest
+type CreateStatusNotifyRequest struct {
+	RequestBody *models.Nef_SMContext_SmContextStatusNotification
 }
 
-func (r *CreateStatusNotifyPostRequest) SetNefSmContextSmContextStatusNotification(NefSmContextSmContextStatusNotification models.NefSmContextSmContextStatusNotification) {
-	r.NefSmContextSmContextStatusNotification = &NefSmContextSmContextStatusNotification
+func (r *CreateStatusNotifyRequest) SetRequestBody(
+	RequestBody models.Nef_SMContext_SmContextStatusNotification,
+) {
+	r.RequestBody = &RequestBody
 }
 
-type CreateStatusNotifyPostResponse struct {
+type CreateStatusNotifyResponse struct{}
+
+type CreateStatusNotifyError struct {
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-type CreateStatusNotifyPostError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
-}
-
-func (a *SMContextsCollectionCollectionApiService) CreateStatusNotifyPost(ctx context.Context, uri string, request *CreateStatusNotifyPostRequest) (*CreateStatusNotifyPostResponse, error) {
+func (a *SMContextsCollectionCollectionApiService) CreateStatusNotify(
+	ctx context.Context,
+	uri string,
+	request *CreateStatusNotifyRequest,
+) (*CreateStatusNotifyResponse, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("POST")
+		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  CreateStatusNotifyPostResponse
+		localVarReturnValue  CreateStatusNotifyResponse
 	)
 
 	// create path and map variables
-	localVarPath := uri
+	expression := "{$request.body#/notificationUri}"
+	re := regexp.MustCompile(`\{.*\}`)
+	localVarPath := re.ReplaceAllString(
+		expression,
+		uri,
+	) // replace bracket {} in the path with the uri
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -253,7 +350,10 @@ func (a *SMContextsCollectionCollectionApiService) CreateStatusNotifyPost(ctx co
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -262,9 +362,21 @@ func (a *SMContextsCollectionCollectionApiService) CreateStatusNotifyPost(ctx co
 	}
 
 	// body params
-	localVarPostBody = request.NefSmContextSmContextStatusNotification
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -274,7 +386,7 @@ func (a *SMContextsCollectionCollectionApiService) CreateStatusNotifyPost(ctx co
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -287,87 +399,137 @@ func (a *SMContextsCollectionCollectionApiService) CreateStatusNotifyPost(ctx co
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 204:
 		return &localVarReturnValue, nil
 	case 307:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 411:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 413:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 415:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 429:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 500:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 503:
-		var v CreateStatusNotifyPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v CreateStatusNotifyError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	default:
-		return &localVarReturnValue, nil
+		return nil, apiError
 	}
 }

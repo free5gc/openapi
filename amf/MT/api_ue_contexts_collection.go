@@ -13,13 +13,15 @@
 package MT
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
+	"regexp"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -32,32 +34,37 @@ type UeContextsCollectionApiService service
 /*
 UeContextsCollectionApiService Namf_MT EnableGroupReachability service Operation
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param EnableGroupReachabilityReqData - list of UEs requested to be made reachable for the related TMGI
+ * @param RequestBody - list of UEs requested to be made reachable for the related TMGI
 
 @return EnableGroupReachabilityResponse
 */
 
 // EnableGroupReachabilityRequest
 type EnableGroupReachabilityRequest struct {
-	EnableGroupReachabilityReqData *models.EnableGroupReachabilityReqData
+	RequestBody *models.Amf_MT_EnableGroupReachabilityReqData
 }
 
-func (r *EnableGroupReachabilityRequest) SetEnableGroupReachabilityReqData(EnableGroupReachabilityReqData models.EnableGroupReachabilityReqData) {
-	r.EnableGroupReachabilityReqData = &EnableGroupReachabilityReqData
+func (r *EnableGroupReachabilityRequest) SetRequestBody(
+	RequestBody models.Amf_MT_EnableGroupReachabilityReqData,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type EnableGroupReachabilityResponse struct {
-	EnableGroupReachabilityRspData models.EnableGroupReachabilityRspData
+	Amf_MT_EnableGroupReachabilityRspData *models.Amf_MT_EnableGroupReachabilityRspData
 }
 
 type EnableGroupReachabilityError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Context, request *EnableGroupReachabilityRequest) (*EnableGroupReachabilityResponse, error) {
+func (a *UeContextsCollectionApiService) EnableGroupReachability(
+	ctx context.Context,
+	request *EnableGroupReachabilityRequest,
+) (*EnableGroupReachabilityResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -66,6 +73,7 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		localVarFileBytes    []byte
 		localVarReturnValue  EnableGroupReachabilityResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/ue-contexts/enable-group-reachability"
@@ -79,7 +87,10 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -88,9 +99,21 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 	}
 
 	// body params
-	localVarPostBody = request.EnableGroupReachabilityReqData
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -100,7 +123,7 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -113,37 +136,64 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.EnableGroupReachabilityRspData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Amf_MT_EnableGroupReachabilityRspData = new(
+			models.Amf_MT_EnableGroupReachabilityRspData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Amf_MT_EnableGroupReachabilityRspData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 307:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -151,7 +201,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 403:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -159,7 +214,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 404:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -167,7 +227,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 411:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -175,7 +240,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 413:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -183,7 +253,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 415:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -191,7 +266,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 429:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -199,7 +279,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 500:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -207,7 +292,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 503:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -215,7 +305,12 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 		return nil, apiError
 	case 504:
 		var v EnableGroupReachabilityError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -226,37 +321,47 @@ func (a *UeContextsCollectionApiService) EnableGroupReachability(ctx context.Con
 	}
 }
 
-// EnableGroupReachabilityReachabilityNotificationPostRequest
-type EnableGroupReachabilityReachabilityNotificationPostRequest struct {
-	ReachabilityNotificationData *models.ReachabilityNotificationData
+// EnableGroupReachabilityReachabilityNotificationRequest
+type EnableGroupReachabilityReachabilityNotificationRequest struct {
+	RequestBody *models.Amf_MT_ReachabilityNotificationData
 }
 
-func (r *EnableGroupReachabilityReachabilityNotificationPostRequest) SetReachabilityNotificationData(ReachabilityNotificationData models.ReachabilityNotificationData) {
-	r.ReachabilityNotificationData = &ReachabilityNotificationData
+func (r *EnableGroupReachabilityReachabilityNotificationRequest) SetRequestBody(
+	RequestBody models.Amf_MT_ReachabilityNotificationData,
+) {
+	r.RequestBody = &RequestBody
 }
 
-type EnableGroupReachabilityReachabilityNotificationPostResponse struct {
+type EnableGroupReachabilityReachabilityNotificationResponse struct{}
+
+type EnableGroupReachabilityReachabilityNotificationError struct {
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-type EnableGroupReachabilityReachabilityNotificationPostError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
-}
-
-func (a *UeContextsCollectionApiService) EnableGroupReachabilityReachabilityNotificationPost(ctx context.Context, uri string, request *EnableGroupReachabilityReachabilityNotificationPostRequest) (*EnableGroupReachabilityReachabilityNotificationPostResponse, error) {
+func (a *UeContextsCollectionApiService) EnableGroupReachabilityReachabilityNotification(
+	ctx context.Context,
+	uri string,
+	request *EnableGroupReachabilityReachabilityNotificationRequest,
+) (*EnableGroupReachabilityReachabilityNotificationResponse, error) {
 	var (
-		localVarHTTPMethod   = strings.ToUpper("POST")
+		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
 		localVarFormFileName string
 		localVarFileName     string
 		localVarFileBytes    []byte
-		localVarReturnValue  EnableGroupReachabilityReachabilityNotificationPostResponse
+		localVarReturnValue  EnableGroupReachabilityReachabilityNotificationResponse
 	)
 
 	// create path and map variables
-	localVarPath := uri
+	expression := "{request.body#/reachabilityNotifyUri}"
+	re := regexp.MustCompile(`\{.*\}`)
+	localVarPath := re.ReplaceAllString(
+		expression,
+		uri,
+	) // replace bracket {} in the path with the uri
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -267,7 +372,10 @@ func (a *UeContextsCollectionApiService) EnableGroupReachabilityReachabilityNoti
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -276,9 +384,21 @@ func (a *UeContextsCollectionApiService) EnableGroupReachabilityReachabilityNoti
 	}
 
 	// body params
-	localVarPostBody = request.ReachabilityNotificationData
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -288,7 +408,7 @@ func (a *UeContextsCollectionApiService) EnableGroupReachabilityReachabilityNoti
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -301,103 +421,163 @@ func (a *UeContextsCollectionApiService) EnableGroupReachabilityReachabilityNoti
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 204:
 		return &localVarReturnValue, nil
 	case 307:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 403:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 404:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 411:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 413:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 415:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 429:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 500:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 503:
-		var v EnableGroupReachabilityReachabilityNotificationPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		var v EnableGroupReachabilityReachabilityNotificationError
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	default:
-		return &localVarReturnValue, nil
+		return nil, apiError
 	}
 }

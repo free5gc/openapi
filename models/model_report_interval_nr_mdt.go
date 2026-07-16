@@ -16,19 +16,19 @@ type ReportIntervalNrMdt string
 
 // List of ReportIntervalNrMdt
 const (
-	ReportIntervalNrMdt__120     ReportIntervalNrMdt = "120"
-	ReportIntervalNrMdt__240     ReportIntervalNrMdt = "240"
-	ReportIntervalNrMdt__480     ReportIntervalNrMdt = "480"
-	ReportIntervalNrMdt__640     ReportIntervalNrMdt = "640"
-	ReportIntervalNrMdt__1024    ReportIntervalNrMdt = "1024"
-	ReportIntervalNrMdt__2048    ReportIntervalNrMdt = "2048"
-	ReportIntervalNrMdt__5120    ReportIntervalNrMdt = "5120"
-	ReportIntervalNrMdt__10240   ReportIntervalNrMdt = "10240"
-	ReportIntervalNrMdt__20480   ReportIntervalNrMdt = "20480"
-	ReportIntervalNrMdt__40960   ReportIntervalNrMdt = "40960"
-	ReportIntervalNrMdt__60000   ReportIntervalNrMdt = "60000"
-	ReportIntervalNrMdt__360000  ReportIntervalNrMdt = "360000"
-	ReportIntervalNrMdt__720000  ReportIntervalNrMdt = "720000"
-	ReportIntervalNrMdt__1800000 ReportIntervalNrMdt = "1800000"
-	ReportIntervalNrMdt__3600000 ReportIntervalNrMdt = "3600000"
+	ReportIntervalNrMdt_120     ReportIntervalNrMdt = "120"     // #nosec G101
+	ReportIntervalNrMdt_240     ReportIntervalNrMdt = "240"     // #nosec G101
+	ReportIntervalNrMdt_480     ReportIntervalNrMdt = "480"     // #nosec G101
+	ReportIntervalNrMdt_640     ReportIntervalNrMdt = "640"     // #nosec G101
+	ReportIntervalNrMdt_1024    ReportIntervalNrMdt = "1024"    // #nosec G101
+	ReportIntervalNrMdt_2048    ReportIntervalNrMdt = "2048"    // #nosec G101
+	ReportIntervalNrMdt_5120    ReportIntervalNrMdt = "5120"    // #nosec G101
+	ReportIntervalNrMdt_10240   ReportIntervalNrMdt = "10240"   // #nosec G101
+	ReportIntervalNrMdt_20480   ReportIntervalNrMdt = "20480"   // #nosec G101
+	ReportIntervalNrMdt_40960   ReportIntervalNrMdt = "40960"   // #nosec G101
+	ReportIntervalNrMdt_60000   ReportIntervalNrMdt = "60000"   // #nosec G101
+	ReportIntervalNrMdt_360000  ReportIntervalNrMdt = "360000"  // #nosec G101
+	ReportIntervalNrMdt_720000  ReportIntervalNrMdt = "720000"  // #nosec G101
+	ReportIntervalNrMdt_1800000 ReportIntervalNrMdt = "1800000" // #nosec G101
+	ReportIntervalNrMdt_3600000 ReportIntervalNrMdt = "3600000" // #nosec G101
 )

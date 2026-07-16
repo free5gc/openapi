@@ -14,10 +14,17 @@ package models
 
 // Represent MBS Media Information.
 type MbsMediaInfo struct {
-	MbsMedType MediaType `json:"mbsMedType,omitempty" yaml:"mbsMedType" bson:"mbsMedType,omitempty"`
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	MaxReqMbsBwDl string `json:"maxReqMbsBwDl,omitempty" yaml:"maxReqMbsBwDl" bson:"maxReqMbsBwDl,omitempty"`
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	MinReqMbsBwDl string   `json:"minReqMbsBwDl,omitempty" yaml:"minReqMbsBwDl" bson:"minReqMbsBwDl,omitempty"`
-	Codecs        []string `json:"codecs,omitempty" yaml:"codecs" bson:"codecs,omitempty"`
+	MbsMedType Pcf_PolAuth_MediaType `json:"mbsMedType,omitempty" yaml:"mbsMedType,omitempty" bson:"mbsMedType,omitempty"`
+
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	MaxReqMbsBwDl string `json:"maxReqMbsBwDl,omitempty" yaml:"maxReqMbsBwDl,omitempty" bson:"maxReqMbsBwDl,omitempty"`
+
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	MinReqMbsBwDl string `json:"minReqMbsBwDl,omitempty" yaml:"minReqMbsBwDl,omitempty" bson:"minReqMbsBwDl,omitempty"`
+
+	Codecs []string `json:"codecs,omitempty" yaml:"codecs,omitempty" bson:"codecs,omitempty"`
 }

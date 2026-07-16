@@ -13,13 +13,14 @@
 package MBSPolicyControl
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -46,17 +47,19 @@ func (r *DeleteIndMBSPolicyRequest) SetMbsPolicyId(MbsPolicyId string) {
 	r.MbsPolicyId = &MbsPolicyId
 }
 
-type DeleteIndMBSPolicyResponse struct {
-}
+type DeleteIndMBSPolicyResponse struct{}
 
 type DeleteIndMBSPolicyError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.Context, request *DeleteIndMBSPolicyRequest) (*DeleteIndMBSPolicyResponse, error) {
+func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(
+	ctx context.Context,
+	request *DeleteIndMBSPolicyRequest,
+) (*DeleteIndMBSPolicyResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Delete")
 		localVarPostBody     interface{}
@@ -65,10 +68,15 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		localVarFileBytes    []byte
 		localVarReturnValue  DeleteIndMBSPolicyResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/mbs-policies/{mbsPolicyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"mbsPolicyId"+"}", openapi.StringOfValue(*request.MbsPolicyId), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"mbsPolicyId"+"}",
+		openapi.StringOfValue(*request.MbsPolicyId),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -79,7 +87,10 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -87,7 +98,19 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +120,7 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -110,33 +133,53 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 204:
 		return &localVarReturnValue, nil
 	case 307:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -144,7 +187,12 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 401:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -152,7 +200,12 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 403:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -160,17 +213,29 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 404:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 406:
-		return &localVarReturnValue, nil
+		var v DeleteIndMBSPolicyError
+		apiError.ErrorModel = v
+		return nil, apiError
 	case 429:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -178,7 +243,12 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 500:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -186,7 +256,12 @@ func (a *IndividualMBSPolicyDocumentApiService) DeleteIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 503:
 		var v DeleteIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -215,17 +290,20 @@ func (r *GetIndMBSPolicyRequest) SetMbsPolicyId(MbsPolicyId string) {
 }
 
 type GetIndMBSPolicyResponse struct {
-	MbsPolicyData models.MbsPolicyData
+	Pcf_MBSPolicyControl_MbsPolicyData *models.Pcf_MBSPolicyControl_MbsPolicyData
 }
 
 type GetIndMBSPolicyError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
 }
 
-func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Context, request *GetIndMBSPolicyRequest) (*GetIndMBSPolicyResponse, error) {
+func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(
+	ctx context.Context,
+	request *GetIndMBSPolicyRequest,
+) (*GetIndMBSPolicyResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -234,10 +312,15 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		localVarFileBytes    []byte
 		localVarReturnValue  GetIndMBSPolicyResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/mbs-policies/{mbsPolicyId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"mbsPolicyId"+"}", openapi.StringOfValue(*request.MbsPolicyId), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"mbsPolicyId"+"}",
+		openapi.StringOfValue(*request.MbsPolicyId),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -248,7 +331,10 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -256,7 +342,19 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -266,7 +364,7 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -279,37 +377,64 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.MbsPolicyData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Pcf_MBSPolicyControl_MbsPolicyData = new(
+			models.Pcf_MBSPolicyControl_MbsPolicyData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Pcf_MBSPolicyControl_MbsPolicyData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 307:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -317,7 +442,12 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		return nil, apiError
 	case 401:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -325,7 +455,12 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		return nil, apiError
 	case 403:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -333,17 +468,29 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		return nil, apiError
 	case 404:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 406:
-		return &localVarReturnValue, nil
+		var v GetIndMBSPolicyError
+		apiError.ErrorModel = v
+		return nil, apiError
 	case 429:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -351,7 +498,12 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		return nil, apiError
 	case 500:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -359,7 +511,12 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 		return nil, apiError
 	case 503:
 		var v GetIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -374,37 +531,43 @@ func (a *IndividualMBSPolicyDocumentApiService) GetIndMBSPolicy(ctx context.Cont
 IndividualMBSPolicyDocumentApiService Request the update of an existing MBS Policy Association.
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param MbsPolicyId - Contains the identifier of the concerned Individual MBS Policy resource.
- * @param MbsPolicyCtxtDataUpdate -
+ * @param RequestBody -
 
 @return UpdateIndMBSPolicyResponse
 */
 
 // UpdateIndMBSPolicyRequest
 type UpdateIndMBSPolicyRequest struct {
-	MbsPolicyId             *string
-	MbsPolicyCtxtDataUpdate *models.MbsPolicyCtxtDataUpdate
+	MbsPolicyId *string
+	RequestBody *models.Pcf_MBSPolicyControl_MbsPolicyCtxtDataUpdate
 }
 
 func (r *UpdateIndMBSPolicyRequest) SetMbsPolicyId(MbsPolicyId string) {
 	r.MbsPolicyId = &MbsPolicyId
 }
-func (r *UpdateIndMBSPolicyRequest) SetMbsPolicyCtxtDataUpdate(MbsPolicyCtxtDataUpdate models.MbsPolicyCtxtDataUpdate) {
-	r.MbsPolicyCtxtDataUpdate = &MbsPolicyCtxtDataUpdate
+
+func (r *UpdateIndMBSPolicyRequest) SetRequestBody(
+	RequestBody models.Pcf_MBSPolicyControl_MbsPolicyCtxtDataUpdate,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type UpdateIndMBSPolicyResponse struct {
-	MbsPolicyData models.MbsPolicyData
+	Pcf_MBSPolicyControl_MbsPolicyData *models.Pcf_MBSPolicyControl_MbsPolicyData
 }
 
 type UpdateIndMBSPolicyError struct {
-	Location                                      string
-	Var3gppSbiTargetNfId                          string
-	PcfMbsPolicyAuthorizationMbsExtProblemDetails models.PcfMbsPolicyAuthorizationMbsExtProblemDetails
-	ProblemDetails                                models.ProblemDetails
-	RedirectResponse                              models.RedirectResponse
+	Location                            string
+	Var3gpp_Sbi_Target_Nf_Id            string
+	Pcf_MBSPolAuth_MbsExtProblemDetails *models.Pcf_MBSPolAuth_MbsExtProblemDetails
+	ProblemDetails                      *models.ProblemDetails
+	RedirectResponse                    *models.RedirectResponse
 }
 
-func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.Context, request *UpdateIndMBSPolicyRequest) (*UpdateIndMBSPolicyResponse, error) {
+func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(
+	ctx context.Context,
+	request *UpdateIndMBSPolicyRequest,
+) (*UpdateIndMBSPolicyResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -413,10 +576,15 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		localVarFileBytes    []byte
 		localVarReturnValue  UpdateIndMBSPolicyResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/mbs-policies/{mbsPolicyId}/update"
-	localVarPath = strings.Replace(localVarPath, "{"+"mbsPolicyId"+"}", openapi.StringOfValue(*request.MbsPolicyId), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"mbsPolicyId"+"}",
+		openapi.StringOfValue(*request.MbsPolicyId),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -427,7 +595,10 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -436,9 +607,21 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 	}
 
 	// body params
-	localVarPostBody = request.MbsPolicyCtxtDataUpdate
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -448,7 +631,7 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -461,37 +644,64 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.MbsPolicyData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Pcf_MBSPolicyControl_MbsPolicyData = new(
+			models.Pcf_MBSPolicyControl_MbsPolicyData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Pcf_MBSPolicyControl_MbsPolicyData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 307:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -499,7 +709,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 401:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -507,7 +722,14 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 403:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.PcfMbsPolicyAuthorizationMbsExtProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.Pcf_MBSPolAuth_MbsExtProblemDetails = new(
+			models.Pcf_MBSPolAuth_MbsExtProblemDetails,
+		)
+		err = openapi.Deserialize(
+			v.Pcf_MBSPolAuth_MbsExtProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -515,7 +737,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 404:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -523,7 +750,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 411:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -531,7 +763,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 413:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -539,7 +776,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 415:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -547,7 +789,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 429:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -555,7 +802,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 500:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -563,7 +815,12 @@ func (a *IndividualMBSPolicyDocumentApiService) UpdateIndMBSPolicy(ctx context.C
 		return nil, apiError
 	case 503:
 		var v UpdateIndMBSPolicyError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

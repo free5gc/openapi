@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -16,9 +16,9 @@ type PduSessionType string
 
 // List of PduSessionType
 const (
-	PduSessionType_IPV4         PduSessionType = "IPV4"
-	PduSessionType_IPV6         PduSessionType = "IPV6"
-	PduSessionType_IPV4_V6      PduSessionType = "IPV4V6"
-	PduSessionType_UNSTRUCTURED PduSessionType = "UNSTRUCTURED"
-	PduSessionType_ETHERNET     PduSessionType = "ETHERNET"
+	PduSessionType_IPV4         PduSessionType = "IPV4"         // #nosec G101
+	PduSessionType_IPV6         PduSessionType = "IPV6"         // #nosec G101
+	PduSessionType_IPV4_V6      PduSessionType = "IPV4V6"       // #nosec G101
+	PduSessionType_UNSTRUCTURED PduSessionType = "UNSTRUCTURED" // #nosec G101
+	PduSessionType_ETHERNET     PduSessionType = "ETHERNET"     // #nosec G101
 )

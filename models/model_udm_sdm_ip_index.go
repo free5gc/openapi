@@ -12,6 +12,6 @@
 
 package models
 
-// Represents the IP Index to be sent from UDM to the SMF (its value can be either an integer or a string)
-type UdmSdmIpIndex struct {
-}
+// Represents the IP Index to be sent from UDM to the SMF (its value can be either an integer or a
+// string)
+type Udm_SDM_IpIndex struct{}

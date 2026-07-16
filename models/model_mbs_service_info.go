@@ -14,10 +14,15 @@ package models
 
 // Represent MBS Service Information.
 type MbsServiceInfo struct {
-	MbsMediaComps map[string]*MbsMediaComp `json:"mbsMediaComps" yaml:"mbsMediaComps" bson:"mbsMediaComps,omitempty"`
-	MbsSdfResPrio ReservPriority           `json:"mbsSdfResPrio,omitempty" yaml:"mbsSdfResPrio" bson:"mbsSdfResPrio,omitempty"`
+	MbsMediaComps map[string]*MbsMediaCompRm `json:"mbsMediaComps,omitempty" yaml:"mbsMediaComps,omitempty" bson:"mbsMediaComps,omitempty"`
+
+	MbsSdfResPrio Pcf_PolAuth_ReservPriority `json:"mbsSdfResPrio,omitempty" yaml:"mbsSdfResPrio,omitempty" bson:"mbsSdfResPrio,omitempty"`
+
 	// Contains an AF application identifier.
-	AfAppId string `json:"afAppId,omitempty" yaml:"afAppId" bson:"afAppId,omitempty"`
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	MbsSessionAmbr string `json:"mbsSessionAmbr,omitempty" yaml:"mbsSessionAmbr" bson:"mbsSessionAmbr,omitempty"`
+	AfAppId string `json:"afAppId,omitempty" yaml:"afAppId,omitempty" bson:"afAppId,omitempty"`
+
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	MbsSessionAmbr string `json:"mbsSessionAmbr,omitempty" yaml:"mbsSessionAmbr,omitempty" bson:"mbsSessionAmbr,omitempty"`
 }

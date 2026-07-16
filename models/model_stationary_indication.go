@@ -16,6 +16,6 @@ type StationaryIndication string
 
 // List of StationaryIndication
 const (
-	StationaryIndication_STATIONARY StationaryIndication = "STATIONARY"
-	StationaryIndication_MOBILE     StationaryIndication = "MOBILE"
+	StationaryIndication_STATIONARY StationaryIndication = "STATIONARY" // #nosec G101
+	StationaryIndication_MOBILE     StationaryIndication = "MOBILE"     // #nosec G101
 )

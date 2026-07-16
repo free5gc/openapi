@@ -12,11 +12,14 @@
 
 package models
 
-// At least one of the \"routeInfo\" attribute and the \"routeProfId\" attribute shall be included in the \"RouteToLocation\" data type.
+// At least one of the \"routeInfo\" attribute and the \"routeProfId\" attribute shall be included
+// in the \"RouteToLocation\" data type.
 type RouteToLocation struct {
 	// DNAI (Data network access identifier), see clause 5.6.7 of 3GPP TS 23.501.
-	Dnai      string            `json:"dnai" yaml:"dnai" bson:"dnai,omitempty"`
-	RouteInfo *RouteInformation `json:"routeInfo,omitempty" yaml:"routeInfo" bson:"routeInfo,omitempty"`
+	Dnai string `json:"dnai,omitempty" yaml:"dnai,omitempty" bson:"dnai,omitempty"`
+
+	RouteInfo *RouteInformation `json:"routeInfo,omitempty" yaml:"routeInfo,omitempty" bson:"routeInfo,omitempty"`
+
 	// Identifies the routing profile Id.
-	RouteProfId string `json:"routeProfId,omitempty" yaml:"routeProfId" bson:"routeProfId,omitempty"`
+	RouteProfId string `json:"routeProfId,omitempty" yaml:"routeProfId,omitempty" bson:"routeProfId,omitempty"`
 }

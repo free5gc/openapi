@@ -13,13 +13,14 @@
 package MT
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -33,33 +34,39 @@ type ProvideUELocationApiService service
 ProvideUELocationApiService Provides the UE's 5GS location information
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param Supi - Identifier of the UE
- * @param LocationInfoRequest -
+ * @param RequestBody -
 
 @return ProvideLocationInfoResponse
 */
 
 // ProvideLocationInfoRequest
 type ProvideLocationInfoRequest struct {
-	Supi                *string
-	LocationInfoRequest *models.LocationInfoRequest
+	Supi        *string
+	RequestBody *models.Udm_MT_LocationInfoRequest
 }
 
 func (r *ProvideLocationInfoRequest) SetSupi(Supi string) {
 	r.Supi = &Supi
 }
-func (r *ProvideLocationInfoRequest) SetLocationInfoRequest(LocationInfoRequest models.LocationInfoRequest) {
-	r.LocationInfoRequest = &LocationInfoRequest
+
+func (r *ProvideLocationInfoRequest) SetRequestBody(
+	RequestBody models.Udm_MT_LocationInfoRequest,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type ProvideLocationInfoResponse struct {
-	LocationInfoResult models.LocationInfoResult
+	Udm_MT_LocationInfoResult *models.Udm_MT_LocationInfoResult
 }
 
 type ProvideLocationInfoError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, request *ProvideLocationInfoRequest) (*ProvideLocationInfoResponse, error) {
+func (a *ProvideUELocationApiService) ProvideLocationInfo(
+	ctx context.Context,
+	request *ProvideLocationInfoRequest,
+) (*ProvideLocationInfoResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -68,10 +75,15 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		localVarFileBytes    []byte
 		localVarReturnValue  ProvideLocationInfoResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/{supi}/loc-info/provide-loc-info"
-	localVarPath = strings.Replace(localVarPath, "{"+"supi"+"}", openapi.StringOfValue(*request.Supi), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"supi"+"}",
+		openapi.StringOfValue(*request.Supi),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -82,7 +94,10 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -91,9 +106,21 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 	}
 
 	// body params
-	localVarPostBody = request.LocationInfoRequest
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -103,7 +130,7 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -116,17 +143,30 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.LocationInfoResult, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Udm_MT_LocationInfoResult = new(
+			models.Udm_MT_LocationInfoResult,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Udm_MT_LocationInfoResult,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 400:
 		var v ProvideLocationInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -134,7 +174,12 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		return nil, apiError
 	case 404:
 		var v ProvideLocationInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -142,7 +187,12 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		return nil, apiError
 	case 500:
 		var v ProvideLocationInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -150,7 +200,12 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		return nil, apiError
 	case 501:
 		var v ProvideLocationInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -158,7 +213,12 @@ func (a *ProvideUELocationApiService) ProvideLocationInfo(ctx context.Context, r
 		return nil, apiError
 	case 503:
 		var v ProvideLocationInfoError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

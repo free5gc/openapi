@@ -12,12 +12,15 @@
 
 package models
 
-// At least one of the \"ipv4Addr\" attribute and the \"ipv6Addr\" attribute shall be included in the \"RouteInformation\" data type.
+// At least one of the \"ipv4Addr\" attribute and the \"ipv6Addr\" attribute shall be included in
+// the \"RouteInformation\" data type.
 type RouteInformation struct {
-	// string identifying a Ipv4 address formatted in the \"dotted decimal\" notation as defined in IETF RFC 1166.
-	Ipv4Addr string `json:"ipv4Addr,omitempty" yaml:"ipv4Addr" bson:"ipv4Addr,omitempty"`
-	// string identifying a Ipv6 address formatted according to clause 4 in IETF RFC 5952. The mixed Ipv4 Ipv6 notation according to clause 5 of IETF RFC 5952 shall not be used.
-	Ipv6Addr string `json:"ipv6Addr,omitempty" yaml:"ipv6Addr" bson:"ipv6Addr,omitempty"`
+	// String identifying a IPv4 address formatted in the 'dotted decimal' notation as defined in
+	// RFC 1166.
+	Ipv4Addr string `json:"ipv4Addr,omitempty" yaml:"ipv4Addr,omitempty" bson:"ipv4Addr,omitempty"`
+
+	Ipv6Addr string `json:"ipv6Addr,omitempty" yaml:"ipv6Addr,omitempty" bson:"ipv6Addr,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	PortNumber int32 `json:"portNumber" yaml:"portNumber" bson:"portNumber,omitempty"`
+	PortNumber int32 `json:"portNumber,omitempty" yaml:"portNumber,omitempty" bson:"portNumber,omitempty"`
 }

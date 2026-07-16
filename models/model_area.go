@@ -14,7 +14,8 @@ package models
 
 // Provides area information.
 type Area struct {
-	Tacs []string `json:"tacs,omitempty" yaml:"tacs" bson:"tacs,omitempty"`
+	Tacs []string `json:"tacs,omitempty" yaml:"tacs,omitempty" bson:"tacs,omitempty"`
+
 	// Values are operator specific.
-	AreaCode string `json:"areaCode,omitempty" yaml:"areaCode" bson:"areaCode,omitempty"`
+	AreaCode string `json:"areaCode,omitempty" yaml:"areaCode,omitempty" bson:"areaCode,omitempty"`
 }

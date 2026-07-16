@@ -16,7 +16,7 @@ type DnaiChangeType string
 
 // List of DnaiChangeType
 const (
-	DnaiChangeType_EARLY      DnaiChangeType = "EARLY"
-	DnaiChangeType_EARLY_LATE DnaiChangeType = "EARLY_LATE"
-	DnaiChangeType_LATE       DnaiChangeType = "LATE"
+	DnaiChangeType_EARLY      DnaiChangeType = "EARLY"      // #nosec G101
+	DnaiChangeType_EARLY_LATE DnaiChangeType = "EARLY_LATE" // #nosec G101
+	DnaiChangeType_LATE       DnaiChangeType = "LATE"       // #nosec G101
 )

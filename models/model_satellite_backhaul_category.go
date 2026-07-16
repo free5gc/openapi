@@ -16,9 +16,9 @@ type SatelliteBackhaulCategory string
 
 // List of SatelliteBackhaulCategory
 const (
-	SatelliteBackhaulCategory_GEO           SatelliteBackhaulCategory = "GEO"
-	SatelliteBackhaulCategory_MEO           SatelliteBackhaulCategory = "MEO"
-	SatelliteBackhaulCategory_LEO           SatelliteBackhaulCategory = "LEO"
-	SatelliteBackhaulCategory_OTHER_SAT     SatelliteBackhaulCategory = "OTHER_SAT"
-	SatelliteBackhaulCategory_NON_SATELLITE SatelliteBackhaulCategory = "NON_SATELLITE"
+	SatelliteBackhaulCategory_GEO           SatelliteBackhaulCategory = "GEO"           // #nosec G101
+	SatelliteBackhaulCategory_MEO           SatelliteBackhaulCategory = "MEO"           // #nosec G101
+	SatelliteBackhaulCategory_LEO           SatelliteBackhaulCategory = "LEO"           // #nosec G101
+	SatelliteBackhaulCategory_OTHER_SAT     SatelliteBackhaulCategory = "OTHER_SAT"     // #nosec G101
+	SatelliteBackhaulCategory_NON_SATELLITE SatelliteBackhaulCategory = "NON_SATELLITE" // #nosec G101
 )

@@ -12,5 +12,10 @@
 
 package models
 
-type PreemptionCapabilityRm struct {
-}
+type PreemptionCapabilityRm string
+
+// List of PreemptionCapabilityRm
+const (
+	PreemptionCapabilityRm_NOT_PREEMPT PreemptionCapabilityRm = "NOT_PREEMPT" // #nosec G101
+	PreemptionCapabilityRm_MAY_PREEMPT PreemptionCapabilityRm = "MAY_PREEMPT" // #nosec G101
+)

@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -13,13 +13,14 @@
 package OfflineOnlyCharging
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -33,32 +34,39 @@ type DefaultApiService service
 DefaultApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param OfflineChargingDataRef - a unique identifier for a charging data resource in a PLMN
- * @param ChfOfflineOnlyChargingChargingDataRequest -
+ * @param RequestBody -
 
 @return OfflinechargingdataOfflineChargingDataRefReleasePostResponse
 */
 
 // OfflinechargingdataOfflineChargingDataRefReleasePostRequest
 type OfflinechargingdataOfflineChargingDataRefReleasePostRequest struct {
-	OfflineChargingDataRef                    *string
-	ChfOfflineOnlyChargingChargingDataRequest *models.ChfOfflineOnlyChargingChargingDataRequest
+	OfflineChargingDataRef *string
+	RequestBody            *models.Chf_OfflineOnlyCharging_ChargingDataRequest
 }
 
-func (r *OfflinechargingdataOfflineChargingDataRefReleasePostRequest) SetOfflineChargingDataRef(OfflineChargingDataRef string) {
+func (r *OfflinechargingdataOfflineChargingDataRefReleasePostRequest) SetOfflineChargingDataRef(
+	OfflineChargingDataRef string,
+) {
 	r.OfflineChargingDataRef = &OfflineChargingDataRef
 }
-func (r *OfflinechargingdataOfflineChargingDataRefReleasePostRequest) SetChfOfflineOnlyChargingChargingDataRequest(ChfOfflineOnlyChargingChargingDataRequest models.ChfOfflineOnlyChargingChargingDataRequest) {
-	r.ChfOfflineOnlyChargingChargingDataRequest = &ChfOfflineOnlyChargingChargingDataRequest
+
+func (r *OfflinechargingdataOfflineChargingDataRefReleasePostRequest) SetRequestBody(
+	RequestBody models.Chf_OfflineOnlyCharging_ChargingDataRequest,
+) {
+	r.RequestBody = &RequestBody
 }
 
-type OfflinechargingdataOfflineChargingDataRefReleasePostResponse struct {
-}
+type OfflinechargingdataOfflineChargingDataRefReleasePostResponse struct{}
 
 type OfflinechargingdataOfflineChargingDataRefReleasePostError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost(ctx context.Context, request *OfflinechargingdataOfflineChargingDataRefReleasePostRequest) (*OfflinechargingdataOfflineChargingDataRefReleasePostResponse, error) {
+func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost(
+	ctx context.Context,
+	request *OfflinechargingdataOfflineChargingDataRefReleasePostRequest,
+) (*OfflinechargingdataOfflineChargingDataRefReleasePostResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -67,10 +75,15 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		localVarFileBytes    []byte
 		localVarReturnValue  OfflinechargingdataOfflineChargingDataRefReleasePostResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/offlinechargingdata/{OfflineChargingDataRef}/release"
-	localVarPath = strings.Replace(localVarPath, "{"+"OfflineChargingDataRef"+"}", openapi.StringOfValue(*request.OfflineChargingDataRef), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"OfflineChargingDataRef"+"}",
+		openapi.StringOfValue(*request.OfflineChargingDataRef),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -81,7 +94,10 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -90,9 +106,21 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 	}
 
 	// body params
-	localVarPostBody = request.ChfOfflineOnlyChargingChargingDataRequest
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -102,7 +130,7 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -115,13 +143,19 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 204:
 		return &localVarReturnValue, nil
 	case 404:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -129,7 +163,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, apiError
 	case 401:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -137,7 +176,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, apiError
 	case 410:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -145,7 +189,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, apiError
 	case 411:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -153,7 +202,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, apiError
 	case 413:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -161,7 +215,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, apiError
 	case 500:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -169,7 +228,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 		return nil, apiError
 	case 503:
 		var v OfflinechargingdataOfflineChargingDataRefReleasePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -184,33 +248,41 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefReleasePost
 DefaultApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param OfflineChargingDataRef - a unique identifier for a charging data resource in a PLMN
- * @param ChfOfflineOnlyChargingChargingDataRequest -
+ * @param RequestBody -
 
 @return OfflinechargingdataOfflineChargingDataRefUpdatePostResponse
 */
 
 // OfflinechargingdataOfflineChargingDataRefUpdatePostRequest
 type OfflinechargingdataOfflineChargingDataRefUpdatePostRequest struct {
-	OfflineChargingDataRef                    *string
-	ChfOfflineOnlyChargingChargingDataRequest *models.ChfOfflineOnlyChargingChargingDataRequest
+	OfflineChargingDataRef *string
+	RequestBody            *models.Chf_OfflineOnlyCharging_ChargingDataRequest
 }
 
-func (r *OfflinechargingdataOfflineChargingDataRefUpdatePostRequest) SetOfflineChargingDataRef(OfflineChargingDataRef string) {
+func (r *OfflinechargingdataOfflineChargingDataRefUpdatePostRequest) SetOfflineChargingDataRef(
+	OfflineChargingDataRef string,
+) {
 	r.OfflineChargingDataRef = &OfflineChargingDataRef
 }
-func (r *OfflinechargingdataOfflineChargingDataRefUpdatePostRequest) SetChfOfflineOnlyChargingChargingDataRequest(ChfOfflineOnlyChargingChargingDataRequest models.ChfOfflineOnlyChargingChargingDataRequest) {
-	r.ChfOfflineOnlyChargingChargingDataRequest = &ChfOfflineOnlyChargingChargingDataRequest
+
+func (r *OfflinechargingdataOfflineChargingDataRefUpdatePostRequest) SetRequestBody(
+	RequestBody models.Chf_OfflineOnlyCharging_ChargingDataRequest,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type OfflinechargingdataOfflineChargingDataRefUpdatePostResponse struct {
-	ChfOfflineOnlyChargingChargingDataResponse models.ChfOfflineOnlyChargingChargingDataResponse
+	Chf_OfflineOnlyCharging_ChargingDataResponse *models.Chf_OfflineOnlyCharging_ChargingDataResponse
 }
 
 type OfflinechargingdataOfflineChargingDataRefUpdatePostError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(ctx context.Context, request *OfflinechargingdataOfflineChargingDataRefUpdatePostRequest) (*OfflinechargingdataOfflineChargingDataRefUpdatePostResponse, error) {
+func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
+	ctx context.Context,
+	request *OfflinechargingdataOfflineChargingDataRefUpdatePostRequest,
+) (*OfflinechargingdataOfflineChargingDataRefUpdatePostResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -219,10 +291,15 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		localVarFileBytes    []byte
 		localVarReturnValue  OfflinechargingdataOfflineChargingDataRefUpdatePostResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/offlinechargingdata/{OfflineChargingDataRef}/update"
-	localVarPath = strings.Replace(localVarPath, "{"+"OfflineChargingDataRef"+"}", openapi.StringOfValue(*request.OfflineChargingDataRef), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"OfflineChargingDataRef"+"}",
+		openapi.StringOfValue(*request.OfflineChargingDataRef),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -233,7 +310,10 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -242,9 +322,21 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 	}
 
 	// body params
-	localVarPostBody = request.ChfOfflineOnlyChargingChargingDataRequest
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -254,7 +346,7 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -267,17 +359,30 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.ChfOfflineOnlyChargingChargingDataResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Chf_OfflineOnlyCharging_ChargingDataResponse = new(
+			models.Chf_OfflineOnlyCharging_ChargingDataResponse,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Chf_OfflineOnlyCharging_ChargingDataResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 400:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -285,7 +390,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 403:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -293,7 +403,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 404:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -301,7 +416,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 401:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -309,7 +429,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 410:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -317,7 +442,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 411:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -325,7 +455,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 413:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -333,7 +468,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 500:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -341,7 +481,12 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 		return nil, apiError
 	case 503:
 		var v OfflinechargingdataOfflineChargingDataRefUpdatePostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -355,29 +500,34 @@ func (a *DefaultApiService) OfflinechargingdataOfflineChargingDataRefUpdatePost(
 /*
 DefaultApiService
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param ChfOfflineOnlyChargingChargingDataRequest -
+ * @param RequestBody -
 
 @return OfflinechargingdataPostResponse
 */
 
 // OfflinechargingdataPostRequest
 type OfflinechargingdataPostRequest struct {
-	ChfOfflineOnlyChargingChargingDataRequest *models.ChfOfflineOnlyChargingChargingDataRequest
+	RequestBody *models.Chf_OfflineOnlyCharging_ChargingDataRequest
 }
 
-func (r *OfflinechargingdataPostRequest) SetChfOfflineOnlyChargingChargingDataRequest(ChfOfflineOnlyChargingChargingDataRequest models.ChfOfflineOnlyChargingChargingDataRequest) {
-	r.ChfOfflineOnlyChargingChargingDataRequest = &ChfOfflineOnlyChargingChargingDataRequest
+func (r *OfflinechargingdataPostRequest) SetRequestBody(
+	RequestBody models.Chf_OfflineOnlyCharging_ChargingDataRequest,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type OfflinechargingdataPostResponse struct {
-	ChfOfflineOnlyChargingChargingDataResponse models.ChfOfflineOnlyChargingChargingDataResponse
+	Chf_OfflineOnlyCharging_ChargingDataResponse *models.Chf_OfflineOnlyCharging_ChargingDataResponse
 }
 
 type OfflinechargingdataPostError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request *OfflinechargingdataPostRequest) (*OfflinechargingdataPostResponse, error) {
+func (a *DefaultApiService) OfflinechargingdataPost(
+	ctx context.Context,
+	request *OfflinechargingdataPostRequest,
+) (*OfflinechargingdataPostResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -386,6 +536,7 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		localVarFileBytes    []byte
 		localVarReturnValue  OfflinechargingdataPostResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/offlinechargingdata"
@@ -399,7 +550,10 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -408,9 +562,21 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 	}
 
 	// body params
-	localVarPostBody = request.ChfOfflineOnlyChargingChargingDataRequest
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -420,7 +586,7 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -433,17 +599,30 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 201:
-		err = openapi.Deserialize(&localVarReturnValue.ChfOfflineOnlyChargingChargingDataResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Chf_OfflineOnlyCharging_ChargingDataResponse = new(
+			models.Chf_OfflineOnlyCharging_ChargingDataResponse,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Chf_OfflineOnlyCharging_ChargingDataResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 400:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -451,7 +630,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 403:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -459,7 +643,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 404:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -467,7 +656,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 401:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -475,7 +669,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 410:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -483,7 +682,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 411:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -491,7 +695,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 413:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -499,7 +708,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 500:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -507,7 +721,12 @@ func (a *DefaultApiService) OfflinechargingdataPost(ctx context.Context, request
 		return nil, apiError
 	case 503:
 		var v OfflinechargingdataPostError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

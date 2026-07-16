@@ -16,7 +16,7 @@ type SensorMeasurement string
 
 // List of SensorMeasurement
 const (
-	SensorMeasurement_BAROMETRIC_PRESSURE SensorMeasurement = "BAROMETRIC_PRESSURE"
-	SensorMeasurement_UE_SPEED            SensorMeasurement = "UE_SPEED"
-	SensorMeasurement_UE_ORIENTATION      SensorMeasurement = "UE_ORIENTATION"
+	SensorMeasurement_BAROMETRIC_PRESSURE SensorMeasurement = "BAROMETRIC_PRESSURE" // #nosec G101
+	SensorMeasurement_UE_SPEED            SensorMeasurement = "UE_SPEED"            // #nosec G101
+	SensorMeasurement_UE_ORIENTATION      SensorMeasurement = "UE_ORIENTATION"      // #nosec G101
 )

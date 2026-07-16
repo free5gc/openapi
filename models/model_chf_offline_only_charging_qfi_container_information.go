@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -16,20 +16,35 @@ import (
 	"time"
 )
 
-type ChfOfflineOnlyChargingQfiContainerInformation struct {
+type Chf_OfflineOnlyCharging_QFIContainerInformation struct {
 	// Unsigned integer identifying a QoS flow, within the range 0 to 63.
-	QFI int32 `json:"qFI,omitempty" yaml:"qFI" bson:"qFI,omitempty"`
+	QFI int32 `json:"qFI,omitempty" yaml:"qFI,omitempty" bson:"qFI,omitempty"`
+
 	// string with format 'date-time' as defined in OpenAPI.
-	TimeofFirstUsage *time.Time `json:"timeofFirstUsage,omitempty" yaml:"timeofFirstUsage" bson:"timeofFirstUsage,omitempty"`
+	TimeofFirstUsage *time.Time `json:"timeofFirstUsage,omitempty" yaml:"timeofFirstUsage,omitempty" bson:"timeofFirstUsage,omitempty"`
+
 	// string with format 'date-time' as defined in OpenAPI.
-	TimeofLastUsage         *time.Time          `json:"timeofLastUsage,omitempty" yaml:"timeofLastUsage" bson:"timeofLastUsage,omitempty"`
-	QoSInformation          *QosData            `json:"qoSInformation,omitempty" yaml:"qoSInformation" bson:"qoSInformation,omitempty"`
-	QoSCharacteristics      *QosCharacteristics `json:"qoSCharacteristics,omitempty" yaml:"qoSCharacteristics" bson:"qoSCharacteristics,omitempty"`
-	UserLocationInformation *UserLocation       `json:"userLocationInformation,omitempty" yaml:"userLocationInformation" bson:"userLocationInformation,omitempty"`
-	// String with format \"time-numoffset\" optionally appended by \"daylightSavingTime\", where  - \"time-numoffset\" shall represent the time zone adjusted for daylight saving time and be    encoded as time-numoffset as defined in clause 5.6 of IETF RFC 3339;  - \"daylightSavingTime\" shall represent the adjustment that has been made and shall be    encoded as \"+1\" or \"+2\" for a +1 or +2 hours adjustment.   The example is for 8 hours behind UTC, +1 hour adjustment for Daylight Saving Time.
-	UetimeZone                       string                                           `json:"uetimeZone,omitempty" yaml:"uetimeZone" bson:"uetimeZone,omitempty"`
-	PresenceReportingAreaInformation map[string]PresenceInfo                          `json:"presenceReportingAreaInformation,omitempty" yaml:"presenceReportingAreaInformation" bson:"presenceReportingAreaInformation,omitempty"`
-	RATType                          RatType                                          `json:"rATType,omitempty" yaml:"rATType" bson:"rATType,omitempty"`
-	ServingNetworkFunctionID         []ChfOfflineOnlyChargingServingNetworkFunctionId `json:"servingNetworkFunctionID,omitempty" yaml:"servingNetworkFunctionID" bson:"servingNetworkFunctionID,omitempty"`
-	Var3gppPSDataOffStatus           Model3GpppsDataOffStatus                         `json:"3gppPSDataOffStatus,omitempty" yaml:"3gppPSDataOffStatus" bson:"3gppPSDataOffStatus,omitempty"`
+	TimeofLastUsage *time.Time `json:"timeofLastUsage,omitempty" yaml:"timeofLastUsage,omitempty" bson:"timeofLastUsage,omitempty"`
+
+	QoSInformation *Pcf_SMPolCtrl_QosData `json:"qoSInformation,omitempty" yaml:"qoSInformation,omitempty" bson:"qoSInformation,omitempty"`
+
+	QoSCharacteristics *Pcf_SMPolCtrl_QosCharacteristics `json:"qoSCharacteristics,omitempty" yaml:"qoSCharacteristics,omitempty" bson:"qoSCharacteristics,omitempty"`
+
+	UserLocationInformation *UserLocation `json:"userLocationInformation,omitempty" yaml:"userLocationInformation,omitempty" bson:"userLocationInformation,omitempty"`
+
+	// String with format \"time-numoffset\" optionally appended by \"daylightSavingTime\", where  -
+	// \"time-numoffset\" shall represent the time zone adjusted for daylight saving time and be
+	// encoded as time-numoffset as defined in clause 5.6 of IETF RFC 3339;  -
+	// \"daylightSavingTime\" shall represent the adjustment that has been made and shall be
+	// encoded as \"+1\" or \"+2\" for a +1 or +2 hours adjustment.   The example is for 8 hours
+	// behind UTC, +1 hour adjustment for Daylight Saving Time.
+	UetimeZone string `json:"uetimeZone,omitempty" yaml:"uetimeZone,omitempty" bson:"uetimeZone,omitempty"`
+
+	PresenceReportingAreaInformation map[string]PresenceInfo `json:"presenceReportingAreaInformation,omitempty" yaml:"presenceReportingAreaInformation,omitempty" bson:"presenceReportingAreaInformation,omitempty"`
+
+	RATType RatType `json:"rATType,omitempty" yaml:"rATType,omitempty" bson:"rATType,omitempty"`
+
+	ServingNetworkFunctionID []Chf_OfflineOnlyCharging_ServingNetworkFunctionID `json:"servingNetworkFunctionID,omitempty" yaml:"servingNetworkFunctionID,omitempty" bson:"servingNetworkFunctionID,omitempty"`
+
+	Var3gppPSDataOffStatus Chf_OfflineOnlyCharging_3GPPPSDataOffStatus `json:"3gppPSDataOffStatus,omitempty" yaml:"3gppPSDataOffStatus,omitempty" bson:"3gppPSDataOffStatus,omitempty"`
 }
