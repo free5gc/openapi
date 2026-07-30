@@ -16,13 +16,20 @@ import (
 
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/pkg/errors"
-
-	"github.com/free5gc/openapi/models"
 )
 
 type CCAClaims struct {
 	Iat int32
 	Exp int32
+	jwt.RegisteredClaims
+}
+
+// accessTokenClaims deliberately uses only jwt.RegisteredClaims for the
+// standard JWT fields. The generated free5GC model exposes duplicate iss,
+// sub, aud, and exp fields alongside RegisteredClaims; decoding into that
+// model leaves the validator's embedded fields empty.
+type accessTokenClaims struct {
+	Scope string `json:"scope,omitempty"`
 	jwt.RegisteredClaims
 }
 
@@ -63,14 +70,14 @@ func VerifyOAuth(
 	}
 
 	auth_fields := strings.Fields(authorization)
-	if len(auth_fields) < 2 {
+	if len(auth_fields) != 2 || !strings.EqualFold(auth_fields[0], "Bearer") {
 		return errors.Errorf("verify OAuth Authorization header invalid")
 	}
 
 	access_token := auth_fields[1]
 	token, err := jwt.ParseWithClaims(
 		access_token,
-		&models.NrfAccessTokenAccessTokenClaims{},
+		&accessTokenClaims{},
 		func(token *jwt.Token) (interface{}, error) {
 			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
 				return nil, errors.Wrapf(err, "Unexpected signing method")
@@ -84,7 +91,7 @@ func VerifyOAuth(
 		return errors.Wrapf(err, "verify OAuth parse")
 	}
 
-	if !verifyScope(token.Claims.(*models.NrfAccessTokenAccessTokenClaims).Scope, serviceName) {
+	if !verifyScope(token.Claims.(*accessTokenClaims).Scope, serviceName) {
 		return errors.New("OAuth scope verification failed: insufficient permissions")
 	}
 	return nil
@@ -304,3 +311,4 @@ func GetNFCertPath(base, nfType, nfId string) string {
 	// Note: NF's cert should be put in the same base path
 	return filepath.Join(base, GetNFCertFileName(nfType, nfId))
 }
+
