@@ -1,3 +1,6 @@
+Exit code: 0
+Wall time: 0.3 seconds
+Output:
 package oauth
 
 import (
@@ -20,6 +23,14 @@ type cachedToken struct {
 
 var tokenMap sync.Map
 var clientMap sync.Map
+
+type tokenCacheKey struct {
+	NFType   models.NrfNfManagementNfType
+	TargetNF models.NrfNfManagementNfType
+	NFID     string
+	NRFURI   string
+	Scope    string
+}
 
 func GetTokenCtx(
 	nfType, targetNF models.NrfNfManagementNfType,
@@ -49,7 +60,10 @@ func sendAccTokenReq(
 	}
 
 	// Check if we have a valid cached token
-	if val, ok := tokenMap.Load(scope); ok {
+	cacheKey := tokenCacheKey{
+		NFType: nfType, TargetNF: targetNF, NFID: nfId, NRFURI: nrfUri, Scope: scope,
+	}
+	if val, ok := tokenMap.Load(cacheKey); ok {
 		cached := val.(cachedToken)
 		// Compare current time with absolute expiry timestamp
 		if time.Now().Unix() < cached.ExpiryTime {
@@ -79,7 +93,7 @@ func sendAccTokenReq(
 			Response:   res.NrfAccessTokenAccessTokenRsp,
 			ExpiryTime: expiryTime,
 		}
-		tokenMap.Store(scope, cached)
+		tokenMap.Store(cacheKey, cached)
 
 		token := &oauth2.Token{
 			AccessToken: res.NrfAccessTokenAccessTokenRsp.AccessToken,
@@ -91,3 +105,4 @@ func sendAccTokenReq(
 		return nil, nil, openapi.ReportError("server no response")
 	}
 }
+
