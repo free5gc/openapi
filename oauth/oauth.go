@@ -26,6 +26,25 @@ type CCAClaims struct {
 	jwt.RegisteredClaims
 }
 
+type accessTokenClaims struct {
+	Scope string `json:"scope"`
+	jwt.RegisteredClaims
+}
+
+// AudiencePolicy contains the producer identities accepted in an access token.
+// At least one of NFInstanceID and NFType must be set from trusted local state.
+type AudiencePolicy struct {
+	NFInstanceID string
+	NFType       models.NrfNfManagementNfType
+}
+
+func (policy AudiencePolicy) validate() error {
+	if isBlank(policy.NFInstanceID) && isBlank(string(policy.NFType)) {
+		return errors.New("verify OAuth audience policy is empty")
+	}
+	return nil
+}
+
 func GenerateClientCredentialAssertion(
 	sub, aud, keyPath string,
 ) (string, error) {
@@ -54,21 +73,36 @@ func GenerateClientCredentialAssertion(
 	return accessToken, nil
 }
 
+// VerifyOAuth validates an NRF-issued bearer token for a protected NF service.
+// expectedSubject is the expected subject of the token, which is the consumer NF instance ID.
 func VerifyOAuth(
-	authorization, serviceName, certPath string,
+	authorization, serviceName string,
+	audiencePolicy AudiencePolicy,
+	expectedIssuer, certPath string,
 ) error {
+	if isBlank(serviceName) {
+		return errors.New("verify OAuth service name is empty")
+	}
+	if err := audiencePolicy.validate(); err != nil {
+		return err
+	}
+	if isBlank(expectedIssuer) {
+		return errors.New("verify OAuth expected issuer is empty")
+	}
+
+	authFields := strings.Fields(authorization)
+	if len(authFields) != 2 || !strings.EqualFold(authFields[0], "Bearer") {
+		return errors.New("verify OAuth Authorization header invalid")
+	}
+
 	verifyKey, err := ParsePublicKeyFromPEM(certPath)
 	if err != nil {
 		return errors.Wrapf(err, "verify OAuth")
 	}
 
-	auth_fields := strings.Fields(authorization)
-	if len(auth_fields) < 2 {
-		return errors.Errorf("verify OAuth Authorization header invalid")
-	}
-
-	access_token := auth_fields[1]
+	accessToken := authFields[1]
 	token, err := jwt.ParseWithClaims(
+<<<<<<< HEAD
 		access_token,
 		&models.Nrf_AccTok_AccessTokenClaims{},
 		func(token *jwt.Token) (interface{}, error) {
@@ -78,38 +112,63 @@ func VerifyOAuth(
 			if token.Header["alg"] != "RS512" {
 				return nil, errors.Wrapf(err, "Unexpected signing method")
 			}
+=======
+		accessToken,
+		&accessTokenClaims{},
+		func(_ *jwt.Token) (interface{}, error) {
+>>>>>>> d8cc967 (fix: add token request and audience validation)
 			return verifyKey, nil
-		})
+		},
+		jwt.WithValidMethods([]string{"RS512"}),
+		jwt.WithExpirationRequired(),
+		jwt.WithIssuer(expectedIssuer),
+	)
 	if err != nil {
 		return errors.Wrapf(err, "verify OAuth parse")
 	}
+	if token == nil || !token.Valid {
+		return errors.New("verify OAuth token invalid")
+	}
 
+<<<<<<< HEAD
 	if !verifyScope(token.Claims.(*models.Nrf_AccTok_AccessTokenClaims).Scope, serviceName) {
+=======
+	claims, ok := token.Claims.(*accessTokenClaims)
+	if !ok {
+		return errors.New("verify OAuth token claims invalid")
+	}
+	if !verifyAudience(claims.Audience, audiencePolicy) {
+		return errors.New("OAuth audience verification failed")
+	}
+	if !verifyScope(claims.Scope, serviceName) {
+>>>>>>> d8cc967 (fix: add token request and audience validation)
 		return errors.New("OAuth scope verification failed: insufficient permissions")
 	}
 	return nil
 }
 
-func verifyScope(scope, serviceName string) bool {
-	if len(serviceName) == 0 {
-		return true
+func verifyAudience(audiences jwt.ClaimStrings, policy AudiencePolicy) bool {
+	for _, audience := range audiences {
+		if !isBlank(policy.NFInstanceID) && audience == policy.NFInstanceID {
+			return true
+		}
+		if !isBlank(string(policy.NFType)) && audience == string(policy.NFType) {
+			return true
+		}
 	}
-	if len(scope) != 0 {
-		scopeSplit := strings.Fields(scope)
-		found := false
-		for _, item := range scopeSplit {
-			if item == serviceName {
-				found = true
-				break
-			}
-		}
-		if !found {
-			return false
-		}
-	} else {
+	return false
+}
+
+func verifyScope(scope, serviceName string) bool {
+	if serviceName == "" || scope == "" {
 		return false
 	}
-	return true
+	for _, item := range strings.Fields(scope) {
+		if item == serviceName {
+			return true
+		}
+	}
+	return false
 }
 
 func GenerateRootCertificate(
