@@ -13,13 +13,14 @@
 package AnalyticsInfo
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -43,39 +44,56 @@ NWDAFAnalyticsDocumentApiService Read a NWDAF Analytics
 
 // GetNWDAFAnalyticsRequest
 type GetNWDAFAnalyticsRequest struct {
-	EventId           *models.EventId
-	AnaReq            *models.EventReportingRequirement
-	EventFilter       *models.NwdafAnalyticsInfoEventFilter
+	EventId           *models.Nwdaf_AnalyticsInfo_EventId
+	AnaReq            *models.Nwdaf_EvtSubs_EventReportingRequirement
+	EventFilter       *models.Nwdaf_AnalyticsInfo_EventFilter
 	SupportedFeatures *string
-	TgtUe             *models.TargetUeInformation
+	TgtUe             *models.Nwdaf_EvtSubs_TargetUeInformation
 }
 
-func (r *GetNWDAFAnalyticsRequest) SetEventId(EventId models.EventId) {
+func (r *GetNWDAFAnalyticsRequest) SetEventId(
+	EventId models.Nwdaf_AnalyticsInfo_EventId,
+) {
 	r.EventId = &EventId
 }
-func (r *GetNWDAFAnalyticsRequest) SetAnaReq(AnaReq models.EventReportingRequirement) {
+
+func (r *GetNWDAFAnalyticsRequest) SetAnaReq(
+	AnaReq models.Nwdaf_EvtSubs_EventReportingRequirement,
+) {
 	r.AnaReq = &AnaReq
 }
-func (r *GetNWDAFAnalyticsRequest) SetEventFilter(EventFilter models.NwdafAnalyticsInfoEventFilter) {
+
+func (r *GetNWDAFAnalyticsRequest) SetEventFilter(
+	EventFilter models.Nwdaf_AnalyticsInfo_EventFilter,
+) {
 	r.EventFilter = &EventFilter
 }
-func (r *GetNWDAFAnalyticsRequest) SetSupportedFeatures(SupportedFeatures string) {
+
+func (r *GetNWDAFAnalyticsRequest) SetSupportedFeatures(
+	SupportedFeatures string,
+) {
 	r.SupportedFeatures = &SupportedFeatures
 }
-func (r *GetNWDAFAnalyticsRequest) SetTgtUe(TgtUe models.TargetUeInformation) {
+
+func (r *GetNWDAFAnalyticsRequest) SetTgtUe(
+	TgtUe models.Nwdaf_EvtSubs_TargetUeInformation,
+) {
 	r.TgtUe = &TgtUe
 }
 
 type GetNWDAFAnalyticsResponse struct {
-	NwdafAnalyticsInfoAnalyticsData models.NwdafAnalyticsInfoAnalyticsData
+	Nwdaf_AnalyticsInfo_AnalyticsData *models.Nwdaf_AnalyticsInfo_AnalyticsData
 }
 
 type GetNWDAFAnalyticsError struct {
-	ProblemDetails                     models.ProblemDetails
-	ProblemDetailsAnalyticsInfoRequest models.ProblemDetailsAnalyticsInfoRequest
+	Nwdaf_AnalyticsInfo_ProblemDetailsAnalyticsInfoRequest *models.Nwdaf_AnalyticsInfo_ProblemDetailsAnalyticsInfoRequest
+	ProblemDetails                                         *models.ProblemDetails
 }
 
-func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context, request *GetNWDAFAnalyticsRequest) (*GetNWDAFAnalyticsResponse, error) {
+func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(
+	ctx context.Context,
+	request *GetNWDAFAnalyticsRequest,
+) (*GetNWDAFAnalyticsResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -84,6 +102,7 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		localVarFileBytes    []byte
 		localVarReturnValue  GetNWDAFAnalyticsResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/analytics"
@@ -95,19 +114,54 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 	if request.EventId == nil {
 		return nil, openapi.ReportError("EventId must be non nil")
 	} else {
-		localVarQueryParams.Add("event-id", openapi.ParameterToString(request.EventId, "multi"))
+		err := openapi.AddQueryParams(&localVarQueryParams, "event-id", request.EventId, "multi")
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.AnaReq != nil {
-		localVarQueryParams.Add("ana-req", openapi.ParameterToString(request.AnaReq, "application/json"))
+		err := openapi.AddQueryParams(
+			&localVarQueryParams,
+			"ana-req",
+			request.AnaReq,
+			"application/json",
+		)
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.EventFilter != nil {
-		localVarQueryParams.Add("event-filter", openapi.ParameterToString(request.EventFilter, "application/json"))
+		err := openapi.AddQueryParams(
+			&localVarQueryParams,
+			"event-filter",
+			request.EventFilter,
+			"application/json",
+		)
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.SupportedFeatures != nil {
-		localVarQueryParams.Add("supported-features", openapi.ParameterToString(request.SupportedFeatures, "multi"))
+		err := openapi.AddQueryParams(
+			&localVarQueryParams,
+			"supported-features",
+			request.SupportedFeatures,
+			"multi",
+		)
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.TgtUe != nil {
-		localVarQueryParams.Add("tgt-ue", openapi.ParameterToString(request.TgtUe, "application/json"))
+		err := openapi.AddQueryParams(
+			&localVarQueryParams,
+			"tgt-ue",
+			request.TgtUe,
+			"application/json",
+		)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -115,7 +169,10 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -123,7 +180,19 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -133,7 +202,7 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -146,10 +215,18 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.NwdafAnalyticsInfoAnalyticsData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Nwdaf_AnalyticsInfo_AnalyticsData = new(
+			models.Nwdaf_AnalyticsInfo_AnalyticsData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Nwdaf_AnalyticsInfo_AnalyticsData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -158,7 +235,12 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return &localVarReturnValue, nil
 	case 400:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -166,7 +248,12 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, apiError
 	case 401:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -174,7 +261,12 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, apiError
 	case 403:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -182,17 +274,29 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, apiError
 	case 404:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 406:
-		return &localVarReturnValue, nil
+		var v GetNWDAFAnalyticsError
+		apiError.ErrorModel = v
+		return nil, apiError
 	case 414:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -200,7 +304,12 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, apiError
 	case 429:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -208,7 +317,14 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, apiError
 	case 500:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetailsAnalyticsInfoRequest, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.Nwdaf_AnalyticsInfo_ProblemDetailsAnalyticsInfoRequest = new(
+			models.Nwdaf_AnalyticsInfo_ProblemDetailsAnalyticsInfoRequest,
+		)
+		err = openapi.Deserialize(
+			v.Nwdaf_AnalyticsInfo_ProblemDetailsAnalyticsInfoRequest,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -216,7 +332,12 @@ func (a *NWDAFAnalyticsDocumentApiService) GetNWDAFAnalytics(ctx context.Context
 		return nil, apiError
 	case 503:
 		var v GetNWDAFAnalyticsError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

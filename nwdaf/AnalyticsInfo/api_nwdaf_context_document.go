@@ -13,13 +13,14 @@
 package AnalyticsInfo
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -40,26 +41,34 @@ NWDAFContextDocumentApiService Get context information related to analytics subs
 
 // GetNwdafContextRequest
 type GetNwdafContextRequest struct {
-	ContextIds *models.ContextIdList
-	ReqContext *models.RequestedContext
+	ContextIds *models.Nwdaf_AnalyticsInfo_ContextIdList
+	ReqContext *models.Nwdaf_AnalyticsInfo_RequestedContext
 }
 
-func (r *GetNwdafContextRequest) SetContextIds(ContextIds models.ContextIdList) {
+func (r *GetNwdafContextRequest) SetContextIds(
+	ContextIds models.Nwdaf_AnalyticsInfo_ContextIdList,
+) {
 	r.ContextIds = &ContextIds
 }
-func (r *GetNwdafContextRequest) SetReqContext(ReqContext models.RequestedContext) {
+
+func (r *GetNwdafContextRequest) SetReqContext(
+	ReqContext models.Nwdaf_AnalyticsInfo_RequestedContext,
+) {
 	r.ReqContext = &ReqContext
 }
 
 type GetNwdafContextResponse struct {
-	ContextData models.ContextData
+	Nwdaf_AnalyticsInfo_ContextData *models.Nwdaf_AnalyticsInfo_ContextData
 }
 
 type GetNwdafContextError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, request *GetNwdafContextRequest) (*GetNwdafContextResponse, error) {
+func (a *NWDAFContextDocumentApiService) GetNwdafContext(
+	ctx context.Context,
+	request *GetNwdafContextRequest,
+) (*GetNwdafContextResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Get")
 		localVarPostBody     interface{}
@@ -68,6 +77,7 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		localVarFileBytes    []byte
 		localVarReturnValue  GetNwdafContextResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/context"
@@ -79,10 +89,21 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 	if request.ContextIds == nil {
 		return nil, openapi.ReportError("ContextIds must be non nil")
 	} else {
-		localVarQueryParams.Add("context-ids", openapi.ParameterToString(request.ContextIds, "application/json"))
+		err := openapi.AddQueryParams(&localVarQueryParams, "context-ids", request.ContextIds, "application/json")
+		if err != nil {
+			return nil, err
+		}
 	}
 	if request.ReqContext != nil {
-		localVarQueryParams.Add("req-context", openapi.ParameterToString(request.ReqContext, "application/json"))
+		err := openapi.AddQueryParams(
+			&localVarQueryParams,
+			"req-context",
+			request.ReqContext,
+			"application/json",
+		)
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	localVarHTTPContentTypes := []string{"application/json"}
@@ -90,7 +111,10 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -98,7 +122,19 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -108,7 +144,7 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -121,10 +157,18 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.ContextData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Nwdaf_AnalyticsInfo_ContextData = new(
+			models.Nwdaf_AnalyticsInfo_ContextData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Nwdaf_AnalyticsInfo_ContextData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -133,7 +177,12 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return &localVarReturnValue, nil
 	case 400:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -141,7 +190,12 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, apiError
 	case 401:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -149,7 +203,12 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, apiError
 	case 403:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -157,17 +216,29 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, apiError
 	case 404:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 406:
-		return &localVarReturnValue, nil
+		var v GetNwdafContextError
+		apiError.ErrorModel = v
+		return nil, apiError
 	case 414:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -175,7 +246,12 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, apiError
 	case 429:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -183,7 +259,12 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, apiError
 	case 500:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -191,7 +272,12 @@ func (a *NWDAFContextDocumentApiService) GetNwdafContext(ctx context.Context, re
 		return nil, apiError
 	case 503:
 		var v GetNwdafContextError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

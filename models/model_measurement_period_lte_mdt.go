@@ -16,11 +16,11 @@ type MeasurementPeriodLteMdt string
 
 // List of MeasurementPeriodLteMdt
 const (
-	MeasurementPeriodLteMdt__1024  MeasurementPeriodLteMdt = "1024"
-	MeasurementPeriodLteMdt__1280  MeasurementPeriodLteMdt = "1280"
-	MeasurementPeriodLteMdt__2048  MeasurementPeriodLteMdt = "2048"
-	MeasurementPeriodLteMdt__2560  MeasurementPeriodLteMdt = "2560"
-	MeasurementPeriodLteMdt__5120  MeasurementPeriodLteMdt = "5120"
-	MeasurementPeriodLteMdt__10240 MeasurementPeriodLteMdt = "10240"
-	MeasurementPeriodLteMdt__60000 MeasurementPeriodLteMdt = "60000"
+	MeasurementPeriodLteMdt_1024  MeasurementPeriodLteMdt = "1024"  // #nosec G101
+	MeasurementPeriodLteMdt_1280  MeasurementPeriodLteMdt = "1280"  // #nosec G101
+	MeasurementPeriodLteMdt_2048  MeasurementPeriodLteMdt = "2048"  // #nosec G101
+	MeasurementPeriodLteMdt_2560  MeasurementPeriodLteMdt = "2560"  // #nosec G101
+	MeasurementPeriodLteMdt_5120  MeasurementPeriodLteMdt = "5120"  // #nosec G101
+	MeasurementPeriodLteMdt_10240 MeasurementPeriodLteMdt = "10240" // #nosec G101
+	MeasurementPeriodLteMdt_60000 MeasurementPeriodLteMdt = "60000" // #nosec G101
 )

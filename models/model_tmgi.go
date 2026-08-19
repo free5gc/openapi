@@ -15,6 +15,7 @@ package models
 // Temporary Mobile Group Identity
 type Tmgi struct {
 	// MBS Service ID
-	MbsServiceId string  `json:"mbsServiceId" yaml:"mbsServiceId" bson:"mbsServiceId,omitempty"`
-	PlmnId       *PlmnId `json:"plmnId" yaml:"plmnId" bson:"plmnId,omitempty"`
+	MbsServiceId string `json:"mbsServiceId,omitempty" yaml:"mbsServiceId,omitempty" bson:"mbsServiceId,omitempty"`
+
+	PlmnId *PlmnId `json:"plmnId,omitempty" yaml:"plmnId,omitempty" bson:"plmnId,omitempty"`
 }

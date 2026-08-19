@@ -14,6 +14,7 @@ package models
 
 // A String with Matching Operator
 type StringMatchingCondition struct {
-	MatchingString   string           `json:"matchingString,omitempty" yaml:"matchingString" bson:"matchingString,omitempty"`
-	MatchingOperator MatchingOperator `json:"matchingOperator" yaml:"matchingOperator" bson:"matchingOperator,omitempty"`
+	MatchingString string `json:"matchingString,omitempty" yaml:"matchingString,omitempty" bson:"matchingString,omitempty"`
+
+	MatchingOperator MatchingOperator `json:"matchingOperator,omitempty" yaml:"matchingOperator,omitempty" bson:"matchingOperator,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,17 +12,23 @@
 
 package models
 
-type ChfOfflineOnlyChargingTrigger struct {
-	TriggerType     ChfOfflineOnlyChargingTriggerType `json:"triggerType" yaml:"triggerType" bson:"triggerType,omitempty"`
-	TriggerCategory TriggerCategory                   `json:"triggerCategory" yaml:"triggerCategory" bson:"triggerCategory,omitempty"`
+type Chf_OfflineOnlyCharging_Trigger struct {
+	TriggerType Chf_OfflineOnlyCharging_TriggerType `json:"triggerType,omitempty" yaml:"triggerType,omitempty" bson:"triggerType,omitempty"`
+
+	TriggerCategory Chf_OfflineOnlyCharging_TriggerCategory `json:"triggerCategory,omitempty" yaml:"triggerCategory,omitempty" bson:"triggerCategory,omitempty"`
+
 	// indicating a time in seconds.
-	TimeLimit int32 `json:"timeLimit,omitempty" yaml:"timeLimit" bson:"timeLimit,omitempty"`
+	TimeLimit int32 `json:"timeLimit,omitempty" yaml:"timeLimit,omitempty" bson:"timeLimit,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	VolumeLimit int32 `json:"volumeLimit,omitempty" yaml:"volumeLimit" bson:"volumeLimit,omitempty"`
+	VolumeLimit int32 `json:"volumeLimit,omitempty" yaml:"volumeLimit,omitempty" bson:"volumeLimit,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	VolumeLimit64 int32 `json:"volumeLimit64,omitempty" yaml:"volumeLimit64" bson:"volumeLimit64,omitempty"`
+	VolumeLimit64 int32 `json:"volumeLimit64,omitempty" yaml:"volumeLimit64,omitempty" bson:"volumeLimit64,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	EventLimit int32 `json:"eventLimit,omitempty" yaml:"eventLimit" bson:"eventLimit,omitempty"`
+	EventLimit int32 `json:"eventLimit,omitempty" yaml:"eventLimit,omitempty" bson:"eventLimit,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	MaxNumberOfccc int32 `json:"maxNumberOfccc,omitempty" yaml:"maxNumberOfccc" bson:"maxNumberOfccc,omitempty"`
+	MaxNumberOfccc int32 `json:"maxNumberOfccc,omitempty" yaml:"maxNumberOfccc,omitempty" bson:"maxNumberOfccc,omitempty"`
 }

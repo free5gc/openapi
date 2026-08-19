@@ -14,8 +14,13 @@ package models
 
 // MBR related to slice
 type SliceMbr struct {
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	Uplink string `json:"uplink" yaml:"uplink" bson:"uplink,omitempty"`
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	Downlink string `json:"downlink" yaml:"downlink" bson:"downlink,omitempty"`
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	Uplink string `json:"uplink,omitempty" yaml:"uplink,omitempty" bson:"uplink,omitempty"`
+
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	Downlink string `json:"downlink,omitempty" yaml:"downlink,omitempty" bson:"downlink,omitempty"`
 }

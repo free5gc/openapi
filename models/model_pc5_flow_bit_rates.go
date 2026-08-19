@@ -14,8 +14,13 @@ package models
 
 // it shall represent the PC5 Flow Bit Rates
 type Pc5FlowBitRates struct {
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	GuaFbr string `json:"guaFbr,omitempty" yaml:"guaFbr" bson:"guaFbr,omitempty"`
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	MaxFbr string `json:"maxFbr,omitempty" yaml:"maxFbr" bson:"maxFbr,omitempty"`
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	GuaFbr string `json:"guaFbr,omitempty" yaml:"guaFbr,omitempty" bson:"guaFbr,omitempty"`
+
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	MaxFbr string `json:"maxFbr,omitempty" yaml:"maxFbr,omitempty" bson:"maxFbr,omitempty"`
 }

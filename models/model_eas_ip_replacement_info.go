@@ -14,6 +14,7 @@ package models
 
 // Contains EAS IP replacement information for a Source and a Target EAS.
 type EasIpReplacementInfo struct {
-	Source *EasServerAddress `json:"source" yaml:"source" bson:"source,omitempty"`
-	Target *EasServerAddress `json:"target" yaml:"target" bson:"target,omitempty"`
+	Source *EasServerAddress `json:"source,omitempty" yaml:"source,omitempty" bson:"source,omitempty"`
+
+	Target *EasServerAddress `json:"target,omitempty" yaml:"target,omitempty" bson:"target,omitempty"`
 }

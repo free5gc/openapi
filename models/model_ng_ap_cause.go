@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -15,7 +15,8 @@ package models
 // Represents the NGAP cause.
 type NgApCause struct {
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	Group int32 `json:"group" yaml:"group" bson:"group,omitempty"`
+	Group int32 `json:"group,omitempty" yaml:"group,omitempty" bson:"group,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	Value int32 `json:"value" yaml:"value" bson:"value,omitempty"`
+	Value int32 `json:"value,omitempty" yaml:"value,omitempty" bson:"value,omitempty"`
 }

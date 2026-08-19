@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -16,14 +16,20 @@ import (
 	"time"
 )
 
-type ChfOfflineOnlyChargingChargingDataResponse struct {
+type Chf_OfflineOnlyCharging_ChargingDataResponse struct {
 	// string with format 'date-time' as defined in OpenAPI.
-	InvocationTimeStamp *time.Time `json:"invocationTimeStamp" yaml:"invocationTimeStamp" bson:"invocationTimeStamp,omitempty"`
+	InvocationTimeStamp *time.Time `json:"invocationTimeStamp,omitempty" yaml:"invocationTimeStamp,omitempty" bson:"invocationTimeStamp,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	InvocationSequenceNumber      int32                                                `json:"invocationSequenceNumber" yaml:"invocationSequenceNumber" bson:"invocationSequenceNumber,omitempty"`
-	InvocationResult              *InvocationResult                                    `json:"invocationResult,omitempty" yaml:"invocationResult" bson:"invocationResult,omitempty"`
-	SessionFailover               SessionFailover                                      `json:"sessionFailover,omitempty" yaml:"sessionFailover" bson:"sessionFailover,omitempty"`
-	Triggers                      []ChfOfflineOnlyChargingTrigger                      `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
-	PDUSessionChargingInformation *ChfOfflineOnlyChargingPduSessionChargingInformation `json:"pDUSessionChargingInformation,omitempty" yaml:"pDUSessionChargingInformation" bson:"pDUSessionChargingInformation,omitempty"`
-	RoamingQBCInformation         *ChfOfflineOnlyChargingRoamingQbcInformation         `json:"roamingQBCInformation,omitempty" yaml:"roamingQBCInformation" bson:"roamingQBCInformation,omitempty"`
+	InvocationSequenceNumber int32 `json:"invocationSequenceNumber,omitempty" yaml:"invocationSequenceNumber,omitempty" bson:"invocationSequenceNumber,omitempty"`
+
+	InvocationResult *Chf_OfflineOnlyCharging_InvocationResult `json:"invocationResult,omitempty" yaml:"invocationResult,omitempty" bson:"invocationResult,omitempty"`
+
+	SessionFailover Chf_OfflineOnlyCharging_SessionFailover `json:"sessionFailover,omitempty" yaml:"sessionFailover,omitempty" bson:"sessionFailover,omitempty"`
+
+	Triggers []Chf_OfflineOnlyCharging_Trigger `json:"triggers,omitempty" yaml:"triggers,omitempty" bson:"triggers,omitempty"`
+
+	PDUSessionChargingInformation *Chf_OfflineOnlyCharging_PDUSessionChargingInformation `json:"pDUSessionChargingInformation,omitempty" yaml:"pDUSessionChargingInformation,omitempty" bson:"pDUSessionChargingInformation,omitempty"`
+
+	RoamingQBCInformation *Chf_OfflineOnlyCharging_RoamingQBCInformation `json:"roamingQBCInformation,omitempty" yaml:"roamingQBCInformation,omitempty" bson:"roamingQBCInformation,omitempty"`
 }

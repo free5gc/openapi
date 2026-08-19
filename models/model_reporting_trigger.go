@@ -16,8 +16,8 @@ type ReportingTrigger string
 
 // List of ReportingTrigger
 const (
-	ReportingTrigger_PERIODICAL             ReportingTrigger = "PERIODICAL"
-	ReportingTrigger_EVENT_A2               ReportingTrigger = "EVENT_A2"
-	ReportingTrigger_EVENT_A2_PERIODIC      ReportingTrigger = "EVENT_A2_PERIODIC"
-	ReportingTrigger_ALL_RRM_EVENT_TRIGGERS ReportingTrigger = "ALL_RRM_EVENT_TRIGGERS"
+	ReportingTrigger_PERIODICAL             ReportingTrigger = "PERIODICAL"             // #nosec G101
+	ReportingTrigger_EVENT_A2               ReportingTrigger = "EVENT_A2"               // #nosec G101
+	ReportingTrigger_EVENT_A2_PERIODIC      ReportingTrigger = "EVENT_A2_PERIODIC"      // #nosec G101
+	ReportingTrigger_ALL_RRM_EVENT_TRIGGERS ReportingTrigger = "ALL_RRM_EVENT_TRIGGERS" // #nosec G101
 )

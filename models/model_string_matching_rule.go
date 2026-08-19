@@ -14,5 +14,5 @@ package models
 
 // A list of conditions for string matching
 type StringMatchingRule struct {
-	StringMatchingConditions []StringMatchingCondition `json:"stringMatchingConditions,omitempty" yaml:"stringMatchingConditions" bson:"stringMatchingConditions,omitempty"`
+	StringMatchingConditions []StringMatchingCondition `json:"stringMatchingConditions,omitempty" yaml:"stringMatchingConditions,omitempty" bson:"stringMatchingConditions,omitempty"`
 }

@@ -35,8 +35,12 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.IndividualSMContextDocumentApi = (*IndividualSMContextDocumentApiService)(&c.common)
-	c.SMContextsCollectionCollectionApi = (*SMContextsCollectionCollectionApiService)(&c.common)
+	c.IndividualSMContextDocumentApi = (*IndividualSMContextDocumentApiService)(
+		&c.common,
+	)
+	c.SMContextsCollectionCollectionApi = (*SMContextsCollectionCollectionApiService)(
+		&c.common,
+	)
 
 	return c
 }

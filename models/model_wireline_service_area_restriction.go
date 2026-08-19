@@ -12,8 +12,10 @@
 
 package models
 
-// The \"restrictionType\" attribute and the \"areas\" attribute shall be either both present or absent.  The empty array of areas is used when service is allowed/restricted nowhere.
+// The \"restrictionType\" attribute and the \"areas\" attribute shall be either both present or
+// absent.  The empty array of areas is used when service is allowed/restricted nowhere.
 type WirelineServiceAreaRestriction struct {
-	RestrictionType RestrictionType `json:"restrictionType,omitempty" yaml:"restrictionType" bson:"restrictionType,omitempty"`
-	Areas           []WirelineArea  `json:"areas,omitempty" yaml:"areas" bson:"areas,omitempty"`
+	RestrictionType RestrictionType `json:"restrictionType,omitempty" yaml:"restrictionType,omitempty" bson:"restrictionType,omitempty"`
+
+	Areas []WirelineArea `json:"areas,omitempty" yaml:"areas,omitempty" bson:"areas,omitempty"`
 }

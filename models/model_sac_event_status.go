@@ -12,8 +12,10 @@
 
 package models
 
-// Contains the network slice status information in terms of the current number of UEs registered  with a network slice, the current number of PDU Sessions established on a network slice or both.
-type SacEventStatus struct {
-	ReachedNumUes     *SacInfo `json:"reachedNumUes,omitempty" yaml:"reachedNumUes" bson:"reachedNumUes,omitempty"`
-	ReachedNumPduSess *SacInfo `json:"reachedNumPduSess,omitempty" yaml:"reachedNumPduSess" bson:"reachedNumPduSess,omitempty"`
+// Contains the network slice status information in terms of the current number of UEs registered
+// with a network slice, the current number of PDU Sessions established on a network slice or both.
+type SACEventStatus struct {
+	ReachedNumUes *SACInfo `json:"reachedNumUes,omitempty" yaml:"reachedNumUes,omitempty" bson:"reachedNumUes,omitempty"`
+
+	ReachedNumPduSess *SACInfo `json:"reachedNumPduSess,omitempty" yaml:"reachedNumPduSess,omitempty" bson:"reachedNumPduSess,omitempty"`
 }

@@ -14,8 +14,11 @@ package models
 
 // MBS Session Identifier
 type MbsSessionId struct {
-	Tmgi *Tmgi `json:"tmgi,omitempty" yaml:"tmgi" bson:"tmgi,omitempty"`
-	Ssm  *Ssm  `json:"ssm,omitempty" yaml:"ssm" bson:"ssm,omitempty"`
-	// This represents the Network Identifier, which together with a PLMN ID is used to identify an SNPN (see 3GPP TS 23.003 and 3GPP TS 23.501 clause 5.30.2.1).
-	Nid string `json:"nid,omitempty" yaml:"nid" bson:"nid,omitempty"`
+	Tmgi *Tmgi `json:"tmgi,omitempty" yaml:"tmgi,omitempty" bson:"tmgi,omitempty"`
+
+	Ssm *Ssm `json:"ssm,omitempty" yaml:"ssm,omitempty" bson:"ssm,omitempty"`
+
+	// This represents the Network Identifier, which together with a PLMN ID is used to identify an
+	// SNPN (see 3GPP TS 23.003 and 3GPP TS 23.501 clause 5.30.2.1).
+	Nid string `json:"nid,omitempty" yaml:"nid,omitempty" bson:"nid,omitempty"`
 }

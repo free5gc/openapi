@@ -13,10 +13,12 @@
 package models
 
 // Representation of the updates to apply to the Individual SM context.
-type NefSmContextSmContextUpdateData struct {
+type Nef_SMContext_SmContextUpdateData struct {
 	// String providing an URI formatted according to RFC 3986.
-	DlNiddEndPoint string `json:"dlNiddEndPoint,omitempty" yaml:"dlNiddEndPoint" bson:"dlNiddEndPoint,omitempty"`
+	DlNiddEndPoint string `json:"dlNiddEndPoint,omitempty" yaml:"dlNiddEndPoint,omitempty" bson:"dlNiddEndPoint,omitempty"`
+
 	// String providing an URI formatted according to RFC 3986.
-	NotificationUri string                  `json:"notificationUri,omitempty" yaml:"notificationUri" bson:"notificationUri,omitempty"`
-	SmContextConfig *SmContextConfiguration `json:"smContextConfig,omitempty" yaml:"smContextConfig" bson:"smContextConfig,omitempty"`
+	NotificationUri string `json:"notificationUri,omitempty" yaml:"notificationUri,omitempty" bson:"notificationUri,omitempty"`
+
+	SmContextConfig *Nef_SMContext_SmContextConfiguration `json:"smContextConfig,omitempty" yaml:"smContextConfig,omitempty" bson:"smContextConfig,omitempty"`
 }

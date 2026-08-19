@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -14,8 +14,13 @@ package models
 
 // Contains Allocation and Retention Priority information.
 type Arp struct {
-	// nullable true shall not be used for this attribute. Unsigned integer indicating the ARP Priority Level (see clause 5.7.2.2 of 3GPP TS 23.501, within the range 1 to 15.Values are ordered in decreasing order of priority, i.e. with 1 as the highest priority and 15 as the lowest priority.
-	PriorityLevel int32                   `json:"priorityLevel" yaml:"priorityLevel" bson:"priorityLevel,omitempty"`
-	PreemptCap    PreemptionCapability    `json:"preemptCap" yaml:"preemptCap" bson:"preemptCap,omitempty"`
-	PreemptVuln   PreemptionVulnerability `json:"preemptVuln" yaml:"preemptVuln" bson:"preemptVuln,omitempty"`
+	// nullable true shall not be used for this attribute. Unsigned integer indicating the ARP
+	// Priority Level (see clause 5.7.2.2 of 3GPP TS 23.501, within the range 1 to 15.Values are
+	// ordered in decreasing order of priority, i.e. with 1 as the highest priority and 15 as the
+	// lowest priority.
+	PriorityLevel int32 `json:"priorityLevel,omitempty" yaml:"priorityLevel,omitempty" bson:"priorityLevel,omitempty"`
+
+	PreemptCap PreemptionCapability `json:"preemptCap,omitempty" yaml:"preemptCap,omitempty" bson:"preemptCap,omitempty"`
+
+	PreemptVuln PreemptionVulnerability `json:"preemptVuln,omitempty" yaml:"preemptVuln,omitempty" bson:"preemptVuln,omitempty"`
 }

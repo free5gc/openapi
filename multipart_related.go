@@ -2,10 +2,12 @@ package openapi
 
 import (
 	"bytes"
-	"io/ioutil"
+	"io"
+	"mime"
 	"net/http"
 	"regexp"
 
+	"github.com/free5gc/openapi/mediatype/multipart"
 	"github.com/pkg/errors"
 )
 
@@ -16,7 +18,7 @@ func (MultipartRelatedBinding) Name() string {
 }
 
 func (MultipartRelatedBinding) Bind(req *http.Request, obj interface{}) error {
-	b, err := ioutil.ReadAll(req.Body)
+	b, err := io.ReadAll(req.Body)
 	if err != nil {
 		return err
 	}
@@ -41,14 +43,14 @@ type MultipartRelatedRender struct {
 }
 
 func (r MultipartRelatedRender) Render(w http.ResponseWriter) (err error) {
-	payloadBuf := &bytes.Buffer{}
-	ct, err := MultipartEncode(r.Data, payloadBuf)
+	boundary, reqBodyBytes, err := multipart.Marshal(r.Data)
 	if err != nil {
 		return errors.Wrap(err, "multipart rending fail")
 	}
-	r.contentType = ct
+	contentType := mime.FormatMediaType("multipart/related", map[string]string{"boundary": boundary})
+	r.contentType = contentType
 	w.Header().Set("Content-Type", r.contentType)
-	_, err = payloadBuf.WriteTo(w)
+	_, err = bytes.NewBuffer(reqBodyBytes).WriteTo(w)
 	if err != nil {
 		return errors.Wrap(err, "multipart rending fail")
 	}

@@ -14,6 +14,7 @@ package models
 
 // contains the Subscribed S-NSSAI subject to NSSAA procedure and the status.
 type NssaaStatus struct {
-	Snssai *Snssai    `json:"snssai" yaml:"snssai" bson:"snssai,omitempty"`
-	Status AuthStatus `json:"status" yaml:"status" bson:"status,omitempty"`
+	Snssai *Snssai `json:"snssai,omitempty" yaml:"snssai,omitempty" bson:"snssai,omitempty"`
+
+	Status AuthStatus `json:"status,omitempty" yaml:"status,omitempty" bson:"status,omitempty"`
 }

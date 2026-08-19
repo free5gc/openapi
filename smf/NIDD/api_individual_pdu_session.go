@@ -13,13 +13,14 @@
 package NIDD
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -33,36 +34,39 @@ type IndividualPDUSessionApiService service
 IndividualPDUSessionApiService Delivery Service Operation
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  * @param PduSessionRef - PDU session reference
- * @param DeliverRequest - representation of the payload of Deliver Request
+ * @param RequestBody - representation of the payload of Deliver Request
 
 @return DeliverResponse
 */
 
 // DeliverRequest
 type DeliverRequest struct {
-	PduSessionRef  *string
-	DeliverRequest *models.DeliverRequest
+	PduSessionRef *string
+	RequestBody   *models.DeliverRequestBody
 }
 
 func (r *DeliverRequest) SetPduSessionRef(PduSessionRef string) {
 	r.PduSessionRef = &PduSessionRef
 }
-func (r *DeliverRequest) SetDeliverRequest(DeliverRequest models.DeliverRequest) {
-	r.DeliverRequest = &DeliverRequest
+
+func (r *DeliverRequest) SetRequestBody(RequestBody models.DeliverRequestBody) {
+	r.RequestBody = &RequestBody
 }
 
-type DeliverResponse struct {
-}
+type DeliverResponse struct{}
 
 type DeliverError struct {
-	Location             string
-	Var3gppSbiTargetNfId string
-	DeliverError         models.DeliverError
-	ProblemDetails       models.ProblemDetails
-	RedirectResponse     models.RedirectResponse
+	Location                 string
+	Var3gpp_Sbi_Target_Nf_Id string
+	ProblemDetails           *models.ProblemDetails
+	RedirectResponse         *models.RedirectResponse
+	Smf_NIDD_DeliverError    *models.Smf_NIDD_DeliverError
 }
 
-func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *DeliverRequest) (*DeliverResponse, error) {
+func (a *IndividualPDUSessionApiService) Deliver(
+	ctx context.Context,
+	request *DeliverRequest,
+) (*DeliverResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -71,10 +75,15 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		localVarFileBytes    []byte
 		localVarReturnValue  DeliverResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/pdu-sessions/{pduSessionRef}/deliver"
-	localVarPath = strings.Replace(localVarPath, "{"+"pduSessionRef"+"}", openapi.StringOfValue(*request.PduSessionRef), -1)
+	localVarPath = strings.ReplaceAll(
+		localVarPath,
+		"{"+"pduSessionRef"+"}",
+		openapi.StringOfValue(*request.PduSessionRef),
+	)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -85,7 +94,10 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -94,9 +106,21 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 	}
 
 	// body params
-	localVarPostBody = request.DeliverRequest
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -106,7 +130,7 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -119,33 +143,53 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 204:
 		return &localVarReturnValue, nil
 	case 307:
 		var v DeliverError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 308:
 		var v DeliverError
-		err = openapi.Deserialize(&v.RedirectResponse, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.RedirectResponse = new(models.RedirectResponse)
+		err = openapi.Deserialize(
+			v.RedirectResponse,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		v.Location = localVarHTTPResponse.Header.Get("Location")
-		v.Var3gppSbiTargetNfId = localVarHTTPResponse.Header.Get("3gpp-Sbi-Target-Nf-Id")
+		v.Var3gpp_Sbi_Target_Nf_Id = localVarHTTPResponse.Header.Get(
+			"3gpp-Sbi-Target-Nf-Id",
+		)
 		apiError.ErrorModel = v
 		return nil, apiError
 	case 400:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -153,7 +197,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 401:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -161,7 +210,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 403:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -169,7 +223,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 404:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -177,7 +236,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 411:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -185,7 +249,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 413:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -193,7 +262,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 415:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -201,7 +275,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 429:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -209,7 +288,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 500:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -217,7 +301,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 503:
 		var v DeliverError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -225,7 +314,12 @@ func (a *IndividualPDUSessionApiService) Deliver(ctx context.Context, request *D
 		return nil, apiError
 	case 504:
 		var v DeliverError
-		err = openapi.Deserialize(&v.DeliverError, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.Smf_NIDD_DeliverError = new(models.Smf_NIDD_DeliverError)
+		err = openapi.Deserialize(
+			v.Smf_NIDD_DeliverError,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

@@ -12,12 +12,16 @@
 
 package models
 
-// One and only one of the \"globLineIds\", \"hfcNIds\", \"areaCodeB\" and \"areaCodeC\" attributes shall be included in a WirelineArea data structure
+// One and only one of the \"globLineIds\", \"hfcNIds\", \"areaCodeB\" and \"areaCodeC\" attributes
+// shall be included in a WirelineArea data structure
 type WirelineArea struct {
-	GlobalLineIds []string `json:"globalLineIds,omitempty" yaml:"globalLineIds" bson:"globalLineIds,omitempty"`
-	HfcNIds       []string `json:"hfcNIds,omitempty" yaml:"hfcNIds" bson:"hfcNIds,omitempty"`
+	GlobalLineIds []string `json:"globalLineIds,omitempty" yaml:"globalLineIds,omitempty" bson:"globalLineIds,omitempty"`
+
+	HfcNIds []string `json:"hfcNIds,omitempty" yaml:"hfcNIds,omitempty" bson:"hfcNIds,omitempty"`
+
 	// Values are operator specific.
-	AreaCodeB string `json:"areaCodeB,omitempty" yaml:"areaCodeB" bson:"areaCodeB,omitempty"`
+	AreaCodeB string `json:"areaCodeB,omitempty" yaml:"areaCodeB,omitempty" bson:"areaCodeB,omitempty"`
+
 	// Values are operator specific.
-	AreaCodeC string `json:"areaCodeC,omitempty" yaml:"areaCodeC" bson:"areaCodeC,omitempty"`
+	AreaCodeC string `json:"areaCodeC,omitempty" yaml:"areaCodeC,omitempty" bson:"areaCodeC,omitempty"`
 }

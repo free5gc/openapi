@@ -35,7 +35,9 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.common.client = c
 
 	// API Services
-	c.IndividualMBSPolicyDocumentApi = (*IndividualMBSPolicyDocumentApiService)(&c.common)
+	c.IndividualMBSPolicyDocumentApi = (*IndividualMBSPolicyDocumentApiService)(
+		&c.common,
+	)
 	c.MBSPoliciesCollectionApi = (*MBSPoliciesCollectionApiService)(&c.common)
 
 	return c

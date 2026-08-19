@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,12 +12,21 @@
 
 package models
 
-// Containes Capability to support procedures related to Access Traffic Steering, Switching, Splitting.
+// Containes Capability to support procedures related to Access Traffic Steering, Switching,
+// Splitting.
 type AtsssCapability struct {
-	// Indicates the ATSSS-LL capability to support procedures related to Access Traffic Steering, Switching, Splitting (see clauses 4.2.10, 5.32 of 3GPP TS 23.501). true: Supported false (default): Not Supported
-	AtsssLL bool `json:"atsssLL,omitempty" yaml:"atsssLL" bson:"atsssLL,omitempty"`
-	// Indicates the MPTCP capability to support procedures related to Access Traffic Steering, Switching, Splitting (see clauses 4.2.10, 5.32 of 3GPP TS 23.501 true: Supported false (default): Not Supported
-	Mptcp bool `json:"mptcp,omitempty" yaml:"mptcp" bson:"mptcp,omitempty"`
-	// This IE is only used by the UPF to indicate whether the UPF supports RTT measurement without PMF (see clauses 5.32.2, 6.3.3.3 of 3GPP TS 23.501 true: Supported false (default): Not Supported
-	RttWithoutPmf bool `json:"rttWithoutPmf,omitempty" yaml:"rttWithoutPmf" bson:"rttWithoutPmf,omitempty"`
+	// Indicates the ATSSS-LL capability to support procedures related to Access Traffic Steering,
+	// Switching, Splitting (see clauses 4.2.10, 5.32 of 3GPP TS 23.501). true: Supported false
+	// (default): Not Supported
+	AtsssLL bool `json:"atsssLL,omitempty" yaml:"atsssLL,omitempty" bson:"atsssLL,omitempty"`
+
+	// Indicates the MPTCP capability to support procedures related to Access Traffic Steering,
+	// Switching, Splitting (see clauses 4.2.10, 5.32 of 3GPP TS 23.501 true: Supported false
+	// (default): Not Supported
+	Mptcp bool `json:"mptcp,omitempty" yaml:"mptcp,omitempty" bson:"mptcp,omitempty"`
+
+	// This IE is only used by the UPF to indicate whether the UPF supports RTT measurement without
+	// PMF (see clauses 5.32.2, 6.3.3.3 of 3GPP TS 23.501 true: Supported false (default): Not
+	// Supported
+	RttWithoutPmf bool `json:"rttWithoutPmf,omitempty" yaml:"rttWithoutPmf,omitempty" bson:"rttWithoutPmf,omitempty"`
 }

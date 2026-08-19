@@ -14,6 +14,7 @@ package models
 
 // Source specific IP multicast address
 type Ssm struct {
-	SourceIpAddr *IpAddr `json:"sourceIpAddr" yaml:"sourceIpAddr" bson:"sourceIpAddr,omitempty"`
-	DestIpAddr   *IpAddr `json:"destIpAddr" yaml:"destIpAddr" bson:"destIpAddr,omitempty"`
+	SourceIpAddr *IpAddr `json:"sourceIpAddr,omitempty" yaml:"sourceIpAddr,omitempty" bson:"sourceIpAddr,omitempty"`
+
+	DestIpAddr *IpAddr `json:"destIpAddr,omitempty" yaml:"destIpAddr,omitempty" bson:"destIpAddr,omitempty"`
 }

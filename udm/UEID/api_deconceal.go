@@ -13,13 +13,14 @@
 package UEID
 
 import (
-	"github.com/free5gc/openapi"
-	"github.com/free5gc/openapi/models"
-
 	"context"
-	"io/ioutil"
+	"io"
 	"net/url"
 	"strings"
+
+	"github.com/free5gc/openapi"
+
+	"github.com/free5gc/openapi/models"
 )
 
 // Linger please
@@ -32,29 +33,34 @@ type DeconcealApiService service
 /*
 DeconcealApiService Deconceal the SUCI to the SUPI
  * @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- * @param DeconcealReqData -
+ * @param RequestBody -
 
 @return DeconcealResponse
 */
 
 // DeconcealRequest
 type DeconcealRequest struct {
-	DeconcealReqData *models.DeconcealReqData
+	RequestBody *models.Udm_UEID_DeconcealReqData
 }
 
-func (r *DeconcealRequest) SetDeconcealReqData(DeconcealReqData models.DeconcealReqData) {
-	r.DeconcealReqData = &DeconcealReqData
+func (r *DeconcealRequest) SetRequestBody(
+	RequestBody models.Udm_UEID_DeconcealReqData,
+) {
+	r.RequestBody = &RequestBody
 }
 
 type DeconcealResponse struct {
-	DeconcealRspData models.DeconcealRspData
+	Udm_UEID_DeconcealRspData *models.Udm_UEID_DeconcealRspData
 }
 
 type DeconcealError struct {
-	ProblemDetails models.ProblemDetails
+	ProblemDetails *models.ProblemDetails
 }
 
-func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealRequest) (*DeconcealResponse, error) {
+func (a *DeconcealApiService) Deconceal(
+	ctx context.Context,
+	request *DeconcealRequest,
+) (*DeconcealResponse, error) {
 	var (
 		localVarHTTPMethod   = strings.ToUpper("Post")
 		localVarPostBody     interface{}
@@ -63,6 +69,7 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		localVarFileBytes    []byte
 		localVarReturnValue  DeconcealResponse
 	)
+	_ = localVarReturnValue
 
 	// create path and map variables
 	localVarPath := a.client.cfg.BasePath() + "/deconceal"
@@ -76,7 +83,10 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 	localVarHeaderParams["Content-Type"] = localVarHTTPContentTypes[0] // use the first content type specified in 'consumes'
 
 	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json", "application/problem+json"}
+	localVarHTTPHeaderAccepts := []string{
+		"application/json",
+		"application/problem+json",
+	}
 
 	// set Accept header
 	localVarHTTPHeaderAccept := strings.Join(localVarHTTPHeaderAccepts, ", ")
@@ -85,9 +95,21 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 	}
 
 	// body params
-	localVarPostBody = request.DeconcealReqData
+	localVarPostBody = request.RequestBody
 
-	r, err := openapi.PrepareRequest(ctx, a.client.cfg, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, localVarFormFileName, localVarFileName, localVarFileBytes)
+	r, err := openapi.PrepareRequest(
+		ctx,
+		a.client.cfg,
+		localVarPath,
+		localVarHTTPMethod,
+		localVarPostBody,
+		localVarHeaderParams,
+		localVarQueryParams,
+		localVarFormParams,
+		localVarFormFileName,
+		localVarFileName,
+		localVarFileBytes,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -97,7 +119,7 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		return nil, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	if err != nil {
 		return nil, err
 	}
@@ -110,17 +132,30 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		RawBody:     localVarBody,
 		ErrorStatus: localVarHTTPResponse.StatusCode,
 	}
+	_ = apiError
 
 	switch localVarHTTPResponse.StatusCode {
 	case 200:
-		err = openapi.Deserialize(&localVarReturnValue.DeconcealRspData, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		localVarReturnValue.Udm_UEID_DeconcealRspData = new(
+			models.Udm_UEID_DeconcealRspData,
+		)
+		err = openapi.Deserialize(
+			localVarReturnValue.Udm_UEID_DeconcealRspData,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
 		return &localVarReturnValue, nil
 	case 400:
 		var v DeconcealError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -128,7 +163,12 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		return nil, apiError
 	case 403:
 		var v DeconcealError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -136,7 +176,12 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		return nil, apiError
 	case 404:
 		var v DeconcealError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -144,7 +189,12 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		return nil, apiError
 	case 500:
 		var v DeconcealError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -152,7 +202,12 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		return nil, apiError
 	case 501:
 		var v DeconcealError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -160,7 +215,12 @@ func (a *DeconcealApiService) Deconceal(ctx context.Context, request *DeconcealR
 		return nil, apiError
 	case 503:
 		var v DeconcealError
-		err = openapi.Deserialize(&v.ProblemDetails, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+		v.ProblemDetails = new(models.ProblemDetails)
+		err = openapi.Deserialize(
+			v.ProblemDetails,
+			localVarBody,
+			localVarHTTPResponse.Header.Get("Content-Type"),
+		)
 		if err != nil {
 			return nil, err
 		}

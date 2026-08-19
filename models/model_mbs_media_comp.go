@@ -14,10 +14,15 @@ package models
 
 // Represents an MBS Media Component.
 type MbsMediaComp struct {
-	MbsMedCompNum int32          `json:"mbsMedCompNum" yaml:"mbsMedCompNum" bson:"mbsMedCompNum,omitempty"`
-	MbsFlowDescs  []string       `json:"mbsFlowDescs,omitempty" yaml:"mbsFlowDescs" bson:"mbsFlowDescs,omitempty"`
-	MbsSdfResPrio ReservPriority `json:"mbsSdfResPrio,omitempty" yaml:"mbsSdfResPrio" bson:"mbsSdfResPrio,omitempty"`
-	MbsMediaInfo  *MbsMediaInfo  `json:"mbsMediaInfo,omitempty" yaml:"mbsMediaInfo" bson:"mbsMediaInfo,omitempty"`
-	QosRef        string         `json:"qosRef,omitempty" yaml:"qosRef" bson:"qosRef,omitempty"`
-	MbsQoSReq     *MbsQoSReq     `json:"mbsQoSReq,omitempty" yaml:"mbsQoSReq" bson:"mbsQoSReq,omitempty"`
+	MbsMedCompNum int32 `json:"mbsMedCompNum,omitempty" yaml:"mbsMedCompNum,omitempty" bson:"mbsMedCompNum,omitempty"`
+
+	MbsFlowDescs []string `json:"mbsFlowDescs,omitempty" yaml:"mbsFlowDescs,omitempty" bson:"mbsFlowDescs,omitempty"`
+
+	MbsSdfResPrio Pcf_PolAuth_ReservPriority `json:"mbsSdfResPrio,omitempty" yaml:"mbsSdfResPrio,omitempty" bson:"mbsSdfResPrio,omitempty"`
+
+	MbsMediaInfo *MbsMediaInfo `json:"mbsMediaInfo,omitempty" yaml:"mbsMediaInfo,omitempty" bson:"mbsMediaInfo,omitempty"`
+
+	QosRef string `json:"qosRef,omitempty" yaml:"qosRef,omitempty" bson:"qosRef,omitempty"`
+
+	MbsQoSReq *MbsQoSReq `json:"mbsQoSReq,omitempty" yaml:"mbsQoSReq,omitempty" bson:"mbsQoSReq,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,9 +12,12 @@
 
 package models
 
-type ChfOfflineOnlyChargingRoamingQbcInformation struct {
-	MultipleQFIcontainer []ChfOfflineOnlyChargingMultipleQfIcontainer `json:"multipleQFIcontainer,omitempty" yaml:"multipleQFIcontainer" bson:"multipleQFIcontainer,omitempty"`
-	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a  Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
-	UPFID                  string                                        `json:"uPFID,omitempty" yaml:"uPFID" bson:"uPFID,omitempty"`
-	RoamingChargingProfile *ChfOfflineOnlyChargingRoamingChargingProfile `json:"roamingChargingProfile,omitempty" yaml:"roamingChargingProfile" bson:"roamingChargingProfile,omitempty"`
+type Chf_OfflineOnlyCharging_RoamingQBCInformation struct {
+	MultipleQFIcontainer []Chf_OfflineOnlyCharging_MultipleQFIcontainer `json:"multipleQFIcontainer,omitempty" yaml:"multipleQFIcontainer,omitempty" bson:"multipleQFIcontainer,omitempty"`
+
+	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a
+	// Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
+	UPFID string `json:"uPFID,omitempty" yaml:"uPFID,omitempty" bson:"uPFID,omitempty"`
+
+	RoamingChargingProfile *Chf_OfflineOnlyCharging_RoamingChargingProfile `json:"roamingChargingProfile,omitempty" yaml:"roamingChargingProfile,omitempty" bson:"roamingChargingProfile,omitempty"`
 }

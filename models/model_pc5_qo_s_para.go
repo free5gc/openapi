@@ -14,7 +14,10 @@ package models
 
 // Contains policy data on the PC5 QoS parameters.
 type Pc5QoSPara struct {
-	Pc5QosFlowList []Pc5QosFlowItem `json:"pc5QosFlowList" yaml:"pc5QosFlowList" bson:"pc5QosFlowList,omitempty"`
-	// String representing a bit rate; the prefixes follow the standard symbols from The International System of Units, and represent x1000 multipliers, with the exception that prefix \"K\" is used to represent the standard symbol \"k\".
-	Pc5LinkAmbr string `json:"pc5LinkAmbr,omitempty" yaml:"pc5LinkAmbr" bson:"pc5LinkAmbr,omitempty"`
+	Pc5QosFlowList []Pc5QosFlowItem `json:"pc5QosFlowList,omitempty" yaml:"pc5QosFlowList,omitempty" bson:"pc5QosFlowList,omitempty"`
+
+	// String representing a bit rate; the prefixes follow the standard symbols from The
+	// International System of Units, and represent x1000 multipliers, with the exception that
+	// prefix \"K\" is used to represent the standard symbol \"k\".
+	Pc5LinkAmbr string `json:"pc5LinkAmbr,omitempty" yaml:"pc5LinkAmbr,omitempty" bson:"pc5LinkAmbr,omitempty"`
 }

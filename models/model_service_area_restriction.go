@@ -14,10 +14,13 @@ package models
 
 // Provides information about allowed or not allowed areas.
 type ServiceAreaRestriction struct {
-	RestrictionType RestrictionType `json:"restrictionType,omitempty" yaml:"restrictionType" bson:"restrictionType,omitempty"`
-	Areas           []Area          `json:"areas,omitempty" yaml:"areas" bson:"areas,omitempty"`
+	RestrictionType RestrictionType `json:"restrictionType,omitempty" yaml:"restrictionType,omitempty" bson:"restrictionType,omitempty"`
+
+	Areas []Area `json:"areas,omitempty" yaml:"areas,omitempty" bson:"areas,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	MaxNumOfTAs int32 `json:"maxNumOfTAs,omitempty" yaml:"maxNumOfTAs" bson:"maxNumOfTAs,omitempty"`
+	MaxNumOfTAs int32 `json:"maxNumOfTAs,omitempty" yaml:"maxNumOfTAs,omitempty" bson:"maxNumOfTAs,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	MaxNumOfTAsForNotAllowedAreas int32 `json:"maxNumOfTAsForNotAllowedAreas,omitempty" yaml:"maxNumOfTAsForNotAllowedAreas" bson:"maxNumOfTAsForNotAllowedAreas,omitempty"`
+	MaxNumOfTAsForNotAllowedAreas int32 `json:"maxNumOfTAsForNotAllowedAreas,omitempty" yaml:"maxNumOfTAsForNotAllowedAreas,omitempty" bson:"maxNumOfTAsForNotAllowedAreas,omitempty"`
 }

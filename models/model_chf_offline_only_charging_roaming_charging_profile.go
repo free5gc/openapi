@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,7 +12,8 @@
 
 package models
 
-type ChfOfflineOnlyChargingRoamingChargingProfile struct {
-	Triggers            []ChfOfflineOnlyChargingTrigger `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
-	PartialRecordMethod PartialRecordMethod             `json:"partialRecordMethod,omitempty" yaml:"partialRecordMethod" bson:"partialRecordMethod,omitempty"`
+type Chf_OfflineOnlyCharging_RoamingChargingProfile struct {
+	Triggers []Chf_OfflineOnlyCharging_Trigger `json:"triggers,omitempty" yaml:"triggers,omitempty" bson:"triggers,omitempty"`
+
+	PartialRecordMethod Chf_OfflineOnlyCharging_PartialRecordMethod `json:"partialRecordMethod,omitempty" yaml:"partialRecordMethod,omitempty" bson:"partialRecordMethod,omitempty"`
 }

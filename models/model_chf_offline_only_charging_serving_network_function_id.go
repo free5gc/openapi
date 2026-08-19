@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,8 +12,11 @@
 
 package models
 
-type ChfOfflineOnlyChargingServingNetworkFunctionId struct {
-	ServingNetworkFunctionInformation *ChfOfflineOnlyChargingNfIdentification `json:"servingNetworkFunctionInformation" yaml:"servingNetworkFunctionInformation" bson:"servingNetworkFunctionInformation,omitempty"`
-	// String identifying the AMF ID composed of AMF Region ID (8 bits), AMF Set ID (10 bits) and AMF  Pointer (6 bits) as specified in clause 2.10.1 of 3GPP TS 23.003. It is encoded as a string of  6 hexadecimal characters (i.e., 24 bits).
-	AMFId string `json:"aMFId,omitempty" yaml:"aMFId" bson:"aMFId,omitempty"`
+type Chf_OfflineOnlyCharging_ServingNetworkFunctionID struct {
+	ServingNetworkFunctionInformation *Chf_OfflineOnlyCharging_NFIdentification `json:"servingNetworkFunctionInformation,omitempty" yaml:"servingNetworkFunctionInformation,omitempty" bson:"servingNetworkFunctionInformation,omitempty"`
+
+	// String identifying the AMF ID composed of AMF Region ID (8 bits), AMF Set ID (10 bits) and
+	// AMF  Pointer (6 bits) as specified in clause 2.10.1 of 3GPP TS 23.003. It is encoded as a
+	// string of  6 hexadecimal characters (i.e., 24 bits).
+	AMFId string `json:"aMFId,omitempty" yaml:"aMFId,omitempty" bson:"aMFId,omitempty"`
 }

@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -13,9 +13,10 @@
 package OfflineOnlyCharging
 
 import (
-	"github.com/free5gc/openapi"
 	"net/http"
 	"strings"
+
+	"github.com/free5gc/openapi"
 )
 
 type Configuration struct {
@@ -34,7 +35,6 @@ func NewConfiguration() *Configuration {
 		url:           "{apiRoot}/nchf-offlineonlycharging/v1",
 		defaultHeader: make(map[string]string),
 		userAgent:     "OpenAPI-Generator/1.0.0/go",
-		MetricsHook:   nil, // no-op unless the caller sets it
 	}
 	return cfg
 }
@@ -43,7 +43,7 @@ func (c *Configuration) SetBasePath(apiRoot string) {
 	url := c.url
 
 	// Replace apiRoot
-	url = strings.Replace(url, "{"+"apiRoot"+"}", apiRoot, -1)
+	url = strings.ReplaceAll(url, "{"+"apiRoot"+"}", apiRoot)
 
 	c.basePath = url
 }

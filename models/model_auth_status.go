@@ -16,7 +16,7 @@ type AuthStatus string
 
 // List of AuthStatus
 const (
-	AuthStatus_EAP_SUCCESS AuthStatus = "EAP_SUCCESS"
-	AuthStatus_EAP_FAILURE AuthStatus = "EAP_FAILURE"
-	AuthStatus_PENDING     AuthStatus = "PENDING"
+	AuthStatus_EAP_SUCCESS AuthStatus = "EAP_SUCCESS" // #nosec G101
+	AuthStatus_EAP_FAILURE AuthStatus = "EAP_FAILURE" // #nosec G101
+	AuthStatus_PENDING     AuthStatus = "PENDING"     // #nosec G101
 )

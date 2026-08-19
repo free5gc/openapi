@@ -13,38 +13,66 @@
 package models
 
 // Represents the event filters used to identify the requested analytics.
-type NwdafAnalyticsInfoEventFilter struct {
-	// \"false\" represents not applicable for all slices. \"true\" represents applicable for all slices.
-	AnySlice bool `json:"anySlice,omitempty" yaml:"anySlice" bson:"anySlice,omitempty"`
+type Nwdaf_AnalyticsInfo_EventFilter struct {
+	// \"false\" represents not applicable for all slices. \"true\" represents applicable for all
+	// slices.
+	AnySlice bool `json:"anySlice,omitempty" yaml:"anySlice,omitempty" bson:"anySlice,omitempty"`
+
 	// Identification(s) of network slice.
-	Snssais []Snssai `json:"snssais,omitempty" yaml:"snssais" bson:"snssais,omitempty"`
-	AppIds  []string `json:"appIds,omitempty" yaml:"appIds" bson:"appIds,omitempty"`
-	Dnns    []string `json:"dnns,omitempty" yaml:"dnns" bson:"dnns,omitempty"`
-	Dnais   []string `json:"dnais,omitempty" yaml:"dnais" bson:"dnais,omitempty"`
+	Snssais []Snssai `json:"snssais,omitempty" yaml:"snssais,omitempty" bson:"snssais,omitempty"`
+
+	AppIds []string `json:"appIds,omitempty" yaml:"appIds,omitempty" bson:"appIds,omitempty"`
+
+	Dnns []string `json:"dnns,omitempty" yaml:"dnns,omitempty" bson:"dnns,omitempty"`
+
+	Dnais []string `json:"dnais,omitempty" yaml:"dnais,omitempty" bson:"dnais,omitempty"`
+
 	// Identification(s) of LADN DNN to indicate the LADN service area as the AOI.
-	LadnDnns     []string          `json:"ladnDnns,omitempty" yaml:"ladnDnns" bson:"ladnDnns,omitempty"`
-	NetworkArea  *NetworkAreaInfo  `json:"networkArea,omitempty" yaml:"networkArea" bson:"networkArea,omitempty"`
-	VisitedAreas []NetworkAreaInfo `json:"visitedAreas,omitempty" yaml:"visitedAreas" bson:"visitedAreas,omitempty"`
+	LadnDnns []string `json:"ladnDnns,omitempty" yaml:"ladnDnns,omitempty" bson:"ladnDnns,omitempty"`
+
+	NetworkArea *Pcf_BDTPolCtrl_NetworkAreaInfo `json:"networkArea,omitempty" yaml:"networkArea,omitempty" bson:"networkArea,omitempty"`
+
+	VisitedAreas []Pcf_BDTPolCtrl_NetworkAreaInfo `json:"visitedAreas,omitempty" yaml:"visitedAreas,omitempty" bson:"visitedAreas,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	MaxTopAppUlNbr int32 `json:"maxTopAppUlNbr,omitempty" yaml:"maxTopAppUlNbr" bson:"maxTopAppUlNbr,omitempty"`
+	MaxTopAppUlNbr int32 `json:"maxTopAppUlNbr,omitempty" yaml:"maxTopAppUlNbr,omitempty" bson:"maxTopAppUlNbr,omitempty"`
+
 	// Unsigned Integer, i.e. only value 0 and integers above 0 are permissible.
-	MaxTopAppDlNbr   int32                         `json:"maxTopAppDlNbr,omitempty" yaml:"maxTopAppDlNbr" bson:"maxTopAppDlNbr,omitempty"`
-	NfInstanceIds    []string                      `json:"nfInstanceIds,omitempty" yaml:"nfInstanceIds" bson:"nfInstanceIds,omitempty"`
-	NfSetIds         []string                      `json:"nfSetIds,omitempty" yaml:"nfSetIds" bson:"nfSetIds,omitempty"`
-	NfTypes          []NrfNfManagementNfType       `json:"nfTypes,omitempty" yaml:"nfTypes" bson:"nfTypes,omitempty"`
-	NsiIdInfos       []NsiIdInfo                   `json:"nsiIdInfos,omitempty" yaml:"nsiIdInfos" bson:"nsiIdInfos,omitempty"`
-	QosRequ          *QosRequirement               `json:"qosRequ,omitempty" yaml:"qosRequ" bson:"qosRequ,omitempty"`
-	NwPerfTypes      []NetworkPerfType             `json:"nwPerfTypes,omitempty" yaml:"nwPerfTypes" bson:"nwPerfTypes,omitempty"`
-	BwRequs          []BwRequirement               `json:"bwRequs,omitempty" yaml:"bwRequs" bson:"bwRequs,omitempty"`
-	ExcepIds         []ExceptionId                 `json:"excepIds,omitempty" yaml:"excepIds" bson:"excepIds,omitempty"`
-	ExptAnaType      ExpectedAnalyticsType         `json:"exptAnaType,omitempty" yaml:"exptAnaType" bson:"exptAnaType,omitempty"`
-	ExptUeBehav      *ExpectedUeBehaviourData      `json:"exptUeBehav,omitempty" yaml:"exptUeBehav" bson:"exptUeBehav,omitempty"`
-	RatFreqs         []RatFreqInformation          `json:"ratFreqs,omitempty" yaml:"ratFreqs" bson:"ratFreqs,omitempty"`
-	DisperReqs       []DispersionRequirement       `json:"disperReqs,omitempty" yaml:"disperReqs" bson:"disperReqs,omitempty"`
-	RedTransReqs     []RedundantTransmissionExpReq `json:"redTransReqs,omitempty" yaml:"redTransReqs" bson:"redTransReqs,omitempty"`
-	WlanReqs         []WlanPerformanceReq          `json:"wlanReqs,omitempty" yaml:"wlanReqs" bson:"wlanReqs,omitempty"`
-	ListOfAnaSubsets []AnalyticsSubset             `json:"listOfAnaSubsets,omitempty" yaml:"listOfAnaSubsets" bson:"listOfAnaSubsets,omitempty"`
-	UpfInfo          *UpfInformation               `json:"upfInfo,omitempty" yaml:"upfInfo" bson:"upfInfo,omitempty"`
-	AppServerAddrs   []AddrFqdn                    `json:"appServerAddrs,omitempty" yaml:"appServerAddrs" bson:"appServerAddrs,omitempty"`
-	DnPerfReqs       []DnPerformanceReq            `json:"dnPerfReqs,omitempty" yaml:"dnPerfReqs" bson:"dnPerfReqs,omitempty"`
+	MaxTopAppDlNbr int32 `json:"maxTopAppDlNbr,omitempty" yaml:"maxTopAppDlNbr,omitempty" bson:"maxTopAppDlNbr,omitempty"`
+
+	NfInstanceIds []string `json:"nfInstanceIds,omitempty" yaml:"nfInstanceIds,omitempty" bson:"nfInstanceIds,omitempty"`
+
+	NfSetIds []string `json:"nfSetIds,omitempty" yaml:"nfSetIds,omitempty" bson:"nfSetIds,omitempty"`
+
+	NfTypes []Nrf_NFMgmt_NFType `json:"nfTypes,omitempty" yaml:"nfTypes,omitempty" bson:"nfTypes,omitempty"`
+
+	NsiIdInfos []Nwdaf_EvtSubs_NsiIdInfo `json:"nsiIdInfos,omitempty" yaml:"nsiIdInfos,omitempty" bson:"nsiIdInfos,omitempty"`
+
+	QosRequ *Nwdaf_EvtSubs_QosRequirement `json:"qosRequ,omitempty" yaml:"qosRequ,omitempty" bson:"qosRequ,omitempty"`
+
+	NwPerfTypes []Nwdaf_EvtSubs_NetworkPerfType `json:"nwPerfTypes,omitempty" yaml:"nwPerfTypes,omitempty" bson:"nwPerfTypes,omitempty"`
+
+	BwRequs []Nwdaf_EvtSubs_BwRequirement `json:"bwRequs,omitempty" yaml:"bwRequs,omitempty" bson:"bwRequs,omitempty"`
+
+	ExcepIds []Nwdaf_EvtSubs_ExceptionId `json:"excepIds,omitempty" yaml:"excepIds,omitempty" bson:"excepIds,omitempty"`
+
+	ExptAnaType Nwdaf_EvtSubs_ExpectedAnalyticsType `json:"exptAnaType,omitempty" yaml:"exptAnaType,omitempty" bson:"exptAnaType,omitempty"`
+
+	ExptUeBehav *Udm_SDM_ExpectedUeBehaviourData `json:"exptUeBehav,omitempty" yaml:"exptUeBehav,omitempty" bson:"exptUeBehav,omitempty"`
+
+	RatFreqs []Nwdaf_EvtSubs_RatFreqInformation `json:"ratFreqs,omitempty" yaml:"ratFreqs,omitempty" bson:"ratFreqs,omitempty"`
+
+	DisperReqs []Nwdaf_EvtSubs_DispersionRequirement `json:"disperReqs,omitempty" yaml:"disperReqs,omitempty" bson:"disperReqs,omitempty"`
+
+	RedTransReqs []Nwdaf_EvtSubs_RedundantTransmissionExpReq `json:"redTransReqs,omitempty" yaml:"redTransReqs,omitempty" bson:"redTransReqs,omitempty"`
+
+	WlanReqs []Nwdaf_EvtSubs_WlanPerformanceReq `json:"wlanReqs,omitempty" yaml:"wlanReqs,omitempty" bson:"wlanReqs,omitempty"`
+
+	ListOfAnaSubsets []Nwdaf_EvtSubs_AnalyticsSubset `json:"listOfAnaSubsets,omitempty" yaml:"listOfAnaSubsets,omitempty" bson:"listOfAnaSubsets,omitempty"`
+
+	UpfInfo *Smf_EvtExpos_UpfInformation `json:"upfInfo,omitempty" yaml:"upfInfo,omitempty" bson:"upfInfo,omitempty"`
+
+	AppServerAddrs []Af_EvtExpos_AddrFqdn `json:"appServerAddrs,omitempty" yaml:"appServerAddrs,omitempty" bson:"appServerAddrs,omitempty"`
+
+	DnPerfReqs []Nwdaf_EvtSubs_DnPerformanceReq `json:"dnPerfReqs,omitempty" yaml:"dnPerfReqs,omitempty" bson:"dnPerfReqs,omitempty"`
 }

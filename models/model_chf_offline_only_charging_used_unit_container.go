@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -16,23 +16,33 @@ import (
 	"time"
 )
 
-type ChfOfflineOnlyChargingUsedUnitContainer struct {
+type Chf_OfflineOnlyCharging_UsedUnitContainer struct {
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	ServiceId int32                           `json:"serviceId,omitempty" yaml:"serviceId" bson:"serviceId,omitempty"`
-	Triggers  []ChfOfflineOnlyChargingTrigger `json:"triggers,omitempty" yaml:"triggers" bson:"triggers,omitempty"`
+	ServiceId int32 `json:"serviceId,omitempty" yaml:"serviceId,omitempty" bson:"serviceId,omitempty"`
+
+	Triggers []Chf_OfflineOnlyCharging_Trigger `json:"triggers,omitempty" yaml:"triggers,omitempty" bson:"triggers,omitempty"`
+
 	// string with format 'date-time' as defined in OpenAPI.
-	TriggerTimestamp *time.Time `json:"triggerTimestamp,omitempty" yaml:"triggerTimestamp" bson:"triggerTimestamp,omitempty"`
+	TriggerTimestamp *time.Time `json:"triggerTimestamp,omitempty" yaml:"triggerTimestamp,omitempty" bson:"triggerTimestamp,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
-	Time int32 `json:"time,omitempty" yaml:"time" bson:"time,omitempty"`
+	Time int32 `json:"time,omitempty" yaml:"time,omitempty" bson:"time,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	TotalVolume int32 `json:"totalVolume,omitempty" yaml:"totalVolume" bson:"totalVolume,omitempty"`
+	TotalVolume int32 `json:"totalVolume,omitempty" yaml:"totalVolume,omitempty" bson:"totalVolume,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	UplinkVolume int32 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume" bson:"uplinkVolume,omitempty"`
+	UplinkVolume int32 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume,omitempty" bson:"uplinkVolume,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	DownlinkVolume int32 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume" bson:"downlinkVolume,omitempty"`
+	DownlinkVolume int32 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume,omitempty" bson:"downlinkVolume,omitempty"`
+
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	ServiceSpecificUnits    int32                                          `json:"serviceSpecificUnits,omitempty" yaml:"serviceSpecificUnits" bson:"serviceSpecificUnits,omitempty"`
-	EventTimeStamps         []time.Time                                    `json:"eventTimeStamps,omitempty" yaml:"eventTimeStamps" bson:"eventTimeStamps,omitempty"`
-	LocalSequenceNumber     int32                                          `json:"localSequenceNumber" yaml:"localSequenceNumber" bson:"localSequenceNumber,omitempty"`
-	PDUContainerInformation *ChfOfflineOnlyChargingPduContainerInformation `json:"pDUContainerInformation,omitempty" yaml:"pDUContainerInformation" bson:"pDUContainerInformation,omitempty"`
+	ServiceSpecificUnits int32 `json:"serviceSpecificUnits,omitempty" yaml:"serviceSpecificUnits,omitempty" bson:"serviceSpecificUnits,omitempty"`
+
+	EventTimeStamps []time.Time `json:"eventTimeStamps,omitempty" yaml:"eventTimeStamps,omitempty" bson:"eventTimeStamps,omitempty"`
+
+	LocalSequenceNumber int32 `json:"localSequenceNumber,omitempty" yaml:"localSequenceNumber,omitempty" bson:"localSequenceNumber,omitempty"`
+
+	PDUContainerInformation *Chf_OfflineOnlyCharging_PDUContainerInformation `json:"pDUContainerInformation,omitempty" yaml:"pDUContainerInformation,omitempty" bson:"pDUContainerInformation,omitempty"`
 }

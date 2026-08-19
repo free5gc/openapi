@@ -13,8 +13,10 @@
 package models
 
 // Represents UE information.
-type UdmMtUeInfo struct {
-	TadsInfo       *UeContextInfo    `json:"tadsInfo,omitempty" yaml:"tadsInfo" bson:"tadsInfo,omitempty"`
-	UserState      Model5GsUserState `json:"userState,omitempty" yaml:"userState" bson:"userState,omitempty"`
-	Var5gSrvccInfo *Model5GSrvccInfo `json:"5gSrvccInfo,omitempty" yaml:"5gSrvccInfo" bson:"5gSrvccInfo,omitempty"`
+type Udm_MT_UeInfo struct {
+	TadsInfo *Amf_MT_UeContextInfo `json:"tadsInfo,omitempty" yaml:"tadsInfo,omitempty" bson:"tadsInfo,omitempty"`
+
+	UserState Amf_EvtExpos_5GsUserState `json:"userState,omitempty" yaml:"userState,omitempty" bson:"userState,omitempty"`
+
+	Var5gSrvccInfo *Udm_MT_5GSrvccInfo `json:"5gSrvccInfo,omitempty" yaml:"5gSrvccInfo,omitempty" bson:"5gSrvccInfo,omitempty"`
 }

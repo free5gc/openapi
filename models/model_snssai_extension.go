@@ -14,8 +14,11 @@ package models
 
 // Extensions to the Snssai data type, sdRanges and wildcardSd shall not be present simultaneously
 type SnssaiExtension struct {
-	// When present, it shall contain the range(s) of Slice Differentiator values supported for the Slice/Service Type value indicated in the sst attribute of the Snssai data type
-	SdRanges []SdRange `json:"sdRanges,omitempty" yaml:"sdRanges" bson:"sdRanges,omitempty"`
-	// When present, it shall be set to true, to indicate that all SD values are supported for the Slice/Service Type value indicated in the sst attribute of the Snssai data type.
-	WildcardSd bool `json:"wildcardSd,omitempty" yaml:"wildcardSd" bson:"wildcardSd,omitempty"`
+	// When present, it shall contain the range(s) of Slice Differentiator values supported for the
+	// Slice/Service Type value indicated in the sst attribute of the Snssai data type
+	SdRanges []SdRange `json:"sdRanges,omitempty" yaml:"sdRanges,omitempty" bson:"sdRanges,omitempty"`
+
+	// When present, it shall be set to true, to indicate that all SD values are supported for the
+	// Slice/Service Type value indicated in the sst attribute of the Snssai data type.
+	WildcardSd bool `json:"wildcardSd,omitempty" yaml:"wildcardSd,omitempty" bson:"wildcardSd,omitempty"`
 }

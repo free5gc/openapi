@@ -13,6 +13,6 @@
 package models
 
 // Representation of the information to release the Individual SM context.
-type NefSmContextSmContextReleaseData struct {
-	Cause NefSmContextReleaseCause `json:"cause" yaml:"cause" bson:"cause,omitempty"`
+type Nef_SMContext_SmContextReleaseData struct {
+	Cause Nef_SMContext_ReleaseCause `json:"cause,omitempty" yaml:"cause,omitempty" bson:"cause,omitempty"`
 }

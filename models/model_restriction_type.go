@@ -16,6 +16,6 @@ type RestrictionType string
 
 // List of RestrictionType
 const (
-	RestrictionType_ALLOWED_AREAS     RestrictionType = "ALLOWED_AREAS"
-	RestrictionType_NOT_ALLOWED_AREAS RestrictionType = "NOT_ALLOWED_AREAS"
+	RestrictionType_ALLOWED_AREAS     RestrictionType = "ALLOWED_AREAS"     // #nosec G101
+	RestrictionType_NOT_ALLOWED_AREAS RestrictionType = "NOT_ALLOWED_AREAS" // #nosec G101
 )

@@ -3,7 +3,7 @@
  *
  * OfflineOnlyCharging Service © 2022, 3GPP Organizational Partners (ARIB, ATIS, CCSA, ETSI, TSDSI, TTA, TTC). All rights reserved.
  *
- * Source file: 3GPP TS 32.291  V17.0.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
+ * Source file: 3GPP TS 32.291 V16.14.0: Telecommunication management; Charging management;  5G system, charging service; Stage 3.
  * Url: http://www.3gpp.org/ftp/Specs/archive/32_series/32.291/
  *
  * API version: 1.0.2
@@ -12,11 +12,16 @@
 
 package models
 
-type ChfOfflineOnlyChargingPduAddress struct {
-	// String identifying a IPv4 address formatted in the 'dotted decimal' notation as defined in RFC 1166.
-	PduIPv4Address           string `json:"pduIPv4Address,omitempty" yaml:"pduIPv4Address" bson:"pduIPv4Address,omitempty"`
-	PduIPv6AddresswithPrefix string `json:"pduIPv6AddresswithPrefix,omitempty" yaml:"pduIPv6AddresswithPrefix" bson:"pduIPv6AddresswithPrefix,omitempty"`
-	PduAddressprefixlength   int32  `json:"pduAddressprefixlength,omitempty" yaml:"pduAddressprefixlength" bson:"pduAddressprefixlength,omitempty"`
-	IPv4dynamicAddressFlag   bool   `json:"iPv4dynamicAddressFlag,omitempty" yaml:"iPv4dynamicAddressFlag" bson:"iPv4dynamicAddressFlag,omitempty"`
-	IPv6dynamicPrefixFlag    bool   `json:"iPv6dynamicPrefixFlag,omitempty" yaml:"iPv6dynamicPrefixFlag" bson:"iPv6dynamicPrefixFlag,omitempty"`
+type Chf_OfflineOnlyCharging_PDUAddress struct {
+	// String identifying a IPv4 address formatted in the 'dotted decimal' notation as defined in
+	// RFC 1166.
+	PduIPv4Address string `json:"pduIPv4Address,omitempty" yaml:"pduIPv4Address,omitempty" bson:"pduIPv4Address,omitempty"`
+
+	PduIPv6AddresswithPrefix string `json:"pduIPv6AddresswithPrefix,omitempty" yaml:"pduIPv6AddresswithPrefix,omitempty" bson:"pduIPv6AddresswithPrefix,omitempty"`
+
+	PduAddressprefixlength int32 `json:"pduAddressprefixlength,omitempty" yaml:"pduAddressprefixlength,omitempty" bson:"pduAddressprefixlength,omitempty"`
+
+	IPv4dynamicAddressFlag bool `json:"iPv4dynamicAddressFlag,omitempty" yaml:"iPv4dynamicAddressFlag,omitempty" bson:"iPv4dynamicAddressFlag,omitempty"`
+
+	IPv6dynamicPrefixFlag bool `json:"iPv6dynamicPrefixFlag,omitempty" yaml:"iPv6dynamicPrefixFlag,omitempty" bson:"iPv6dynamicPrefixFlag,omitempty"`
 }
