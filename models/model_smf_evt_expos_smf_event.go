@@ -35,4 +35,5 @@ const (
 	Smf_EvtExpos_SmfEvent_UP_STATUS_INFO      Smf_EvtExpos_SmfEvent = "UP_STATUS_INFO"      // #nosec G101
 	Smf_EvtExpos_SmfEvent_SATB_CH             Smf_EvtExpos_SmfEvent = "SATB_CH"             // #nosec G101
 	Smf_EvtExpos_SmfEvent_TRAFFIC_CORRELATION Smf_EvtExpos_SmfEvent = "TRAFFIC_CORRELATION" // #nosec G101
+	Smf_EvtExpos_SmfEvent_UPF_EVENT           Smf_EvtExpos_SmfEvent = "UPF_EVENT"           // #nosec G101
 )
