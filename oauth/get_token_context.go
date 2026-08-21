@@ -24,9 +24,9 @@ type cachedToken struct {
 // to acquire and cache an access token. TargetNFInstanceID selects a specific
 // producer; otherwise ConsumerNFType and TargetNFType form a type-level target.
 type TokenRequest struct {
-	ConsumerNFType       models.NrfNfManagementNfType
+	ConsumerNFType       models.Nrf_NFMgmt_NFType
 	ConsumerNFInstanceID string
-	TargetNFType         models.NrfNfManagementNfType
+	TargetNFType         models.Nrf_NFMgmt_NFType
 	TargetNFInstanceID   string
 	NRFURI               string
 	Scope                string
@@ -59,9 +59,9 @@ func isBlank(value string) bool {
 }
 
 type tokenCacheKey struct {
-	ConsumerNFType       models.NrfNfManagementNfType
+	ConsumerNFType       models.Nrf_NFMgmt_NFType
 	ConsumerNFInstanceID string
-	TargetNFType         models.NrfNfManagementNfType
+	TargetNFType         models.Nrf_NFMgmt_NFType
 	TargetNFInstanceID   string
 	NRFURI               string
 	Scope                string
@@ -71,12 +71,7 @@ var tokenMap sync.Map
 var clientMap sync.Map
 
 func GetTokenCtx(
-<<<<<<< HEAD
-	nfType, targetNF models.Nrf_NFMgmt_NFType,
-	nfId, nrfUri, scope string,
-=======
 	request TokenRequest,
->>>>>>> d8cc967 (fix: add token request and audience validation)
 ) (context.Context, *models.ProblemDetails, error) {
 	if err := request.validate(); err != nil {
 		return nil, nil, err
@@ -90,33 +85,18 @@ func GetTokenCtx(
 }
 
 func sendAccTokenReq(
-<<<<<<< HEAD
-	nfType, targetNF models.Nrf_NFMgmt_NFType,
-	nfId, nrfUri, scope string,
-) (oauth2.TokenSource, *models.ProblemDetails, error) {
-	var client *AccTok.APIClient
-
-	if val, ok := clientMap.Load(nrfUri); ok {
-		client = val.(*AccTok.APIClient)
-	} else {
-		configuration := AccTok.NewConfiguration()
-		configuration.SetBasePath(nrfUri)
-		client = AccTok.NewAPIClient(configuration)
-		clientMap.Store(nrfUri, client)
-=======
 	request TokenRequest,
 ) (oauth2.TokenSource, *models.ProblemDetails, error) {
 	cacheKey := tokenCacheKey(request)
-	var client *AccessToken.APIClient
+	var client *AccTok.APIClient
 
 	if val, ok := clientMap.Load(request.NRFURI); ok {
-		client = val.(*AccessToken.APIClient)
+		client = val.(*AccTok.APIClient)
 	} else {
-		configuration := AccessToken.NewConfiguration()
+		configuration := AccTok.NewConfiguration()
 		configuration.SetBasePath(request.NRFURI)
-		client = AccessToken.NewAPIClient(configuration)
+		client = AccTok.NewAPIClient(configuration)
 		clientMap.Store(request.NRFURI, client)
->>>>>>> d8cc967 (fix: add token request and audience validation)
 	}
 
 	// Check if we have a valid cached token
