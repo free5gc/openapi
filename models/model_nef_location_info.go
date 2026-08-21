@@ -31,12 +31,12 @@ type NefLocationInfo struct {
 	// string composed of three digits \"mcc\" followed by \"-\" and two or three digits \"mnc\", as specified in clause 9.3.3.5 of 3GPP TS 38.413.
 	PlmnId string `json:"plmnId,omitempty" yaml:"plmnId" bson:"plmnId,omitempty"`
 	// string identifying a Trusted WLAN Access Network Id.
-	TwanId         string                      `json:"twanId,omitempty" yaml:"twanId" bson:"twanId,omitempty"`
-	GeographicArea *GeographicArea             `json:"geographicArea,omitempty" yaml:"geographicArea" bson:"geographicArea,omitempty"`
-	CivicAddress   *CivicAddress               `json:"civicAddress,omitempty" yaml:"civicAddress" bson:"civicAddress,omitempty"`
-	PositionMethod PositioningMethod           `json:"positionMethod,omitempty" yaml:"positionMethod" bson:"positionMethod,omitempty"`
-	QosFulfilInd   AccuracyFulfilmentIndicator `json:"qosFulfilInd,omitempty" yaml:"qosFulfilInd" bson:"qosFulfilInd,omitempty"`
-	UeVelocity     *VelocityEstimate           `json:"ueVelocity,omitempty" yaml:"ueVelocity" bson:"ueVelocity,omitempty"`
-	LdrType        LdrType                     `json:"ldrType,omitempty" yaml:"ldrType" bson:"ldrType,omitempty"`
-	AchievedQos    *MinorLocationQoS           `json:"achievedQos,omitempty" yaml:"achievedQos" bson:"achievedQos,omitempty"`
+	TwanId         string                              `json:"twanId,omitempty" yaml:"twanId" bson:"twanId,omitempty"`
+	GeographicArea *Lmf_Loc_GeographicArea             `json:"geographicArea,omitempty" yaml:"geographicArea" bson:"geographicArea,omitempty"`
+	CivicAddress   *Lmf_Loc_CivicAddress               `json:"civicAddress,omitempty" yaml:"civicAddress" bson:"civicAddress,omitempty"`
+	PositionMethod Lmf_Loc_PositioningMethod           `json:"positionMethod,omitempty" yaml:"positionMethod" bson:"positionMethod,omitempty"`
+	QosFulfilInd   Lmf_Loc_AccuracyFulfilmentIndicator `json:"qosFulfilInd,omitempty" yaml:"qosFulfilInd" bson:"qosFulfilInd,omitempty"`
+	UeVelocity     *Lmf_Loc_VelocityEstimate           `json:"ueVelocity,omitempty" yaml:"ueVelocity" bson:"ueVelocity,omitempty"`
+	LdrType        Lmf_Loc_LdrType                     `json:"ldrType,omitempty" yaml:"ldrType" bson:"ldrType,omitempty"`
+	AchievedQos    *Lmf_Loc_MinorLocationQoS           `json:"achievedQos,omitempty" yaml:"achievedQos" bson:"achievedQos,omitempty"`
 }
