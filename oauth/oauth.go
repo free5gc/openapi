@@ -35,7 +35,7 @@ type accessTokenClaims struct {
 // At least one of NFInstanceID and NFType must be set from trusted local state.
 type AudiencePolicy struct {
 	NFInstanceID string
-	NFType       models.NrfNfManagementNfType
+	NFType       models.Nrf_NFMgmt_NFType
 }
 
 func (policy AudiencePolicy) validate() error {
@@ -102,21 +102,9 @@ func VerifyOAuth(
 
 	accessToken := authFields[1]
 	token, err := jwt.ParseWithClaims(
-<<<<<<< HEAD
-		access_token,
-		&models.Nrf_AccTok_AccessTokenClaims{},
-		func(token *jwt.Token) (interface{}, error) {
-			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
-				return nil, errors.Wrapf(err, "Unexpected signing method")
-			}
-			if token.Header["alg"] != "RS512" {
-				return nil, errors.Wrapf(err, "Unexpected signing method")
-			}
-=======
 		accessToken,
 		&accessTokenClaims{},
 		func(_ *jwt.Token) (interface{}, error) {
->>>>>>> d8cc967 (fix: add token request and audience validation)
 			return verifyKey, nil
 		},
 		jwt.WithValidMethods([]string{"RS512"}),
@@ -130,9 +118,6 @@ func VerifyOAuth(
 		return errors.New("verify OAuth token invalid")
 	}
 
-<<<<<<< HEAD
-	if !verifyScope(token.Claims.(*models.Nrf_AccTok_AccessTokenClaims).Scope, serviceName) {
-=======
 	claims, ok := token.Claims.(*accessTokenClaims)
 	if !ok {
 		return errors.New("verify OAuth token claims invalid")
@@ -141,7 +126,6 @@ func VerifyOAuth(
 		return errors.New("OAuth audience verification failed")
 	}
 	if !verifyScope(claims.Scope, serviceName) {
->>>>>>> d8cc967 (fix: add token request and audience validation)
 		return errors.New("OAuth scope verification failed: insufficient permissions")
 	}
 	return nil
