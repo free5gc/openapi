@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 
 	"github.com/free5gc/openapi/models"
@@ -74,7 +75,7 @@ func GenerateClientCredentialAssertion(
 }
 
 // VerifyOAuth validates an NRF-issued bearer token for a protected NF service.
-// expectedSubject is the expected subject of the token, which is the consumer NF instance ID.
+// expectedIssuer must come from trusted state outside the bearer token.
 func VerifyOAuth(
 	authorization, serviceName string,
 	audiencePolicy AudiencePolicy,
@@ -274,12 +275,51 @@ func ParseCertFromPEM(certPemPath string) (*x509.Certificate, error) {
 	}
 
 	block, _ := pem.Decode(b)
+	if block == nil || block.Type != "CERTIFICATE" {
+		return nil, errors.New("parse cert pem: certificate block not found")
+	}
 	cert, err := x509.ParseCertificate(block.Bytes)
 	if err != nil {
 		return nil, errors.Wrapf(err, "parse cert pem")
 	}
 
 	return cert, nil
+}
+
+// NFInstanceIDFromCertificate returns the NF instance ID carried by the
+// certificate's urn:uuid URI SAN. The certificate must contain exactly one
+// such identity and it must be a UUID v4.
+func NFInstanceIDFromCertificate(certPemPath string) (string, error) {
+	cert, err := ParseCertFromPEM(certPemPath)
+	if err != nil {
+		return "", errors.Wrap(err, "get NF instance ID from certificate")
+	}
+
+	var nfInstanceID string
+	for _, uri := range cert.URIs {
+		if uri == nil || !strings.EqualFold(uri.Scheme, "urn") {
+			continue
+		}
+
+		parts := strings.SplitN(uri.Opaque, ":", 2)
+		if len(parts) != 2 || !strings.EqualFold(parts[0], "uuid") {
+			continue
+		}
+
+		id, parseErr := uuid.Parse(parts[1])
+		if parseErr != nil || id.Version() != 4 {
+			return "", errors.New("certificate URI SAN contains an invalid NF instance UUID v4")
+		}
+		if nfInstanceID != "" {
+			return "", errors.New("certificate contains multiple NF instance UUID URI SANs")
+		}
+		nfInstanceID = parts[1]
+	}
+
+	if nfInstanceID == "" {
+		return "", errors.New("certificate does not contain an NF instance urn:uuid URI SAN")
+	}
+	return nfInstanceID, nil
 }
 
 func GenerateRSAKeyPair(pubPemPath, privPemPath string) (*rsa.PrivateKey, error) {
