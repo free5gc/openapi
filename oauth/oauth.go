@@ -15,6 +15,7 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt/v5"
+	"github.com/google/uuid"
 	"github.com/pkg/errors"
 
 	"github.com/free5gc/openapi/models"
@@ -24,6 +25,25 @@ type CCAClaims struct {
 	Iat int32
 	Exp int32
 	jwt.RegisteredClaims
+}
+
+type accessTokenClaims struct {
+	Scope string `json:"scope"`
+	jwt.RegisteredClaims
+}
+
+// AudiencePolicy contains the producer identities accepted in an access token.
+// At least one of NFInstanceID and NFType must be set from trusted local state.
+type AudiencePolicy struct {
+	NFInstanceID string
+	NFType       models.Nrf_NFMgmt_NFType
+}
+
+func (policy AudiencePolicy) validate() error {
+	if isBlank(policy.NFInstanceID) && isBlank(string(policy.NFType)) {
+		return errors.New("verify OAuth audience policy is empty")
+	}
+	return nil
 }
 
 func GenerateClientCredentialAssertion(
@@ -54,62 +74,86 @@ func GenerateClientCredentialAssertion(
 	return accessToken, nil
 }
 
+// VerifyOAuth validates an NRF-issued bearer token for a protected NF service.
+// expectedIssuer must come from trusted state outside the bearer token.
 func VerifyOAuth(
-	authorization, serviceName, certPath string,
+	authorization, serviceName string,
+	audiencePolicy AudiencePolicy,
+	expectedIssuer, certPath string,
 ) error {
+	if isBlank(serviceName) {
+		return errors.New("verify OAuth service name is empty")
+	}
+	if err := audiencePolicy.validate(); err != nil {
+		return err
+	}
+	if isBlank(expectedIssuer) {
+		return errors.New("verify OAuth expected issuer is empty")
+	}
+
+	authFields := strings.Fields(authorization)
+	if len(authFields) != 2 || !strings.EqualFold(authFields[0], "Bearer") {
+		return errors.New("verify OAuth Authorization header invalid")
+	}
+
 	verifyKey, err := ParsePublicKeyFromPEM(certPath)
 	if err != nil {
 		return errors.Wrapf(err, "verify OAuth")
 	}
 
-	auth_fields := strings.Fields(authorization)
-	if len(auth_fields) < 2 {
-		return errors.Errorf("verify OAuth Authorization header invalid")
-	}
-
-	access_token := auth_fields[1]
+	accessToken := authFields[1]
 	token, err := jwt.ParseWithClaims(
-		access_token,
-		&models.Nrf_AccTok_AccessTokenClaims{},
-		func(token *jwt.Token) (interface{}, error) {
-			if _, ok := token.Method.(*jwt.SigningMethodRSA); !ok {
-				return nil, errors.Wrapf(err, "Unexpected signing method")
-			}
-			if token.Header["alg"] != "RS512" {
-				return nil, errors.Wrapf(err, "Unexpected signing method")
-			}
+		accessToken,
+		&accessTokenClaims{},
+		func(_ *jwt.Token) (interface{}, error) {
 			return verifyKey, nil
-		})
+		},
+		jwt.WithValidMethods([]string{"RS512"}),
+		jwt.WithExpirationRequired(),
+		jwt.WithIssuer(expectedIssuer),
+	)
 	if err != nil {
 		return errors.Wrapf(err, "verify OAuth parse")
 	}
+	if token == nil || !token.Valid {
+		return errors.New("verify OAuth token invalid")
+	}
 
-	if !verifyScope(token.Claims.(*models.Nrf_AccTok_AccessTokenClaims).Scope, serviceName) {
+	claims, ok := token.Claims.(*accessTokenClaims)
+	if !ok {
+		return errors.New("verify OAuth token claims invalid")
+	}
+	if !verifyAudience(claims.Audience, audiencePolicy) {
+		return errors.New("OAuth audience verification failed")
+	}
+	if !verifyScope(claims.Scope, serviceName) {
 		return errors.New("OAuth scope verification failed: insufficient permissions")
 	}
 	return nil
 }
 
-func verifyScope(scope, serviceName string) bool {
-	if len(serviceName) == 0 {
-		return true
+func verifyAudience(audiences jwt.ClaimStrings, policy AudiencePolicy) bool {
+	for _, audience := range audiences {
+		if !isBlank(policy.NFInstanceID) && audience == policy.NFInstanceID {
+			return true
+		}
+		if !isBlank(string(policy.NFType)) && audience == string(policy.NFType) {
+			return true
+		}
 	}
-	if len(scope) != 0 {
-		scopeSplit := strings.Fields(scope)
-		found := false
-		for _, item := range scopeSplit {
-			if item == serviceName {
-				found = true
-				break
-			}
-		}
-		if !found {
-			return false
-		}
-	} else {
+	return false
+}
+
+func verifyScope(scope, serviceName string) bool {
+	if serviceName == "" || scope == "" {
 		return false
 	}
-	return true
+	for _, item := range strings.Fields(scope) {
+		if item == serviceName {
+			return true
+		}
+	}
+	return false
 }
 
 func GenerateRootCertificate(
@@ -231,12 +275,51 @@ func ParseCertFromPEM(certPemPath string) (*x509.Certificate, error) {
 	}
 
 	block, _ := pem.Decode(b)
+	if block == nil || block.Type != "CERTIFICATE" {
+		return nil, errors.New("parse cert pem: certificate block not found")
+	}
 	cert, err := x509.ParseCertificate(block.Bytes)
 	if err != nil {
 		return nil, errors.Wrapf(err, "parse cert pem")
 	}
 
 	return cert, nil
+}
+
+// NFInstanceIDFromCertificate returns the NF instance ID carried by the
+// certificate's urn:uuid URI SAN. The certificate must contain exactly one
+// such identity and it must be a UUID v4.
+func NFInstanceIDFromCertificate(certPemPath string) (string, error) {
+	cert, err := ParseCertFromPEM(certPemPath)
+	if err != nil {
+		return "", errors.Wrap(err, "get NF instance ID from certificate")
+	}
+
+	var nfInstanceID string
+	for _, uri := range cert.URIs {
+		if uri == nil || !strings.EqualFold(uri.Scheme, "urn") {
+			continue
+		}
+
+		parts := strings.SplitN(uri.Opaque, ":", 2)
+		if len(parts) != 2 || !strings.EqualFold(parts[0], "uuid") {
+			continue
+		}
+
+		id, parseErr := uuid.Parse(parts[1])
+		if parseErr != nil || id.Version() != 4 {
+			return "", errors.New("certificate URI SAN contains an invalid NF instance UUID v4")
+		}
+		if nfInstanceID != "" {
+			return "", errors.New("certificate contains multiple NF instance UUID URI SANs")
+		}
+		nfInstanceID = parts[1]
+	}
+
+	if nfInstanceID == "" {
+		return "", errors.New("certificate does not contain an NF instance urn:uuid URI SAN")
+	}
+	return nfInstanceID, nil
 }
 
 func GenerateRSAKeyPair(pubPemPath, privPemPath string) (*rsa.PrivateKey, error) {
