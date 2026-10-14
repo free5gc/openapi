@@ -49,11 +49,41 @@ const (
 )
 
 var (
+	defaultHTTP2ClientsMu     sync.RWMutex
+	defaultReadIdleTimeout    = TransportReadIdleTimeout
+	defaultPingTimeout        = TransportPingTimeout
 	innerHTTP2Client          = NewHttp2Client(true, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 	innerHTTP2CleartextClient = NewHttp2Client(false, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 	nfmHTTP2Client            = NewHttp2Client(true, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 	nfmHTTP2CleartextClient   = NewHttp2Client(false, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 )
+
+// ConfigureHTTP2Clients sets the process-wide defaults for HTTP/2 health checks.
+// Call it during NF startup, before constructing API clients or starting traffic.
+// Both regular and NRF management clients use these settings for HTTP and HTTPS.
+// Explicit HTTP clients supplied through SetHTTPClient are unaffected.
+func ConfigureHTTP2Clients(readIdleTimeout, pingTimeout time.Duration) error {
+	if readIdleTimeout < 0 || pingTimeout < 0 {
+		return fmt.Errorf("readIdleTimeout and pingTimeout must not be negative")
+	}
+	defaultHTTP2ClientsMu.Lock()
+	defer defaultHTTP2ClientsMu.Unlock()
+	if readIdleTimeout == defaultReadIdleTimeout && pingTimeout == defaultPingTimeout {
+		return nil
+	}
+	previous := []*http.Client{innerHTTP2Client, innerHTTP2CleartextClient, nfmHTTP2Client, nfmHTTP2CleartextClient}
+	innerHTTP2Client = NewHttp2Client(true, ClientTimeout, readIdleTimeout, pingTimeout)
+	innerHTTP2CleartextClient = NewHttp2Client(false, ClientTimeout, readIdleTimeout, pingTimeout)
+	nfmHTTP2Client = NewHttp2Client(true, NfmClientTimeout, readIdleTimeout, pingTimeout)
+	nfmHTTP2CleartextClient = NewHttp2Client(false, NfmClientTimeout, readIdleTimeout, pingTimeout)
+	innerHTTP2CleartextClientInstance = nil
+	nfmHTTP2CleartextClientInstance = nil
+	defaultReadIdleTimeout, defaultPingTimeout = readIdleTimeout, pingTimeout
+	for _, client := range previous {
+		client.CloseIdleConnections()
+	}
+	return nil
+}
 
 type Configuration interface {
 	BasePath() string
@@ -223,14 +253,17 @@ func CallAPI(cfg Configuration, request *http.Request) (*http.Response, error) {
 func selectHTTPClient(cfg Configuration, request *http.Request) (*http.Client, error) {
 	client := cfg.HTTPClient()
 	if client == nil {
+		defaultHTTP2ClientsMu.RLock()
 		switch request.URL.Scheme {
 		case "https":
 			client = innerHTTP2Client
 		case "http":
 			client = innerHTTP2CleartextClient
 		default:
+			defaultHTTP2ClientsMu.RUnlock()
 			return nil, fmt.Errorf("unsupported scheme[%s]", request.URL.Scheme)
 		}
+		defaultHTTP2ClientsMu.RUnlock()
 	}
 
 	provider, ok := cfg.(RedirectPolicyProvider)
@@ -606,10 +639,12 @@ func CacheExpires(r *http.Response) time.Time {
 
 // This function is only used in test cases.
 func InterceptInnerHttp2Client(t *testing.T, https bool) {
+	defaultHTTP2ClientsMu.RLock()
 	c := innerHTTP2CleartextClient
 	if https {
 		c = innerHTTP2Client
 	}
+	defaultHTTP2ClientsMu.RUnlock()
 	observer := func(request *http.Request, mock gock.Mock) {
 		if mock == nil {
 			var body []byte
@@ -641,27 +676,23 @@ type HTTP2CleartextClient struct {
 var (
 	innerHTTP2CleartextClientInstance *HTTP2CleartextClient
 	nfmHTTP2CleartextClientInstance   *HTTP2CleartextClient
-	onceInnerHTTP2CleartextClient     sync.Once
-	onceNfmHTTP2CleartextClient       sync.Once
 )
 
 func GetInnerHTTP2CleartextClient() *HTTP2CleartextClient {
-	onceInnerHTTP2CleartextClient.Do(func() {
-		innerHTTP2CleartextClientInstance = &HTTP2CleartextClient{
-			client: innerHTTP2CleartextClient,
-		}
-	})
-
+	defaultHTTP2ClientsMu.Lock()
+	defer defaultHTTP2ClientsMu.Unlock()
+	if innerHTTP2CleartextClientInstance == nil {
+		innerHTTP2CleartextClientInstance = &HTTP2CleartextClient{client: innerHTTP2CleartextClient}
+	}
 	return innerHTTP2CleartextClientInstance
 }
 
 func GetNfmHTTP2CleartextClient() *HTTP2CleartextClient {
-	onceNfmHTTP2CleartextClient.Do(func() {
-		nfmHTTP2CleartextClientInstance = &HTTP2CleartextClient{
-			client: nfmHTTP2CleartextClient,
-		}
-	})
-
+	defaultHTTP2ClientsMu.Lock()
+	defer defaultHTTP2ClientsMu.Unlock()
+	if nfmHTTP2CleartextClientInstance == nil {
+		nfmHTTP2CleartextClientInstance = &HTTP2CleartextClient{client: nfmHTTP2CleartextClient}
+	}
 	return nfmHTTP2CleartextClientInstance
 }
 
@@ -725,10 +756,7 @@ func NewHttp2Client(
 
 // This function is only used in test cases.
 func InterceptNfmHttp2Client(t *testing.T, https bool) {
-	c := nfmHTTP2CleartextClient
-	if https {
-		c = nfmHTTP2Client
-	}
+	c := NewNfmHttp2Client(https)
 	t.Cleanup(func() {
 		gock.RestoreClient(c)
 	})
@@ -736,6 +764,8 @@ func InterceptNfmHttp2Client(t *testing.T, https bool) {
 }
 
 func NewNfmHttp2Client(https bool) *http.Client {
+	defaultHTTP2ClientsMu.RLock()
+	defer defaultHTTP2ClientsMu.RUnlock()
 	if https {
 		return nfmHTTP2Client
 	} else {
