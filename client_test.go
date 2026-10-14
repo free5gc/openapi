@@ -670,3 +670,38 @@ func requireSameHTTPClientSettings(t *testing.T, expected *http.Client, actual *
 		require.Same(t, expected.Jar, actual.Jar)
 	}
 }
+
+func TestConfigureHTTP2Clients(t *testing.T) {
+	oldRead, oldPing := defaultReadIdleTimeout, defaultPingTimeout
+	t.Cleanup(func() { require.NoError(t, ConfigureHTTP2Clients(oldRead, oldPing)) })
+	oldInner := GetInnerHTTP2CleartextClient()
+	oldNfm := GetNfmHTTP2CleartextClient()
+	oldSecure := NewNfmHttp2Client(true)
+	require.NoError(t, ConfigureHTTP2Clients(30*time.Second, 5*time.Second))
+	for _, scheme := range []string{"http", "https"} {
+		request, err := http.NewRequest(http.MethodGet, scheme+"://example.com", nil)
+		require.NoError(t, err)
+		client, err := selectHTTPClient(&clientTestConfiguration{}, request)
+		require.NoError(t, err)
+		require.Equal(t, ClientTimeout, client.Timeout)
+		require.IsType(t, &otelhttp.Transport{}, client.Transport)
+		nfm := NewNfmHttp2Client(scheme == "https")
+		require.Equal(t, NfmClientTimeout, nfm.Timeout)
+		require.IsType(t, &otelhttp.Transport{}, nfm.Transport)
+		custom := &http.Client{Timeout: 7 * time.Second}
+		selected, err := selectHTTPClient(&clientTestConfiguration{httpClient: custom}, request)
+		require.NoError(t, err)
+		require.Same(t, custom, selected)
+	}
+	require.NotSame(t, oldInner, GetInnerHTTP2CleartextClient())
+	require.NotSame(t, oldNfm, GetNfmHTTP2CleartextClient())
+	require.NotSame(t, oldSecure, NewNfmHttp2Client(true))
+	current := NewNfmHttp2Client(true)
+	require.NoError(t, ConfigureHTTP2Clients(30*time.Second, 5*time.Second))
+	require.Same(t, current, NewNfmHttp2Client(true))
+	for _, invalid := range [][2]time.Duration{{-1, time.Second}, {time.Second, -1}} {
+		require.Error(t, ConfigureHTTP2Clients(invalid[0], invalid[1]))
+		require.Same(t, current, NewNfmHttp2Client(true))
+	}
+	require.NoError(t, ConfigureHTTP2Clients(0, 0))
+}
