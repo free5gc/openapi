@@ -1,11 +1,14 @@
 package openapi
 
 import (
+	tlsX509 "crypto/x509"
 	"errors"
 	"fmt"
 	"io"
+	tlsLog "log"
 	"net/http"
 	"net/http/cookiejar"
+	tlsServer "net/http/httptest"
 	"net/url"
 	"strings"
 	"sync"
@@ -17,6 +20,8 @@ import (
 	"github.com/free5gc/openapi/models"
 	"github.com/stretchr/testify/require"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
+	tlsHTTP2 "golang.org/x/net/http2"
+	tlsH2C "golang.org/x/net/http2/h2c"
 )
 
 type clientTestRoundTripper func(*http.Request) (*http.Response, error)
@@ -69,7 +74,7 @@ func TestTransport_WrapsWithOtelTransport(t *testing.T) {
 	})
 
 	t.Run("NewHttp2Client", func(t *testing.T) {
-		c := NewHttp2Client(false, 5*time.Second, 1*time.Second, 2*time.Second)
+		c := NewHttp2Client(false, false, 5*time.Second, 1*time.Second, 2*time.Second)
 
 		_, ok := c.Transport.(*otelhttp.Transport)
 		require.True(t, ok,
@@ -672,8 +677,8 @@ func requireSameHTTPClientSettings(t *testing.T, expected *http.Client, actual *
 }
 
 func TestConfigureHTTP2Clients(t *testing.T) {
-	oldRead, oldPing := defaultReadIdleTimeout, defaultPingTimeout
-	t.Cleanup(func() { require.NoError(t, ConfigureHTTP2Clients(oldRead, oldPing)) })
+	oldRead, oldPing, oldVerify := defaultReadIdleTimeout, defaultPingTimeout, defaultTLSVerify
+	t.Cleanup(func() { require.NoError(t, ConfigureHTTP2Clients(oldRead, oldPing, oldVerify)) })
 	oldInner := GetInnerHTTP2CleartextClient()
 	oldNfm := GetNfmHTTP2CleartextClient()
 	oldSecure := NewNfmHttp2Client(true)
@@ -697,11 +702,53 @@ func TestConfigureHTTP2Clients(t *testing.T) {
 	require.NotSame(t, oldNfm, GetNfmHTTP2CleartextClient())
 	require.NotSame(t, oldSecure, NewNfmHttp2Client(true))
 	current := NewNfmHttp2Client(true)
-	require.NoError(t, ConfigureHTTP2Clients(30*time.Second, 5*time.Second))
+	require.NoError(t, ConfigureHTTP2Clients(30*time.Second, 5*time.Second, false))
 	require.Same(t, current, NewNfmHttp2Client(true))
 	for _, invalid := range [][2]time.Duration{{-1, time.Second}, {time.Second, -1}} {
-		require.Error(t, ConfigureHTTP2Clients(invalid[0], invalid[1]))
+		require.Error(t, ConfigureHTTP2Clients(invalid[0], invalid[1], false))
 		require.Same(t, current, NewNfmHttp2Client(true))
 	}
-	require.NoError(t, ConfigureHTTP2Clients(0, 0))
+	require.Error(t, ConfigureHTTP2Clients(0, 0, true, false))
+	require.Same(t, current, NewNfmHttp2Client(true))
+	require.Equal(t, 30*time.Second, defaultReadIdleTimeout)
+	require.Equal(t, 5*time.Second, defaultPingTimeout)
+	require.False(t, defaultTLSVerify)
+	require.NoError(t, ConfigureHTTP2Clients(0, 0, false))
+}
+
+func TestSBIConfiguredTLSVerification(t *testing.T) {
+	oldRead, oldPing, oldVerify := defaultReadIdleTimeout, defaultPingTimeout, defaultTLSVerify
+	t.Cleanup(func() { _ = ConfigureHTTP2Clients(oldRead, oldPing, oldVerify) })
+	handler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) { w.WriteHeader(http.StatusNoContent) })
+	secure := tlsServer.NewUnstartedServer(handler)
+	secure.EnableHTTP2 = true
+	secure.Config.ErrorLog = tlsLog.New(io.Discard, "", 0)
+	secure.StartTLS()
+	defer secure.Close()
+	cleartext := tlsServer.NewServer(tlsH2C.NewHandler(handler, &tlsHTTP2.Server{}))
+	defer cleartext.Close()
+	// Omitting verify after enabling it must restore false, even with unchanged timeouts.
+	for _, options := range [][]bool{{false}, {true}, nil, {false}} {
+		verify := len(options) == 1 && options[0]
+		require.NoError(t, ConfigureHTTP2Clients(oldRead, oldPing, options...))
+		for _, url := range []string{secure.URL, cleartext.URL} {
+			https := strings.HasPrefix(url, "https:")
+			req, err := http.NewRequest(http.MethodGet, url, nil)
+			require.NoError(t, err)
+			selected, err := selectHTTPClient(&clientTestConfiguration{}, req)
+			require.NoError(t, err)
+			for _, client := range []*http.Client{selected, NewNfmHttp2Client(https), NewHttp2Client(https, verify, ClientTimeout, oldRead, oldPing)} {
+				resp, err := client.Get(url)
+				if resp != nil {
+					resp.Body.Close()
+				}
+				if https && verify {
+					var unknown tlsX509.UnknownAuthorityError
+					require.ErrorAs(t, err, &unknown)
+				} else {
+					require.NoError(t, err)
+				}
+			}
+		}
+	}
 }

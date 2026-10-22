@@ -46,39 +46,49 @@ const (
 	NfmClientTimeout         = 1 * time.Second
 	TransportReadIdleTimeout = 1 * time.Second
 	TransportPingTimeout     = 2 * time.Second
+	TLSVerify                = false
 )
 
 var (
 	defaultHTTP2ClientsMu     sync.RWMutex
+	defaultTLSVerify          = TLSVerify
 	defaultReadIdleTimeout    = TransportReadIdleTimeout
 	defaultPingTimeout        = TransportPingTimeout
-	innerHTTP2Client          = NewHttp2Client(true, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
-	innerHTTP2CleartextClient = NewHttp2Client(false, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
-	nfmHTTP2Client            = NewHttp2Client(true, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
-	nfmHTTP2CleartextClient   = NewHttp2Client(false, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	innerHTTP2Client          = NewHttp2Client(true, TLSVerify, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	innerHTTP2CleartextClient = NewHttp2Client(false, TLSVerify, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	nfmHTTP2Client            = NewHttp2Client(true, TLSVerify, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	nfmHTTP2CleartextClient   = NewHttp2Client(false, TLSVerify, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 )
 
-// ConfigureHTTP2Clients sets the process-wide defaults for HTTP/2 health checks.
+// ConfigureHTTP2Clients sets the process-wide HTTP/2 health checks and TLS verification.
 // Call it during NF startup, before constructing API clients or starting traffic.
 // Both regular and NRF management clients use these settings for HTTP and HTTPS.
 // Explicit HTTP clients supplied through SetHTTPClient are unaffected.
-func ConfigureHTTP2Clients(readIdleTimeout, pingTimeout time.Duration) error {
+// If verify is omitted, certificate verification defaults to false.
+func ConfigureHTTP2Clients(readIdleTimeout, pingTimeout time.Duration, verifyOptions ...bool) error {
+	if len(verifyOptions) > 1 {
+		return fmt.Errorf("at most one verify argument is allowed")
+	}
+	verify := TLSVerify
+	if len(verifyOptions) == 1 {
+		verify = verifyOptions[0]
+	}
 	if readIdleTimeout < 0 || pingTimeout < 0 {
 		return fmt.Errorf("readIdleTimeout and pingTimeout must not be negative")
 	}
 	defaultHTTP2ClientsMu.Lock()
 	defer defaultHTTP2ClientsMu.Unlock()
-	if readIdleTimeout == defaultReadIdleTimeout && pingTimeout == defaultPingTimeout {
+	if readIdleTimeout == defaultReadIdleTimeout && pingTimeout == defaultPingTimeout && verify == defaultTLSVerify {
 		return nil
 	}
 	previous := []*http.Client{innerHTTP2Client, innerHTTP2CleartextClient, nfmHTTP2Client, nfmHTTP2CleartextClient}
-	innerHTTP2Client = NewHttp2Client(true, ClientTimeout, readIdleTimeout, pingTimeout)
-	innerHTTP2CleartextClient = NewHttp2Client(false, ClientTimeout, readIdleTimeout, pingTimeout)
-	nfmHTTP2Client = NewHttp2Client(true, NfmClientTimeout, readIdleTimeout, pingTimeout)
-	nfmHTTP2CleartextClient = NewHttp2Client(false, NfmClientTimeout, readIdleTimeout, pingTimeout)
+	innerHTTP2Client = NewHttp2Client(true, verify, ClientTimeout, readIdleTimeout, pingTimeout)
+	innerHTTP2CleartextClient = NewHttp2Client(false, verify, ClientTimeout, readIdleTimeout, pingTimeout)
+	nfmHTTP2Client = NewHttp2Client(true, verify, NfmClientTimeout, readIdleTimeout, pingTimeout)
+	nfmHTTP2CleartextClient = NewHttp2Client(false, verify, NfmClientTimeout, readIdleTimeout, pingTimeout)
 	innerHTTP2CleartextClientInstance = nil
 	nfmHTTP2CleartextClientInstance = nil
-	defaultReadIdleTimeout, defaultPingTimeout = readIdleTimeout, pingTimeout
+	defaultReadIdleTimeout, defaultPingTimeout, defaultTLSVerify = readIdleTimeout, pingTimeout, verify
 	for _, client := range previous {
 		client.CloseIdleConnections()
 	}
@@ -723,7 +733,7 @@ func (h2c *HTTP2CleartextClient) SetTransport(
 }
 
 func NewHttp2Client(
-	https bool,
+	https, verify bool,
 	clientTimeout, transportReadIdleTimeout, transportPingTimeout time.Duration,
 ) *http.Client {
 	var tlsCfg *tls.Config
@@ -732,7 +742,7 @@ func NewHttp2Client(
 
 	if https {
 		tlsCfg = &tls.Config{
-			InsecureSkipVerify: true, // #nosec G402
+			InsecureSkipVerify: !verify, // #nosec G402 -- explicitly configured by the NF
 		}
 	} else {
 		allowHTTP = true
