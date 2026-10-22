@@ -682,7 +682,7 @@ func TestConfigureHTTP2Clients(t *testing.T) {
 	oldInner := GetInnerHTTP2CleartextClient()
 	oldNfm := GetNfmHTTP2CleartextClient()
 	oldSecure := NewNfmHttp2Client(true)
-	require.NoError(t, ConfigureHTTP2Clients(30*time.Second, 5*time.Second, false))
+	require.NoError(t, ConfigureHTTP2Clients(30*time.Second, 5*time.Second))
 	for _, scheme := range []string{"http", "https"} {
 		request, err := http.NewRequest(http.MethodGet, scheme+"://example.com", nil)
 		require.NoError(t, err)
@@ -708,6 +708,11 @@ func TestConfigureHTTP2Clients(t *testing.T) {
 		require.Error(t, ConfigureHTTP2Clients(invalid[0], invalid[1], false))
 		require.Same(t, current, NewNfmHttp2Client(true))
 	}
+	require.Error(t, ConfigureHTTP2Clients(0, 0, true, false))
+	require.Same(t, current, NewNfmHttp2Client(true))
+	require.Equal(t, 30*time.Second, defaultReadIdleTimeout)
+	require.Equal(t, 5*time.Second, defaultPingTimeout)
+	require.False(t, defaultTLSVerify)
 	require.NoError(t, ConfigureHTTP2Clients(0, 0, false))
 }
 
@@ -722,8 +727,10 @@ func TestSBIConfiguredTLSVerification(t *testing.T) {
 	defer secure.Close()
 	cleartext := tlsServer.NewServer(tlsH2C.NewHandler(handler, &tlsHTTP2.Server{}))
 	defer cleartext.Close()
-	for _, verify := range []bool{false, true, false} {
-		require.NoError(t, ConfigureHTTP2Clients(oldRead, oldPing, verify))
+	// Omitting verify after enabling it must restore false, even with unchanged timeouts.
+	for _, options := range [][]bool{{false}, {true}, nil, {false}} {
+		verify := len(options) == 1 && options[0]
+		require.NoError(t, ConfigureHTTP2Clients(oldRead, oldPing, options...))
 		for _, url := range []string{secure.URL, cleartext.URL} {
 			https := strings.HasPrefix(url, "https:")
 			req, err := http.NewRequest(http.MethodGet, url, nil)

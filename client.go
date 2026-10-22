@@ -46,24 +46,33 @@ const (
 	NfmClientTimeout         = 1 * time.Second
 	TransportReadIdleTimeout = 1 * time.Second
 	TransportPingTimeout     = 2 * time.Second
+	TLSVerify                = false
 )
 
 var (
 	defaultHTTP2ClientsMu     sync.RWMutex
-	defaultTLSVerify          bool
+	defaultTLSVerify          = TLSVerify
 	defaultReadIdleTimeout    = TransportReadIdleTimeout
 	defaultPingTimeout        = TransportPingTimeout
-	innerHTTP2Client          = NewHttp2Client(true, false, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
-	innerHTTP2CleartextClient = NewHttp2Client(false, false, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
-	nfmHTTP2Client            = NewHttp2Client(true, false, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
-	nfmHTTP2CleartextClient   = NewHttp2Client(false, false, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	innerHTTP2Client          = NewHttp2Client(true, TLSVerify, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	innerHTTP2CleartextClient = NewHttp2Client(false, TLSVerify, ClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	nfmHTTP2Client            = NewHttp2Client(true, TLSVerify, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
+	nfmHTTP2CleartextClient   = NewHttp2Client(false, TLSVerify, NfmClientTimeout, TransportReadIdleTimeout, TransportPingTimeout)
 )
 
 // ConfigureHTTP2Clients sets the process-wide HTTP/2 health checks and TLS verification.
 // Call it during NF startup, before constructing API clients or starting traffic.
 // Both regular and NRF management clients use these settings for HTTP and HTTPS.
 // Explicit HTTP clients supplied through SetHTTPClient are unaffected.
-func ConfigureHTTP2Clients(readIdleTimeout, pingTimeout time.Duration, verify bool) error {
+// If verify is omitted, certificate verification defaults to false.
+func ConfigureHTTP2Clients(readIdleTimeout, pingTimeout time.Duration, verifyOptions ...bool) error {
+	if len(verifyOptions) > 1 {
+		return fmt.Errorf("at most one verify argument is allowed")
+	}
+	verify := TLSVerify
+	if len(verifyOptions) == 1 {
+		verify = verifyOptions[0]
+	}
 	if readIdleTimeout < 0 || pingTimeout < 0 {
 		return fmt.Errorf("readIdleTimeout and pingTimeout must not be negative")
 	}
@@ -79,8 +88,7 @@ func ConfigureHTTP2Clients(readIdleTimeout, pingTimeout time.Duration, verify bo
 	nfmHTTP2CleartextClient = NewHttp2Client(false, verify, NfmClientTimeout, readIdleTimeout, pingTimeout)
 	innerHTTP2CleartextClientInstance = nil
 	nfmHTTP2CleartextClientInstance = nil
-	defaultReadIdleTimeout, defaultPingTimeout = readIdleTimeout, pingTimeout
-	defaultTLSVerify = verify
+	defaultReadIdleTimeout, defaultPingTimeout, defaultTLSVerify = readIdleTimeout, pingTimeout, verify
 	for _, client := range previous {
 		client.CloseIdleConnections()
 	}
