@@ -20,8 +20,6 @@ import (
 	"github.com/free5gc/openapi/models"
 	"github.com/stretchr/testify/require"
 	"go.opentelemetry.io/contrib/instrumentation/net/http/otelhttp"
-	tlsHTTP2 "golang.org/x/net/http2"
-	tlsH2C "golang.org/x/net/http2/h2c"
 )
 
 type clientTestRoundTripper func(*http.Request) (*http.Response, error)
@@ -725,7 +723,11 @@ func TestSBIConfiguredTLSVerification(t *testing.T) {
 	secure.Config.ErrorLog = tlsLog.New(io.Discard, "", 0)
 	secure.StartTLS()
 	defer secure.Close()
-	cleartext := tlsServer.NewServer(tlsH2C.NewHandler(handler, &tlsHTTP2.Server{}))
+	cleartext := tlsServer.NewUnstartedServer(handler)
+	cleartext.Config.Protocols = new(http.Protocols)
+	cleartext.Config.Protocols.SetHTTP1(true)
+	cleartext.Config.Protocols.SetUnencryptedHTTP2(true)
+	cleartext.Start()
 	defer cleartext.Close()
 	// Omitting verify after enabling it must restore false, even with unchanged timeouts.
 	for _, options := range [][]bool{{false}, {true}, nil, {false}} {
@@ -740,13 +742,15 @@ func TestSBIConfiguredTLSVerification(t *testing.T) {
 			for _, client := range []*http.Client{selected, NewNfmHttp2Client(https), NewHttp2Client(https, verify, ClientTimeout, oldRead, oldPing)} {
 				resp, err := client.Get(url)
 				if resp != nil {
-					resp.Body.Close()
+					require.NoError(t, resp.Body.Close())
 				}
 				if https && verify {
 					var unknown tlsX509.UnknownAuthorityError
 					require.ErrorAs(t, err, &unknown)
 				} else {
 					require.NoError(t, err)
+					require.Equal(t, http.StatusNoContent, resp.StatusCode)
+					require.Equal(t, 2, resp.ProtoMajor)
 				}
 			}
 		}
