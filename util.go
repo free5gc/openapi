@@ -1,6 +1,7 @@
 package openapi
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -433,6 +434,43 @@ func getUriFromIpEndPoint(scheme models.UriScheme, ipv4Address string, port int3
 		}
 	}
 	return uri
+}
+
+// NormalizeSnssai validates an S-NSSAI and returns its canonical representation.
+// SD is lowercase, with the reserved FFFFFF value represented by an absent SD.
+// The input is not modified.
+func NormalizeSnssai(snssai models.Snssai) (models.Snssai, error) {
+	if snssai.Sst < 0 || snssai.Sst > 255 {
+		return models.Snssai{}, fmt.Errorf("invalid S-NSSAI SST: %d", snssai.Sst)
+	}
+	if snssai.Sd != "" {
+		if len(snssai.Sd) != 6 {
+			return models.Snssai{}, fmt.Errorf("invalid S-NSSAI SD: %q", snssai.Sd)
+		}
+		if _, err := hex.DecodeString(snssai.Sd); err != nil {
+			return models.Snssai{}, fmt.Errorf("invalid S-NSSAI SD: %q", snssai.Sd)
+		}
+	}
+	snssai.Sd = strings.ToLower(snssai.Sd)
+	if snssai.Sd == "ffffff" {
+		snssai.Sd = ""
+	}
+	return snssai, nil
+}
+
+// SnssaiModelsToMapKey returns the TS 29.571 S-NSSAI map key: decimal SST,
+// optionally followed by a hyphen and six lowercase hexadecimal SD digits.
+// Unlike SnssaiModelsToHex, it validates the input and omits the reserved no-SD value.
+func SnssaiModelsToMapKey(snssai models.Snssai) (string, error) {
+	normalized, err := NormalizeSnssai(snssai)
+	if err != nil {
+		return "", err
+	}
+	key := strconv.FormatInt(int64(normalized.Sst), 10)
+	if normalized.Sd != "" {
+		key += "-" + normalized.Sd
+	}
+	return key, nil
 }
 
 func SnssaiEqualFold(s, t models.Snssai) bool {
