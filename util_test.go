@@ -40,6 +40,60 @@ func TestApiVersion(t *testing.T) {
 	}
 }
 
+func TestSnssaiMapKeyHelpers(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		input  models.Snssai
+		wantSD string
+		key    string
+	}{
+		{"zero", models.Snssai{Sst: 0}, "", "0"},
+		{"no SD", models.Snssai{Sst: 1}, "", "1"},
+		{"standard", models.Snssai{Sst: 1, Sd: "010203"}, "010203", "1-010203"},
+		{"decimal SST", models.Snssai{Sst: 10, Sd: "010203"}, "010203", "10-010203"},
+		{"operator SST", models.Snssai{Sst: 222, Sd: "00007b"}, "00007b", "222-00007b"},
+		{"uppercase SD", models.Snssai{Sst: 222, Sd: "00007B"}, "00007b", "222-00007b"},
+		{"maximum SST", models.Snssai{Sst: 255}, "", "255"},
+		{"zero SD", models.Snssai{Sst: 1, Sd: "000000"}, "000000", "1-000000"},
+		{"reserved SD", models.Snssai{Sst: 1, Sd: "ffffff"}, "", "1"},
+		{"uppercase reserved SD", models.Snssai{Sst: 222, Sd: "FFFFFF"}, "", "222"},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			normalized, err := NormalizeSnssai(tc.input)
+			require.NoError(t, err)
+			require.Equal(t, models.Snssai{Sst: tc.input.Sst, Sd: tc.wantSD}, normalized)
+			key, err := SnssaiModelsToMapKey(tc.input)
+			require.NoError(t, err)
+			require.Equal(t, tc.key, key)
+			keyAgain, err := SnssaiModelsToMapKey(normalized)
+			require.NoError(t, err)
+			require.Equal(t, key, keyAgain)
+			require.True(t, SnssaiEqualFold(tc.input, normalized))
+		})
+	}
+}
+
+func TestSnssaiMapKeyHelpersRejectInvalidInput(t *testing.T) {
+	for _, tc := range []struct {
+		name   string
+		snssai models.Snssai
+	}{
+		{"negative SST", models.Snssai{Sst: -1}},
+		{"out of range SST", models.Snssai{Sst: 256}},
+		{"short SD", models.Snssai{Sst: 1, Sd: "123"}},
+		{"long SD", models.Snssai{Sst: 1, Sd: "01020304"}},
+		{"non-hex SD", models.Snssai{Sst: 1, Sd: "zzzzzz"}},
+		{"SD whitespace", models.Snssai{Sst: 1, Sd: " 10203"}},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			_, err := NormalizeSnssai(tc.snssai)
+			require.Error(t, err)
+			_, err = SnssaiModelsToMapKey(tc.snssai)
+			require.Error(t, err)
+		})
+	}
+}
+
 func TestSnssaiEqualFold(t *testing.T) {
 	testCases := []struct {
 		name     string
