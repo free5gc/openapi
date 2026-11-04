@@ -22,8 +22,6 @@ import (
 )
 
 type CCAClaims struct {
-	Iat int32
-	Exp int32
 	jwt.RegisteredClaims
 }
 
@@ -49,15 +47,15 @@ func (policy AudiencePolicy) validate() error {
 func GenerateClientCredentialAssertion(
 	sub, aud, keyPath string,
 ) (string, error) {
-	var expiration int32 = 1000
-	now := int32(time.Now().Unix())
+	const expiration = 1000 * time.Second
+	now := time.Now()
 
 	accessTokenClaims := CCAClaims{
-		Iat: now,
-		Exp: now + expiration, // access_token is authorized for use
 		RegisteredClaims: jwt.RegisteredClaims{
-			Subject:  sub,
-			Audience: jwt.ClaimStrings{aud},
+			Subject:   sub,
+			Audience:  jwt.ClaimStrings{aud},
+			IssuedAt:  jwt.NewNumericDate(now),
+			ExpiresAt: jwt.NewNumericDate(now.Add(expiration)),
 		},
 	}
 

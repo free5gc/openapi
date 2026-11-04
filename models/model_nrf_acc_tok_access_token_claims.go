@@ -16,19 +16,7 @@ import "github.com/golang-jwt/jwt/v5"
 
 // The claims data structure for the access token
 type Nrf_AccTok_AccessTokenClaims struct {
-	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a
-	// Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
-	Iss string `json:"iss,omitempty" yaml:"iss,omitempty" bson:"iss,omitempty"`
-
-	// String uniquely identifying a NF instance. The format of the NF Instance ID shall be a
-	// Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
-	Sub string `json:"sub,omitempty" yaml:"sub,omitempty" bson:"sub,omitempty"`
-
-	Aud interface{} `json:"aud,omitempty" yaml:"aud,omitempty" bson:"aud,omitempty"`
-
 	Scope string `json:"scope,omitempty" yaml:"scope,omitempty" bson:"scope,omitempty"`
-
-	Exp int32 `json:"exp,omitempty" yaml:"exp,omitempty" bson:"exp,omitempty"`
 
 	ConsumerPlmnId *PlmnId `json:"consumerPlmnId,omitempty" yaml:"consumerPlmnId,omitempty" bson:"consumerPlmnId,omitempty"`
 
@@ -71,5 +59,6 @@ type Nrf_AccTok_AccessTokenClaims struct {
 	// Universally Unique Identifier (UUID) version 4, as described in IETF RFC 4122.
 	SourceNfInstanceId string `json:"sourceNfInstanceId,omitempty" yaml:"sourceNfInstanceId,omitempty" bson:"sourceNfInstanceId,omitempty"`
 
+	// RegisteredClaims owns the standard iss, sub, aud, iat and exp JWT fields.
 	jwt.RegisteredClaims
 }
