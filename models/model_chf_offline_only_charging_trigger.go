@@ -24,7 +24,7 @@ type Chf_OfflineOnlyCharging_Trigger struct {
 	VolumeLimit int32 `json:"volumeLimit,omitempty" yaml:"volumeLimit,omitempty" bson:"volumeLimit,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	VolumeLimit64 int32 `json:"volumeLimit64,omitempty" yaml:"volumeLimit64,omitempty" bson:"volumeLimit64,omitempty"`
+	VolumeLimit64 uint64 `json:"volumeLimit64,omitempty" yaml:"volumeLimit64,omitempty" bson:"volumeLimit64,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 32-bit integer.
 	EventLimit int32 `json:"eventLimit,omitempty" yaml:"eventLimit,omitempty" bson:"eventLimit,omitempty"`
