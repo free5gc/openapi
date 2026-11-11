@@ -31,6 +31,9 @@ type Chf_OfflineOnlyCharging_MultipleQFIcontainer struct {
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
 	UplinkVolume uint64 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume,omitempty" bson:"uplinkVolume,omitempty"`
 
+	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
+	DownlinkVolume uint64 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume,omitempty" bson:"downlinkVolume,omitempty"`
+
 	LocalSequenceNumber int32 `json:"localSequenceNumber,omitempty" yaml:"localSequenceNumber,omitempty" bson:"localSequenceNumber,omitempty"`
 
 	QFIContainerInformation *Chf_OfflineOnlyCharging_QFIContainerInformation `json:"qFIContainerInformation,omitempty" yaml:"qFIContainerInformation,omitempty" bson:"qFIContainerInformation,omitempty"`
