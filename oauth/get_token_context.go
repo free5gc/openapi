@@ -131,6 +131,12 @@ func sendAccTokenReq(
 		context.Background(), req)
 
 	if err == nil {
+		if res == nil || res.Nrf_AccTok_AccessTokenRsp == nil {
+			return nil, nil, errors.New("invalid access token response: response is nil")
+		}
+		if isBlank(res.Nrf_AccTok_AccessTokenRsp.Access_token) {
+			return nil, nil, errors.New("invalid access token response: access_token is empty")
+		}
 		// Calculate absolute expiry time: current time + expires_in seconds
 		expiryTime := time.Now().Unix() + int64(res.Nrf_AccTok_AccessTokenRsp.Expires_in)
 		cached := cachedToken{
