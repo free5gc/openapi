@@ -82,7 +82,7 @@ type AccessTokenRequestRequest struct {
 	HnrfAccessTokenUri   *string
 	SourceNfInstanceId   *string
 
-	// TS 29.500 §5.2.3.2.11: CCA is carried in an HTTP header, not the form body.
+	// TS 29.500 §5.2.3.2.11
 	ClientCredentialsAssertion *string
 }
 
