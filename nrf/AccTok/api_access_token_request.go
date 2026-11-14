@@ -81,6 +81,13 @@ type AccessTokenRequestRequest struct {
 	TargetNfServiceSetId *string
 	HnrfAccessTokenUri   *string
 	SourceNfInstanceId   *string
+
+	// TS 29.500 §5.2.3.2.11
+	ClientCredentialsAssertion *string
+}
+
+func (r *AccessTokenRequestRequest) SetClientCredentialsAssertion(assertion string) {
+	r.ClientCredentialsAssertion = &assertion
 }
 
 func (r *AccessTokenRequestRequest) SetGrantType(GrantType string) {
@@ -224,6 +231,9 @@ func (a *AccessTokenRequestApiService) AccessTokenRequest(
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if request.ClientCredentialsAssertion != nil {
+		localVarHeaderParams["3gpp-Sbi-Client-Credentials"] = *request.ClientCredentialsAssertion
+	}
 
 	localVarHTTPContentTypes := []string{"application/x-www-form-urlencoded"}
 
