@@ -27,8 +27,8 @@ type Chf_OfflineOnlyCharging_QosFlowsUsageReport struct {
 	EndTimestamp *time.Time `json:"endTimestamp,omitempty" yaml:"endTimestamp,omitempty" bson:"endTimestamp,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	UplinkVolume int32 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume,omitempty" bson:"uplinkVolume,omitempty"`
+	UplinkVolume uint64 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume,omitempty" bson:"uplinkVolume,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	DownlinkVolume int32 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume,omitempty" bson:"downlinkVolume,omitempty"`
+	DownlinkVolume uint64 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume,omitempty" bson:"downlinkVolume,omitempty"`
 }

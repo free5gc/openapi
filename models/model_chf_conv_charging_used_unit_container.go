@@ -31,16 +31,16 @@ type Chf_ConvCharging_UsedUnitContainer struct {
 	Time int32 `json:"time,omitempty" yaml:"time,omitempty" bson:"time,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	TotalVolume int32 `json:"totalVolume,omitempty" yaml:"totalVolume,omitempty" bson:"totalVolume,omitempty"`
+	TotalVolume uint64 `json:"totalVolume,omitempty" yaml:"totalVolume,omitempty" bson:"totalVolume,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	UplinkVolume int32 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume,omitempty" bson:"uplinkVolume,omitempty"`
+	UplinkVolume uint64 `json:"uplinkVolume,omitempty" yaml:"uplinkVolume,omitempty" bson:"uplinkVolume,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	DownlinkVolume int32 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume,omitempty" bson:"downlinkVolume,omitempty"`
+	DownlinkVolume uint64 `json:"downlinkVolume,omitempty" yaml:"downlinkVolume,omitempty" bson:"downlinkVolume,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	ServiceSpecificUnits int32 `json:"serviceSpecificUnits,omitempty" yaml:"serviceSpecificUnits,omitempty" bson:"serviceSpecificUnits,omitempty"`
+	ServiceSpecificUnits uint64 `json:"serviceSpecificUnits,omitempty" yaml:"serviceSpecificUnits,omitempty" bson:"serviceSpecificUnits,omitempty"`
 
 	EventTimeStamps []time.Time `json:"eventTimeStamps,omitempty" yaml:"eventTimeStamps,omitempty" bson:"eventTimeStamps,omitempty"`
 
