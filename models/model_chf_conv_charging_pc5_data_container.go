@@ -27,7 +27,7 @@ type Chf_ConvCharging_PC5DataContainer struct {
 	UserLocationInformation *UserLocation `json:"userLocationInformation,omitempty" yaml:"userLocationInformation,omitempty" bson:"userLocationInformation,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	DataVolume int32 `json:"dataVolume,omitempty" yaml:"dataVolume,omitempty" bson:"dataVolume,omitempty"`
+	DataVolume uint64 `json:"dataVolume,omitempty" yaml:"dataVolume,omitempty" bson:"dataVolume,omitempty"`
 
 	ChangeCondition string `json:"changeCondition,omitempty" yaml:"changeCondition,omitempty" bson:"changeCondition,omitempty"`
 

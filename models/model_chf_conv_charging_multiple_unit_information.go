@@ -33,7 +33,7 @@ type Chf_ConvCharging_MultipleUnitInformation struct {
 	TimeQuotaThreshold int32 `json:"timeQuotaThreshold,omitempty" yaml:"timeQuotaThreshold,omitempty" bson:"timeQuotaThreshold,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	VolumeQuotaThreshold int32 `json:"volumeQuotaThreshold,omitempty" yaml:"volumeQuotaThreshold,omitempty" bson:"volumeQuotaThreshold,omitempty"`
+	VolumeQuotaThreshold uint64 `json:"volumeQuotaThreshold,omitempty" yaml:"volumeQuotaThreshold,omitempty" bson:"volumeQuotaThreshold,omitempty"`
 
 	UnitQuotaThreshold int32 `json:"unitQuotaThreshold,omitempty" yaml:"unitQuotaThreshold,omitempty" bson:"unitQuotaThreshold,omitempty"`
 

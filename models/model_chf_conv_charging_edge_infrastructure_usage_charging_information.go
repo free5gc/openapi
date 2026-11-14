@@ -27,10 +27,10 @@ type Chf_ConvCharging_EdgeInfrastructureUsageChargingInformation struct {
 	MeanVirtualDiskUsage float32 `json:"meanVirtualDiskUsage,omitempty" yaml:"meanVirtualDiskUsage,omitempty" bson:"meanVirtualDiskUsage,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	MeasuredInBytes int32 `json:"measuredInBytes,omitempty" yaml:"measuredInBytes,omitempty" bson:"measuredInBytes,omitempty"`
+	MeasuredInBytes uint64 `json:"measuredInBytes,omitempty" yaml:"measuredInBytes,omitempty" bson:"measuredInBytes,omitempty"`
 
 	// Integer where the allowed values correspond to the value range of an unsigned 64-bit integer.
-	MeasuredOutBytes int32 `json:"measuredOutBytes,omitempty" yaml:"measuredOutBytes,omitempty" bson:"measuredOutBytes,omitempty"`
+	MeasuredOutBytes uint64 `json:"measuredOutBytes,omitempty" yaml:"measuredOutBytes,omitempty" bson:"measuredOutBytes,omitempty"`
 
 	// string with format 'date-time' as defined in OpenAPI.
 	DurationStartTime *time.Time `json:"durationStartTime,omitempty" yaml:"durationStartTime,omitempty" bson:"durationStartTime,omitempty"`
