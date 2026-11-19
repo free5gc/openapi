@@ -12,6 +12,12 @@
 
 package models
 
+import (
+	"bytes"
+	"encoding/json"
+	"fmt"
+)
+
 // Contains the information related to the resource generated to handle the UE authentication. It
 // contains at least the UE id, Serving Network, the Authentication Method and related EAP
 // information or related 5G-AKA information.
@@ -24,4 +30,60 @@ type Ausf_UEAU_UEAuthenticationCtx struct {
 	Links map[string][]Link `json:"_links,omitempty" yaml:"_links,omitempty" bson:"_links,omitempty"`
 
 	ServingNetworkName string `json:"servingNetworkName,omitempty" yaml:"servingNetworkName,omitempty" bson:"servingNetworkName,omitempty"`
+}
+
+func (o *Ausf_UEAU_UEAuthenticationCtx) UnmarshalJSON(data []byte) error {
+	type Alias Ausf_UEAU_UEAuthenticationCtx
+
+	var raw struct {
+		*Alias
+		Links map[string]json.RawMessage `json:"_links"`
+	}
+
+	// Decode into a temporary value first.
+	var decoded Alias
+	raw.Alias = &decoded
+
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+
+	if raw.Links != nil {
+		decoded.Links = make(map[string][]Link, len(raw.Links))
+
+		for key, value := range raw.Links {
+			value = bytes.TrimSpace(value)
+
+			if len(value) == 0 {
+				return fmt.Errorf("empty link value for %q", key)
+			}
+
+			switch value[0] {
+			case '{':
+				var link Link
+				if err := json.Unmarshal(value, &link); err != nil {
+					return fmt.Errorf("decode link %q: %w", key, err)
+				}
+				decoded.Links[key] = []Link{link}
+
+			case '[':
+				var links []Link
+				if err := json.Unmarshal(value, &links); err != nil {
+					return fmt.Errorf("decode links %q: %w", key, err)
+				}
+				if len(links) == 0 {
+					return fmt.Errorf("links %q must not be empty", key)
+				}
+				decoded.Links[key] = links
+
+			default:
+				return fmt.Errorf("invalid link value for %q", key)
+			}
+		}
+	}
+
+	// Update the receiver only after all fields are valid.
+	*o = Ausf_UEAU_UEAuthenticationCtx(decoded)
+
+	return nil
 }
