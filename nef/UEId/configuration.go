@@ -70,7 +70,7 @@ func (c *Configuration) DefaultHeader() map[string]string {
 }
 
 func (c *Configuration) AddDefaultHeader(key string, value string) {
-	c.defaultHeader[key] = key
+	c.defaultHeader[key] = value
 }
 
 func (c *Configuration) HTTPClient() *http.Client {
