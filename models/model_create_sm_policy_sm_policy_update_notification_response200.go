@@ -12,6 +12,15 @@
 
 package models
 
+import (
+	"bytes"
+	"encoding/json"
+	"errors"
+)
+
+// The "200 OK" response to an SM policy update notification is either a UeCampingRep or an array of
+// PartialSuccessReport (3GPP TS 29.512, clause 4.2.3.2 and table 5.5.2.2-2). A UeCampingRep is
+// decoded into the fields of the UeCampingRep, an array into PartialSuccessReports.
 type CreateSMPolicySmPolicyUpdateNotificationResponse200 struct {
 	AccessType AccessType `json:"accessType,omitempty" yaml:"accessType,omitempty" bson:"accessType,omitempty"`
 
@@ -34,4 +43,46 @@ type CreateSMPolicySmPolicyUpdateNotificationResponse200 struct {
 	NetLocAccSupp Pcf_SMPolCtrl_NetLocAccessSupport `json:"netLocAccSupp,omitempty" yaml:"netLocAccSupp,omitempty" bson:"netLocAccSupp,omitempty"`
 
 	SatBackhaulCategory SatelliteBackhaulCategory `json:"satBackhaulCategory,omitempty" yaml:"satBackhaulCategory,omitempty" bson:"satBackhaulCategory,omitempty"`
+
+	// The reports of the policy decisions only partially enforced, when the response is an array
+	// of PartialSuccessReport. The other fields are then empty.
+	PartialSuccessReports []Pcf_SMPolCtrl_PartialSuccessReport `json:"-" yaml:"-" bson:"-"`
+}
+
+func (o CreateSMPolicySmPolicyUpdateNotificationResponse200) MarshalJSON() ([]byte, error) {
+	if o.PartialSuccessReports != nil {
+		return json.Marshal(o.PartialSuccessReports)
+	}
+	type ueCampingRep CreateSMPolicySmPolicyUpdateNotificationResponse200
+	return json.Marshal(ueCampingRep(o))
+}
+
+func (o *CreateSMPolicySmPolicyUpdateNotificationResponse200) UnmarshalJSON(data []byte) error {
+	data = bytes.TrimSpace(data)
+	if len(data) == 0 {
+		return errors.New("empty SM policy update notification response")
+	}
+	switch data[0] {
+	case '[':
+		var reports []Pcf_SMPolCtrl_PartialSuccessReport
+		if err := json.Unmarshal(data, &reports); err != nil {
+			return err
+		}
+		if len(reports) == 0 {
+			return errors.New("empty array of PartialSuccessReport")
+		}
+		*o = CreateSMPolicySmPolicyUpdateNotificationResponse200{PartialSuccessReports: reports}
+		return nil
+	case 'n':
+		// null
+		return nil
+	default:
+		type ueCampingRep CreateSMPolicySmPolicyUpdateNotificationResponse200
+		var rep ueCampingRep
+		if err := json.Unmarshal(data, &rep); err != nil {
+			return err
+		}
+		*o = CreateSMPolicySmPolicyUpdateNotificationResponse200(rep)
+		return nil
+	}
 }
